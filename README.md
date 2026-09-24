@@ -4,6 +4,8 @@ An **unofficial, experimental** Python/PyTorch implementation of Amelia's bootst
 
 **Development snapshot — not the first complete release.** The target is the full statistical workflow of **Amelia 1.8.3**. Advanced compatibility currently uses an explicitly labeled R dependency. CPU float64 is the default; GPU acceleration is a question tested by this project, not a promised result.
 
+[![CPU checks](https://github.com/Tocqueville0624/amelia-torch/actions/workflows/tests.yml/badge.svg)](https://github.com/Tocqueville0624/amelia-torch/actions/workflows/tests.yml)
+
 [中文研究与结果](docs/validation/2026-09-23-development/README.md) · [Installation](docs/setup.zh-CN.md) · [Compatibility matrix](docs/amelia-compatibility.md) · [Algorithm contract](docs/algorithm-contract.md)
 
 ## Choose an execution path
@@ -81,7 +83,7 @@ On this M4/16 GB Mac, three public datasets were evaluated at **100,000 rows eac
 | Household Power, 7 variables | 5.490 | 2.885 | 1.552 | 2.232 |
 | Year Prediction MSD, 90 variables | 194.947 | 121.373 | 13.744 | 20.267 |
 
-**MPS was slower than Torch CPU on these tasks.** The speed difference from the local R baseline combines implementation and numerical-library effects; it is not evidence of GPU speedup. The table includes native preprocessing, bootstrap, imputation and transfers, but excludes R-to-Python calling overhead. Full repetitions, quality gates, source snapshots and limitations are in the [validation report](docs/validation/2026-09-23-development/README.md).
+**MPS was slower than Torch CPU on these tasks.** The speed difference from the local R baseline combines implementation and numerical-library effects; it is not evidence of GPU speedup. The table includes native preprocessing, bootstrap, imputation and transfers, but excludes R-to-Python calling overhead. [View the timing chart](docs/validation/2026-09-23-development/native-timings.png). Full repetitions, quality gates, source snapshots and limitations are in the [validation report](docs/validation/2026-09-23-development/README.md).
 
 A separate, specified joint-normal simulation completed 400 independent datasets / 2,000 EM fits. CPU64 Rubin-pooled 95% coverage was 96% under MCAR and 97% under MAR; Monte Carlo uncertainty and model limitations are reported. This does not establish validity for arbitrary data or full cross-language distributional equivalence.
 
@@ -95,6 +97,8 @@ python scripts/download_datasets.py --datasets all --max-download-mib 300
 
 [Full reproduction commands](docs/reproduce.zh-CN.md) cover preparation, R reference fixtures, accelerator checks, timing and inference. The repository includes licensed small samples, data attribution, checksums and complete download scripts. Full raw archives (about 232 MiB) stay outside Git. [Dataset documentation](docs/datasets.zh-CN.md).
 
-Amelia's documented and observed semantics, including upstream edge cases, take precedence over convenient rewrites. Entirely missing analysis rows remain missing. A known Amelia 1.8.3 single-row-prior indexing defect is explicitly documented, rather than silently changed. Read the [contract](docs/algorithm-contract.md), [roadmap](docs/roadmap.zh-CN.md), [contributor guide](CONTRIBUTING.md) and [agent instructions](AGENTS.md).
+Windows, macOS and Linux hosted CPU checks have passed for the development code, including Python and five R integration test files. They do not validate CUDA/MPS performance or every operating-system configuration. [CI evidence](docs/validation/2026-09-23-development/cross-platform-ci.md).
+
+Amelia's documented and observed semantics, including upstream edge cases, take precedence over convenient rewrites. Entirely missing analysis rows remain missing. A known Amelia 1.8.3 single-row-prior indexing defect is explicitly documented, rather than silently changed. Read the [contract](docs/algorithm-contract.md), [roadmap](docs/roadmap.zh-CN.md), [first-release gates](docs/release-gates.md), [contributor guide](CONTRIBUTING.md) and [agent instructions](AGENTS.md).
 
 GPL-3.0-only. Maintainer: **Sheng Wan**. Original Amelia authors and data sources are credited in [THIRD_PARTY.md](THIRD_PARTY.md) and [CITATION.cff](CITATION.cff). This project is not affiliated with or endorsed by the Amelia authors.

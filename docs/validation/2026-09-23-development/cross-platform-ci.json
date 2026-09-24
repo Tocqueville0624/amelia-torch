@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "scope": "Hosted GitHub Actions CPU installation, Python tests, lint, and installed R interface/downstream tests. Not a GPU or speed benchmark.",
+  "repository": "https://github.com/Tocqueville0624/amelia-torch",
+  "commit": "6d707a329239777a7bebed8375e702b5e77ddb72",
+  "run_id": 35952792428,
+  "run_url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/35952792428",
+  "created_at_utc": "2026-09-24T03:45:41Z",
+  "updated_at_utc": "2026-09-24T03:48:18Z",
+  "status": "completed",
+  "conclusion": "success",
+  "all_jobs_passed": true,
+  "configured_versions": {
+    "python": "3.12",
+    "R": "4.5.3",
+    "Amelia": "1.8.3"
+  },
+  "jobs": [
+    {
+      "runner_label": "windows-latest",
+      "name": "CPU / windows-latest / Python 3.12 / R 4.5.3",
+      "job_id": 107484703387,
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/35952792428/job/107484703387",
+      "started_at_utc": "2026-09-24T03:45:43Z",
+      "completed_at_utc": "2026-09-24T03:48:17Z",
+      "conclusion": "success",
+      "python_tests": {
+        "passed": 133,
+        "failed": 0
+      },
+      "python_lint": "success",
+      "r_package_source_installation": "success",
+      "r_tests": [
+        {
+          "file": "r-package/tests/bridge.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/compatibility.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/torch-compat.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/reference_metadata.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/downstream.R",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runner_label": "ubuntu-latest",
+      "name": "CPU / ubuntu-latest / Python 3.12 / R 4.5.3",
+      "job_id": 107484703449,
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/35952792428/job/107484703449",
+      "started_at_utc": "2026-09-24T03:45:45Z",
+      "completed_at_utc": "2026-09-24T03:48:09Z",
+      "conclusion": "success",
+      "python_tests": {
+        "passed": 133,
+        "failed": 0
+      },
+      "python_lint": "success",
+      "r_package_source_installation": "success",
+      "r_tests": [
+        {
+          "file": "r-package/tests/bridge.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/compatibility.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/torch-compat.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/reference_metadata.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/downstream.R",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runner_label": "macos-latest",
+      "name": "CPU / macos-latest / Python 3.12 / R 4.5.3",
+      "job_id": 107484703497,
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/35952792428/job/107484703497",
+      "started_at_utc": "2026-09-24T03:45:49Z",
+      "completed_at_utc": "2026-09-24T03:47:46Z",
+      "conclusion": "success",
+      "python_tests": {
+        "passed": 133,
+        "failed": 0
+      },
+      "python_lint": "success",
+      "r_package_source_installation": "success",
+      "r_tests": [
+        {
+          "file": "r-package/tests/bridge.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/compatibility.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/torch-compat.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/reference_metadata.R",
+          "conclusion": "success"
+        },
+        {
+          "file": "r-package/tests/downstream.R",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "previous_run": {
+    "run_id": 35952331765,
+    "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/35952331765",
+    "commit": "dcda49a04beca24e2aa68b3d48902bfa4cca1d24",
+    "macos_conclusion": "success",
+    "ubuntu_conclusion": "success",
+    "windows_conclusion": "failure",
+    "windows_python_tests": {
+      "passed": 132,
+      "failed": 1
+    },
+    "failed_test": "tests/test_reference.py::test_relative_rscript_is_resolved_before_temporary_working_directory",
+    "cause": "The path-only test created a Unix-style extensionless placeholder. Windows shutil.which requires a PATHEXT-recognized executable suffix.",
+    "fix": "The test placeholder now uses .exe on Windows; it is only looked up and never executed. No imputation algorithm, tolerance, or pinned Amelia version changed.",
+    "windows_r_tests": "Not reached in the first run because the Python test step failed."
+  },
+  "limitations": [
+    "CPU only; CUDA, MPS, and the physical RTX 3080 machine are not validated by this workflow.",
+    "These runner images and fixed cases do not establish support for every operating-system version or full Amelia compatibility.",
+    "Test-run duration is not an imputation speed comparison."
+  ]
+}

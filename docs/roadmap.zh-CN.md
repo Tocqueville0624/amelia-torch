@@ -1,8 +1,8 @@
 # 开发路线与验收
 
-用户目标：为求职展示完成项目的能力，在忠实复现 Amelia 1.8.3 流程与算法的前提下实现 Python/PyTorch 包，研究 GPU 是否真实加速，并让不同平台研究者从 Python 和 R/RStudio 调用。2026-09-23 已进入实现阶段；**连续数值子集可用，完整 Amelia 兼容仍是目标**。逐项状态以 [兼容表](amelia-compatibility.md) 和 [开发验证记录](validation/2026-09-23-development/README.md) 为准。
+用户目标：为求职展示完成项目的能力，在忠实复现 Amelia 1.8.3 流程与算法的前提下实现 Python/PyTorch 包，研究 GPU 是否真实加速，并让不同平台研究者从 Python 和 R/RStudio 调用。2026-09-23 已进入实现阶段；**native 连续数值子集及原版 R 过渡兼容接口可用，完整验收仍是目标**。逐项状态以 [兼容表](amelia-compatibility.md) 和 [开发验证记录](validation/2026-09-23-development/README.md) 为准。
 
-已确认产品决策：完整兼容验收后才算首版；允许明确标注的 R 过渡依赖；项目分发名为 `amelia-torch`，许可证为 `GPL-3.0-only`；维护者为 Sheng Wan（`swan0624@uw.edu`）；仓库包含可分享小样本及完整数据下载脚本；GitHub 用户名为 `Tocqueville0624`。Windows 接入方式仍待补充，其他已确认决定不再作为阻塞项。
+已确认产品决策：完整兼容验收后才算首版；允许明确标注的 R 过渡依赖；项目分发名为 `amelia-torch`，许可证为 `GPL-3.0-only`；维护者为 Sheng Wan（`swan0624@uw.edu`）；仓库包含可分享小样本及完整数据下载脚本；GitHub 用户名为 `Tocqueville0624`。用户确认 Windows 暂不能接入，本轮先发布开发快照；CUDA 验收留待后续接入。其他已确认决定不再作为阻塞项。
 
 ## M0：调研与初始化（已完成）
 
@@ -29,7 +29,7 @@
 ## M3：Windows RTX 3080 及跨平台验证（未到机）
 
 - 核验驱动、显存、wheel 与实际 CUDA 算子；同机运行 R 串行/并行、PyTorch CPU 与 GPU。
-- CUDA float64/float32 分别验证；Windows 无CUDA安装和 Linux CPU 也需独立运行。已配置三个操作系统的 CPU CI，但尚未将远程运行结果记为通过。
+- CUDA float64/float32 分别验证；Windows 无CUDA安装和 Linux CPU 也需独立运行。三个操作系统的 hosted CPU CI 已实际通过，Windows包亦已用Rtools编译；不能替代用户RTX3080或所有系统配置的到机测试。
 - 保存完整结果、配置与绘图脚本，做可重复的端到端演示。
 - 验收：明确是否加速、在哪些配置加速、超过哪个基线；负面结果也保留。
 

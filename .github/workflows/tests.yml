@@ -2,7 +2,13 @@ name: Python and R CPU checks
 
 on:
   push:
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
   pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
   workflow_dispatch:
 
 permissions:

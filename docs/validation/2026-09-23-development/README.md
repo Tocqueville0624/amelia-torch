@@ -30,13 +30,20 @@ Apple M4、8 CPU/8 GPU 核心、16 GB RAM；macOS 26.6.2，Python 3.12.13、PyTo
 
 本表是原生 Python 路线，不能代替 R→Python 产品接口的计时。
 
+![三组数据的端到端耗时与四分位范围](native-timings.png)
+
+图表可由 `scripts/plot_benchmarks.R` 从审计 JSON 重建；另有[矢量 PDF](native-timings.pdf)。
+
 ## 正确性与推断质量
 
 - 原版 R 导出的固定 EM、显式随机补值、公共连续接口 fixture 用于确定性语义对照，覆盖初值、样本协方差、先验、停止规则、尺度和行列恢复。原版会原位改变 theta；导出器先复制输入。
 - [MPS 内核报告](mps-kernel-validation.json)：无先验、经验先验和 cell prior 三个固定案例通过；使用匹配容差对照 CPU64，并用原版显式标准正态对照随机补值。它不是完整统计等价检验。
 - [R 用户 MPS 接口报告](mps-r-interface-validation.json)：变换、类别、先验/边界三个固定案例，保留原版 R 随机流，只用 GPU 替换 EM。预先设置的门槛全部通过，最大标准化连续输出误差小于 2.2e-7，离散输出无差异。
 - [400 次推断模拟及逐次记录](inference-validation.zh-CN.md)：指定联合正态模型下，MCAR/MAR 各 200 次独立数据、每次 5 份插补，共 2,000 次 EM 全部收敛。CPU64 的 OLS 系数偏差分别 −0.000688、0.002905；Rubin pooled 95% 区间覆盖率为 96%、97%，覆盖率 Monte Carlo 标准误为 1.39、1.21 个百分点。只适用于本实验模型，不是任意模型或 GPU 的覆盖率保证。
+- [本地检查汇总](local-checks.json)：128 项 Python 全套测试通过；wheel 在源码目录之外完成 native/reference/hybrid 三入口运行；5 个 R 测试文件通过，最终含注册 C RNG helper 的 R CMD check 零问题。
 - [Python 原版 R 桥接验证](python-reference-bridge.json)与 [R 包检查](r-package-check.md)。原版 Amelia 1.8.3 的单行 priors 索引特例可能改动无关观察值，详见[算法契约](../../algorithm-contract.md)；兼容路径保留并说明此行为。
+- [RNG 互操作回归](python-hybrid-rng.json)：`boot.type="none"` 多份插补曾因 reticulate 重新装载旧 `.Random.seed` 而重复。注册 C helper 同时保护内部状态和可见 R 变量，修复后通过插补结果、结束状态和后续 `runif/rnorm` 对照，包含 Inversion 与 Box–Muller。没有改变 bootstrap 或抽样算法。
+- [R 下游验证](r-downstream-validation.md)：摘要、图形诊断、pooling、CSV、arglist、追加、moPrep 和 allthetas。图形/诊断继续使用原版 R CPU。
 
 ## 尚未验收
 
