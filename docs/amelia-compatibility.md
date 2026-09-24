@@ -49,17 +49,17 @@
 | `compare.density` / `overimpute` / `disperse` 等诊断 | 已有 | **未移植** | 这些方法及missmap/tscsPlot已在小案例输出PDF并对照；仍执行官方CPU代码 |
 | Rubin pooling | `mi.meld`等可用于结果分析 | 验证脚本及手算对照测试已编写；**完整统计质量验收未完成** | 需另做统计质量验证 |
 | R调用native连续数据接口 | 不适用 | Mac源码桥接CPU32/64测试通过；用自有 `ameliatorch_result` | 与此列过渡方案不同 |
-| Windows CPU | R官方支持；本项目到机未测 | **未到机测试** | 未到机测试 |
+| Windows CPU | 官方参考与本包在 GitHub Windows runner 通过 | hosted CPU CI通过；用户RTX3080电脑未接入 | hosted CPU CI通过；不代表CUDA |
 | Windows CUDA（RTX 3080） | 原版无CUDA内核 | **未到机测试**，不可宣称加速 | 未到机测试 |
 | macOS CPU float64 | 本机R参考实测 | CPU确定性参考测试通过 | 已安装包代表案例通过 |
 | macOS MPS float32 | 原版无MPS内核 | 基础探针及3个小EM参考样例通过；完整质量/性能验收未完成 | 委托/适配代码已写，待验证 |
-| Linux CPU/CUDA | 可作为后续平台 | **未测试** | 未到机测试 |
+| Linux CPU/CUDA | GitHub Ubuntu CPU runner已测 | CPU CI通过；CUDA未测 | CPU CI通过；CUDA未测 |
 | 安装包、RStudio分发、CRAN/PyPI | 官方包已有 | Python开发环境可调用；Mac R安装/build及包测试通过；**未发布正式包** | Mac R CMD check零错误/警告/NOTE；RStudio会话待测 |
 | 三个大公开数据集端到端比较 | 不适用 | 3组各10万行native数值子集正式基准已完成并审计，性能见独立验证记录 | 该路径基准尚未运行 |
 
 最后一列的“代码已写，待验证”仅说明原版流程委托或EM适配代码存在，不构成该功能通过验收的证据。每个公共选项和边界情况必须独立对照后才能改为支持。
 
-Linux/macOS/Windows 的 CPU CI 工作流已配置，但未执行的远程工作流不构成跨平台通过证据。GPU CI、Windows RTX 3080 到机验证，以及 RStudio 已安装包的真实会话测试仍待完成。已确定分发名 `amelia-torch`、许可证 `GPL-3.0-only`、维护者 Sheng Wan（`swan0624@uw.edu`）、小样本加完整下载脚本的数据交付方式，以及明确标注的 R 过渡方案；GitHub 用户名已确认为 `Tocqueville0624`，Windows 接入方式仍待补充。
+Linux/macOS/Windows 的 hosted CPU CI 已实际通过，包含 Python 和五个 R 测试文件；详见[CI证据](validation/2026-09-23-development/cross-platform-ci.md)。GPU CI、Windows RTX 3080 到机验证，以及 RStudio 已安装包的真实会话测试仍待完成。已确定分发名 `amelia-torch`、许可证 `GPL-3.0-only`、维护者 Sheng Wan（`swan0624@uw.edu`）、小样本加完整下载脚本的数据交付方式，以及明确标注的 R 过渡方案；GitHub 用户名已确认为 `Tocqueville0624`，用户确认 Windows RTX3080 暂不能接入，本轮先公开开发快照。
 
 ## 验收与宣传规则
 

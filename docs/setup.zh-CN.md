@@ -1,6 +1,6 @@
 # 环境与复现
 
-以下命令从项目根目录执行。Python 环境和新增 R 包安装在项目内；不修改系统 Python 或全局 R 库。依赖快照只复现本次 Mac 环境；版本未来可能变化，调整后重新验证并记录。
+以下命令从项目根目录执行。Python 环境和新增 R 包安装在项目内；不修改系统 Python 或全局 R 库。源码安装 R 包现需要 C 编译器，用于保护原版 R 随机数状态的注册 helper：macOS 用 Xcode Command Line Tools，Windows 用匹配 R 版本的 Rtools，Linux 用系统 R 开发工具链。依赖快照只复现本次 Mac 环境；版本未来可能变化，调整后重新验证并记录。
 
 ## Mac：当前环境
 
@@ -13,6 +13,7 @@ UV_CACHE_DIR="$PWD/.cache/uv" uv venv --python 3.12 .venv
 UV_CACHE_DIR="$PWD/.cache/uv" uv pip install --python .venv/bin/python -r requirements-macos-arm64.lock
 UV_CACHE_DIR="$PWD/.cache/uv" uv pip install --python .venv/bin/python --no-build-isolation --no-deps -e .
 Rscript scripts/setup_r.R
+R CMD INSTALL --library=.R-library r-package
 ```
 
 R 安装脚本使用当前 CRAN 二进制包并检查安装成功，不自动覆盖已满足的依赖；本次实际版本写入验证快照。未来正式 R 实验需进一步锁定 R、Amelia、reticulate、依赖与 BLAS，不能把这个初始化脚本当完整 R 锁文件。
@@ -60,6 +61,7 @@ uv pip install --python .venv\Scripts\python.exe -e ".[dev,reference]"
 .venv\Scripts\python.exe -m amelia_torch.diagnostics --require-device cuda --output results/local/windows_probe.json
 .venv\Scripts\python.exe -m pytest -q
 Rscript scripts/setup_r.R
+R CMD INSTALL --library=.R-library r-package
 Rscript scripts/smoke_amelia.R
 Rscript scripts/smoke_r_bridge.R
 ```
