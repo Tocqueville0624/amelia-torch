@@ -1,0 +1,122 @@
+{
+  "kind": "environment_and_operator_smoke_only",
+  "utc_time": "2026-09-23T20:16:37.975392+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "architecture": "arm64",
+  "python": "3.12.13",
+  "torch": "2.14.0",
+  "numpy": "2.5.3",
+  "cpu_threads": 4,
+  "mps_available": true,
+  "mps_built": true,
+  "mps_cpu_fallback_env": "0",
+  "cuda_available": false,
+  "cuda_runtime": {},
+  "probes": [
+    {
+      "device": "cpu",
+      "dtype": "float64",
+      "operations": {
+        "matmul": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "cholesky": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "solve": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "sum": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "index_select": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "normal_draws": {
+          "ok": true,
+          "output_device": "cpu"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "dtype": "float32",
+      "operations": {
+        "matmul": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "cholesky": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 4.4741e-08
+        },
+        "solve": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 1.0837e-08
+        },
+        "sum": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "index_select": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "normal_draws": {
+          "ok": true,
+          "output_device": "cpu"
+        }
+      }
+    },
+    {
+      "device": "mps",
+      "dtype": "float32",
+      "operations": {
+        "matmul": {
+          "ok": true,
+          "output_device": "mps:0",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "cholesky": {
+          "ok": true,
+          "output_device": "mps:0",
+          "max_abs_error_vs_cpu_float64": 4.4741e-08
+        },
+        "solve": {
+          "ok": true,
+          "output_device": "mps:0",
+          "max_abs_error_vs_cpu_float64": 1.0837e-08
+        },
+        "sum": {
+          "ok": true,
+          "output_device": "mps:0",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "index_select": {
+          "ok": true,
+          "output_device": "mps:0",
+          "max_abs_error_vs_cpu_float64": 0
+        },
+        "normal_draws": {
+          "ok": true,
+          "output_device": "mps:0"
+        }
+      }
+    }
+  ]
+}

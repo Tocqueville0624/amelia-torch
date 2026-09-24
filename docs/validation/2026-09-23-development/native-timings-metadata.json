@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "source_script_md5": "5afe1bc6f67c7fd47bd312ada086b038",
+  "inputs": [
+    {
+      "file": "benchmark-summary-audit-v2.json",
+      "md5": "2ffb58ed01e7472882a4a040ceac007a"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "native-timings.pdf",
+      "format": "pdf",
+      "backend": "base-R-pdf",
+      "bytes": 6133,
+      "md5": "71bb469887458cb627b1e2b1751c04d0"
+    },
+    {
+      "file": "native-timings.png",
+      "format": "png",
+      "backend": "macOS-quartz-png",
+      "bytes": 162007,
+      "md5": "8c3919c82238028cb4cd2588474f4d81"
+    }
+  ],
+  "svg_available": false,
+  "plotting_only": true
+}

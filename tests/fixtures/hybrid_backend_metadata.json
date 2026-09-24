@@ -1,0 +1,48 @@
+{
+  "provenance": {
+    "report_basename": "covertype-cpu64.json",
+    "report_sha256": "91e121bebe898ed0160f6e97cf73d6b76fbe869b05c888f71331e2eb2b99ca49",
+    "description": "Exact backend attribute extracted from the first CPU64 m1 pilot. The original report failed its outdated runner metadata gate and remains a failed timing record; this fixture only verifies the real API metadata schema."
+  },
+  "backend": {
+    "engine": "r-amelia-torch-em",
+    "call_engine": "r-amelia-torch-em",
+    "reference_version": "1.8.3",
+    "device": "cpu",
+    "dtype": "float64",
+    "experimental": true,
+    "torch_used": true,
+    "gpu_used": false,
+    "current_call_torch_used": true,
+    "current_call_gpu_used": false,
+    "historical_m": 0,
+    "previous_backend": null,
+    "new_m": 1,
+    "total_m": 1,
+    "r_cpu_work": [
+      "preprocessing",
+      "bootstrap and RNG",
+      "conditional draws",
+      "postprocessing"
+    ],
+    "fits": [
+      {
+        "device": "cpu",
+        "dtype": "float64",
+        "pseudoinverse_uses": 0,
+        "empri_initial": 0,
+        "eigenvalue_check_device": "cpu",
+        "explicit_cpu_work": [
+          "initialization",
+          "missingness_grouping"
+        ],
+        "iterations": 43,
+        "converged": true,
+        "complete_sample": false,
+        "patterns": 8,
+        "empri_final": 0
+      }
+    ],
+    "converged": true
+  }
+}

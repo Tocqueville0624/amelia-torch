@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "python": {
+    "pytest_passed": 128,
+    "pytest_seconds": 12.61,
+    "ruff": "passed"
+  },
+  "r": {
+    "test_files": 5,
+    "R_CMD_check": "OK",
+    "errors": 0,
+    "warnings": 0,
+    "notes": 0
+  },
+  "wheel": {
+    "build": "passed",
+    "smoke": [
+      "native numeric",
+      "original R reference",
+      "R pipeline torch EM",
+      "embedded R resource present"
+    ],
+    "working_directory": "temporary directory outside source"
+  },
+  "limitations": [
+    "macOS local checks only; hosted CI is reported separately",
+    "Not full release acceptance"
+  ]
+}
