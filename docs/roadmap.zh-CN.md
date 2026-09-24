@@ -2,7 +2,7 @@
 
 用户目标：为求职展示完成项目的能力，在忠实复现 Amelia 1.8.3 流程与算法的前提下实现 Python/PyTorch 包，研究 GPU 是否真实加速，并让不同平台研究者从 Python 和 R/RStudio 调用。2026-09-23 已进入实现阶段；**native 连续数值子集及原版 R 过渡兼容接口可用，完整验收仍是目标**。逐项状态以 [兼容表](amelia-compatibility.md) 和 [开发验证记录](validation/2026-09-23-development/README.md) 为准。
 
-已确认产品决策：完整兼容验收后才算首版；允许明确标注的 R 过渡依赖；项目分发名为 `amelia-torch`，许可证为 `GPL-3.0-only`；维护者为 Sheng Wan（`swan0624@uw.edu`）；仓库包含可分享小样本及完整数据下载脚本；GitHub 用户名为 `Tocqueville0624`。用户确认 Windows 暂不能接入，本轮先发布开发快照；CUDA 验收留待后续接入。其他已确认决定不再作为阻塞项。
+已确认产品决策：完整兼容验收后才算首版；允许明确标注的 R 过渡依赖；项目分发名为 `amelia-torch`，许可证为 `GPL-3.0-only`；维护者为 Sheng Wan（`swan0624@uw.edu`）；仓库包含可分享小样本及完整数据下载脚本；GitHub 用户名为 `Tocqueville0624`。[公开开发仓库](https://github.com/Tocqueville0624/amelia-torch)已建立。用户后来授权直接在云端 CUDA 机器测试并留存记录，不再依赖本地 RTX 3080；正在使用免费 Colab T4。其他已确认决定不再作为阻塞项。
 
 ## M0：调研与初始化（已完成）
 
@@ -26,10 +26,10 @@
 - 剩余工作：对同机 R 串行/并行、PyTorch CPU/GPU 做公平端到端比较；计入标准化、传输、随机补值、输出恢复及明确测得的 R 桥接开销。Python直接调用耗时不能冒充 R 端调用耗时。
 - 验收：误差与统计质量门槛通过，解释优势和弱势场景、收敛差异与内存限制，再据真实瓶颈决定缓存、批量计算与设备驻留优化。
 
-## M3：Windows RTX 3080 及跨平台验证（未到机）
+## M3：云端 CUDA 及跨平台验证（进行中）
 
 - 核验驱动、显存、wheel 与实际 CUDA 算子；同机运行 R 串行/并行、PyTorch CPU 与 GPU。
-- CUDA float64/float32 分别验证；Windows 无CUDA安装和 Linux CPU 也需独立运行。三个操作系统的 hosted CPU CI 已实际通过，Windows包亦已用Rtools编译；不能替代用户RTX3080或所有系统配置的到机测试。
+- CUDA float64/float32 分别验证；Windows 无CUDA安装和 Linux CPU 也需独立运行。三个操作系统的 hosted CPU CI 已实际通过，Windows包亦已用Rtools编译；不能替代 CUDA 或所有系统配置的到机测试。云端 Linux CUDA 与 Windows CPU 的证据分开报告，不冒称 Windows GPU 已测试。
 - 保存完整结果、配置与绘图脚本，做可重复的端到端演示。
 - 验收：明确是否加速、在哪些配置加速、超过哪个基线；负面结果也保留。
 
@@ -38,7 +38,7 @@
 - 已建立 R 包骨架和 [源码接口](r-interface.md)：延迟初始化、显式解释器选择、设备检查、自有结果类及参数别名。Mac 上真实 R→Python CPU32/64 插补、matrix/data.frame 名称与观察值保留、全缺失行和大seed诊断测试已通过。
 - R 维护者、名称和许可证元数据已更新；Mac R 4.5.3 安装、源码构建及全部五个 R 包测试文件通过，最终 `R CMD check` 为零错误、零警告、零NOTE，见[包检查记录](validation/2026-09-23-development/r-package-check.md)。官方下游摘要、诊断图、pooling、CSV导出、arglist/追加/molists和allthetas已有小型CPU对照；已安装包的 RStudio 会话和完整类型/模型边界均未验收。
 - 已获准实施保留原版 R 预处理/抽样/输出的过渡方案。纯官方CPU入口 `amelia_compat(engine="reference")` 已通过官方结果及R RNG逐值一致对照；实验性 `amelia_torch_compat()` 已通过变换、类别、先验、边界、overimputation和panel组合的CPU float64代表案例。后者只替换EM，不修改 Amelia namespace，当前限定串行副本调度。完整兼容仍待验收；Python到R参考桥另行验证。
-- 完整功能必须逐项对照后才计入首版验收。已有 CI 配置、兼容表、实验代码和数据说明；下一步扩展接口边界测试、核验公开物料并在已确认的 `Tocqueville0624` 账号发布开发仓库。公开开发仓库不等于首版验收完成。
+- 完整功能必须逐项对照后才计入首版验收。已有 CI 配置、兼容表、实验代码和数据说明；已在确认的 `Tocqueville0624` 账号公开开发仓库；下一步扩展接口边界和 GPU 验收。公开开发仓库不等于首版验收完成。
 - 用户应能解释一个条件矩计算、一个数值难点、一个性能瓶颈、一个失败实验和一次设计取舍，避免只展示生成的代码量。
 
 ## 经本轮验证的后续注意项
