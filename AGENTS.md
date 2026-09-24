@@ -2,8 +2,8 @@
 
 ## 用户目标与当前阶段
 - 用户为求职展示项目能力，要求全部功能完成后才算首版，完整复现 Amelia 1.8.3 流程/算法，在 Python 与 R/RStudio 跨 Mac、Windows、有/无 CUDA 使用，并以三组较大公开数据实测性能；不能随意改变统计语义。
-- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，本轮先公开开发快照；Andrew Wang 只预留未来协作位，尚非当前作者。
-- 2026-09-23：native 连续 EMB、Python/R 原版及混合兼容入口已实现；128 项 Python 测试与 5 个 R 测试文件通过，R 安装/build/check 零问题。Windows/macOS/Linux hosted CPU CI 已通过；尚未完整验收 Amelia 或完成 CUDA/Intel Mac实测。状态见 `docs/roadmap.zh-CN.md`、`docs/amelia-compatibility.md`。
+- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权直接使用云端 CUDA 测试并留存记录，不再依赖本地 3080。免费 Colab 已获 T4 并通过双精度基础算子探针，完整 CUDA 验收仍待完成；Andrew Wang 只预留未来协作位，尚非当前作者。
+- 2026-09-23：native 连续 EMB、Python/R 原版及混合兼容入口已实现；三个系统各 149 项 Python 测试与 5 个 R 测试文件通过，R 安装/build/check 零问题。Windows/macOS/Linux hosted CPU CI 已通过；尚未完整验收 Amelia 或完成 CUDA/Intel Mac实测。状态见 `docs/roadmap.zh-CN.md`、`docs/amelia-compatibility.md`。
 - 三组 UCI 全压缩数据已下载、校验，合计约 232 MiB。数据来源/许可/哈希见 `data/manifest.json`；原始全量文件不进 Git，小样本和复现脚本已入项目。
 
 ## 环境与命令

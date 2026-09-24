@@ -83,7 +83,7 @@ Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路
 ### G6：关闭用户要求的平台实测缺口
 
 - [x] Linux/macOS/Windows hosted CPU CI 已实际通过：开发代码安装、R 源码包/C RNG helper 编译及Python与五组R测试，见[CI证据](validation/2026-09-23-development/cross-platform-ci.md)。单独构建wheel还需各平台扩展打包矩阵；本地wheel smoke已通过。
-- [ ] 用户 RTX 3080 到机核验：记录实际驱动/runtime/显存，执行 CUDA64/CUDA32 正确性与质量检查；在**同一 Windows 机器**完成原版 R 串行/合理 snow、Torch CPU64/CPU32 与 CUDA 对照。Mac 与 Windows 的耗时不能拼成 GPU 加速比。
+- [ ] 云端 CUDA 核验（用户已授权替代本地 3080）：记录实际系统/驱动/runtime/显存，执行 CUDA64/CUDA32 正确性与质量检查；在**同一云端 GPU 机器**完成原版 R 串行/合理 snow、Torch CPU64/CPU32 与 CUDA 对照。Mac 与 Windows 的耗时不能拼成 GPU 加速比。
 - [ ] 没有 CUDA 的 Windows hosted runner已验证 reference 与 CPU 路线；仍需一个 Intel Mac 验证不装 Torch 的 reference 安装/拟合。若暂时没有机器，状态继续标“未实测”，不能写成所有 Windows/Mac 已支持。Linux CUDA 若未测，应同样单列，而非由 Windows CUDA 自动推断。
 - [ ] 已安装包在 RStudio 实际会话跑一次数据框插补、检查解释器选择、展示/保存结果和一个诊断图。当前 Rscript、headless PDF 与包检查不能替代这一用户流程。
 
@@ -92,7 +92,7 @@ Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路
 - [ ] 正在运行的 hybrid 套件完成后，独立核验完整任务网格、每份收敛/有效质量、种子、warmup/正式次数、代码哈希与设备记录。先审计再汇总，保留失败/慢速结果，不能仅用进程 exit 0 判成功。
 - [ ] 报告各路径计时边界：目前 native 和 R hybrid 主计时均排除 CSV 读取、评分/保存；Python front door 还包含 Rscript、二进制传输和 RDS。至少以一个已准备的大输入测 Python reference/hybrid 的完整用户调用，并单列冷启动；未测前不把 R 内存中计时称为 Python 端到端速度。
 - [ ] 在当前少数 block-MCAR 模式之外，用一个有界规模的独立逐格缺失输入检查模式数增长后的耗时/内存或明确失败。无需立即全量跑三个百万行数据集，但必须保留当前“10万行完整数值子集、少数模式”的适用限制。
-- [ ] Windows GPU 测试记录实际内存需求/OOM；未测的峰值 RAM/VRAM 继续为 null，不能填 0 或声称已测。速度表解释 MPS/CUDA 相对本机 Torch CPU 和合理 R CPU 并行的结果，不能只挑有利基线。
+- [ ] CUDA 测试记录实际内存需求/OOM；未测的峰值 RAM/VRAM 继续为 null，不能填 0 或声称已测。速度表解释 MPS/CUDA 相对本机 Torch CPU 和合理 R CPU 并行的结果，不能只挑有利基线。
 
 “GPU 比原版快”是待检验命题，不是必须制造的正面结论。三组公开数据、小样本加可核验完整下载脚本的交付方案已获用户同意，不再要求把全部大文件提交 Git，也不把全量行数实验新增为发布前必做项。
 
