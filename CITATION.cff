@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "This is a development implementation. Cite Amelia's methodological paper as well as the exact project revision used."
+title: "amelia-torch: development implementation and compatibility interfaces"
+type: software
+repository-code: "https://github.com/Tocqueville0624/amelia-torch"
+authors:
+  - family-names: Wan
+    given-names: Sheng
+    email: swan0624@uw.edu
+license: GPL-3.0-only
+references:
+  - type: article
+    title: "Amelia II: A Program for Missing Data"
+    authors:
+      - family-names: Honaker
+        given-names: James
+      - family-names: King
+        given-names: Gary
+      - family-names: Blackwell
+        given-names: Matthew
+    journal: Journal of Statistical Software
+    year: 2011
+    volume: 45
+    issue: 7
+    start: 1
+    end: 47
+    doi: 10.18637/jss.v045.i07

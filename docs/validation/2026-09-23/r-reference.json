@@ -1,0 +1,10 @@
+{
+  "kind": "R_reference_smoke_only",
+  "R": "R version 4.5.3 (2026-03-11)",
+  "Amelia": "1.8.3",
+  "code": 1,
+  "n": 200,
+  "p": 3,
+  "m": 2,
+  "observed_values_preserved": true
+}

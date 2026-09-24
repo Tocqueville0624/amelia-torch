@@ -1,0 +1,1 @@
+^src/.*\.(o|so|dll|dylib)$

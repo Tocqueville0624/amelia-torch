@@ -1,0 +1,129 @@
+{
+  "created_utc": "2026-09-24T01:52:47.997634+00:00",
+  "source_sha256": {
+    "src/amelia_torch/__init__.py": "c1d1ba4ac0bab793e12ecafd37e1e99c677a94f68547771db7b0708afad68ab1",
+    "src/amelia_torch/api.py": "2c7c40f3347553979ee600cc90acb82ac7c29468bd6375990271b25de7e12591",
+    "src/amelia_torch/backends.py": "14ae3f26b081d26faa7e040a24910db1f3c310f85218202b3d4cc224bab52542",
+    "src/amelia_torch/diagnostics.py": "68f26f34edc6ecf1258518ea569248ef2ff9b2fb54bd82dc0fb1f8fb8aa90691",
+    "src/amelia_torch/em.py": "ef7db0aaf24561013254279efa68e7f192fb9ad4cffb1575a1853b9a2a62144f",
+    "src/amelia_torch/imputation.py": "1180d3149550ec0d1d273e01f7a05390a931cb201dde4bc85e67896dee7374e2",
+    "scripts/benchmark.py": "97a77895a9f3716878c988e1536f0e1bd4055d6e6570e622c6e75e0381fefbf8",
+    "scripts/benchmark_reference.R": "0fd1e05b65eae57248210d8367f304a9ee3d8db67bda6e4c91903f34fd9c49ee"
+  },
+  "description": "100k uniform public-data samples; block MCAR ~30%; methods randomized by dataset; failures retained",
+  "seeds": [
+    20260923,
+    20260924,
+    20260925,
+    20260926,
+    20260927
+  ],
+  "execution": [
+    {
+      "dataset": "covertype",
+      "method": "cpu64",
+      "input_sha256": "7023849c1f1cbef5765d1481e0ecafbbc5dfba1ed42fd9e08cfeefb47430f6f0",
+      "result": "covertype-cpu64.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "covertype",
+      "method": "mps32",
+      "input_sha256": "7023849c1f1cbef5765d1481e0ecafbbc5dfba1ed42fd9e08cfeefb47430f6f0",
+      "result": "covertype-mps32.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "covertype",
+      "method": "r_snow4",
+      "input_sha256": "7023849c1f1cbef5765d1481e0ecafbbc5dfba1ed42fd9e08cfeefb47430f6f0",
+      "result": "covertype-r_snow4.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu32",
+      "input_sha256": "7023849c1f1cbef5765d1481e0ecafbbc5dfba1ed42fd9e08cfeefb47430f6f0",
+      "result": "covertype-cpu32.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "covertype",
+      "method": "r_serial",
+      "input_sha256": "7023849c1f1cbef5765d1481e0ecafbbc5dfba1ed42fd9e08cfeefb47430f6f0",
+      "result": "covertype-r_serial.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "household_power",
+      "method": "r_serial",
+      "input_sha256": "ac93b8b96d3605668ce486651e1ea9ec821bb28f01189cc82911dc6a131a7b0d",
+      "result": "household_power-r_serial.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu64",
+      "input_sha256": "ac93b8b96d3605668ce486651e1ea9ec821bb28f01189cc82911dc6a131a7b0d",
+      "result": "household_power-cpu64.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "household_power",
+      "method": "mps32",
+      "input_sha256": "ac93b8b96d3605668ce486651e1ea9ec821bb28f01189cc82911dc6a131a7b0d",
+      "result": "household_power-mps32.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "household_power",
+      "method": "r_snow4",
+      "input_sha256": "ac93b8b96d3605668ce486651e1ea9ec821bb28f01189cc82911dc6a131a7b0d",
+      "result": "household_power-r_snow4.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu32",
+      "input_sha256": "ac93b8b96d3605668ce486651e1ea9ec821bb28f01189cc82911dc6a131a7b0d",
+      "result": "household_power-cpu32.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu32",
+      "input_sha256": "ca9be928f129b2ce56388da495c0ef34c9ba6e50870f75a53d48445dcca98419",
+      "result": "year_prediction_msd-cpu32.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "r_snow4",
+      "input_sha256": "ca9be928f129b2ce56388da495c0ef34c9ba6e50870f75a53d48445dcca98419",
+      "result": "year_prediction_msd-r_snow4.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "r_serial",
+      "input_sha256": "ca9be928f129b2ce56388da495c0ef34c9ba6e50870f75a53d48445dcca98419",
+      "result": "year_prediction_msd-r_serial.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "mps32",
+      "input_sha256": "ca9be928f129b2ce56388da495c0ef34c9ba6e50870f75a53d48445dcca98419",
+      "result": "year_prediction_msd-mps32.json",
+      "exit_status": 0
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu64",
+      "input_sha256": "ca9be928f129b2ce56388da495c0ef34c9ba6e50870f75a53d48445dcca98419",
+      "result": "year_prediction_msd-cpu64.json",
+      "exit_status": 0
+    }
+  ],
+  "completed_utc": "2026-09-24T02:41:28.905349+00:00"
+}

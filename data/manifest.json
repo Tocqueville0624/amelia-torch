@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-09-23",
+  "license_notice": "Dataset licenses are separate from the package license. Preserve creator, DOI, CC BY 4.0 link, and transformation notice on redistribution.",
+  "datasets": {
+    "covertype": {
+      "title": "Covertype",
+      "uci_id": 31,
+      "source_url": "https://archive.ics.uci.edu/dataset/31/covertype",
+      "doi": "10.24432/C50K5N",
+      "citation": "Blackard, J. (1998). Covertype [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C50K5N.",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "download_url": "https://archive.ics.uci.edu/static/public/31/covertype.zip",
+      "filename": "covertype.zip",
+      "sha256": "89a975c2457cd48e824238ae43c5a3cb762e42c4b4078d9b44a4514055105f6d",
+      "download_bytes": 11251206,
+      "download_bytes_max": 16000000,
+      "uncompressed_bytes": 75169317,
+      "data_member": "covtype.data.gz",
+      "inner_compression": "gzip",
+      "rows": 581012,
+      "raw_columns": 55,
+      "delimiter": ",",
+      "has_header": false,
+      "numeric_indices_zero_based": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "numeric_columns": [
+        "Elevation",
+        "Aspect",
+        "Slope",
+        "Horizontal_Distance_To_Hydrology",
+        "Vertical_Distance_To_Hydrology",
+        "Horizontal_Distance_To_Roadways",
+        "Hillshade_9am",
+        "Hillshade_Noon",
+        "Hillshade_3pm",
+        "Horizontal_Distance_To_Fire_Points"
+      ],
+      "natural_missing": false,
+      "missing_tokens": [
+        "",
+        "?"
+      ],
+      "excluded_columns": "Four wilderness indicators, forty soil indicators, and cover-type class. These require categorical semantics, not continuous Gaussian treatment.",
+      "cautions": "Aspect is circular; all ten columns are numerical measurements represented as integers. This is a computational stress test, not evidence that a Gaussian model is scientifically appropriate for every variable.",
+      "zip_members": [
+        {
+          "name": "covtype.data.gz",
+          "bytes": 11240707,
+          "crc32": "ef1742c4"
+        },
+        {
+          "name": "covtype.info",
+          "bytes": 14610,
+          "crc32": "1a0b2c6f"
+        },
+        {
+          "name": "old_covtype.info",
+          "bytes": 4847,
+          "crc32": "b2b073a1"
+        }
+      ],
+      "verification": {
+        "source_verified_date": "2026-09-23",
+        "http_status": 200,
+        "zip_crc_verified": true,
+        "http_range_supported_when_probed": false,
+        "download_completed": true,
+        "source_rows_verified": 581012,
+        "raw_columns_verified": 55,
+        "selected_numeric_columns_verified": 10,
+        "natural_incomplete_rows": 0,
+        "natural_missing_cells_selected": 0,
+        "all_missing_numeric_rows": 0,
+        "numeric_parse_verified": true,
+        "infinite_values": 0,
+        "data_stream_fully_read": true
+      },
+      "uncompressed_data_sha256": "0a9371cef7c964b5475d6053cc3e0894a5aa6f65ad1ed3ecb01c45aa96217945"
+    },
+    "household_power": {
+      "title": "Individual Household Electric Power Consumption",
+      "uci_id": 235,
+      "source_url": "https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption",
+      "doi": "10.24432/C58K54",
+      "citation": "Hebrail, G. & Berard, A. (2006). Individual Household Electric Power Consumption [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C58K54.",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "download_url": "https://archive.ics.uci.edu/static/public/235/individual+household+electric+power+consumption.zip",
+      "filename": "household_power.zip",
+      "sha256": "9f84b46ade8a2d8e1286ec4b2b6c2987a45a755c59f263be3b3b3d10dfbda3ff",
+      "download_bytes": 20640916,
+      "download_bytes_max": 26000000,
+      "uncompressed_bytes": 132960755,
+      "data_member": "household_power_consumption.txt",
+      "inner_compression": null,
+      "rows": 2075259,
+      "raw_columns": 9,
+      "delimiter": ";",
+      "has_header": true,
+      "numeric_indices_zero_based": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "numeric_columns": [
+        "Global_active_power",
+        "Global_reactive_power",
+        "Voltage",
+        "Global_intensity",
+        "Sub_metering_1",
+        "Sub_metering_2",
+        "Sub_metering_3"
+      ],
+      "natural_missing": true,
+      "missing_tokens": [
+        "",
+        "?"
+      ],
+      "excluded_columns": "Date and Time are preserved only through original row IDs; they are not numeric imputation variables in the continuous baseline.",
+      "cautions": "Single-household minute observations are temporally dependent. Natural missing entries have no ground truth. Nearly 1.25% of rows are missing according to UCI. All-missing numeric rows must not be silently treated as observed cases or dropped without recording.",
+      "zip_members": [
+        {
+          "name": "household_power_consumption.txt",
+          "bytes": 132960755,
+          "crc32": "969f48c7"
+        }
+      ],
+      "verification": {
+        "source_verified_date": "2026-09-23",
+        "http_status": 200,
+        "zip_crc_verified": true,
+        "http_range_supported_when_probed": false,
+        "download_completed": true,
+        "source_rows_verified": 2075259,
+        "raw_columns_verified": 9,
+        "selected_numeric_columns_verified": 7,
+        "natural_incomplete_rows": 25979,
+        "natural_missing_cells_selected": 181853,
+        "all_missing_numeric_rows": 25979,
+        "numeric_parse_verified": true,
+        "infinite_values": 0,
+        "data_stream_fully_read": true
+      },
+      "uncompressed_data_sha256": "4259c9d7ece5dbee9ab8d53682baac68d791c864f0f64a52b4043cb3b90894b7"
+    },
+    "year_prediction_msd": {
+      "title": "Year Prediction MSD",
+      "uci_id": 203,
+      "source_url": "https://archive.ics.uci.edu/dataset/203/yearpredictionmsd",
+      "doi": "10.24432/C50K61",
+      "citation": "Bertin-Mahieux, T. (2011). Year Prediction MSD [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C50K61.",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "download_url": "https://archive.ics.uci.edu/static/public/203/yearpredictionmsd.zip",
+      "filename": "year_prediction_msd.zip",
+      "sha256": "06f801af323bb7798e800583acce4ea1ed2697ac12c23f4424aea0a7a3d09e11",
+      "download_bytes": 211011981,
+      "download_bytes_max": 230000000,
+      "uncompressed_bytes": 448576698,
+      "data_member": "YearPredictionMSD.txt",
+      "inner_compression": null,
+      "rows": 515345,
+      "raw_columns": 91,
+      "delimiter": ",",
+      "has_header": false,
+      "numeric_indices_zero_based": "1:91",
+      "numeric_columns": "timbre_average_01..12, timbre_covariance_01..78 (in source order)",
+      "natural_missing": false,
+      "missing_tokens": [
+        "",
+        "?"
+      ],
+      "excluded_columns": "Column 0 is release year, the supervised target; imputation benchmark uses only the 90 audio features.",
+      "cautions": "UCI's official supervised split is first 463715 training rows and final 51630 test rows, avoiding artist leakage. Imputation throughput is not supervised prediction accuracy. High-dimensional independent masks can create almost one missingness pattern per row.",
+      "zip_members": [
+        {
+          "name": "YearPredictionMSD.txt",
+          "bytes": 448576698,
+          "crc32": "cd1e8c43"
+        }
+      ],
+      "verification": {
+        "source_verified_date": "2026-09-23",
+        "http_status": 200,
+        "zip_crc_verified": true,
+        "http_range_supported_when_probed": false,
+        "download_completed": true,
+        "source_rows_verified": 515345,
+        "raw_columns_verified": 91,
+        "selected_numeric_columns_verified": 90,
+        "natural_incomplete_rows": 0,
+        "natural_missing_cells_selected": 0,
+        "all_missing_numeric_rows": 0,
+        "numeric_parse_verified": true,
+        "infinite_values": 0,
+        "data_stream_fully_read": true
+      },
+      "uncompressed_data_sha256": "4b6f8e50235b359e01689ae7fb33ad0f89677e9a15f25f3d6259327a6bb927bb"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+Package: ameliatorch
+Type: Package
+Title: R Interface to the Amelia Torch Development Prototype
+Version: 0.0.0.9000
+Authors@R: person("Sheng", "Wan", email = "swan0624@uw.edu", role = c("aut", "cre"))
+Description: Explicit Python environment selection and a reticulate interface
+    for the Amelia Torch multiple imputation development prototype. A separate
+    reference interface delegates unchanged to the installed official Amelia
+    R package on the CPU. Native numerical features are defined by the Python
+    implementation. This package is not the official Amelia package and does
+    not assert full native compatibility or GPU acceleration of reference calls.
+License: GPL-3
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Imports: reticulate (>= 1.41)
+Suggests: Amelia (== 1.8.3)
+SystemRequirements: Python (>= 3.12, < 3.13) and amelia-torch for the native interface
+NeedsCompilation: yes

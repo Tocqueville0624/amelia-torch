@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-23",
+  "platform": "macOS arm64",
+  "reference_version": "1.8.3",
+  "test_command": "python -m pytest tests/test_reference.py tests/test_public_reference.py -q",
+  "tests_passed": 19,
+  "test_duration_seconds": 3.21,
+  "lint": "ruff check src/amelia_torch/reference.py tests/test_reference.py tests/test_public_reference.py passed",
+  "reference_engine": "unmodified R Amelia 1.8.3 CPU",
+  "gpu_speed_claim": false,
+  "validated": [
+    "numeric public fitting and preservation of observed values",
+    "categorical and ordered levels, logs, multi-row priors and bounds interface",
+    "original RDS save/read and official append behavior",
+    "opaque RDS arglist forwarding",
+    "original errors and unknown parameter rejection",
+    "binary-column little-endian transport, dtype, missing sentinels and byte length checks",
+    "external RDS unknown origin and recorded historical GPU provenance",
+    "public continuous preprocessing, parameter/history parity and row/column ordering"
+  ],
+  "public_reference_parity": {
+    "bootstrap": "none",
+    "initial_theta": "explicit shared matrix",
+    "dtype": "CPU float64",
+    "theta_atol": 1e-10,
+    "theta_rtol": 1e-9,
+    "iteration_history": "equal",
+    "random_draws_cross_library_compared": false
+  },
+  "upstream_quirk": {
+    "single_row_priors": "Independent original R public call confirms impfill dimension dropping can modify unrelated observed cells. Preserved and warned, with separate regression test."
+  },
+  "strict_reference_runner_checks": {
+    "success": {"exit": 0, "status": "ok"},
+    "nonconvergence": {"exit": 1, "status": "not_converged"},
+    "natural_blank_allowed": {"exit": 0, "status": "ok"},
+    "heldout_blank_not_scored": {"exit": 1, "status": "quality_failed"},
+    "reference_input_failure": {"exit": 1, "status": "error"}
+  },
+  "limitations": [
+    "Not all original public API combinations have acceptance tests.",
+    "Windows and Linux integrations were not exercised in this validation.",
+    "Historical GPU provenance test uses an explicitly synthetic record, not a GPU execution.",
+    "No formal performance benchmark was rerun for these checks."
+  ]
+}

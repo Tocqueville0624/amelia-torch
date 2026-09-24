@@ -1,0 +1,120 @@
+{
+  "dataset": "household_power",
+  "citation": "Hebrail, G. & Berard, A. (2006). Individual Household Electric Power Consumption [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C58K54.",
+  "source_url": "https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "source_archive_sha256": "9f84b46ade8a2d8e1286ec4b2b6c2987a45a755c59f263be3b3b3d10dfbda3ff",
+  "transformations": "Selected numeric columns and sampled source rows; added artificial mask.",
+  "shape": [
+    256,
+    7
+  ],
+  "columns": [
+    "Global_active_power",
+    "Global_reactive_power",
+    "Voltage",
+    "Global_intensity",
+    "Sub_metering_1",
+    "Sub_metering_2",
+    "Sub_metering_3"
+  ],
+  "source_row_index_base": 0,
+  "sampling": "random",
+  "row_seed": 20260923,
+  "mask_seed": 20260924,
+  "natural_missing_policy": "complete-cases",
+  "source_rows_verified": 2075259,
+  "natural_incomplete_source_rows": 25979,
+  "eligible_rows": 2049280,
+  "excluded_source_rows": 25979,
+  "mechanism": "block_mcar",
+  "mechanism_details": {
+    "pattern_bank": [
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "missing_columns_per_pattern": 1,
+    "note": "Pattern sampled independently of values; not independent cell masking."
+  },
+  "requested_missing_rate": 0.1,
+  "artificial_missing_cells": 256,
+  "artificial_rate_among_observed": 0.14285714285714285,
+  "natural_missing_cells_in_sample": 0,
+  "all_missing_rows_after_mask": 0,
+  "distinct_missingness_patterns": 7,
+  "preparation_estimated_working_bytes": 122880,
+  "benchmark_executed": false,
+  "quality_warning": "Real-data masks support held-out observed-cell error only; coverage needs simulations with known estimands.",
+  "npz_sha256": "2ae62998ad213b5ad0f9a2ec8d1be5bff6da309f33b702429b274ebd5d5a8944"
+}

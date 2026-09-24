@@ -1,0 +1,1257 @@
+{
+  "schema_version": 1,
+  "kind": "native_emb_end_to_end_benchmark",
+  "created_utc": "2026-09-24T01:56:11.006862+00:00",
+  "input_filename": "household_power-n100000-block_mcar-rate30-seed20260923.npz",
+  "input_sha256": "ac93b8b96d3605668ce486651e1ea9ec821bb28f01189cc82911dc6a131a7b0d",
+  "shape": [
+    100000,
+    7
+  ],
+  "missing_patterns": 7,
+  "configuration": {
+    "device": "mps",
+    "dtype": "float32",
+    "m": 5,
+    "repeats": 5,
+    "warmups": 2,
+    "seed": 20260923,
+    "threads": 4,
+    "tolerance": 0.0001,
+    "max_iterations": 300,
+    "empri": null,
+    "autopri": 0.05
+  },
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.14.0",
+    "numpy": "2.5.3",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "cpu_threads": 4,
+    "cuda_runtime": null,
+    "mps_cpu_fallback": "0",
+    "peak_ram_bytes": null,
+    "git": {
+      "commit": null,
+      "dirty": true
+    }
+  },
+  "timing_scope": "in-memory input to all CPU NumPy completed datasets; preprocessing/bootstrap/EM/draws/transfers included; process startup excluded",
+  "runs": [
+    {
+      "warmup": true,
+      "seed": 20360923,
+      "status": "ok",
+      "wall_seconds": 2.7985389580135234,
+      "diagnostics": {
+        "engine": "torch-native-continuous",
+        "reference_version": "1.8.3",
+        "scope": "continuous numeric matrices; no cell priors, bounds, transformations or time structure",
+        "device": "mps",
+        "dtype": "float32",
+        "seed": 20360923,
+        "converged": true,
+        "replicates": [
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 43,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 38,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 41,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 41,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 45,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          }
+        ],
+        "column_names": null,
+        "column_order_zero_based": [
+          4,
+          6,
+          5,
+          3,
+          2,
+          0,
+          1
+        ],
+        "scale_mean_original_order": [
+          1.0925027881189282,
+          0.12338871398206781,
+          240.81849177391925,
+          4.61888055918701,
+          1.1179542517618535,
+          1.313325154028752,
+          6.506453161249033
+        ],
+        "scale_sd_original_order": [
+          1.0523082220350808,
+          0.11243402309425349,
+          3.2600304379394918,
+          4.417468094295807,
+          6.133782942443611,
+          5.822233135701446,
+          8.44441122367692
+        ],
+        "wholly_missing_rows_retained": 0,
+        "rng": "NumPy PCG64; same seed does not reproduce R draws"
+      },
+      "quality": {
+        "observed_values_preserved": true,
+        "remaining_missing_cells": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "normalized_rmse_per_imputation": [
+          0.9998026406030746,
+          0.999318582125138,
+          1.0000289399218263,
+          1.001094106018223,
+          1.0001717213728658
+        ],
+        "unscored_heldout_cells_per_imputation": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pooled_column_means": [
+          1.0917428040742543,
+          0.1234441284069299,
+          240.82140424956984,
+          4.6287881605092025,
+          1.1190393628147226,
+          1.3152257723679637,
+          6.4986975889045855
+        ],
+        "note": "Held-out prediction scores are not tests of Rubin pooling or interval coverage."
+      },
+      "peak_cuda_allocated_bytes": null
+    },
+    {
+      "warmup": true,
+      "seed": 20360924,
+      "status": "ok",
+      "wall_seconds": 2.433174667006824,
+      "diagnostics": {
+        "engine": "torch-native-continuous",
+        "reference_version": "1.8.3",
+        "scope": "continuous numeric matrices; no cell priors, bounds, transformations or time structure",
+        "device": "mps",
+        "dtype": "float32",
+        "seed": 20360924,
+        "converged": true,
+        "replicates": [
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 44,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 45,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 42,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 44,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 42,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          }
+        ],
+        "column_names": null,
+        "column_order_zero_based": [
+          4,
+          6,
+          5,
+          3,
+          2,
+          0,
+          1
+        ],
+        "scale_mean_original_order": [
+          1.0925027881189282,
+          0.12338871398206781,
+          240.81849177391925,
+          4.61888055918701,
+          1.1179542517618535,
+          1.313325154028752,
+          6.506453161249033
+        ],
+        "scale_sd_original_order": [
+          1.0523082220350808,
+          0.11243402309425349,
+          3.2600304379394918,
+          4.417468094295807,
+          6.133782942443611,
+          5.822233135701446,
+          8.44441122367692
+        ],
+        "wholly_missing_rows_retained": 0,
+        "rng": "NumPy PCG64; same seed does not reproduce R draws"
+      },
+      "quality": {
+        "observed_values_preserved": true,
+        "remaining_missing_cells": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "normalized_rmse_per_imputation": [
+          1.0021309964216694,
+          0.9979404357409268,
+          0.9976060925617527,
+          1.0019031500245832,
+          1.0000371618181363
+        ],
+        "unscored_heldout_cells_per_imputation": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pooled_column_means": [
+          1.0917360676863856,
+          0.12330321432896814,
+          240.81653603888986,
+          4.628829302972862,
+          1.1223268969767237,
+          1.3161406549038916,
+          6.498626158459788
+        ],
+        "note": "Held-out prediction scores are not tests of Rubin pooling or interval coverage."
+      },
+      "peak_cuda_allocated_bytes": null
+    },
+    {
+      "warmup": false,
+      "seed": 20260923,
+      "status": "ok",
+      "wall_seconds": 2.232101833971683,
+      "diagnostics": {
+        "engine": "torch-native-continuous",
+        "reference_version": "1.8.3",
+        "scope": "continuous numeric matrices; no cell priors, bounds, transformations or time structure",
+        "device": "mps",
+        "dtype": "float32",
+        "seed": 20260923,
+        "converged": true,
+        "replicates": [
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 42,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 42,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 40,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 45,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 38,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          }
+        ],
+        "column_names": null,
+        "column_order_zero_based": [
+          4,
+          6,
+          5,
+          3,
+          2,
+          0,
+          1
+        ],
+        "scale_mean_original_order": [
+          1.0925027881189282,
+          0.12338871398206781,
+          240.81849177391925,
+          4.61888055918701,
+          1.1179542517618535,
+          1.313325154028752,
+          6.506453161249033
+        ],
+        "scale_sd_original_order": [
+          1.0523082220350808,
+          0.11243402309425349,
+          3.2600304379394918,
+          4.417468094295807,
+          6.133782942443611,
+          5.822233135701446,
+          8.44441122367692
+        ],
+        "wholly_missing_rows_retained": 0,
+        "rng": "NumPy PCG64; same seed does not reproduce R draws"
+      },
+      "quality": {
+        "observed_values_preserved": true,
+        "remaining_missing_cells": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "normalized_rmse_per_imputation": [
+          0.9987025192046273,
+          1.000340522831723,
+          1.0015312273962766,
+          0.9984694494521603,
+          0.9991587907367638
+        ],
+        "unscored_heldout_cells_per_imputation": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pooled_column_means": [
+          1.0917782777289233,
+          0.12360691004548405,
+          240.82055966755144,
+          4.628689530970084,
+          1.1244170976241992,
+          1.31634770577391,
+          6.500738297086196
+        ],
+        "note": "Held-out prediction scores are not tests of Rubin pooling or interval coverage."
+      },
+      "peak_cuda_allocated_bytes": null
+    },
+    {
+      "warmup": false,
+      "seed": 20260924,
+      "status": "ok",
+      "wall_seconds": 2.176791041973047,
+      "diagnostics": {
+        "engine": "torch-native-continuous",
+        "reference_version": "1.8.3",
+        "scope": "continuous numeric matrices; no cell priors, bounds, transformations or time structure",
+        "device": "mps",
+        "dtype": "float32",
+        "seed": 20260924,
+        "converged": true,
+        "replicates": [
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 42,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 45,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 39,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 40,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 42,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          }
+        ],
+        "column_names": null,
+        "column_order_zero_based": [
+          4,
+          6,
+          5,
+          3,
+          2,
+          0,
+          1
+        ],
+        "scale_mean_original_order": [
+          1.0925027881189282,
+          0.12338871398206781,
+          240.81849177391925,
+          4.61888055918701,
+          1.1179542517618535,
+          1.313325154028752,
+          6.506453161249033
+        ],
+        "scale_sd_original_order": [
+          1.0523082220350808,
+          0.11243402309425349,
+          3.2600304379394918,
+          4.417468094295807,
+          6.133782942443611,
+          5.822233135701446,
+          8.44441122367692
+        ],
+        "wholly_missing_rows_retained": 0,
+        "rng": "NumPy PCG64; same seed does not reproduce R draws"
+      },
+      "quality": {
+        "observed_values_preserved": true,
+        "remaining_missing_cells": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "normalized_rmse_per_imputation": [
+          0.9988763195337151,
+          0.9994806315472546,
+          0.9954341494927779,
+          0.9987453536486763,
+          0.9970688775345773
+        ],
+        "unscored_heldout_cells_per_imputation": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pooled_column_means": [
+          1.0918173727874447,
+          0.12317264847977127,
+          240.82129336228348,
+          4.628724535186312,
+          1.112621969488501,
+          1.3071565710699704,
+          6.498404127287083
+        ],
+        "note": "Held-out prediction scores are not tests of Rubin pooling or interval coverage."
+      },
+      "peak_cuda_allocated_bytes": null
+    },
+    {
+      "warmup": false,
+      "seed": 20260925,
+      "status": "ok",
+      "wall_seconds": 2.2794232919695787,
+      "diagnostics": {
+        "engine": "torch-native-continuous",
+        "reference_version": "1.8.3",
+        "scope": "continuous numeric matrices; no cell priors, bounds, transformations or time structure",
+        "device": "mps",
+        "dtype": "float32",
+        "seed": 20260925,
+        "converged": true,
+        "replicates": [
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 41,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 43,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 42,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 43,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 41,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          }
+        ],
+        "column_names": null,
+        "column_order_zero_based": [
+          4,
+          6,
+          5,
+          3,
+          2,
+          0,
+          1
+        ],
+        "scale_mean_original_order": [
+          1.0925027881189282,
+          0.12338871398206781,
+          240.81849177391925,
+          4.61888055918701,
+          1.1179542517618535,
+          1.313325154028752,
+          6.506453161249033
+        ],
+        "scale_sd_original_order": [
+          1.0523082220350808,
+          0.11243402309425349,
+          3.2600304379394918,
+          4.417468094295807,
+          6.133782942443611,
+          5.822233135701446,
+          8.44441122367692
+        ],
+        "wholly_missing_rows_retained": 0,
+        "rng": "NumPy PCG64; same seed does not reproduce R draws"
+      },
+      "quality": {
+        "observed_values_preserved": true,
+        "remaining_missing_cells": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "normalized_rmse_per_imputation": [
+          0.9980363506052301,
+          0.9991431214295007,
+          1.000529729338731,
+          0.9987217782338512,
+          1.00081759826637
+        ],
+        "unscored_heldout_cells_per_imputation": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pooled_column_means": [
+          1.0918833516111686,
+          0.12329303642982563,
+          240.8173895300867,
+          4.628552870581957,
+          1.1197935565556123,
+          1.319515161630908,
+          6.492092387935591
+        ],
+        "note": "Held-out prediction scores are not tests of Rubin pooling or interval coverage."
+      },
+      "peak_cuda_allocated_bytes": null
+    },
+    {
+      "warmup": false,
+      "seed": 20260926,
+      "status": "ok",
+      "wall_seconds": 2.2592115000006743,
+      "diagnostics": {
+        "engine": "torch-native-continuous",
+        "reference_version": "1.8.3",
+        "scope": "continuous numeric matrices; no cell priors, bounds, transformations or time structure",
+        "device": "mps",
+        "dtype": "float32",
+        "seed": 20260926,
+        "converged": true,
+        "replicates": [
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 38,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 45,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 43,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 44,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 44,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          }
+        ],
+        "column_names": null,
+        "column_order_zero_based": [
+          4,
+          6,
+          5,
+          3,
+          2,
+          0,
+          1
+        ],
+        "scale_mean_original_order": [
+          1.0925027881189282,
+          0.12338871398206781,
+          240.81849177391925,
+          4.61888055918701,
+          1.1179542517618535,
+          1.313325154028752,
+          6.506453161249033
+        ],
+        "scale_sd_original_order": [
+          1.0523082220350808,
+          0.11243402309425349,
+          3.2600304379394918,
+          4.417468094295807,
+          6.133782942443611,
+          5.822233135701446,
+          8.44441122367692
+        ],
+        "wholly_missing_rows_retained": 0,
+        "rng": "NumPy PCG64; same seed does not reproduce R draws"
+      },
+      "quality": {
+        "observed_values_preserved": true,
+        "remaining_missing_cells": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "normalized_rmse_per_imputation": [
+          1.0004533317675572,
+          1.0021677805288212,
+          0.9971287379967446,
+          0.9926386310608059,
+          0.9985361318621323
+        ],
+        "unscored_heldout_cells_per_imputation": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pooled_column_means": [
+          1.0917777618224356,
+          0.12328841226786733,
+          240.82051342404156,
+          4.628937842490084,
+          1.1195542765592614,
+          1.319337375715844,
+          6.4964988106193235
+        ],
+        "note": "Held-out prediction scores are not tests of Rubin pooling or interval coverage."
+      },
+      "peak_cuda_allocated_bytes": null
+    },
+    {
+      "warmup": false,
+      "seed": 20260927,
+      "status": "ok",
+      "wall_seconds": 2.169516083027702,
+      "diagnostics": {
+        "engine": "torch-native-continuous",
+        "reference_version": "1.8.3",
+        "scope": "continuous numeric matrices; no cell priors, bounds, transformations or time structure",
+        "device": "mps",
+        "dtype": "float32",
+        "seed": 20260927,
+        "converged": true,
+        "replicates": [
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 40,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 41,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 43,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 45,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          },
+          {
+            "device": "mps",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": [
+              "initialization",
+              "missingness_grouping",
+              "eigenvalue_diagnostics"
+            ],
+            "iterations": 37,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0,
+            "bootstrap_attempts": 1
+          }
+        ],
+        "column_names": null,
+        "column_order_zero_based": [
+          4,
+          6,
+          5,
+          3,
+          2,
+          0,
+          1
+        ],
+        "scale_mean_original_order": [
+          1.0925027881189282,
+          0.12338871398206781,
+          240.81849177391925,
+          4.61888055918701,
+          1.1179542517618535,
+          1.313325154028752,
+          6.506453161249033
+        ],
+        "scale_sd_original_order": [
+          1.0523082220350808,
+          0.11243402309425349,
+          3.2600304379394918,
+          4.417468094295807,
+          6.133782942443611,
+          5.822233135701446,
+          8.44441122367692
+        ],
+        "wholly_missing_rows_retained": 0,
+        "rng": "NumPy PCG64; same seed does not reproduce R draws"
+      },
+      "quality": {
+        "observed_values_preserved": true,
+        "remaining_missing_cells": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "normalized_rmse_per_imputation": [
+          0.9982762393696757,
+          0.9966007976511315,
+          0.9974002073435131,
+          1.0003689474989381,
+          1.0017661281514665
+        ],
+        "unscored_heldout_cells_per_imputation": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pooled_column_means": [
+          1.0917949963119677,
+          0.12336616655329564,
+          240.81670044759161,
+          4.628813626582467,
+          1.1136180542838823,
+          1.3188216843731069,
+          6.509692381883785
+        ],
+        "note": "Held-out prediction scores are not tests of Rubin pooling or interval coverage."
+      },
+      "peak_cuda_allocated_bytes": null
+    }
+  ],
+  "completed_utc": "2026-09-24T01:56:27.727102+00:00",
+  "parameter_file": "household_power-mps32.parameters.npz",
+  "summary": {
+    "successful_measured_runs": 5,
+    "median_seconds": 2.232101833971683,
+    "iqr_seconds": [
+      2.176791041973047,
+      2.2592115000006743
+    ],
+    "all_requested_runs_succeeded": true
+  }
+}

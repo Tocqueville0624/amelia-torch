@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amelia-torch"
+version = "0.0.1.dev0"
+description = "Development implementation of Amelia-style bootstrap EM multiple imputation in PyTorch"
+readme = "README.md"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [{name = "Sheng Wan", email = "swan0624@uw.edu"}]
+requires-python = ">=3.12,<3.13"
+dependencies = ["numpy>=2,<3", "scipy>=1.14,<2"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+reference = ["pandas>=2,<4"]
+torch = ["torch>=2.10,<3"]
+
+[project.urls]
+Repository = "https://github.com/Tocqueville0624/amelia-torch"
+Issues = "https://github.com/Tocqueville0624/amelia-torch/issues"
+
+[project.scripts]
+amelia-probe = "amelia_torch.diagnostics:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.setuptools.package-data]
+amelia_torch = ["_r/*.R"]
