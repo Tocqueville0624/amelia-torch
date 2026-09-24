@@ -5,6 +5,7 @@ but they start R processes and exercise the actual official package.
 """
 
 import json
+import os
 import shutil
 import struct
 import subprocess
@@ -120,11 +121,13 @@ def test_column_names_cannot_collide_when_encoded_for_r(tmp_path):
 
 
 def test_relative_rscript_is_resolved_before_temporary_working_directory(tmp_path, monkeypatch):
-    executable = tmp_path / "Rscript"
+    executable = tmp_path / ("Rscript.exe" if os.name == "nt" else "Rscript")
+    # This placeholder is only looked up, never executed. Windows requires a
+    # recognized executable suffix for shutil.which's PATHEXT-based lookup.
     executable.write_text("#!/bin/sh\nexit 0\n")
     executable.chmod(0o700)
     monkeypatch.chdir(tmp_path)
-    resolved, _ = _runtime_environment("./Rscript", None)
+    resolved, _ = _runtime_environment(f"./{executable.name}", None)
     assert resolved == str(executable.resolve())
 
 
