@@ -1,0 +1,65 @@
+name: Intel Mac reference wheel
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/intel-mac-reference.yml'
+      - 'src/**'
+      - 'r-package/**'
+      - 'examples/**'
+      - 'pyproject.toml'
+
+permissions:
+  contents: read
+
+jobs:
+  reference:
+    runs-on: macos-15-intel
+    env:
+      OMP_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: 'x64'
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.5.3'
+          use-public-rspm: true
+      - name: Build and install reference wheel in an isolated environment
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install build
+          .venv/bin/python -m build --wheel
+          .venv/bin/python - <<'PY'
+          import os, pathlib, subprocess, sys
+          wheels = list(pathlib.Path('dist').glob('*.whl'))
+          assert len(wheels) == 1
+          subprocess.run([sys.executable, '-m', 'pip', 'install', str(wheels[0]) + '[reference]'], check=True)
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write('RETICULATE_PYTHON=' + sys.executable + '\n')
+          PY
+      - name: Install pinned R reference and R interface
+        shell: Rscript {0}
+        run: |
+          install.packages(c("Amelia", "reticulate", "jsonlite", "broom", "foreign"))
+          stopifnot(as.character(packageVersion("Amelia")) == "1.8.3")
+          install.packages("r-package", repos = NULL, type = "source")
+      - name: Verify Intel architecture and absence of Torch
+        run: |
+          .venv/bin/python - <<'PY'
+          import importlib.util, json, pathlib, platform, sys
+          assert platform.machine() == 'x86_64', platform.machine()
+          assert importlib.util.find_spec('torch') is None
+          import amelia_torch
+          from amelia_torch import amelia_reference
+          assert 'torch' not in sys.modules
+          assert 'site-packages' in str(pathlib.Path(amelia_torch.__file__))
+          print(json.dumps({'system':platform.system(), 'architecture':platform.machine(),
+                            'python':platform.python_version(), 'torch_installed':False,
+                            'package_loaded_from_installed_wheel':True}))
+          PY
+      - name: Actual Python and R downstream roundtrip without Torch
+        run: .venv/bin/python examples/python_r_downstream.py --output results/local/intel-reference
