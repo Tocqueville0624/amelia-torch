@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "repository": "Tocqueville0624/amelia-torch",
+  "commit": "ad9bed2dfd33a7b0e0a6e4050eafc031b1726f3e",
+  "run_id": 36274875989,
+  "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36274875989",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-09-26T22:01:06Z",
+  "completed_at": "2026-09-26T22:02:52Z",
+  "jobs": [
+    {
+      "completedAt": "2026-09-26T22:02:52Z",
+      "conclusion": "success",
+      "databaseId": 108495559366,
+      "name": "reference",
+      "startedAt": "2026-09-26T22:01:09Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-26T22:01:11Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-26T22:01:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:01:14Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v6",
+          "number": 2,
+          "startedAt": "2026-09-26T22:01:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:01:14Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 3,
+          "startedAt": "2026-09-26T22:01:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:02:04Z",
+          "conclusion": "success",
+          "name": "Run r-lib/actions/setup-r@v2",
+          "number": 4,
+          "startedAt": "2026-09-26T22:01:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:02:29Z",
+          "conclusion": "success",
+          "name": "Build and install reference wheel in an isolated environment",
+          "number": 5,
+          "startedAt": "2026-09-26T22:02:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:02:46Z",
+          "conclusion": "success",
+          "name": "Install pinned R reference and R interface",
+          "number": 6,
+          "startedAt": "2026-09-26T22:02:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:02:46Z",
+          "conclusion": "success",
+          "name": "Verify Intel architecture and absence of Torch",
+          "number": 7,
+          "startedAt": "2026-09-26T22:02:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:02:49Z",
+          "conclusion": "success",
+          "name": "Actual Python and R downstream roundtrip without Torch",
+          "number": 8,
+          "startedAt": "2026-09-26T22:02:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:02:49Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 15,
+          "startedAt": "2026-09-26T22:02:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:02:50Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v6",
+          "number": 16,
+          "startedAt": "2026-09-26T22:02:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-26T22:02:50Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-09-26T22:02:50Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36274875989/job/108495559366"
+    }
+  ],
+  "environment": {
+    "system": "macOS",
+    "os_version": "15.7.9",
+    "runner_label": "macos-15-intel",
+    "architecture": "x86_64",
+    "python": "3.12.10",
+    "r": "4.5.3",
+    "Amelia": "1.8.3",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "torch_installed": false
+  },
+  "actual_probe": {
+    "system": "Darwin",
+    "architecture": "x86_64",
+    "python": "3.12.10",
+    "torch_installed": false,
+    "package_loaded_from_installed_wheel": true
+  },
+  "installation": {
+    "distribution": "amelia-torch",
+    "version": "0.0.1.dev0",
+    "artifact": "amelia_torch-0.0.1.dev0-py3-none-any.whl",
+    "extras": [
+      "reference"
+    ],
+    "isolated_venv": true,
+    "wheel_build": "passed",
+    "installed_wheel_import": "passed",
+    "compiled_r_package_install": "passed",
+    "wheel_sha256": null,
+    "wheel_hash_note": "Workflow did not upload/hash the wheel. No value inferred from another machine."
+  },
+  "workflow_output_assertions": [
+    "Wrote unchanged official mi.combine output; see the documented 1.8.3 caveats.",
+    "Official R transform, reference append, PDF diagnostic and CSV export completed.",
+    "Verified Python -> RDS -> R transform/append/plot/export -> Python readback."
+  ],
+  "verified_example_steps": [
+    "Python original-reference fit",
+    "RDS save/read",
+    "R transform",
+    "reference append",
+    "headless diagnostic PDF",
+    "CSV export",
+    "Python readback and derived/old-imputation value checks"
+  ],
+  "source_sha256": {
+    ".github/workflows/intel-mac-reference.yml": "f92f3f872101d08d40653bf9d3d3237ca68152d5c670f23dfd57ac180d68b0e4",
+    "examples/python_r_downstream.py": "dc18b52a2927094c9d0a8990e7f2eb2a4228afa416c09ca02d5e309ce8f44fee",
+    "examples/python_r_downstream.R": "1ca8867581712c380700032ba02339d0b143335b4e44dadbc7640e8d9dc2cd16",
+    "pyproject.toml": "d83a779dcddd7d524c05bbd20de7e1086ec757b8892fae84845256a4940fcee2"
+  },
+  "scope": "Actual Intel Mac no-Torch installed-wheel reference route and downstream example, not an entire test-suite job.",
+  "limitations": [
+    "No hybrid or Torch computation was tested on Intel Mac.",
+    "No GUI was opened or visually checked.",
+    "No GPU performance or numerical-quality inference follows.",
+    "Later G3 frontend changes were not included.",
+    "No standalone public wheel artifact was retained by this run."
+  ],
+  "privacy": "Selected metadata and three portable completion lines only; raw logs and runner paths not copied."
+}

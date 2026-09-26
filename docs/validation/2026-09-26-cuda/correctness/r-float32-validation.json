@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "scope": "Three fixed public R-pipeline GPU cases against original Amelia 1.8.3, matched R seed; m=3. No timing or distributional-equivalence claim.",
+  "device": "cuda",
+  "dtype": "float32",
+  "R": "4.5.3",
+  "Amelia": "1.8.3",
+  "gates": {
+    "theta_all_equal_tolerance": 0.0001,
+    "max_standardized_continuous_error": 0.002,
+    "max_discrete_disagreement_fraction": 0.01
+  },
+  "all_passed": true,
+  "cases": [
+    {
+      "case": "transformed",
+      "passed": true,
+      "checks": {
+        "original_class": true,
+        "theta": true,
+        "observed": true,
+        "continuous": true,
+        "categorical": true,
+        "converged": true,
+        "gpu_used": true
+      },
+      "max_standardized_continuous_error": 3.41909350062073e-07,
+      "discrete_disagreements": 0,
+      "discrete_cells": 0,
+      "backend": {
+        "engine": "r-amelia-torch-em",
+        "call_engine": "r-amelia-torch-em",
+        "reference_version": "1.8.3",
+        "device": "cuda",
+        "dtype": "float32",
+        "experimental": true,
+        "torch_used": true,
+        "gpu_used": true,
+        "current_call_torch_used": true,
+        "current_call_gpu_used": true,
+        "historical_m": 0,
+        "previous_backend": null,
+        "new_m": 3,
+        "total_m": 3,
+        "r_cpu_work": ["preprocessing", "bootstrap and RNG", "conditional draws", "postprocessing"],
+        "fits": [
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 4,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 5,
+            "empri_final": 0
+          },
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 5,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 5,
+            "empri_final": 0
+          },
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 6,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 5,
+            "empri_final": 0
+          }
+        ],
+        "converged": true
+      }
+    },
+    {
+      "case": "categorical",
+      "passed": true,
+      "checks": {
+        "original_class": true,
+        "theta": true,
+        "observed": true,
+        "continuous": true,
+        "categorical": true,
+        "converged": true,
+        "gpu_used": true
+      },
+      "max_standardized_continuous_error": 4.64644475735638e-07,
+      "discrete_disagreements": 0,
+      "discrete_cells": 1440,
+      "backend": {
+        "engine": "r-amelia-torch-em",
+        "call_engine": "r-amelia-torch-em",
+        "reference_version": "1.8.3",
+        "device": "cuda",
+        "dtype": "float32",
+        "experimental": true,
+        "torch_used": true,
+        "gpu_used": true,
+        "current_call_torch_used": true,
+        "current_call_gpu_used": true,
+        "historical_m": 0,
+        "previous_backend": null,
+        "new_m": 3,
+        "total_m": 3,
+        "r_cpu_work": ["preprocessing", "bootstrap and RNG", "conditional draws", "postprocessing"],
+        "fits": [
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 7,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0
+          },
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 8,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0
+          },
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 7,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 7,
+            "empri_final": 0
+          }
+        ],
+        "converged": true
+      }
+    },
+    {
+      "case": "prior_bounds",
+      "passed": true,
+      "checks": {
+        "original_class": true,
+        "theta": true,
+        "observed": true,
+        "continuous": true,
+        "categorical": true,
+        "converged": true,
+        "gpu_used": true
+      },
+      "max_standardized_continuous_error": 4.1550667095404e-07,
+      "discrete_disagreements": 0,
+      "discrete_cells": 0,
+      "backend": {
+        "engine": "r-amelia-torch-em",
+        "call_engine": "r-amelia-torch-em",
+        "reference_version": "1.8.3",
+        "device": "cuda",
+        "dtype": "float32",
+        "experimental": true,
+        "torch_used": true,
+        "gpu_used": true,
+        "current_call_torch_used": true,
+        "current_call_gpu_used": true,
+        "historical_m": 0,
+        "previous_backend": null,
+        "new_m": 3,
+        "total_m": 3,
+        "r_cpu_work": ["preprocessing", "bootstrap and RNG", "conditional draws", "postprocessing"],
+        "fits": [
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 5,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 5,
+            "empri_final": 0
+          },
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 6,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 5,
+            "empri_final": 0
+          },
+          {
+            "device": "cuda",
+            "dtype": "float32",
+            "pseudoinverse_uses": 0,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cuda",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 6,
+            "converged": true,
+            "complete_sample": false,
+            "patterns": 5,
+            "empri_final": 0
+          }
+        ],
+        "converged": true
+      }
+    }
+  ]
+}

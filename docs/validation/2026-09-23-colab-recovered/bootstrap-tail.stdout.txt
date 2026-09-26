@@ -1,0 +1,155 @@
+~22.04.3) 11.4.0’
+using C++17
+make[1]: Entering directory '<R-temp>/R.INSTALL42753e0157/RcppTOML/src'
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DTOML_ENABLE_FLOAT16=0 -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DTOML_ENABLE_FLOAT16=0 -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c parse.cpp -o parse.o
+g++ -std=gnu++17 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -o RcppTOML.so RcppExports.o parse.o -L/usr/lib/R/lib -lR
+make[1]: Leaving directory '<R-temp>/R.INSTALL42753e0157/RcppTOML/src'
+installing to <project>/.R-library/00LOCK-RcppTOML/00new/RcppTOML/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (RcppTOML)
+begin installing package ‘reticulate’
+* installing *source* package ‘RcppArmadillo’ ...
+** this is package ‘RcppArmadillo’ version ‘15.6.0-1’
+** package ‘RcppArmadillo’ successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether g++ -std=gnu++17 accepts -g... yes
+checking for g++ -std=gnu++17 option to enable C++11 features... none needed
+checking how to run the C++ preprocessor... g++ -std=gnu++17 -E
+checking whether the compiler supports GNU C++... (cached) yes
+checking whether g++ -std=gnu++17 accepts -g... (cached) yes
+checking for g++ -std=gnu++17 option to enable C++11 features... (cached) none needed
+checking what system we are on... running Linux on x86_64
+checking whether we have a suitable tempdir... /tmp
+checking whether on Linux... yes
+checking whether R CMD SHLIB can already compile OpenMP programs... yes
+checking whether on macOS... no
+checking for OpenMP... found and suitable
+configure: creating ./config.status
+config.status: creating inst/include/RcppArmadillo/config/RcppArmadilloConfigGenerated.h
+config.status: creating src/Makevars
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0’
+make[1]: Entering directory '<R-temp>/R.INSTALL4f84c97c0b9/RcppArmadillo/src'
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DARMA_USE_CURRENT -I'/usr/lib/R/site-library/Rcpp/include'    -fopenmp -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c RcppArmadillo.cpp -o RcppArmadillo.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DARMA_USE_CURRENT -I'/usr/lib/R/site-library/Rcpp/include'    -fopenmp -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DARMA_USE_CURRENT -I'/usr/lib/R/site-library/Rcpp/include'    -fopenmp -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c fastLm.cpp -o fastLm.o
+g++ -std=gnu++17 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -o RcppArmadillo.so RcppArmadillo.o RcppExports.o fastLm.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+make[1]: Leaving directory '<R-temp>/R.INSTALL4f84c97c0b9/RcppArmadillo/src'
+installing to <project>/.R-library/00LOCK-RcppArmadillo/00new/RcppArmadillo/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (RcppArmadillo)
+* installing *source* package ‘reticulate’ ...
+** this is package ‘reticulate’ version ‘1.47.0’
+** package ‘reticulate’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0’
+make[1]: Entering directory '<R-temp>/R.INSTALL88f13201b98/reticulate/src'
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c event_loop.cpp -o event_loop.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c libpython.cpp -o libpython.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c output.cpp -o output.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c pending_py_calls_notifier.cpp -o pending_py_calls_notifier.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c python.cpp -o python.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c readline.cpp -o readline.o
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c signals.cpp -o signals.o
+g++ -std=gnu++17 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -o reticulate.so RcppExports.o event_loop.o libpython.o output.o pending_py_calls_notifier.o python.o readline.o signals.o -L/usr/lib/R/lib -lR
+make[1]: Leaving directory '<R-temp>/R.INSTALL88f13201b98/reticulate/src'
+installing to <project>/.R-library/00LOCK-reticulate/00new/reticulate/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (reticulate)
+
+The downloaded source packages are in
+	‘<R-temp>/downloaded_packages’
+* installing *source* package ‘Amelia’ ...
+** this is package ‘Amelia’ version ‘1.8.3’
+** package ‘Amelia’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C compiler: ‘gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0’
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0’
+g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include' -I'<project>/.R-library/RcppArmadillo/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2   -c em.cpp -o em.o
+gcc -I"/usr/share/R/include" -DNDEBUG  -I'/usr/lib/R/site-library/Rcpp/include' -I'<project>/.R-library/RcppArmadillo/include'     -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2  -c init.c -o init.o
+'LdFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.
+'RcppLdFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.
+g++ -std=gnu++17 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -o Amelia.so em.o init.o -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+'LdFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.
+'RcppLdFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.
+installing to <project>/.R-library/00LOCK-Amelia/00new/Amelia/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (Amelia)
+Setup: r_setup_check
+Amelia 1.8.3 
+reticulate 1.47.0 
+jsonlite 2.0.0 
+Setup: r_bridge_install
+* installing *source* package ‘ameliatorch’ ...
+** this is package ‘ameliatorch’ version ‘0.0.0.9000’
+** using staged installation
+** libs
+using C compiler: ‘gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0’
+gcc -I"/usr/share/R/include" -DNDEBUG       -fpic  -g -O2 -ffile-prefix-map=/build/r-base-QoVTUP/r-base-4.5.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2  -c rng_state.c -o rng_state.o
+gcc -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -o ameliatorch.so rng_state.o -L/usr/lib/R/lib -lR
+installing to <project>/.R-library/00LOCK-r-package/00new/ameliatorch/libs
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (ameliatorch)
+Setup passed: <project>/results/local/cloud/bootstrap/bootstrap.json
+
+BOOTSTRAP_EXIT 0

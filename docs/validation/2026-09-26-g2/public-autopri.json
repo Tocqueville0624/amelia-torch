@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "scope": "Public CPU64 pathological boundary audit",
+  "input_seed": 7,
+  "fit_seed": 102,
+  "engines": {
+    "reference": {
+      "code": 2,
+      "message": "All of the imputations resulted in a covariance matrix that is not invertible.",
+      "iterations": 300,
+      "empri_initial": 0,
+      "empri_final": 5,
+      "updates": [
+        [216, 1],
+        [217, 2],
+        [219, 3],
+        [293, 4],
+        [296, 5]
+      ],
+      "singular_flag_count": 152,
+      "final_history": [
+        [20, 0, 1]
+      ],
+      "final_covariance_min_eigenvalue": -1.6042359293780393e-15,
+      "r_warnings": "The variable V5 is perfectly collinear with another variable in the data.\n",
+      "hold_checks": [
+        {
+          "update_iteration": 216,
+          "tested_iteration": 217,
+          "current_empri": 1,
+          "initial_hold": 0,
+          "fixed_hold_max_abs_error": 1.1102230246251565e-16,
+          "hypothetical_rebuilt_hold_max_abs_error": 0.0048780487804879202
+        },
+        {
+          "update_iteration": 217,
+          "tested_iteration": 218,
+          "current_empri": 2,
+          "initial_hold": 0,
+          "fixed_hold_max_abs_error": 1.1102230246251565e-16,
+          "hypothetical_rebuilt_hold_max_abs_error": 0.0097087378640777766
+        },
+        {
+          "update_iteration": 219,
+          "tested_iteration": 220,
+          "current_empri": 3,
+          "initial_hold": 0,
+          "fixed_hold_max_abs_error": 1.1102230246251565e-16,
+          "hypothetical_rebuilt_hold_max_abs_error": 0.014492753623188359
+        },
+        {
+          "update_iteration": 293,
+          "tested_iteration": 294,
+          "current_empri": 4,
+          "initial_hold": 0,
+          "fixed_hold_max_abs_error": 1.1102230246251565e-16,
+          "hypothetical_rebuilt_hold_max_abs_error": 0.019230769230769384
+        },
+        {
+          "update_iteration": 296,
+          "tested_iteration": 297,
+          "current_empri": 5,
+          "initial_hold": 0,
+          "fixed_hold_max_abs_error": 2.2204460492503131e-16,
+          "hypothetical_rebuilt_hold_max_abs_error": 0.023923444976076569
+        }
+      ],
+      "hold_branch_observed": true,
+      "status_matches_original_eigenvalue_rule": true,
+      "hybrid_metadata": null,
+      "passed": true
+    },
+    "hybrid": {
+      "code": 1,
+      "message": "Normal EM convergence.",
+      "iterations": 300,
+      "empri_initial": 0,
+      "empri_final": 3,
+      "updates": [
+        [216, 1],
+        [217, 2],
+        [219, 3]
+      ],
+      "singular_flag_count": 31,
+      "final_history": [
+        [9, 0, 0]
+      ],
+      "final_covariance_min_eigenvalue": 6.2473912047913768e-16,
+      "r_warnings": "The variable V5 is perfectly collinear with another variable in the data.\n",
+      "hold_checks": [
+        {
+          "update_iteration": 216,
+          "tested_iteration": 217,
+          "current_empri": 1,
+          "initial_hold": 0,
+          "fixed_hold_max_abs_error": 1.1102230246251565e-16,
+          "hypothetical_rebuilt_hold_max_abs_error": 0.0048780487804878092
+        },
+        {
+          "update_iteration": 217,
+          "tested_iteration": 218,
+          "current_empri": 2,
+          "initial_hold": 0,
+          "fixed_hold_max_abs_error": 2.2204460492503131e-16,
+          "hypothetical_rebuilt_hold_max_abs_error": 0.0097087378640776656
+        },
+        {
+          "update_iteration": 219,
+          "tested_iteration": 220,
+          "current_empri": 3,
+          "initial_hold": 0,
+          "fixed_hold_max_abs_error": 1.1102230246251565e-16,
+          "hypothetical_rebuilt_hold_max_abs_error": 0.01449275362318847
+        }
+      ],
+      "hold_branch_observed": true,
+      "status_matches_original_eigenvalue_rule": true,
+      "hybrid_metadata": {
+        "engine": "r-amelia-torch-em",
+        "call_engine": "r-amelia-torch-em",
+        "reference_version": "1.8.3",
+        "device": "cpu",
+        "dtype": "float64",
+        "experimental": true,
+        "torch_used": true,
+        "gpu_used": false,
+        "current_call_torch_used": true,
+        "current_call_gpu_used": false,
+        "historical_m": 0,
+        "previous_backend": null,
+        "new_m": 1,
+        "total_m": 1,
+        "r_cpu_work": ["preprocessing", "bootstrap and RNG", "conditional draws", "postprocessing"],
+        "fits": [
+          {
+            "device": "cpu",
+            "dtype": "float64",
+            "pseudoinverse_uses": 72,
+            "empri_initial": 0,
+            "eigenvalue_check_device": "cpu",
+            "explicit_cpu_work": ["initialization", "missingness_grouping"],
+            "iterations": 300,
+            "converged": false,
+            "complete_sample": false,
+            "patterns": 31,
+            "empri_final": 3
+          }
+        ],
+        "converged": false
+      },
+      "passed": true
+    }
+  },
+  "raw_dimensions": [200, 5],
+  "prepared_dimensions": [197, 5],
+  "blank_rows": [40, 79, 107],
+  "options": {
+    "m": 1,
+    "p2s": 0,
+    "boot.type": "none",
+    "startvals": 1,
+    "empri": 0,
+    "autopri": 0.050000000000000003,
+    "tolerance": 1.0000000000000001e-15,
+    "emburn": [300, 300]
+  },
+  "both_engines_hold_branch_observed": true,
+  "all_executed_checks_passed": true
+}

@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "revision": "fa08a5207d197a3f82ced7913a67bc448c8ecacc",
+  "label": "20260926-validation",
+  "created_utc": "2026-09-26T21:54:15.281191+00:00",
+  "scope": "JSON/log/text reports and prepared metadata only; project/home paths replaced; excludes credentials, RDS, installed libraries and raw data",
+  "files": [
+    {
+      "path": "data/manifest.json",
+      "original_sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2",
+      "portable_sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/bootstrap.json",
+      "original_sha256": "2feaf8092f434a2fb1394da8724d7d2a8cd8100c5db05d252ee63c824e38bdd2",
+      "portable_sha256": "2feaf8092f434a2fb1394da8724d7d2a8cd8100c5db05d252ee63c824e38bdd2"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/python-packages.json",
+      "original_sha256": "8e3f8c0559fed10dfa16610d9b50b2c757b50520302b911aa9ea1ae8b33643f1",
+      "portable_sha256": "8e3f8c0559fed10dfa16610d9b50b2c757b50520302b911aa9ea1ae8b33643f1"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/python_install.log",
+      "original_sha256": "b23ac61d3caa037d7a2a7b036f96568e4dfd86af01d2e09133dafd351a954e9a",
+      "portable_sha256": "b23ac61d3caa037d7a2a7b036f96568e4dfd86af01d2e09133dafd351a954e9a"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/r_bridge_install.log",
+      "original_sha256": "f6f75c9e26535d7f8d92cb0b28c52664dd6a91eb54c618a890cac53ea773b9ea",
+      "portable_sha256": "f6f75c9e26535d7f8d92cb0b28c52664dd6a91eb54c618a890cac53ea773b9ea"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/r_reference_install.log",
+      "original_sha256": "7e573509165b1aef88b83cb6081c15be7fec8c8f153b70d9c5db69d812e81943",
+      "portable_sha256": "7e573509165b1aef88b83cb6081c15be7fec8c8f153b70d9c5db69d812e81943"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/r_setup_check.log",
+      "original_sha256": "5c07748b8cd763d686272c57495d3de0ff264c3c1223f6ab11d1426bdfd8cb0a",
+      "portable_sha256": "5c07748b8cd763d686272c57495d3de0ff264c3c1223f6ab11d1426bdfd8cb0a"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/ruff_probe.log",
+      "original_sha256": "40b590deb0215fc30c60582516c9a2d959d83cc2ea72ed543d07e6e355c07b72",
+      "portable_sha256": "40b590deb0215fc30c60582516c9a2d959d83cc2ea72ed543d07e6e355c07b72"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/ruff_venv_reinstall.log",
+      "original_sha256": "5746f091d9d7599be709a50b428bcc515ff52a3b5b64c164b6c1c647cb36264b",
+      "portable_sha256": "5746f091d9d7599be709a50b428bcc515ff52a3b5b64c164b6c1c647cb36264b"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/ruff_verify.log",
+      "original_sha256": "fb450f699de68876c6eeb656aed34a3cfa7fbe0157b8f5092990c83e511bf9e5",
+      "portable_sha256": "fb450f699de68876c6eeb656aed34a3cfa7fbe0157b8f5092990c83e511bf9e5"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/uv_fallback_install.log",
+      "original_sha256": "1f03e492d5e84a05c98eba8423ef7d8a992bb0b58b68e3c6180b9b508be46205",
+      "portable_sha256": "1f03e492d5e84a05c98eba8423ef7d8a992bb0b58b68e3c6180b9b508be46205"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/uv_fallback_venv.log",
+      "original_sha256": "d57a5f39a125db9aa4941720de8aa9a387f8fc4755d694d38b5337288ec002a4",
+      "portable_sha256": "d57a5f39a125db9aa4941720de8aa9a387f8fc4755d694d38b5337288ec002a4"
+    },
+    {
+      "path": "results/local/cloud/cuda-probe.json",
+      "original_sha256": "9880a12f35d6098cf116c44c7056529eeb4dfd6a2fccee846733c7c4e9d60dad",
+      "portable_sha256": "9880a12f35d6098cf116c44c7056529eeb4dfd6a2fccee846733c7c4e9d60dad"
+    },
+    {
+      "path": "results/local/cloud/cuda-probe.log",
+      "original_sha256": "9880a12f35d6098cf116c44c7056529eeb4dfd6a2fccee846733c7c4e9d60dad",
+      "portable_sha256": "9880a12f35d6098cf116c44c7056529eeb4dfd6a2fccee846733c7c4e9d60dad"
+    },
+    {
+      "path": "results/local/cloud/downstream-example/roundtrip.json",
+      "original_sha256": "644663c026a4db4e53a1f6696e89d51b86fb8133f5f1747732f5d994c8230a61",
+      "portable_sha256": "644663c026a4db4e53a1f6696e89d51b86fb8133f5f1747732f5d994c8230a61"
+    },
+    {
+      "path": "results/local/cloud/downstream-example.log",
+      "original_sha256": "ebd5e2186b762e19ac836addc35631618b286f254f8f0c621e6cad2128badfd7",
+      "portable_sha256": "ebd5e2186b762e19ac836addc35631618b286f254f8f0c621e6cad2128badfd7"
+    },
+    {
+      "path": "results/local/cloud/native-float32-validation.json",
+      "original_sha256": "7c6715b35af77797049f17b3a1a71646e81412d5d5a3ac2017160e06b65aca9d",
+      "portable_sha256": "7c6715b35af77797049f17b3a1a71646e81412d5d5a3ac2017160e06b65aca9d"
+    },
+    {
+      "path": "results/local/cloud/native-float32.log",
+      "original_sha256": "0692b9e4b7a36783202208c9f58df85c076784334904b7aec771653a47fab72b",
+      "portable_sha256": "0692b9e4b7a36783202208c9f58df85c076784334904b7aec771653a47fab72b"
+    },
+    {
+      "path": "results/local/cloud/native-float64-validation.json",
+      "original_sha256": "0281bdf97cb9102945aca9ee0863e7082c98406076146f2fb2d13afc1444ebe9",
+      "portable_sha256": "0281bdf97cb9102945aca9ee0863e7082c98406076146f2fb2d13afc1444ebe9"
+    },
+    {
+      "path": "results/local/cloud/native-float64.log",
+      "original_sha256": "0692b9e4b7a36783202208c9f58df85c076784334904b7aec771653a47fab72b",
+      "portable_sha256": "0692b9e4b7a36783202208c9f58df85c076784334904b7aec771653a47fab72b"
+    },
+    {
+      "path": "results/local/cloud/pytest.log",
+      "original_sha256": "49f7a3bb258c15c9f3fbb1da2b6c9892c240480a4d7149946ab065321b158e93",
+      "portable_sha256": "49f7a3bb258c15c9f3fbb1da2b6c9892c240480a4d7149946ab065321b158e93"
+    },
+    {
+      "path": "results/local/cloud/r-float32-validation.json",
+      "original_sha256": "135b01a933eaaf16889984d41b2ceede7c78c5c54f2b85067e1d6eb15cf4a7c7",
+      "portable_sha256": "135b01a933eaaf16889984d41b2ceede7c78c5c54f2b85067e1d6eb15cf4a7c7"
+    },
+    {
+      "path": "results/local/cloud/r-float32.log",
+      "original_sha256": "f53ba98bd5ccd89786be77da6bac090980cf022a03eaab83a99051a3796a8fe7",
+      "portable_sha256": "f53ba98bd5ccd89786be77da6bac090980cf022a03eaab83a99051a3796a8fe7"
+    },
+    {
+      "path": "results/local/cloud/r-float64-validation.json",
+      "original_sha256": "bbbfd88f6a34e636f4818c2ae9c504bc9dcf428dc6114dfec7c1692246222a92",
+      "portable_sha256": "bbbfd88f6a34e636f4818c2ae9c504bc9dcf428dc6114dfec7c1692246222a92"
+    },
+    {
+      "path": "results/local/cloud/r-float64.log",
+      "original_sha256": "f2e3437f1d13e08994746a3d22ef2f18f903a11d7675f563bd22b0502ddabf0e",
+      "portable_sha256": "f2e3437f1d13e08994746a3d22ef2f18f903a11d7675f563bd22b0502ddabf0e"
+    },
+    {
+      "path": "results/local/cloud/r-test-bridge.log",
+      "original_sha256": "db5510227de5943c7acd65e0e7b25901c066e9843f0612a6cbeed5d8d356ec58",
+      "portable_sha256": "db5510227de5943c7acd65e0e7b25901c066e9843f0612a6cbeed5d8d356ec58"
+    },
+    {
+      "path": "results/local/cloud/r-test-compatibility.log",
+      "original_sha256": "d90e5c93b470eeb3d54df179d5df463e43357fc8d103563495e47f7a4a72c668",
+      "portable_sha256": "d90e5c93b470eeb3d54df179d5df463e43357fc8d103563495e47f7a4a72c668"
+    },
+    {
+      "path": "results/local/cloud/r-test-downstream.log",
+      "original_sha256": "2a14572d4b67d28bd72721bf963be792f011b971f774977248dfa7151e303d00",
+      "portable_sha256": "2a14572d4b67d28bd72721bf963be792f011b971f774977248dfa7151e303d00"
+    },
+    {
+      "path": "results/local/cloud/r-test-downstream_extended.log",
+      "original_sha256": "783e21019efdccc73170a92ec553f9031320177f5f26141f95a4471cc03e640a",
+      "portable_sha256": "783e21019efdccc73170a92ec553f9031320177f5f26141f95a4471cc03e640a"
+    },
+    {
+      "path": "results/local/cloud/r-test-public-edge-cases.log",
+      "original_sha256": "c952e460a708457261b4d1f68ac729d0737203c3b74856f51677ab1de6d93b02",
+      "portable_sha256": "c952e460a708457261b4d1f68ac729d0737203c3b74856f51677ab1de6d93b02"
+    },
+    {
+      "path": "results/local/cloud/r-test-reference_metadata.log",
+      "original_sha256": "7bbc91d3a3c37551ef6d14354b41d700c4ef303ec045c5a11f872528e0a6c83b",
+      "portable_sha256": "7bbc91d3a3c37551ef6d14354b41d700c4ef303ec045c5a11f872528e0a6c83b"
+    },
+    {
+      "path": "results/local/cloud/r-test-torch-compat.log",
+      "original_sha256": "d0a50270fd69e416ba6448054916d98b63cca464debb448c5f5e3faf4e9f6762",
+      "portable_sha256": "d0a50270fd69e416ba6448054916d98b63cca464debb448c5f5e3faf4e9f6762"
+    },
+    {
+      "path": "results/local/cloud/ruff.log",
+      "original_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "portable_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "results/local/cloud/validation-steps.json",
+      "original_sha256": "430e470e012f0be61b62ec56b905f43d1e2c20eea7db93285568fcfe1bc59cba",
+      "portable_sha256": "430e470e012f0be61b62ec56b905f43d1e2c20eea7db93285568fcfe1bc59cba"
+    }
+  ]
+}

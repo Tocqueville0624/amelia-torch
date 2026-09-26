@@ -1,0 +1,4 @@
+Warning message:
+Some Python package requirements declared via `py_require()` are not installed in the selected Python environment: (<project>/.venv/bin/python)
+  numpy 
+Downstream CPU summaries, PDF diagnostics, pooling, CSV export, saved arguments, extension, molist and allthetas checks passed.

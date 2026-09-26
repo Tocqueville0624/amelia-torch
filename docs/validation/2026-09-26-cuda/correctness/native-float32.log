@@ -1,0 +1,4 @@
+{"case": "no_prior", "status": "passed"}
+{"case": "empirical_prior", "status": "passed"}
+{"case": "cell_prior", "status": "passed"}
+{"expected_cases": 3, "completed_cases": 3, "passed_cases": 3, "all_passed": true}

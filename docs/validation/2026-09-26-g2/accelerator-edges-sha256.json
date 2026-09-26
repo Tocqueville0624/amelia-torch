@@ -1,0 +1,8 @@
+{
+  "scope": "CPU64 smoke only. GPU cases not executed yet. Independent static review found no blocking issue.",
+  "files": {
+    "scripts/validate_r_accelerator_edges.R": "d9801f25554d69569fd2e11238d3a992a2bb3b0fbdc0fb749c15bb5eee3b3ffd",
+    "docs/validation/2026-09-26-g2/accelerator-edges.md": "9b838c26785007ea593f0fbcbcad8383e8a6978483288c0813329b3655304395",
+    "docs/validation/2026-09-26-g2/r-accelerator-edges-cpu64.json": "6c9ff1b97492a31972e883b57a43869eb44c176c6339e1fa6f30f4d912bb8e53"
+  }
+}

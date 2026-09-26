@@ -1,0 +1,175 @@
+{
+  "kind": "environment_and_operator_smoke_only",
+  "utc_time": "2026-09-26T21:51:33.853433+00:00",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "architecture": "x86_64",
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "numpy": "2.0.2",
+  "cpu_threads": 1,
+  "mps_available": false,
+  "mps_built": false,
+  "mps_cpu_fallback_env": "0",
+  "cuda_available": true,
+  "cuda_runtime": "12.8",
+  "probes": [
+    {
+      "device": "cpu",
+      "dtype": "float64",
+      "operations": {
+        "matmul": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "cholesky": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "solve": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "sum": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "index_select": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "normal_draws": {
+          "ok": true,
+          "output_device": "cpu"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "dtype": "float32",
+      "operations": {
+        "matmul": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "cholesky": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 4.4740818161415064e-08
+        },
+        "solve": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 1.0837208130887177e-08
+        },
+        "sum": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "index_select": {
+          "ok": true,
+          "output_device": "cpu",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "normal_draws": {
+          "ok": true,
+          "output_device": "cpu"
+        }
+      }
+    },
+    {
+      "device": "cuda",
+      "dtype": "float64",
+      "operations": {
+        "matmul": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "cholesky": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "solve": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "sum": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "index_select": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "normal_draws": {
+          "ok": true,
+          "output_device": "cuda:0"
+        }
+      }
+    },
+    {
+      "device": "cuda",
+      "dtype": "float32",
+      "operations": {
+        "matmul": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "cholesky": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 4.4740818161415064e-08
+        },
+        "solve": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 1.0837208130887177e-08
+        },
+        "sum": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "index_select": {
+          "ok": true,
+          "output_device": "cuda:0",
+          "max_abs_error_vs_cpu_float64": 0.0
+        },
+        "normal_draws": {
+          "ok": true,
+          "output_device": "cuda:0"
+        }
+      }
+    }
+  ],
+  "cuda_device": {
+    "name": "Tesla T4",
+    "memory_bytes": 15637086208,
+    "compute_capability": [
+      7,
+      5
+    ],
+    "compiled_architectures": [
+      "sm_70",
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ],
+    "matmul_allow_tf32": false
+  }
+}

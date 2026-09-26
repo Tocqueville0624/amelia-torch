@@ -1,0 +1,401 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "base_commit": "fa08a5207d197a3f82ced7913a67bc448c8ecacc",
+  "uncommitted_frontend_fix": true,
+  "scope": "Bounded Python/R types, dependency failures and headless session routing. Local macOS arm64 CPU only.",
+  "environment": {
+    "os": "macOS",
+    "architecture": "arm64",
+    "python": "3.12.13",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "torch": "2.14.0",
+    "r": "4.5.3",
+    "Amelia": "1.8.3",
+    "ameliatorch": "0.0.0.9000",
+    "reticulate": "1.47.0",
+    "jsonlite": "2.0.0"
+  },
+  "test_command": "python -m pytest -q tests/test_reference_boundaries.py tests/test_reference.py tests/test_hybrid_reference.py",
+  "result": {
+    "tests": 53,
+    "passed": 53,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 29.104,
+    "new_boundary_cases": 29,
+    "existing_reference_cases": 17,
+    "existing_hybrid_cases": 7
+  },
+  "final_no_r_required_guard_check": {
+    "command": "python -m pytest -q tests/test_reference_boundaries.py -k frontend_true",
+    "passed": 10,
+    "deselected": 19,
+    "seconds": 0.16,
+    "detail": "Removed unnecessary R-availability skip, then reran all 10 guard cases; every subprocess launch is blocked by the test."
+  },
+  "history": [
+    {
+      "stage": "initial",
+      "passed": 9,
+      "failed": 6,
+      "interpretation": "Two failures exposed real missing frontend prelaunch rejection. Two were incorrect test expectations about upstream integer-ID dtype. Two temporary-library test fixtures omitted normal dependency libraries."
+    },
+    {
+      "stage": "after_frontend_fix",
+      "passed": 25,
+      "failed": 2,
+      "interpretation": "An independent official R call confirmed upstream all-NA character IDs become literal string 1 with noms in this fixture; neither bridge was changed."
+    },
+    {
+      "stage": "independent_oracle_added",
+      "passed": 25,
+      "failed": 4,
+      "interpretation": "Test expected all analytical cells finite, overlooking original wholly missing analysis rows; corrected the test to require those rows remain NA."
+    },
+    {
+      "stage": "final_combined",
+      "passed": 53,
+      "failed": 0,
+      "interpretation": "All bounded new cases and existing reference/hybrid regressions passed."
+    }
+  ],
+  "source_sha256": {
+    "src/amelia_torch/reference.py": "c426b318e595795f69fda83fc44cc78c3c4ba88bbcad933d5efddd83685a91f5",
+    "src/amelia_torch/_r/reference_bridge.R": "07d3f709b3840ef6513f8332807a69fa00e0e67836f5f918edb93f3fe937eebc",
+    "tests/test_reference_boundaries.py": "86239a6b8b12d9708a26b08bfcbbe30a84bac62f16f556ceb479d7e764b0b776",
+    "tests/test_reference.py": "1cced35db4199616103e3fb2a26652cce8f09c59334c798f33d0917765bdbc49",
+    "tests/test_hybrid_reference.py": "53145fc09cd9999427a4004265b06cfcbb1ecf437343911468cc41f91cc95ef7",
+    "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+    "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47"
+  },
+  "cases": [
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_nullable_empty_ids_unicode_and_duplicate_index_actual_rds_roundtrip[False-amelia_reference]",
+      "seconds": 1.026,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_nullable_empty_ids_unicode_and_duplicate_index_actual_rds_roundtrip[False-amelia_torch_compat]",
+      "seconds": 2.301,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_nullable_empty_ids_unicode_and_duplicate_index_actual_rds_roundtrip[True-amelia_reference]",
+      "seconds": 0.609,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_nullable_empty_ids_unicode_and_duplicate_index_actual_rds_roundtrip[True-amelia_torch_compat]",
+      "seconds": 1.759,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_out_of_contract_input_types_are_rejected_explicitly[datetime]",
+      "seconds": 0.005,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_out_of_contract_input_types_are_rejected_explicitly[complex]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_out_of_contract_input_types_are_rejected_explicitly[mixed_object]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_out_of_contract_input_types_are_rejected_explicitly[scipy_sparse]",
+      "seconds": 0.074,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_external_date_and_custom_r_classes_keep_authoritative_rds_not_python_dtype",
+      "seconds": 0.442,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_missing_rscript_explains_install_or_explicit_path",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_wrong_amelia_version_in_temporary_library_is_rejected",
+      "seconds": 0.918,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_missing_hybrid_dll_in_temporary_copy_reports_install_requirement",
+      "seconds": 0.414,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_unavailable_cuda_is_explicit_and_does_not_fallback",
+      "seconds": 1.378,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_missing_torch_in_child_reports_module_requirement",
+      "seconds": 0.817,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_unicode_space_python_and_r_library_paths_execute_actual_hybrid",
+      "seconds": 1.953,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[True-amelia_reference]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[True-amelia_torch_compat]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[frontend1-amelia_reference]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[frontend1-amelia_torch_compat]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[frontend2-amelia_reference]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[frontend2-amelia_torch_compat]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[1-amelia_reference]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[1-amelia_torch_compat]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[TRUE-amelia_reference]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_true_rejected_before_starting_any_r_process[TRUE-amelia_torch_compat]",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_rejection_applies_to_result_extend_and_saved_rds[reference]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_rejection_applies_to_result_extend_and_saved_rds[torch-compat]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_false_preserves_original_flow_and_archived_arglist_is_not_gui_state[amelia_reference]",
+      "seconds": 0.814,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference_boundaries",
+      "name": "test_frontend_false_preserves_original_flow_and_archived_arglist_is_not_gui_state[amelia_torch_compat]",
+      "seconds": 4.367,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_option_transport_preserves_matrix_shape_missing_and_infinities",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_large_integer_transport_rejects_silent_rounding",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_binary_numeric_transport_is_little_endian_and_preserves_special_values",
+      "seconds": 0.003,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_binary_typed_nullable_columns_and_empty_typed_columns",
+      "seconds": 0.005,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_binary_transport_rejects_corrupt_schema_or_file[length]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_binary_transport_rejects_corrupt_schema_or_file[byte_order]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_binary_transport_rejects_corrupt_schema_or_file[sentinel]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_binary_transport_rejects_corrupt_schema_or_file[factor_code]",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_wide_numeric_transport_keeps_json_schema_small",
+      "seconds": 0.026,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_column_names_cannot_collide_when_encoded_for_r",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_relative_rscript_is_resolved_before_temporary_working_directory",
+      "seconds": 0.001,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_numeric_reference_roundtrip_and_official_rds_extension",
+      "seconds": 0.692,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_rds_backend_record_preserves_historical_gpu_provenance",
+      "seconds": 0.871,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_public_categorical_transform_prior_and_bounds_interfaces",
+      "seconds": 0.49,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_single_row_prior_preserves_documented_original_indexing_quirk",
+      "seconds": 0.246,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_original_error_codes_and_unknown_option_are_explicit",
+      "seconds": 0.442,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_reference",
+      "name": "test_saved_arglist_is_forwarded_as_an_actual_r_object",
+      "seconds": 0.575,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_hybrid_reference",
+      "name": "test_importing_both_r_interfaces_does_not_import_torch",
+      "seconds": 0.058,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_hybrid_reference",
+      "name": "test_mps_precision_is_explicit_before_any_runtime_starts",
+      "seconds": 0.0,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_hybrid_reference",
+      "name": "test_numeric_hybrid_matches_reference_and_preserves_engine_when_appending",
+      "seconds": 3.477,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_hybrid_reference",
+      "name": "test_no_bootstrap_replicates_preserve_r_random_stream",
+      "seconds": 1.633,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_hybrid_reference",
+      "name": "test_typed_transforms_priors_and_bounds_match_original_pipeline",
+      "seconds": 1.676,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_hybrid_reference",
+      "name": "test_hybrid_serial_scheduling_constraint_is_explicit",
+      "seconds": 0.224,
+      "outcome": "passed"
+    },
+    {
+      "suite": "tests.test_hybrid_reference",
+      "name": "test_self_contained_molist_rds_uses_the_original_multiple_overimputation_flow",
+      "seconds": 1.708,
+      "outcome": "passed"
+    }
+  ],
+  "limitations": [
+    "No GUI launched or visually checked.",
+    "No new Windows/Linux/Intel or GPU run for these post-fa08a52 changes yet.",
+    "Arrow inputs are not independently tested or part of a general extension-type support promise.",
+    "Missing-Torch case is child-import fault injection, not a new clean no-Torch installation.",
+    "Unicode/space interpreter path uses a real temporary venv but reuses existing test dependencies through PYTHONPATH.",
+    "Date/custom R classes remain in authoritative RDS; Python views do not promise equivalent extension dtypes."
+  ]
+}

@@ -144,6 +144,8 @@ R/PyTorch 混合路径还必须保护 R RNG 的两个状态层：原版 1.8.3 �
 
 同日以独立 `Amelia::amelia()` 公共调用核验：单行 `priors=matrix(c(1,3,0.5,0.05),nrow=1)` 加字符串 `idvars` 会改动第一列的第 1、3 行。原因是 `R/emb.R::impfill` 的 `is.na(x.orig)[priors[,c(1,2)]] <- TRUE` 没有 `drop=FALSE`，单行 prior 的坐标矩阵掉维成向量，变成线性索引而非 row/column 索引。因此“所有公共选项组合都不改观察值”不是 1.8.3 的事实。reference 路径保留原版结果并警告；测试单独固定此边界行为，不把它修成另一个算法版本，也不让普通多行 priors 的观察值检查绕过失败。回归入口是 `tests/test_reference.py::test_single_row_prior_preserves_documented_original_indexing_quirk`。
 
+2026-09-26 以独立原版 R 公共调用核验全缺失 ID：被排除的全 NA integer ID 在返回数据框中提升为 double；全 NA character ID 在纯数值案例中保持 NA，但同时含 `noms` 的固定 90 行案例中返回整列字符串 `"1"`。Python reference 与 CPU64 hybrid 对应输出均与原版一致。这个特定组合保留为版本行为，不静默改成缺失值，也不推广成所有 idvars 的规则。回归入口为 `tests/test_reference_boundaries.py::test_nullable_empty_ids_unicode_and_duplicate_index_actual_rds_roundtrip`；该测试重新构造原始 R 输入、运行未改动的 Amelia 并比对，详见 [G3 记录](validation/2026-09-26-g3/README.md)。
+
 ## 9. 可复現的校验路径
 
 1. 导出脚本要求 Amelia 恰为1.8.3，所有数据和随机输入写入 JSON，JSON 中 null 表示缺失。

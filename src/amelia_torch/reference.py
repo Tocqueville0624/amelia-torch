@@ -417,6 +417,14 @@ def _sanitize(message, work):
 
 def _invoke(*, x, input_rds, operation, m, seed, r_rng_kind, rscript, r_library,
             timeout, return_type, options, engine="reference", device="cpu", dtype="float64"):
+    if "frontend" in options and (
+        not isinstance(options["frontend"], (bool, np.bool_)) or bool(options["frontend"])
+    ):
+        raise ValueError(
+            "The Python subprocess bridge requires frontend=False; frontend=True needs "
+            "the original AmeliaView GUI in an interactive R/Tcl/Tk session. "
+            "This bridge cannot control or attach to that GUI session."
+        )
     if return_type not in {"auto", "numpy", "pandas"}:
         raise ValueError("return_type must be auto, numpy, or pandas")
     if x is not None and input_rds is not None:
@@ -509,6 +517,8 @@ def amelia_reference(x=None, m=5, *, input_rds=None, seed=None, r_rng_kind=None,
     Model arguments (e.g. logs/noms/ords/priors/bounds/ts/cs) are passed directly
     to Amelia for validation. R row/column indices remain 1-based. Use
     ``**{"boot.type": "none"}`` for an R argument containing a dot.
+    ``frontend`` may only be omitted or False: an isolated subprocess cannot
+    participate in the original AmeliaView R/Tcl/Tk GUI session.
 
     NumPy arrays return NumPy arrays. pandas DataFrames preserve factor levels
     and orderedness, numeric/logical/string columns, labels, and missingness as
