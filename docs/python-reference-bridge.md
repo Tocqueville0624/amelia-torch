@@ -37,11 +37,13 @@ result = amelia_reference(
 
 **原版 1.8.3 的单行 priors 特例：**已通过独立 R 公共调用核验，`impfill` 中 `priors[, c(1,2)]` 对单行矩阵会掉维，导致原本的 `(row, column)` 索引变成线性向量索引，可能改动不相关的已观察值，包括字符 idvars。本桥保留原版输出，并在显式传入单行 priors 时返回 warning；不会为了让“观察值不变”测试通过而篡改官方结果。普通两个及以上先验行的接口测试独立验证观察值保留，单行行为另有回归测试。研究者应在使用该原版边界组合前检查其结果；本项目尚不将这一上游行为宣称为修复。
 
-NumPy 二维数值输入返回 NumPy 数组。pandas DataFrame 采用逐列编码，保留缺失位置、列名、factor 类别顺序与 ordered 标记，以及 R 输出中的 numeric/integer/logical/character 类型。显式 nullable 整数、字符串即使整列缺失，也按其已知类型编码。R 官方行为可能把需要连续插补的整数列提升到 double；桥接不会强行取整。datetime/复杂 Python 对象须由用户先明确转换。超过 `2**53` 的整数不能在 R double 中精确表示，因此拒绝静默传输。列名转换为 R 字符串后必须仍然唯一；例如 `1` 与 `"1"` 并存会明确报错。
+NumPy 二维数值输入返回 NumPy 数组。pandas DataFrame 采用逐列编码，保留缺失位置、列名、factor 类别顺序与 ordered 标记，以及 R 输出中的 numeric/integer/logical/character 类型。显式 nullable 整数、字符串即使整列缺失，也按其已知类型编码。R 官方行为可能把整数列（包括被排除的 integer ID）提升到 double；桥接不会强行取整。datetime、complex 数组、混合 object 和 SciPy sparse 输入明确拒绝，须由用户先选择合适的普通列表示。Arrow 类型没有独立验收或通用支持承诺。超过 `2**53` 的整数不能在 R double 中精确表示，因此拒绝静默传输。列名转换为 R 字符串后必须仍然唯一；例如 `1` 与 `"1"` 并存会明确报错。
+
+**原版全缺失 ID 特例：**独立 R 对照发现，全 NA 的 character idvars 在纯数值案例中保持 NA；同时存在 `noms` 类别变量的固定案例中，原版 1.8.3 却将其返回为字符串 `"1"`。reference 与 hybrid 保留这个原版结果，不把 ID 列改动隐藏为桥接修复。这是已核验的特定组合，不能推广成任意缺失 ID 的转换规则；记录见 [G3 类型与会话验证](validation/2026-09-26-g3/README.md)。
 
 大表的数值不会逐格展开成 JSON。transport schema 2 使用显式 little-endian 的二进制列文件：double 为 IEEE754 float64（8 bytes），integer/logical/factor codes 为 int32（4 bytes），R 整数缺失哨兵为 `-2147483648`，double 缺失编码为 NaN。factor 使用 R 的 1-based codes；levels、字符及小 schema 使用 JSON。两端验证行数、字节长度、数据类型、字节序和缺失编码；数值输入/每份插补分别读写。100,000 × 90 的 double 数据每份为 72 MB 的列数据，不会因为文本浮点数展开而膨胀到数百 MB。RDS、输入和多份输出仍会占用内存及临时磁盘，调用者需为其保留空间。
 
-同次调用及 `extend` 保留 Python 的列标签和 index。原版 RDS 保存的是 R 对象：重新读取后标签遵循 R 的字符串表示，Python 专属 MultiIndex、扩展 dtype 等并不伪装成 R 对象内已有的信息。字符、factor、ordered、逻辑和普通数值列仍能从 R 类型恢复。读取带类别的结果需要 pandas；纯数值 RDS 可指定 `return_type="numpy"`。
+同次调用及 `extend` 保留 Python 的列标签和 index，包括重复 index。原版 RDS 保存的是 R 对象：重新读取后标签遵循 R 的字符串表示，Python 专属 MultiIndex、重复 index、扩展 dtype 等并不伪装成 R 对象内已有的信息。字符、factor、ordered、逻辑和普通数值列仍能从 R 类型恢复。外部 RDS 的 Date 列在 Python view 中是字符串，测试中的自定义数值类是普通数值列；其 R 类没有转成 Python 扩展 dtype，但保存的权威 RDS 仍原样保留这些 R 类与属性。读取带类别的结果需要 pandas；纯数值 RDS 可指定 `return_type="numpy"`。
 
 ```python
 from amelia_torch.reference import read_reference_rds, RDSValue
@@ -54,7 +56,7 @@ more.save_rds("official-amelia-result-extended.rds")
 another = amelia_reference(data, m=5, arglist=RDSValue("args.rds"), p2s=0)
 ```
 
-追加调用使用原版 `amelia.amelia` 方法。该版本会复用保存的模型参数，忽略通过 `...` 传来的新模型设置，因此 Python 的 `extend` 仅允许 m、seed、p2s、frontend 等执行设置；改变模型须以原始数据重新拟合。Python 中修改 `imputations` 不会改变保存的原版 RDS，也不会影响追加调用。
+追加调用使用原版 `amelia.amelia` 方法。该版本会复用保存的模型参数，忽略通过 `...` 传来的新模型设置，因此 Python 的 `extend` 仅允许 m、seed、p2s、frontend 等执行设置，其中 frontend 只能省略或为 False；改变模型须以原始数据重新拟合。Python 中修改 `imputations` 不会改变保存的原版 RDS，也不会影响追加调用。
 
 `metadata` 区分**这次调用**与**历史结果来源**。新拟合明确记录 R CPU；外部 RDS 仅有 `amelia` 类不能证明其原始引擎，因此无 backend 属性时 `engine="unknown"`、`torch_used/gpu_used=null`。有 `amelia_torch_backend`（兼容旧 `ameliatorch_backend`）属性时保留其记录。追加使用 `engine="appended-history"`，同时保留旧来源、旧/新份数及本次 `call_engine="r-amelia-reference"`、`call_gpu_used=False`。历史结果来自 GPU 时，不能把整个追加结果称为纯 CPU。Python 对象直接 `extend` 会携带内存中的 provenance；`save_rds` 不给官方对象添加私有属性，故无原始 backend 属性的 RDS 重新读取后来源仍为 unknown。需要保留 Python 调用来源记录时，应把 `metadata` 另存为 JSON。
 
@@ -66,7 +68,7 @@ summary(fit)
 Amelia::compare.density(fit, var = "income")
 ```
 
-R 中的活跃连接、PSOCK cluster、GUI 环境不能作为 Python 对象跨子进程传输；使用原版 R 工作流处理这些对象。常规 `parallel="snow", ncpus=...` 由官方 Amelia 创建 worker。若需要可复现的 R 并行流，显式设 `r_rng_kind="L'Ecuyer-CMRG"`；相同 seed 不表示 R/PyTorch 数值抽样逐一相同。
+R 中的活跃连接、PSOCK cluster、GUI 环境不能作为 Python 对象跨子进程传输；使用原版 R 工作流处理这些对象。Python 的 reference、hybrid、RDS 输入与 `extend` 都要求 `frontend` 省略或为布尔 False；True 或其他类型在启动 R 进程前报错，指向原版交互式 R/Tcl/Tk `AmeliaView` 会话。不能据此声称已测试 GUI 启动或能控制已有窗口。常规 `parallel="snow", ncpus=...` 由官方 Amelia 创建 worker。若需要可复现的 R 并行流，显式设 `r_rng_kind="L'Ecuyer-CMRG"`；相同 seed 不表示 R/PyTorch 数值抽样逐一相同。
 
 跨进程 RDS 必须自包含。例如原版 `moPrep` 的 molist `$data` 保存的是调用表达式，可能引用创建时 R 会话中的局部变量。保存给 Python 前应在原 R 会话把 `prepared$data` 设为实际数据再 `saveRDS(prepared, ...)`；否则新的 Rscript 会话无法恢复那些外部绑定。直接在 R 中使用原版或本包接口时无需为跨进程传输做这一步。
 
@@ -74,7 +76,7 @@ R 中的活跃连接、PSOCK cluster、GUI 环境不能作为 Python 对象跨�
 
 schema 序列化、二进制 I/O、子进程启动、完整 RDS 及输入输出转换都会产生开销。这条兼容路径的耗时必须单独测量，不能用 native Python 基准替代，也不能把任何 CPU 兼容结果称为 GPU 加速。
 
-开发状态：Mac 上的数值、类别、变换、先验、边界、二进制传输、RDS 重读与追加、历史来源标注已运行集成测试；这不构成全部原版 API 的验收。跨 Windows/Linux 的安装和调用仍需独立验证。
+开发状态：截至提交 `fa08a52`，Mac arm64、Windows x64、Linux x64 已分别通过 161 项 Python 测试、7 个 R 测试文件及 Python→R 下游示例，见 [CI 记录](validation/2026-09-26-ci/README.md)。随后 `ad9bed2` 的独立 [Intel Mac 验证](validation/2026-09-26-ci/intel-mac-reference.md) 实际完成了 x86_64 上 wheel[reference] 安装、无 Torch 插补及下游示例。后续 G3 类型与 frontend 修复只有独立本机证据，未包含在上述提交的远程结果中。这些检查不构成全部原版 API、GUI 或 GPU 的验收，也不证明 Intel Mac 的 Torch/hybrid 路线已测试。
 
 ## Python 调用实验性 R/PyTorch 混合引擎
 

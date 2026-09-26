@@ -63,6 +63,10 @@ jobs:
         run: Rscript r-package/tests/torch-compat.R
       - name: Public hybrid boundary and startvals compatibility
         run: Rscript r-package/tests/public-edge-cases.R
+      - name: Public adaptive-prior boundary audit
+        run: Rscript r-package/tests/autopri-boundary.R
+      - name: Reference parallel workers and caller cluster ownership
+        run: Rscript r-package/tests/reference-parallel.R
       - name: Backend history metadata
         run: Rscript r-package/tests/reference_metadata.R
       - name: Downstream workflows and random-stream regression

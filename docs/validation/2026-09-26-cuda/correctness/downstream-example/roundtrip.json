@@ -1,0 +1,87 @@
+{
+  "first_call_engine": "r-amelia-reference",
+  "returned_imputations": 3,
+  "derived_column_checked": true,
+  "old_imputation_preserved": true,
+  "original_r_methods_backend": "cpu",
+  "returned_metadata": {
+    "engine": "appended",
+    "compute_backend": "historical-or-unknown",
+    "torch_used": null,
+    "gpu_used": null,
+    "operation": "inspect",
+    "call_engine": "rds-inspection",
+    "call_compute_backend": null,
+    "call_device": null,
+    "call_dtype": null,
+    "call_torch_used": false,
+    "call_gpu_used": false,
+    "compatibility_package_version": null,
+    "hybrid_backend": null,
+    "provenance": {
+      "source": "recorded_R_backend_attribute",
+      "m": 3,
+      "recorded_backend": {
+        "engine": "appended",
+        "implementation": "Amelia::amelia",
+        "amelia_version": "1.8.3",
+        "device": "mixed-or-unknown",
+        "gpu_used": null,
+        "torch_used": null,
+        "em_kernel": "mixed-or-unknown",
+        "current_call_engine": "reference",
+        "current_call_device": "cpu",
+        "current_call_gpu_used": false,
+        "current_call_torch_used": false,
+        "current_call_em_kernel": "official_Amelia",
+        "historical_m": 2,
+        "new_m": 1,
+        "total_m": 3,
+        "delegation": "Unmodified public S3 generic of the installed official R package",
+        "old_backend": {
+          "engine": "unknown",
+          "device": "unknown",
+          "gpu_used": null,
+          "torch_used": null,
+          "reason": "Input result has no recognized recorded backend provenance"
+        }
+      },
+      "torch_used": null,
+      "gpu_used": null,
+      "engine": "appended"
+    },
+    "reference_version": "1.8.3",
+    "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+    "R_version": "4.5.3",
+    "call_rng_kind": [
+      "Mersenne-Twister",
+      "Inversion",
+      "Rejection"
+    ],
+    "transport": {
+      "schema_version": 2,
+      "numeric": "binary-column-v1",
+      "byte_order": "little",
+      "double_bytes": 8,
+      "integer_bytes": 4,
+      "factor_codes": "R 1-based int32",
+      "character": "JSON",
+      "integer_na": -2147483648,
+      "double_na": "IEEE754 NaN"
+    },
+    "code": 1,
+    "message": "Normal EM convergence",
+    "m": 3,
+    "iterations": [
+      6,
+      5,
+      6
+    ],
+    "converged_by_tolerance": [
+      true,
+      true,
+      true
+    ],
+    "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+  }
+}

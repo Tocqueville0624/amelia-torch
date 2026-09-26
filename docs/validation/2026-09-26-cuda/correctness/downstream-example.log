@@ -1,0 +1,3 @@
+Wrote unchanged official mi.combine output; see the documented 1.8.3 caveats.
+Official R transform, reference append, PDF diagnostic and CSV export completed.
+Verified Python -> RDS -> R transform/append/plot/export -> Python readback.

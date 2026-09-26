@@ -1,0 +1,12 @@
+PASS direct ameliabind, draw retention and incompatible input errors
+PASS transform, stored calls, missingness and appended derived columns
+PASS with -> mi.combine, including unchanged 1.8.3 interval ordering
+PASS explicit missing-broom dependency error (private dependency probe)
+PASS summary.mi and both plot.amelia PDF branches with device cleanup
+PASS table and combined DTA readback, factor labels and custom draw_id
+PASS moPrep proportion, gold-standard subset, proxy and added molist priors
+PASS Python/RDS/R transform/append/plot/Python roundtrip and unknown bind provenance
+Warning message:
+Some Python package requirements declared via `py_require()` are not installed in the selected Python environment: (<project>/.venv/bin/python)
+  numpy 
+Extended downstream G1 checks completed.

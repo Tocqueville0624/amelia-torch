@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "scope": "Additional small public CPU64 boundary audit; no GPU/timing claim",
+  "command": "R_LIBS_USER=<PROJECT_ROOT>/.R-library RETICULATE_PYTHON=<PROJECT_ROOT>/.venv/bin/python OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 Rscript r-package/tests/autopri-boundary.R",
+  "exit_code": 0,
+  "test_sha256": "7ff104dd520da7185a334366f78b3854703c7eabd8851db0672cd4321d877c77",
+  "core_source_sha256": {
+    "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+    "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+    "src/amelia_torch/em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d"
+  },
+  "both_engines_hold_branch_observed": true,
+  "fixed_hold_checks": {
+    "reference": 5,
+    "hybrid": 3
+  },
+  "report": "public-autopri.json"
+}

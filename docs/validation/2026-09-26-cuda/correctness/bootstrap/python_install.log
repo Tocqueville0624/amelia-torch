@@ -1,0 +1,30 @@
+Obtaining file://<project>
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: numpy<3,>=2 in /usr/local/lib/python3.12/dist-packages (from amelia-torch==0.0.1.dev0) (2.0.2)
+Requirement already satisfied: scipy<2,>=1.14 in /usr/local/lib/python3.12/dist-packages (from amelia-torch==0.0.1.dev0) (1.16.3)
+Requirement already satisfied: pytest<10,>=8 in /usr/local/lib/python3.12/dist-packages (from amelia-torch==0.0.1.dev0) (8.4.2)
+Requirement already satisfied: ruff<1,>=0.9 in /usr/local/lib/python3.12/dist-packages (from amelia-torch==0.0.1.dev0) (0.15.8)
+Requirement already satisfied: pandas<4,>=2 in /usr/local/lib/python3.12/dist-packages (from amelia-torch==0.0.1.dev0) (2.2.2)
+Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas<4,>=2->amelia-torch==0.0.1.dev0) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas<4,>=2->amelia-torch==0.0.1.dev0) (2025.2)
+Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas<4,>=2->amelia-torch==0.0.1.dev0) (2025.3)
+Requirement already satisfied: iniconfig>=1 in /usr/local/lib/python3.12/dist-packages (from pytest<10,>=8->amelia-torch==0.0.1.dev0) (2.3.0)
+Requirement already satisfied: packaging>=20 in /usr/local/lib/python3.12/dist-packages (from pytest<10,>=8->amelia-torch==0.0.1.dev0) (26.0)
+Requirement already satisfied: pluggy<2,>=1.5 in /usr/local/lib/python3.12/dist-packages (from pytest<10,>=8->amelia-torch==0.0.1.dev0) (1.6.0)
+Requirement already satisfied: pygments>=2.7.2 in /usr/local/lib/python3.12/dist-packages (from pytest<10,>=8->amelia-torch==0.0.1.dev0) (2.20.0)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil>=2.8.2->pandas<4,>=2->amelia-torch==0.0.1.dev0) (1.17.0)
+Building wheels for collected packages: amelia-torch
+  Building editable for amelia-torch (pyproject.toml): started
+  Building editable for amelia-torch (pyproject.toml): finished with status 'done'
+  Created wheel for amelia-torch: filename=amelia_torch-0.0.1.dev0-0.editable-py3-none-any.whl size=18141 sha256=03ec1e06f860c75c152cf27118c4a6ab6fc4e026753b116c8e987bbf53050fe5
+  Stored in directory: /tmp/pip-ephem-wheel-cache-8v_oh9eh/wheels/88/71/ea/01180b588e3e2fdb0d1225551e542e865bdb7856d5d4e0bfa1
+Successfully built amelia-torch
+Installing collected packages: amelia-torch
+Successfully installed amelia-torch-0.0.1.dev0

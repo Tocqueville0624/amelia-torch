@@ -49,6 +49,16 @@ R_LIBS_USER="$PWD/.R-library" RETICULATE_PYTHON="$PWD/.venv/bin/python" \
 
 若需重建逐案例 JSON，R 中 `source("r-package/tests/public-edge-cases.R")` 后使用 `jsonlite::write_json(edge_report, ..., auto_unbox=TRUE, pretty=TRUE)`。测试保留 `edge_report`，不自行向源码树写文件。
 
-本记录没有覆盖 public `autopri` 实际更新/固定初始 hold 的病态触发，也没有覆盖 GPU 精度下这些新增案例。已有低层诊断不能自动替代这些验收，因此 G2 仍有这两项后续工作，不能据此宣布完整首版。
+## 补充：public autopri 的真实更新与固定 hold
+
+同日追加独立 [autopri-boundary.R](../../../r-package/tests/autopri-boundary.R)，[机器可读结果](public-autopri.json) 记录固定 seed 7 的 200×5 合成输入，第五列精确等于前两列之和，逐格缺失 40%。原版移除三条全空行后 n=197；公开入口使用 `boot.type="none"`、`startvals=1`、`empri=0`、`autopri=.05`、`tolerance=1e-15`、`emburn=c(300,300)`。
+
+本机原版在第 216、217、219、293、296 轮将整数 empri 依次增至 1–5；混合路径在第 216、217、219 轮增至 1–3。两条轨迹的每次更新后都单独重放一轮**同引擎、无先验、无自适应**的 EM，以其充分统计量在测试代码中独立应用固定 hold 公式。全部 8 次检查误差小于 `1e-10`，并与“重建为当前 empri×I”的错误公式拉开至少约 0.00488 的最大绝对差，证明实际执行保持初始 hold=0。用各自引擎的单步条件矩是必要的：病态协方差处 R/torch 的分解分支不同，不能把一个引擎的条件矩强加给另一个并误判 prior 公式。
+
+这不是普通数值一致性验收：原版最终最小特征值低于 double epsilon，公开结果 code 2、无有效插补；混合路径最终略高于该阈值，原版输出层返回 code 1，但 EM 尚未收敛，混合 metadata 正确给出 `converged=FALSE` 并发出 `RuntimeWarning`。测试按**各自实际最终 theta**核验原版特征值状态规则，保存所有更新和未收敛状态，绝不把 code 1 当作质量通过。不能用这个病态案例宣称有效插补等价或计入成功的性能样本。
+
+不同 BLAS 可能根本不让该固定输入跨过零。测试会报告 `hold_branch_observed=false` 和缺失覆盖，而不会伪造更新或强求相同符号/历史。本机本次两条路径均实际触发并验证了 hold 分支。可在同一环境运行 `Rscript r-package/tests/autopri-boundary.R`；source 后的 `autopri_report` 可保存为 JSON。
+
+这些新增 G2 案例的 GPU 精度验收仍未完成，不能据此宣布完整首版。前面的 7 文件/26 Python 记录是先前回归批次；本节是另一次有独立输出和源码哈希的有界补充检查。
 
 历史记录说明：`r-tests.json` 中 `downstream_extended.R` 的源码哈希对应该次直接运行版本；之后为 R CMD check 子进程隔离 `R_TESTS` 启动变量所作的测试修订，已由 [G1 最终包检查](../2026-09-26-g1/packaging.md) 和其源码哈希覆盖。这里保留原次执行的哈希，不将历史记录改写为新版本。

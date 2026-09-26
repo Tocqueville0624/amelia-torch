@@ -1,0 +1,59 @@
+# Historical cell 0 (sanitized, not a replay recipe)
+import json, platform, subprocess, shutil
+import torch
+probe = {"python": platform.python_version(), "os": platform.system(), "torch": torch.__version__, "cuda_runtime": torch.version.cuda, "cuda_available": torch.cuda.is_available(), "Rscript_available": shutil.which("Rscript") is not None}
+if probe["cuda_available"]:
+    probe["gpu"] = torch.cuda.get_device_name(0)
+    probe["vram_bytes"] = torch.cuda.get_device_properties(0).total_memory
+    a = torch.tensor([[2., 1.], [1., 2.]], dtype=torch.float64, device="cuda")
+    probe["cuda_float64_cholesky"] = torch.linalg.cholesky(a).cpu().tolist()
+    torch.cuda.synchronize()
+print(json.dumps(probe, indent=2))
+print(subprocess.run(["nvidia-smi", "--query-gpu=name,memory.total,driver_version", "--format=csv,noheader"], capture_output=True, text=True).stdout)
+if probe["Rscript_available"]:
+    print(subprocess.run(["Rscript", "--version"], capture_output=True, text=True).stdout)
+
+# Historical cell 1 (sanitized, not a replay recipe)
+import os, pathlib, subprocess, sys
+assert sys.version_info[:2] == (3, 12), sys.version
+REVISION = "6865b6521142338c6812ce6a9f6414349321ff25"
+REPO = pathlib.Path("<project>")
+assert not REPO.exists(), "Retain previous checkout and use a fresh path"
+subprocess.run(["git", "clone", "--filter=blob:none", "https://github.com/Tocqueville0624/amelia-torch.git", str(REPO)], check=True)
+subprocess.run(["git", "checkout", "--detach", REVISION], cwd=REPO, check=True)
+os.chdir(REPO)
+os.environ.update({"R_LIBS_USER": str(REPO / ".R-library"), "RETICULATE_PYTHON": str(REPO / ".venv/bin/python"), "OMP_NUM_THREADS": "4", "OPENBLAS_NUM_THREADS": "4", "MKL_NUM_THREADS": "4", "VECLIB_MAXIMUM_THREADS": "4", "NVIDIA_TF32_OVERRIDE": "0", "PYTORCH_ENABLE_MPS_FALLBACK": "0", "CUDA_VISIBLE_DEVICES": "0"})
+setup_log = pathlib.Path("<setup-console-log>")
+with setup_log.open("w") as log:
+    setup = subprocess.run([sys.executable, "scripts/cloud_bootstrap.py", "--expected-commit", REVISION, "--execute"], stdout=log, stderr=subprocess.STDOUT)
+print(setup_log.read_text()[-12000:])
+print("BOOTSTRAP_EXIT", setup.returncode)
+assert setup.returncode == 0
+PYTHON = str(REPO / ".venv/bin/python")
+
+# Historical cell 2 (sanitized, not a replay recipe)
+import datetime, json, time
+assert setup.returncode == 0, "Fix and retain setup failure before validation"
+PYTHON = str(REPO / ".venv/bin/python")
+OUT = REPO / "results/local/cloud"
+steps = []
+def checked_step(name, command):
+    print("START", name, flush=True)
+    started = time.monotonic()
+    result = subprocess.run(command, cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    text = result.stdout.replace(str(REPO), "<project>").replace(str(pathlib.Path.home()), "<home>")
+    (OUT / (name + ".log")).write_text(text)
+    steps.append({"name": name, "exit_status": result.returncode, "seconds": time.monotonic() - started})
+    (OUT / "validation-steps.json").write_text(json.dumps({"commit": REVISION, "updated_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(), "steps": steps}, indent=2))
+    print("END", name, result.returncode, text[-2200:], flush=True)
+    return result.returncode
+checked_step("cuda-probe", [PYTHON, "-m", "amelia_torch.diagnostics", "--require-device", "cuda", "--output", str(OUT / "cuda-probe.json")])
+checked_step("pytest", [PYTHON, "-m", "pytest", "-q"])
+checked_step("ruff", [PYTHON, "-m", "ruff", "check", "src", "tests", "scripts"])
+for case in ("bridge", "compatibility", "torch-compat", "reference_metadata", "downstream"):
+    checked_step("r-test-" + case, ["Rscript", "r-package/tests/" + case + ".R"])
+for dtype in ("float64", "float32"):
+    checked_step("native-" + dtype, [PYTHON, "scripts/validate_accelerator.py", "--device", "cuda", "--dtype", dtype, "--output", str(OUT / ("native-" + dtype + "-validation.json"))])
+    checked_step("r-" + dtype, ["Rscript", "scripts/validate_r_accelerator.R", "cuda", dtype, str(OUT / ("r-" + dtype + "-validation.json"))])
+assert all(step["exit_status"] == 0 for step in steps), "Validation failures retained; inspect before benchmarking"
+print("ALL_CLOUD_VALIDATION_STEPS_PASSED", len(steps))

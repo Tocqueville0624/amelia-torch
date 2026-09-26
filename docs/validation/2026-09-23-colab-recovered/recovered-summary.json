@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "kind": "historical_notebook_stdout_recovery",
+  "recovered_on": "2026-09-26",
+  "source_notebook": {
+    "basename": "amelia-torch-cuda-validation-20260923.ipynb",
+    "sha256": "98df0afa88b3fc805dd3bbe39496f177f4dc9330a42f36dca98a6717b06d393b",
+    "bytes": 41219,
+    "raw_notebook_published": false
+  },
+  "new_cloud_execution_performed_for_this_record": false,
+  "source_commit_declared_in_saved_cell": "6865b6521142338c6812ce6a9f6414349321ff25",
+  "commit_evidence_limit": "The saved cell pins this revision and the saved bootstrap tail reports success. The original VM bootstrap JSON/source hashes are unavailable.",
+  "original_vm_json_and_full_logs_available": false,
+  "bootstrap_exit_status_recorded": 0,
+  "initial_probe_from_saved_stdout": {
+    "python": "3.12.13",
+    "os": "Linux",
+    "torch": "2.10.0+cu128",
+    "cuda_runtime": "12.8",
+    "cuda_available": true,
+    "Rscript_available": true,
+    "gpu": "Tesla T4",
+    "vram_bytes": 15637086208,
+    "cuda_float64_cholesky": [
+      [
+        1.414213562373095,
+        0.0
+      ],
+      [
+        0.7071067811865475,
+        1.2247448713915892
+      ]
+    ]
+  },
+  "additional_probe_stdout_lines": [
+    "Tesla T4, 15360 MiB, 580.82.07",
+    "Rscript (R) version 4.5.3 (2026-03-11)"
+  ],
+  "validation": {
+    "recorded_steps": [
+      {
+        "name": "cuda-probe",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 1,
+        "end_line_1based": 98
+      },
+      {
+        "name": "pytest",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 99,
+        "end_line_1based": 104,
+        "reported_passed_tests": 149
+      },
+      {
+        "name": "ruff",
+        "exit_status": 1,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 105,
+        "end_line_1based": 122
+      },
+      {
+        "name": "r-test-bridge",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 123,
+        "end_line_1based": 128
+      },
+      {
+        "name": "r-test-compatibility",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 129,
+        "end_line_1based": 131
+      },
+      {
+        "name": "r-test-torch-compat",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 132,
+        "end_line_1based": 138
+      },
+      {
+        "name": "r-test-reference_metadata",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 139,
+        "end_line_1based": 141
+      },
+      {
+        "name": "r-test-downstream",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 142,
+        "end_line_1based": 147
+      },
+      {
+        "name": "native-float64",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 148,
+        "end_line_1based": 153,
+        "reported_cases": [
+          {
+            "case": "no_prior",
+            "status": "passed"
+          },
+          {
+            "case": "empirical_prior",
+            "status": "passed"
+          },
+          {
+            "case": "cell_prior",
+            "status": "passed"
+          },
+          {
+            "expected_cases": 3,
+            "completed_cases": 3,
+            "passed_cases": 3,
+            "all_passed": true
+          }
+        ]
+      },
+      {
+        "name": "r-float64",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 154,
+        "end_line_1based": 269,
+        "visible_case_names": [
+          "transformed",
+          "categorical",
+          "prior_bounds"
+        ],
+        "printed_max_standardized_continuous_errors": [
+          1.309738e-15,
+          1.427514e-15,
+          1.077231e-15
+        ],
+        "printed_discrete_disagreements": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "native-float32",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 270,
+        "end_line_1based": 275,
+        "reported_cases": [
+          {
+            "case": "no_prior",
+            "status": "passed"
+          },
+          {
+            "case": "empirical_prior",
+            "status": "passed"
+          },
+          {
+            "case": "cell_prior",
+            "status": "passed"
+          },
+          {
+            "expected_cases": 3,
+            "completed_cases": 3,
+            "passed_cases": 3,
+            "all_passed": true
+          }
+        ]
+      },
+      {
+        "name": "r-float32",
+        "exit_status": 0,
+        "evidence_file": "validation-tails.stdout.txt",
+        "start_line_1based": 276,
+        "end_line_1based": 391,
+        "visible_case_names": [
+          "transformed",
+          "categorical",
+          "prior_bounds"
+        ],
+        "printed_max_standardized_continuous_errors": [
+          3.419094e-07,
+          4.646445e-07,
+          4.155067e-07
+        ],
+        "printed_discrete_disagreements": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "step_count": 12,
+    "exit_zero_count": 11,
+    "nonzero_exit_count": 1,
+    "all_steps_passed": false,
+    "final_exception": {
+      "type": "AssertionError",
+      "message": "Validation failures retained; inspect before benchmarking"
+    }
+  },
+  "ruff_failure": {
+    "exception_type": "ruff._find_ruff.RuffNotFound",
+    "exit_status": 1,
+    "installed_version_not_recorded": true,
+    "reason_visible_in_stdout": "Python wrapper could not find the Ruff executable in its searched locations.",
+    "old_failure_preserved": true
+  },
+  "reticulate_numpy_requirement_warning_visible": true,
+  "benchmark_results_recorded_in_notebook": false,
+  "cuda_speedup_established": false,
+  "evidence_limits": [
+    "Only saved cell sources and stdout tails were recovered. Full original validation JSON, bootstrap JSON, complete subprocess logs, per-fit matrices and VM state are unavailable.",
+    "Cell 1 printed only the last 12000 characters of setup output; cell 2 printed only the last 2200 characters of each subprocess output.",
+    "Exit codes and visible bounded-case checks support only the recorded old revision and Linux Tesla T4 environment. The Ruff failure means the complete validation gate did not pass.",
+    "The saved probe and tests are not synchronized performance benchmarks, inference coverage validation, Windows/RTX 3080 evidence or a validation of newer G1/G2 code.",
+    "The old run contains five R test files and no new downstream example execution; the updated cloud guide requires seven R test files plus the example and expanded Ruff scope.",
+    "Reticulate printed a NumPy requirement warning during successful subprocesses; the historical warning is retained and not marked resolved."
+  ],
+  "sanitization": {
+    "notebook_and_cell_metadata_exported": false,
+    "exception_trace_metadata_exported": false,
+    "rules": [
+      "ansi_control_codes",
+      "email_addresses",
+      "google_notebook_account_links",
+      "ipv4_addresses",
+      "gpu_uuids",
+      "project_paths",
+      "setup_console_path",
+      "temporary_R_directories",
+      "notebook_temporary_files",
+      "home_paths"
+    ],
+    "license": "Extracted project cell code is covered by the repository GPL-3.0-only license. Third-party software attribution remains in THIRD_PARTY.md."
+  },
+  "artifacts": [
+    {
+      "file": "probe.stdout.txt",
+      "sha256": "35e77dca1b2ed6f1e645008f475fc179da5a236e619b7795460505b6cfd3d0f5",
+      "bytes": 418,
+      "source_cell_indices_zero_based": [
+        0
+      ],
+      "kind": "saved_notebook_stream",
+      "raw_selected_text_sha256": "35e77dca1b2ed6f1e645008f475fc179da5a236e619b7795460505b6cfd3d0f5",
+      "redaction_counts": {}
+    },
+    {
+      "file": "bootstrap-tail.stdout.txt",
+      "sha256": "ce9afad1de2b3ef9e27d8fe981fd488066262481a2ac9a214ad5a9408aaca302",
+      "bytes": 12059,
+      "source_cell_indices_zero_based": [
+        1
+      ],
+      "kind": "saved_notebook_stream_already_truncated_to_last_12000_characters",
+      "raw_selected_text_sha256": "c3a9a894b7201a1fad5e5343decdd736aa59b691e454bc56cf7c71ae29ad5c1a",
+      "redaction_counts": {
+        "temporary_R_directories": 7
+      }
+    },
+    {
+      "file": "validation-tails.stdout.txt",
+      "sha256": "1774afec0ad0c54d697e455778b1b1cbe6cfc3c48243eaf130ff0f140b3af8be",
+      "bytes": 7816,
+      "source_cell_indices_zero_based": [
+        2
+      ],
+      "kind": "saved_notebook_stream_with_each_step_truncated_to_last_2200_characters",
+      "raw_selected_text_sha256": "1774afec0ad0c54d697e455778b1b1cbe6cfc3c48243eaf130ff0f140b3af8be",
+      "redaction_counts": {}
+    },
+    {
+      "file": "executed-cells.sanitized.py.txt",
+      "sha256": "5961182185ffc9d74b0f88bd10bc6add5623f1e98792c61ec5810d027084dd3b",
+      "bytes": 4196,
+      "source_cell_indices_zero_based": [
+        0,
+        1,
+        2
+      ],
+      "kind": "saved_cell_source_only_no_notebook_metadata",
+      "raw_selected_text_sha256": "8f9ce215e507d18c8a4d398ef02620466ed4ad1a26a28f8c8891f0d999ee03ba",
+      "redaction_counts": {
+        "project_paths": 1,
+        "setup_console_path": 1
+      }
+    },
+    {
+      "file": "final-error.txt",
+      "sha256": "56530443545eec1b28ac45ae8e46928e90b6a5d8204331af5c104afb0f357293",
+      "bytes": 74,
+      "source_cell_indices_zero_based": [
+        2
+      ],
+      "kind": "exception_name_and_message_only_no_trace_metadata",
+      "raw_selected_text_sha256": "56530443545eec1b28ac45ae8e46928e90b6a5d8204331af5c104afb0f357293",
+      "redaction_counts": {}
+    }
+  ]
+}

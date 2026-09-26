@@ -1,0 +1,95 @@
+{
+  "revision": "fa08a5207d197a3f82ced7913a67bc448c8ecacc",
+  "steps": [
+    {
+      "step": "cuda-probe",
+      "exit_status": 0,
+      "elapsed_seconds": 7.616938368999854,
+      "completed_utc": "2026-09-26T21:51:38.245048+00:00"
+    },
+    {
+      "step": "pytest",
+      "exit_status": 0,
+      "elapsed_seconds": 55.75358530800008,
+      "completed_utc": "2026-09-26T21:52:34.005911+00:00"
+    },
+    {
+      "step": "ruff",
+      "exit_status": 0,
+      "elapsed_seconds": 0.12882682099984777,
+      "completed_utc": "2026-09-26T21:52:34.137028+00:00"
+    },
+    {
+      "step": "r-test-bridge",
+      "exit_status": 0,
+      "elapsed_seconds": 8.881645318999972,
+      "completed_utc": "2026-09-26T21:52:43.020075+00:00"
+    },
+    {
+      "step": "r-test-compatibility",
+      "exit_status": 0,
+      "elapsed_seconds": 1.7481573089999074,
+      "completed_utc": "2026-09-26T21:52:44.769912+00:00"
+    },
+    {
+      "step": "r-test-torch-compat",
+      "exit_status": 0,
+      "elapsed_seconds": 7.778378848999864,
+      "completed_utc": "2026-09-26T21:52:52.551163+00:00"
+    },
+    {
+      "step": "r-test-reference_metadata",
+      "exit_status": 0,
+      "elapsed_seconds": 0.3886071169999923,
+      "completed_utc": "2026-09-26T21:52:52.941386+00:00"
+    },
+    {
+      "step": "r-test-downstream",
+      "exit_status": 0,
+      "elapsed_seconds": 8.405295446000082,
+      "completed_utc": "2026-09-26T21:53:01.349891+00:00"
+    },
+    {
+      "step": "r-test-downstream_extended",
+      "exit_status": 0,
+      "elapsed_seconds": 32.78837490000001,
+      "completed_utc": "2026-09-26T21:53:34.141188+00:00"
+    },
+    {
+      "step": "r-test-public-edge-cases",
+      "exit_status": 0,
+      "elapsed_seconds": 14.725945375000038,
+      "completed_utc": "2026-09-26T21:53:48.869290+00:00"
+    },
+    {
+      "step": "downstream-example",
+      "exit_status": 0,
+      "elapsed_seconds": 3.174955987999965,
+      "completed_utc": "2026-09-26T21:53:52.046822+00:00"
+    },
+    {
+      "step": "native-float64",
+      "exit_status": 0,
+      "elapsed_seconds": 4.4482793369998035,
+      "completed_utc": "2026-09-26T21:53:56.497687+00:00"
+    },
+    {
+      "step": "r-float64",
+      "exit_status": 0,
+      "elapsed_seconds": 7.649300319000076,
+      "completed_utc": "2026-09-26T21:54:04.148963+00:00"
+    },
+    {
+      "step": "native-float32",
+      "exit_status": 0,
+      "elapsed_seconds": 3.5345924240000386,
+      "completed_utc": "2026-09-26T21:54:07.685637+00:00"
+    },
+    {
+      "step": "r-float32",
+      "exit_status": 0,
+      "elapsed_seconds": 7.5642271540000365,
+      "completed_utc": "2026-09-26T21:54:15.252120+00:00"
+    }
+  ]
+}

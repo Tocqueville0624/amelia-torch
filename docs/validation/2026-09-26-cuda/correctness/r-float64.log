@@ -1,0 +1,114 @@
+Warning message:
+Some Python package requirements declared via `py_require()` are not installed in the selected Python environment: (<project>/.venv/bin/python)
+  numpy 
+[[1]]
+[[1]]$case
+[1] "transformed"
+
+[[1]]$passed
+[1] TRUE
+
+[[1]]$checks
+[[1]]$checks$original_class
+[1] TRUE
+
+[[1]]$checks$theta
+[1] TRUE
+
+[[1]]$checks$observed
+[1] TRUE
+
+[[1]]$checks$continuous
+[1] TRUE
+
+[[1]]$checks$categorical
+[1] TRUE
+
+[[1]]$checks$converged
+[1] TRUE
+
+[[1]]$checks$gpu_used
+[1] TRUE
+
+
+[[1]]$max_standardized_continuous_error
+[1] 1.309738e-15
+
+[[1]]$discrete_disagreements
+[1] 0
+
+
+[[2]]
+[[2]]$case
+[1] "categorical"
+
+[[2]]$passed
+[1] TRUE
+
+[[2]]$checks
+[[2]]$checks$original_class
+[1] TRUE
+
+[[2]]$checks$theta
+[1] TRUE
+
+[[2]]$checks$observed
+[1] TRUE
+
+[[2]]$checks$continuous
+[1] TRUE
+
+[[2]]$checks$categorical
+[1] TRUE
+
+[[2]]$checks$converged
+[1] TRUE
+
+[[2]]$checks$gpu_used
+[1] TRUE
+
+
+[[2]]$max_standardized_continuous_error
+[1] 1.427514e-15
+
+[[2]]$discrete_disagreements
+[1] 0
+
+
+[[3]]
+[[3]]$case
+[1] "prior_bounds"
+
+[[3]]$passed
+[1] TRUE
+
+[[3]]$checks
+[[3]]$checks$original_class
+[1] TRUE
+
+[[3]]$checks$theta
+[1] TRUE
+
+[[3]]$checks$observed
+[1] TRUE
+
+[[3]]$checks$continuous
+[1] TRUE
+
+[[3]]$checks$categorical
+[1] TRUE
+
+[[3]]$checks$converged
+[1] TRUE
+
+[[3]]$checks$gpu_used
+[1] TRUE
+
+
+[[3]]$max_standardized_continuous_error
+[1] 1.077231e-15
+
+[[3]]$discrete_disagreements
+[1] 0
+
+
