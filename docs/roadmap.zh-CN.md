@@ -34,6 +34,7 @@
 - 新 T4 会话已重新完成 15 步验证并保存完整 JSON/log：161 项 Python、七个 R 测试文件、下游示例与两个精度的 CUDA 固定案例均通过，见 [CUDA 记录](validation/2026-09-26-cuda/README.md)。同机两线程/两 worker 的三数据集性能套件正在运行，不能提前宣称速度结论。
 - `e2ff892` 三平台 CI 已完成新增 235 项/九个 R 文件；`ad9bed2` 的 Intel Mac x86_64 独立 wheel[reference] 安装及无 Torch 实际拟合、RDS 下游工作流通过，见 [CI 证据](validation/2026-09-26-ci/README.md)。该 Intel 结果不覆盖 native Torch 或 GUI。
 - G5 [统计验证方案](validation/g5-prespecified/README.md) 已在正式扩展模拟前固定并提交：每路线 MCAR/MAR 各 200 份、压力 20 份，明确偏差、覆盖率、配对差与 Monte Carlo 区间门槛；CPU 小规模流程检查通过，正式结果仍待完成。
+- Mac 五路线正式 G5 已完成 10,500 次拟合且独立审计通过，但 MCAR 的冻结统计界限未全部达到；MAR 与有界压力检查通过，详见 [MPS 统计报告](validation/2026-09-26-g5-mps/README.md)。保留原版 R 也未通过的绝对覆盖率界限，不改规则让结果变绿；新独立补充提案待用户选择，CUDA 原计划仍在排队。
 - 保存完整结果、配置与绘图脚本，做可重复的端到端演示。
 - 验收：明确是否加速、在哪些配置加速、超过哪个基线；负面结果也保留。
 

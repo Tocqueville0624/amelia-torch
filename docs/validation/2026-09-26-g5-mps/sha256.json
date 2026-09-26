@@ -1,0 +1,22 @@
+{
+  "inference-suite.json.gz": {
+    "sha256": "648f9ef6d4ac52e692c4af160f342812d43860d4f97e58d4087a892c9c684085",
+    "bytes": 961148
+  },
+  "measured-source.zip": {
+    "sha256": "de5410c4d1252013e14efdfd985729d42c87a94ef15f1df3ba45e696a0fdd531",
+    "bytes": 60540
+  },
+  "summary.json": {
+    "sha256": "9babe07899933c27b9a2a398eee56d265a017a3d657f0c0e390d289121b98983",
+    "bytes": 25607
+  },
+  "mcar-coverage.png": {
+    "sha256": "4abab86b81a64c94a83b936acb917bc309bd2f6b1038a37e5381c0ff909b8728",
+    "bytes": 146707
+  },
+  "mcar-coverage.pdf": {
+    "sha256": "08f0eaf6e558cbc125d7ee45c1f957406b64552900ada3b095723c85a1c277f8",
+    "bytes": 6237
+  }
+}
