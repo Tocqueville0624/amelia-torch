@@ -1,0 +1,11 @@
+{
+  "scope": "New MPS32 bounded public edge evidence only; CPU64 original reports unchanged.",
+  "commit": "33220cfeee0ffc262b523adac1bff64dc5a624dc",
+  "algorithm": "SHA-256",
+  "files": {
+    "r-accelerator-edges-mps32.json": "91da79382d2063969022bae8842c2f6a181c88f3fdef06c3569745cfeb1fd3a2",
+    "r-accelerator-edges-mps32.log": "9a8513510e366d3852fa1c257ac09b5f89775695e88466100eb29d60d2af5a7c",
+    "r-accelerator-edges-mps32-audit.json": "563ec39e58eae54a9d27f733aa35551e1c1fb046b2a8e5f6c1aa4f3779455cd0",
+    "accelerator-edges-mps32.md": "4fa1113a74ba47df47beff02872fccd25729ed9d3489a10b34bcd4b9d2af187a"
+  }
+}

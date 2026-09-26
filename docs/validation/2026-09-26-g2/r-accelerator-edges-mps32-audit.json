@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "commit": "33220cfeee0ffc262b523adac1bff64dc5a624dc",
+  "result_file": "r-accelerator-edges-mps32.json",
+  "result_sha256": "91da79382d2063969022bae8842c2f6a181c88f3fdef06c3569745cfeb1fd3a2",
+  "execution_exit_code": 0,
+  "audit_passed": true,
+  "cases": [
+    {
+      "case": "identity_none_m2",
+      "assertions_passed": true,
+      "hybrid_em_fits": 2,
+      "hybrid_converged_fits": 2,
+      "hybrid_pseudoinverse_uses": 0,
+      "reference_iterations": [
+        8,
+        8
+      ],
+      "hybrid_iterations": [
+        8,
+        8
+      ],
+      "history_identical": true,
+      "statistical_quality_success_claimed": false
+    },
+    {
+      "case": "identity_ordinary_m2",
+      "assertions_passed": true,
+      "hybrid_em_fits": 2,
+      "hybrid_converged_fits": 2,
+      "hybrid_pseudoinverse_uses": 0,
+      "reference_iterations": [
+        8,
+        9
+      ],
+      "hybrid_iterations": [
+        8,
+        9
+      ],
+      "history_identical": true,
+      "statistical_quality_success_claimed": false
+    },
+    {
+      "case": "double_none_m2",
+      "assertions_passed": true,
+      "hybrid_em_fits": 2,
+      "hybrid_converged_fits": 2,
+      "hybrid_pseudoinverse_uses": 0,
+      "reference_iterations": [
+        8,
+        1
+      ],
+      "hybrid_iterations": [
+        8,
+        1
+      ],
+      "history_identical": true,
+      "statistical_quality_success_claimed": false
+    },
+    {
+      "case": "double_ordinary_m2",
+      "assertions_passed": true,
+      "hybrid_em_fits": 2,
+      "hybrid_converged_fits": 2,
+      "hybrid_pseudoinverse_uses": 0,
+      "reference_iterations": [
+        8,
+        7
+      ],
+      "hybrid_iterations": [
+        8,
+        7
+      ],
+      "history_identical": true,
+      "statistical_quality_success_claimed": false
+    },
+    {
+      "case": "integer_none_m2",
+      "assertions_passed": true,
+      "hybrid_em_fits": 2,
+      "hybrid_converged_fits": 2,
+      "hybrid_pseudoinverse_uses": 0,
+      "reference_iterations": [
+        8,
+        8
+      ],
+      "hybrid_iterations": [
+        8,
+        8
+      ],
+      "history_identical": true,
+      "statistical_quality_success_claimed": false
+    },
+    {
+      "case": "emburn_minimum_35",
+      "assertions_passed": true,
+      "hybrid_em_fits": 1,
+      "hybrid_converged_fits": 1,
+      "hybrid_pseudoinverse_uses": 0,
+      "reference_iterations": [
+        35
+      ],
+      "hybrid_iterations": [
+        35
+      ],
+      "history_identical": true,
+      "statistical_quality_success_claimed": false
+    },
+    {
+      "case": "emburn_maximum_2",
+      "assertions_passed": true,
+      "hybrid_em_fits": 1,
+      "hybrid_converged_fits": 0,
+      "hybrid_pseudoinverse_uses": 0,
+      "reference_iterations": [
+        2
+      ],
+      "hybrid_iterations": [
+        2
+      ],
+      "history_identical": true,
+      "statistical_quality_success_claimed": false
+    },
+    {
+      "case": "pathological_autopri",
+      "assertions_passed": true,
+      "hybrid_em_fits": 1,
+      "hybrid_converged_fits": 0,
+      "hybrid_pseudoinverse_uses": 423,
+      "reference_iterations": [
+        300
+      ],
+      "hybrid_iterations": [
+        300
+      ],
+      "history_identical": null,
+      "statistical_quality_success_claimed": false
+    }
+  ],
+  "hybrid_mps_em_fits": 13,
+  "hybrid_mps_converged_fits": 11,
+  "expected_unconverged_cases": [
+    "emburn_maximum_2",
+    "pathological_autopri"
+  ],
+  "max_theta_abs_error_regular_cases": 1.38276638472767e-07,
+  "max_standardized_output_abs_error_regular_cases": 2.36991944735365e-07,
+  "max_output_fraction_of_prespecified_threshold": 0.0100663098290426,
+  "gates_unchanged_from_cpu_prespecified_script": true,
+  "source_matches_before_run_fingerprints_after_run_and_commit": true,
+  "source_sha256": {
+    "scripts/validate_r_accelerator_edges.R": "d9801f25554d69569fd2e11238d3a992a2bb3b0fbdc0fb749c15bb5eee3b3ffd",
+    "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+    "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+    "src/amelia_torch/em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d",
+    "src/amelia_torch/backends.py": "14ae3f26b081d26faa7e040a24910db1f3c310f85218202b3d4cc224bab52542"
+  },
+  "source_limit": "Fingerprints describe the unchanged checkout; installed binary hashes were not collected by this runner. Runtime alias/RNG checks exercise the installed registered helpers.",
+  "all_public_hybrid_fits_mps32": true,
+  "all_mps_eigenvalue_checks_explicit_cpu": true,
+  "cpu64_allthetas_oracle_separate": true,
+  "memory_peak_ram_bytes": null,
+  "memory_peak_vram_bytes": null,
+  "timing_benchmark": false,
+  "scope": "Seven public startvals/iteration-boundary cases and one pathological status/diagnostic case, not the entire 33-case CPU suite or Monte Carlo equivalence."
+}

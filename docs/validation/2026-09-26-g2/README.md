@@ -4,6 +4,8 @@
 
 机器可读记录：[逐案例输出](public-edge-cases.json)、[全部 R 文件及源码哈希](r-tests.json)、[环境、命令和关键源码哈希](summary.json)。R 测试日志也在本目录；其中耗时仅用于记录测试执行，不用于速度结论。没有记录主机名、用户目录或完整环境变量。
 
+后续独立 [MPS32 八案例验证](accelerator-edges-mps32.md)已完成并保留全部边界状态：13 次 EM 中 11 次收敛，另两次预定截止/病态未收敛；原版与 MPS 的病态伪逆/autopri 差异如实记录。该 GPU 记录与本页原始 CPU 批次分开，不能把 `all_checks_passed` 解读为全部插补均有效。CUDA 同脚本验证仍待执行。
+
 ## 修复的真实语义差异
 
 原版 `R/emb.r:168–170` 的 `startval()` 直接返回合法显式初值；`src/em.cpp:13,34` 用 `Rcpp::NumericMatrix` 与不复制的 Armadillo view 读取该矩阵，`:207` 执行 `thetaold = thetanew`。因此普通 **double** 初值的底层 R 对象会被修改：调用者变量、归档的 `arguments$startvals`、下一份插补的初始参数都能看到最终 theta。R 的普通赋值并不能隔离这些别名。
