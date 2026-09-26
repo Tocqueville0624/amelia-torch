@@ -20,7 +20,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 DATASETS = ("covertype", "household_power", "year_prediction_msd")
 DEFAULT_METHODS = ("cpu64", "cpu32", "mps32", "r_serial", "r_snow4")
-METHODS = (*DEFAULT_METHODS, "cuda32", "cuda64")
+METHODS = (*DEFAULT_METHODS, "r_snow2", "cuda32", "cuda64")
 COLUMNS = {"covertype": 10, "household_power": 7, "year_prediction_msd": 90}
 
 

@@ -99,24 +99,25 @@ for dataset in ("covertype", "household_power", "year_prediction_msd"):
 
 三个原始压缩包共约 232 MiB，下载器按 `data/manifest.json` 检查大小、哈希及 ZIP CRC，保留至少 5 GiB 磁盘余量。每组抽样 100k 完整行，采用约 30% 块状 MCAR；Household 实际为 2/7。它不是全量数据或逐格独立 MCAR。统计语境、来源和 CC BY 4.0 归属见 [datasets.zh-CN.md](datasets.zh-CN.md)。已有输入不能覆盖，重复实验复用同一组 NPZ。
 
-下面两格分别执行并保存，勿与其他拟合并发，也不要在计时期间编辑项目源文件。主套件固定四线程/四个 snow worker，即使免费 VM 可用核心少于四个也必须记录超额线程这一局限；不能将它宣称为最优 CPU 配置。若要改变线程预算，先调整并固定全部对应方案，再新建实验，不能只改变某一个方法。
+下面两格分别执行并保存，勿与其他拟合并发，也不要在计时期间编辑项目源文件。在测量前按实际 CPU 配额固定全部方案的预算。2026-09-26 的新 T4 VM 只有两个逻辑 CPU，因此这一轮主套件选择 `--threads 2 --workers 2`，混合套件同为 `--threads 2`；snow 的每个 worker 只使用一个 BLAS 线程。原 Mac 四线程/四 worker 报告保持不变。下面命令针对该双核云主机；其他机器应先记录预算，再统一调整，不能只给某个方法增加资源。
 
 ```python
 NATIVE = "results/local/cloud/native"
 HYBRID = "results/local/cloud/hybrid"
 assert not pathlib.Path(NATIVE).exists(), "Choose a fresh result directory"
 run(PYTHON, "scripts/run_benchmark_suite.py", "--gpu", "cuda", "--output-dir", NATIVE,
-    "--rows", "100000", "--m", "5", "--warmups", "2", "--repeats", "5")
+    "--rows", "100000", "--m", "5", "--warmups", "2", "--repeats", "5",
+    "--threads", "2", "--workers", "2")
 ```
 
 ```python
 assert not pathlib.Path(HYBRID).exists(), "Choose a fresh result directory"
 run(PYTHON, "scripts/run_hybrid_suite.py", "--methods", "cpu64", "cpu32", "cuda64", "cuda32",
     "--csv-dir", f"{NATIVE}/inputs", "--output-dir", HYBRID,
-    "--rows", "100000", "--m", "5", "--warmups", "2", "--repeats", "5", "--threads", "4")
+    "--rows", "100000", "--m", "5", "--warmups", "2", "--repeats", "5", "--threads", "2")
 ```
 
-主套件比较原版 R 串行、snow4、native Torch CPU64/32 与 CUDA64/32。混合套件保留 R 全流程，只替换 EM，复用主套件同一 CSV。每配置两次预热、五次正式运行、每次五份插补；CUDA 计时同步由已有实现处理。两个套件的墙钟时间不同，应保留顺序与共享云主机负载局限。
+主套件比较原版 R 串行、snow2、native Torch CPU64/32 与 CUDA64/32。混合套件保留 R 全流程，只替换 EM，复用主套件同一 CSV。每配置两次预热、五次正式运行、每次五份插补；CUDA 计时同步由已有实现处理。两个套件的墙钟时间不同，应保留顺序与共享云主机负载局限。
 
 计时包含各入口的预处理、EM、随机补值及 CPU 输出；文件读取、安装、进程启动和评分在计时外。混合计时包含 R/reticulate 的转换，不包括 Python→Rscript 的启动/二进制传输开销。免费 GPU 已分配期间运行 CPU 对照也消耗这次会话配额。
 
@@ -127,7 +128,7 @@ run(PYTHON, "scripts/run_hybrid_suite.py", "--methods", "cpu64", "cpu32", "cuda6
 ```python
 run(PYTHON, "scripts/summarize_benchmarks.py", "--input-dir", NATIVE,
     "--output-dir", "results/local/cloud/native-audit",
-    "--methods", "r_serial", "r_snow4", "cpu64", "cpu32", "cuda64", "cuda32")
+    "--methods", "r_serial", "r_snow2", "cpu64", "cpu32", "cuda64", "cuda32")
 run(PYTHON, "scripts/summarize_hybrid.py", "--input-dir", HYBRID,
     "--output-dir", "results/local/cloud/hybrid-audit")
 ```
