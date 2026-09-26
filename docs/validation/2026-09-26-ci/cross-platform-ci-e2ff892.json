@@ -1,0 +1,682 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "repository": "Tocqueville0624/amelia-torch",
+  "commit": "e2ff8926f4ac4b432c4d6acf8fbc1cd42c93a0f2",
+  "run_id": 36276160870,
+  "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36276160870",
+  "created_at": "2026-09-26T22:24:16Z",
+  "updated_at": "2026-09-26T22:29:28Z",
+  "status": "completed",
+  "conclusion": "success",
+  "evidence_method": "Run/job API plus complete job logs. Checkout SHA and all nine R commands verified for each job; only selected portable fields are published.",
+  "scope": "Current e2ff892 hosted CPU source install, compiled R package, 235 Python regressions, nine R files and actual downstream example. Does not reuse 2816e38 or fa08a52 results.",
+  "r_test_files": [
+    "r-package/tests/bridge.R",
+    "r-package/tests/compatibility.R",
+    "r-package/tests/torch-compat.R",
+    "r-package/tests/public-edge-cases.R",
+    "r-package/tests/autopri-boundary.R",
+    "r-package/tests/reference-parallel.R",
+    "r-package/tests/reference_metadata.R",
+    "r-package/tests/downstream.R",
+    "r-package/tests/downstream_extended.R"
+  ],
+  "jobs": [
+    {
+      "id": 108499212552,
+      "name": "CPU / ubuntu-latest / Python 3.12 / R 4.5.3",
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36276160870/job/108499212552",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-09-26T22:24:19Z",
+      "completed_at": "2026-09-26T22:29:04Z",
+      "checkout_sha_verified_in_log": "e2ff8926f4ac4b432c4d6acf8fbc1cd42c93a0f2",
+      "environment": {
+        "system": "Ubuntu",
+        "os_version": "24.04.5",
+        "image": "ubuntu-24.04",
+        "architecture": "x64",
+        "python": "3.12.14",
+        "r": "4.5.3",
+        "Amelia": "1.8.3",
+        "torch": "2.14.0+cpu",
+        "numpy": "2.5.3",
+        "pandas": "3.0.6",
+        "scipy": "1.18.1",
+        "pytest": "9.1.1",
+        "ruff": "0.16.9"
+      },
+      "python_tests": {
+        "passed": 235,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 62.62
+      },
+      "r_test_files_passed": 9,
+      "r_source_package_compiled_and_installed": true,
+      "lint_passed": true,
+      "example_passed": true,
+      "adaptive_prior_branch_records": [
+        {
+          "engine": "reference",
+          "code": 2,
+          "updates": 0,
+          "empri_final": 0,
+          "fixed_hold_checks": 0
+        },
+        {
+          "engine": "hybrid",
+          "code": 2,
+          "updates": 3,
+          "empri_final": 3,
+          "fixed_hold_checks": 3
+        }
+      ],
+      "both_reference_and_hybrid_hold_branch_observed": false,
+      "parallel": {
+        "python_snow2_tests_passed": true,
+        "r_supplied_snow_cluster_ownership_passed": true,
+        "unix_multicore_executed": true,
+        "windows_note": null
+      },
+      "portable_assertions": [
+        "Public hybrid CPU64 edge checks passed: 33 cases.",
+        "Public autopri boundary: reference code 2 updates 0 final empri 0 fixed-hold checks 0 ",
+        "Public autopri boundary: hybrid code 2 updates 3 final empri 3 fixed-hold checks 3 ",
+        "This platform did not trigger every adaptive hold branch; report partial coverage.",
+        "Reference parallel routing checks passed.",
+        "Verified Python -> RDS -> R transform/append/plot/export -> Python readback."
+      ],
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run r-lib/actions/setup-r@v2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install CPU PyTorch on Windows and Linux",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install Python package and test tools",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Select the installed Python for the R bridge",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install R dependencies and local R package",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python tests",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python lint",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "R environment and imputation interface contract",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Official R compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "R hybrid compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Public hybrid boundary and startvals compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Public adaptive-prior boundary audit",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Reference parallel workers and caller cluster ownership",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Backend history metadata",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Downstream workflows and random-stream regression",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Extended official downstream workflows and Python RDS roundtrip",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python to official R downstream example",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 108499212620,
+      "name": "CPU / macos-latest / Python 3.12 / R 4.5.3",
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36276160870/job/108499212620",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-09-26T22:24:24Z",
+      "completed_at": "2026-09-26T22:27:09Z",
+      "checkout_sha_verified_in_log": "e2ff8926f4ac4b432c4d6acf8fbc1cd42c93a0f2",
+      "environment": {
+        "system": "macOS",
+        "os_version": "26.6.2",
+        "image": "macos-26-arm64",
+        "architecture": "arm64",
+        "python": "3.12.10",
+        "r": "4.5.3",
+        "Amelia": "1.8.3",
+        "torch": "2.14.0",
+        "numpy": "2.5.3",
+        "pandas": "3.0.6",
+        "scipy": "1.18.1",
+        "pytest": "9.1.1",
+        "ruff": "0.16.9"
+      },
+      "python_tests": {
+        "passed": 235,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 49.9
+      },
+      "r_test_files_passed": 9,
+      "r_source_package_compiled_and_installed": true,
+      "lint_passed": true,
+      "example_passed": true,
+      "adaptive_prior_branch_records": [
+        {
+          "engine": "reference",
+          "code": 2,
+          "updates": 2,
+          "empri_final": 2,
+          "fixed_hold_checks": 2
+        },
+        {
+          "engine": "hybrid",
+          "code": 1,
+          "updates": 3,
+          "empri_final": 3,
+          "fixed_hold_checks": 3
+        }
+      ],
+      "both_reference_and_hybrid_hold_branch_observed": true,
+      "parallel": {
+        "python_snow2_tests_passed": true,
+        "r_supplied_snow_cluster_ownership_passed": true,
+        "unix_multicore_executed": true,
+        "windows_note": null
+      },
+      "portable_assertions": [
+        "Public hybrid CPU64 edge checks passed: 33 cases.",
+        "Public autopri boundary: reference code 2 updates 2 final empri 2 fixed-hold checks 2 ",
+        "Public autopri boundary: hybrid code 1 updates 3 final empri 3 fixed-hold checks 3 ",
+        "Reference parallel routing checks passed.",
+        "Verified Python -> RDS -> R transform/append/plot/export -> Python readback."
+      ],
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run r-lib/actions/setup-r@v2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install CPU PyTorch on Windows and Linux",
+          "status": "completed",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Install Python package and test tools",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Select the installed Python for the R bridge",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install R dependencies and local R package",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python tests",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python lint",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "R environment and imputation interface contract",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Official R compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "R hybrid compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Public hybrid boundary and startvals compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Public adaptive-prior boundary audit",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Reference parallel workers and caller cluster ownership",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Backend history metadata",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Downstream workflows and random-stream regression",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Extended official downstream workflows and Python RDS roundtrip",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python to official R downstream example",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 108499212651,
+      "name": "CPU / windows-latest / Python 3.12 / R 4.5.3",
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36276160870/job/108499212651",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-09-26T22:24:34Z",
+      "completed_at": "2026-09-26T22:29:28Z",
+      "checkout_sha_verified_in_log": "e2ff8926f4ac4b432c4d6acf8fbc1cd42c93a0f2",
+      "environment": {
+        "system": "Microsoft Windows Server 2025",
+        "os_version": "10.0.26100",
+        "image": "windows-2025-vs2026",
+        "architecture": "x64",
+        "python": "3.12.10",
+        "r": "4.5.3",
+        "Amelia": "1.8.3",
+        "torch": "2.14.0+cpu",
+        "numpy": "2.5.3",
+        "pandas": "3.0.6",
+        "scipy": "1.18.1",
+        "pytest": "9.1.1",
+        "ruff": "0.16.9"
+      },
+      "python_tests": {
+        "passed": 235,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 82.62
+      },
+      "r_test_files_passed": 9,
+      "r_source_package_compiled_and_installed": true,
+      "lint_passed": true,
+      "example_passed": true,
+      "adaptive_prior_branch_records": [
+        {
+          "engine": "reference",
+          "code": 2,
+          "updates": 0,
+          "empri_final": 0,
+          "fixed_hold_checks": 0
+        },
+        {
+          "engine": "hybrid",
+          "code": 1,
+          "updates": 1,
+          "empri_final": 1,
+          "fixed_hold_checks": 1
+        }
+      ],
+      "both_reference_and_hybrid_hold_branch_observed": false,
+      "parallel": {
+        "python_snow2_tests_passed": true,
+        "r_supplied_snow_cluster_ownership_passed": true,
+        "unix_multicore_executed": false,
+        "windows_note": "Windows has no Unix fork; snow/serial route remains supported."
+      },
+      "portable_assertions": [
+        "Public hybrid CPU64 edge checks passed: 33 cases.",
+        "Public autopri boundary: reference code 2 updates 0 final empri 0 fixed-hold checks 0 ",
+        "Public autopri boundary: hybrid code 1 updates 1 final empri 1 fixed-hold checks 1 ",
+        "This platform did not trigger every adaptive hold branch; report partial coverage.",
+        "Unix multicore not executed on Windows; snow route was tested.",
+        "Reference parallel routing checks passed.",
+        "Verified Python -> RDS -> R transform/append/plot/export -> Python readback."
+      ],
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run r-lib/actions/setup-r@v2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install CPU PyTorch on Windows and Linux",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install Python package and test tools",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Select the installed Python for the R bridge",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install R dependencies and local R package",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python tests",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python lint",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "R environment and imputation interface contract",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Official R compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "R hybrid compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Public hybrid boundary and startvals compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Public adaptive-prior boundary audit",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Reference parallel workers and caller cluster ownership",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Backend history metadata",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Downstream workflows and random-stream regression",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Extended official downstream workflows and Python RDS roundtrip",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python to official R downstream example",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    ".github/workflows/tests.yml": "1cb87cbdf9dc425445ce196bab3fa7b2225ce1c707452840c8540e4b0a714ccb",
+    "pyproject.toml": "d83a779dcddd7d524c05bbd20de7e1086ec757b8892fae84845256a4940fcee2",
+    "r-package/.Rbuildignore": "cf752c557129a839f5ba9fcd7b636d07a27577256312033064dec23c3e4b0a57",
+    "r-package/DESCRIPTION": "6b74f0fa21ac630806e2f5c6404e23a64e3f5c8f67904fabc52a9a03f0e69a34",
+    "r-package/NAMESPACE": "26261a11e094828bcb1cde6e93e090501469a618a39f4bb4d9fa41383396fc05",
+    "r-package/R/amelia.R": "c3fd8ff065e31113bab6ddcaf09457373061db335361bb4c83b1db32ead3b234",
+    "r-package/R/compatibility.R": "8771e41249fb2dd0802003091eb8c423f4e4d60956ca9a8ca206bb1cb577d4ec",
+    "r-package/R/environment.R": "7556c729dbd8fafc83503226f5b29dfa5703d6fb62b4591c39708b25c34b8c08",
+    "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+    "r-package/man/amelia_compat.Rd": "8780f2cda0a3a80e66f7cb0e9c66aeef31836d81034d1bb39e50268cef2ce6a9",
+    "r-package/man/amelia_torch.Rd": "d2f617497594405323556a0724c98bb2afa145f8076106429b3bab77f2c2aaa3",
+    "r-package/man/amelia_torch_compat.Rd": "dbaccd363eb080aecb9c30d9ea30c3aef0d1080f0a4f562333123a3ea854fb3f",
+    "r-package/man/check_environment.Rd": "9e7d89eca42fe53c575bfe0bb57c771dbd0b72d085458b6c5f8a80d7167032b5",
+    "r-package/man/use_amelia_python.Rd": "5b9aeadaa648a5889b426f49d9b5a759728b1f0e9da835279779e6036a668139",
+    "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+    "r-package/tests/autopri-boundary.R": "7ff104dd520da7185a334366f78b3854703c7eabd8851db0672cd4321d877c77",
+    "r-package/tests/bridge.R": "8da172201ff5f16671cf37d83d3b028f6f466ffb23c428928f3a10713ade67cb",
+    "r-package/tests/compatibility.R": "b5f8f294581e9ab5ea5140e4ab6401389d545bfa0518c78a1015fb9caf4d3283",
+    "r-package/tests/downstream.R": "729760ef0e9197d537392809e540b84280c36d996a57ac7d1e98df0d39c3fba5",
+    "r-package/tests/downstream_extended.R": "5beaead8e161e6958c40abcde0249de4cc144c51a5856ea6365696befb2a0bcc",
+    "r-package/tests/public-edge-cases.R": "9044720d6255e9f79a65a379d6e5b99ab046d29b82bf7b4b3aa2a7efc0231397",
+    "r-package/tests/reference-parallel.R": "04fad860a4f0104e742265fd5ff6710997b5ca9cb506672d05023c64fa0d64a4",
+    "r-package/tests/reference_metadata.R": "5a1d9998208f99626f56ce486270dc5cf5f0d1492ac8c6f26df23d6870f275d6",
+    "r-package/tests/torch-compat.R": "1311101431d93bf11cedf58f14cd45eb5f8ef453da1bec93f2c7d576c3e33c17",
+    "scripts/benchmark.py": "eed2fd45f77f7c3d02590043440fa1d1e2a647bf01c359c1644fbe61b92d60b1",
+    "scripts/benchmark_hybrid.R": "988d4068f51c4d122fc0463737be88f45f8d8960d8d005d0020a8a9eba8f5b03",
+    "scripts/benchmark_reference.R": "cb9c9b0d388ba202b702d592322ad05d07847d55815b91764bb3981308ca30b9",
+    "scripts/cloud_bootstrap.py": "579f2ee7eeea66d5026de119c3dcf93addafca1fe503a793454e71a830ece39e",
+    "scripts/cloud_checkpoint.py": "d90546db1e10b3087aa68284b417fcca8dd1614951969814a27c56f94268f478",
+    "scripts/compare_hybrid_reference.py": "f62416aa1f294b91a0ed540b6374489613f40885c3b91ab8de5618b484d1b3d9",
+    "scripts/download_datasets.py": "9083248ef03c84dc407003ebad98172d8c80d01a6797aa0b793fea707cf3b821",
+    "scripts/export_reference_fixtures.R": "3f10e70599198c2e3c8be77c6484e9108cfc016bb75169fecbd2c3c63b76f88d",
+    "scripts/plot_benchmarks.R": "596e4d115329ff1163d1794a15cada2307ca06a27a76865fa48e08f3010199fa",
+    "scripts/prepare_benchmark_data.py": "2a854054d8cd130f43a16a143cfadfb62d06fa629b68b694de004cd232cd989e",
+    "scripts/recover_cloud_checkpoint.py": "30706843002ebc33a6d49b4fd0a75c56063877305101d70806c8506522c2a073",
+    "scripts/run_benchmark_suite.py": "4537eb86337c7acdbb3a8273761eeb30412430c429aaed76be6ab2dbd6689957",
+    "scripts/run_hybrid_suite.py": "774c6f17faa8fabd8b9981ac47359dfd404c4ddf9650f5ec92f1db205f491953",
+    "scripts/setup_r.R": "1cb6d917e4295597ded66c3409133ba1a884d4cabecae7946217618c9a5becfa",
+    "scripts/smoke_amelia.R": "bdc1fe15c4cfbd98922d46107a044511b8d6ad04bd210b3b4152bfae6fcff3c4",
+    "scripts/smoke_r_bridge.R": "44e8fc8dd3f77046154ba30ad4bfabe9d83f1d16ba5c7245e0d012a373bc8c9a",
+    "scripts/summarize_benchmarks.py": "0b81e37558e7548d11c3cd385b043c2d938bd3519c89cd436d9a4f436a11701c",
+    "scripts/summarize_hybrid.py": "d33eb9b2925b265e963de86f7693f0f9bf3bca8c8626868f2d318296262bab31",
+    "scripts/summarize_product_costs.py": "f348d2ad75b1736df6505d5f7c2c09acaa76d63334230229971e14c31704a5ad",
+    "scripts/validate_accelerator.py": "8a91957f5ba9230db2a6e0b5ff9e6ef55863ea874d128852106d70d448333062",
+    "scripts/validate_inference.py": "18d3d66f58d9d9100c1fb091d8e35fc0d60588c8f21e463e04a327a6c416de30",
+    "scripts/validate_inference_batch.R": "d83e25d2584791356cf7b50393fdb7fbd5be83170026589dca0d76e0bbdcca58",
+    "scripts/validate_inference_suite.py": "c3549837b3c8847ff710125f23094113e8f0348a9900de2b7dbf85828372b74d",
+    "scripts/validate_product_costs.py": "cdb4a54d5a7c06418a121a311cf44497429f32c172ed1c97bf77da02dfe7b9ec",
+    "scripts/validate_r_accelerator.R": "c57cb7eb22486864d9d4a2ab8d1f5dd05ac16634362af3cbd1eafaba0f540f21",
+    "scripts/validate_r_accelerator_edges.R": "d9801f25554d69569fd2e11238d3a992a2bb3b0fbdc0fb749c15bb5eee3b3ffd",
+    "src/amelia_torch/__init__.py": "b268c56890218a31dca7f57894a852f51016b23d01ad2caca9755a78cf1a2734",
+    "src/amelia_torch/_r/reference_bridge.R": "07d3f709b3840ef6513f8332807a69fa00e0e67836f5f918edb93f3fe937eebc",
+    "src/amelia_torch/api.py": "29d5701a2ef107bba5dc14f1f836289e804f5fe19d1246e47c8b26973b3f0db2",
+    "src/amelia_torch/backends.py": "14ae3f26b081d26faa7e040a24910db1f3c310f85218202b3d4cc224bab52542",
+    "src/amelia_torch/diagnostics.py": "68f26f34edc6ecf1258518ea569248ef2ff9b2fb54bd82dc0fb1f8fb8aa90691",
+    "src/amelia_torch/em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d",
+    "src/amelia_torch/imputation.py": "723ad352a769f1fc0f73818f2b629f0b78088a9168119f852575ff38d6fb5cd2",
+    "src/amelia_torch/reference.py": "c426b318e595795f69fda83fc44cc78c3c4ba88bbcad933d5efddd83685a91f5",
+    "tests/fixtures/hybrid_backend_metadata.json": "d9339a4b6108f2ca7072c3337464aa4b8e96d9c108203a6e5ea50daf758ab71d",
+    "tests/fixtures/reference_amelia/README.md": "ea4202e0acf839b2e93a3f27bb05e2a516052aa6fdf6422248ce256d285bc5da",
+    "tests/fixtures/reference_amelia/adaptive_stress.json": "ef8c96527a6c1ea8010baa2ce27a758ee7b6574004eba1c534e20144a3cbca8a",
+    "tests/fixtures/reference_amelia/cell_prior.json": "e6384a7e47dab7716fa8ba218725d6cf225554ebed00eb9c15c38428f8e16188",
+    "tests/fixtures/reference_amelia/complete_internal.json": "484f4a1e15c9c763c11a46dac5f9ca0317dd45b55a52a92fe3725158b35c9679",
+    "tests/fixtures/reference_amelia/edge_contract.json": "52ed3767dba1eca986c31cd1c82071237a85bd72f7a49c5b24ba1d881e526e68",
+    "tests/fixtures/reference_amelia/empirical_prior.json": "c5f4ac1f0d522cf20743ac3d7b76ae50ac86b0ba47e379d1ca0aff2a6dd3ed46",
+    "tests/fixtures/reference_amelia/maximum_iterations.json": "c9a1b79b0bfb97d715635fc8dcc08ba585f3bce5388a91ce88fbc7bec492ead1",
+    "tests/fixtures/reference_amelia/minimum_iterations.json": "d6220bf6b46727ec1fc1d97b67cf21dec7d8febed9b72bde3b6666cf1af2b93a",
+    "tests/fixtures/reference_amelia/no_complete_rows.json": "2a5fe22c25e383c58ac71905f7bbb06fe60c5dda138986ecbe715790b514f60b",
+    "tests/fixtures/reference_amelia/no_prior.json": "d7eb421319ba6f57ef28d3e13c304a5951bb1584ad8ae0a2a601cacd89a93847",
+    "tests/fixtures/reference_amelia/preprocessing.json": "53043a45fa7dd78a63f6884d25fdd8d01b4452b2e0b0bb8db1c36fb15f13fa98",
+    "tests/fixtures/reference_amelia/public_continuous.json": "2bb9b38ba3693222f6492cade5b219ed1503971ab8e4df6aa976be04c6563e05",
+    "tests/test_api.py": "17d63e49e8ce1957a2ba88b3dc0feb5808bd546a10bb1a7019f12d813f78fbac",
+    "tests/test_backends.py": "70e142a9c120292f0e10def8c53a204f74cd203f93d38bbabee192e6e6603d53",
+    "tests/test_benchmark_audits.py": "864267ee78285e03279594b24af8ed9a127e6de3d77f75276dc7a24126b66a8a",
+    "tests/test_benchmark_cpu_budget.py": "a0ed655a3ebb892030ea0fbe43aa3afc0ef4a75b4b0f6c61a198bc5dde397e9d",
+    "tests/test_benchmark_quality.py": "ebe0cabb83070333b613d482360acb55f1f8a327ea6e27689a1845b32b31955f",
+    "tests/test_benchmark_summary.py": "f8f39a8f30900a2d0d042ea280ba4450241cd8062bb0cfdf3aa85f274639638e",
+    "tests/test_cloud_bootstrap_ruff.py": "9abfc6f05b262b83701b80cb860ff3b98fd56a94f44c4dfac329faa716940260",
+    "tests/test_cloud_checkpoint.py": "1d81b2ecf98d309db368efb444bf56089a7d218d721cb43430a0ba8518aab02b",
+    "tests/test_dataset_tools.py": "be7dd92f725212e549120bacc7195beded911854a87a6e7e7a8930e0803163ec",
+    "tests/test_em_reference.py": "d7673dfac41165a74991f81120fbf3c2cb5e4414f3609edbf549ec4eab419b5e",
+    "tests/test_hybrid_reference.py": "53145fc09cd9999427a4004265b06cfcbb1ecf437343911468cc41f91cc95ef7",
+    "tests/test_hybrid_reference_comparison.py": "95d2fb9ce9799658243b19b44d771eca9718fc262fba48a28be879fccbaed73b",
+    "tests/test_hybrid_suite.py": "fcac8d60b09b04104b478e59343bffe98a80c693bdc75dd902228ebcba572879",
+    "tests/test_inference_suite.py": "72a34b59c2a49c097ac869eeedb4b4edb781d99968c7c723393698fb1759e531",
+    "tests/test_inference_validation.py": "e22498171db4b5c8a68ab328ddfdeda1df3cf8634469d232cd42289842b0697e",
+    "tests/test_numerical_guards.py": "78906bc3121b708eba2a576d1c7a3ac2689ab1b65e859e8c46847982388190bc",
+    "tests/test_optional_torch.py": "0f552fa75b157badc325bc3ad04d86ca8eb228061b64625b8883bdba3254293a",
+    "tests/test_plot_devices.R": "42873e2b3258ea52b98657395b2b3e8da297c977de730244d384d5112b509bde",
+    "tests/test_product_costs.py": "9770a9f5c827c9ef23493abce79381faa57adb043d83c644bb1dd87905edc207",
+    "tests/test_public_reference.py": "211481bf0526eecb05d0cda1e94f9a4262f84f73a79aac85b78b72deba379e85",
+    "tests/test_reference.py": "1cced35db4199616103e3fb2a26652cce8f09c59334c798f33d0917765bdbc49",
+    "tests/test_reference_boundaries.py": "86239a6b8b12d9708a26b08bfcbbe30a84bac62f16f556ceb479d7e764b0b776",
+    "tests/test_reference_parallel.py": "b17b85b5f04f50cbd1c69a3ee2f0525f9cabcf9d8813e0bde47b584a93d5287a"
+  },
+  "source_hash_method": "SHA-256 of Git blobs at the exact checkout commit verified in each job log; CI did not separately hash files after installation. Generated machine binaries are not published.",
+  "source_file_count": 94,
+  "limits": [
+    "CPU execution only; no CUDA/MPS or interactive GUI claim.",
+    "Linux/Windows original reference did not trigger the pathological autopri update; those branches remain explicitly unobserved on these jobs.",
+    "Windows skips only the Unix multicore branch within the R test; all 235 Python tests passed without skips.",
+    "Source install is not a wheel-install matrix. Independent Intel reference wheel evidence is separate.",
+    "This is not R CMD check; separate local package-check evidence records that result."
+  ],
+  "privacy": "Raw logs, runner identifiers, paths and job environment contents are not copied; only selected version and assertion fields."
+}

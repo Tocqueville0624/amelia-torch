@@ -109,7 +109,7 @@ python scripts/download_datasets.py --datasets all --max-download-mib 300
 
 [Full reproduction commands](docs/reproduce.zh-CN.md) cover preparation, R reference fixtures, accelerator checks, timing and inference. The repository includes licensed small samples, data attribution, checksums and complete download scripts. Full raw archives (about 232 MiB) stay outside Git. [Dataset documentation](docs/datasets.zh-CN.md).
 
-Windows, macOS and Linux hosted CPU checks passed at `fa08a52`, including 161 Python tests, seven R test files and the downstream example. Intel Mac separately passed a reference-only wheel installation without Torch. Later boundary tests are not retroactively included in these historical results. [CI evidence](docs/validation/2026-09-26-ci/README.md).
+Windows, macOS and Linux hosted CPU checks passed at `e2ff892`, including 235 Python tests, nine R test files and the downstream example. Intel Mac separately passed a reference-only wheel installation without Torch. The record identifies platform-specific branch coverage and explicitly excludes GPU validation. [CI evidence](docs/validation/2026-09-26-ci/cross-platform-ci-e2ff892.md).
 
 The new Linux T4 session passed all 15 correctness-validation steps, including native and hybrid CUDA64/CUDA32 fixed cases; full structured reports are retained in the [CUDA record](docs/validation/2026-09-26-cuda/README.md). Same-machine performance and the [prespecified inference validation](docs/validation/g5-prespecified/README.md) are in progress. These fixed examples alone do not establish distributional quality or complete release acceptance.
 

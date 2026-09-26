@@ -1,0 +1,9 @@
+{
+  "algorithm": "SHA-256",
+  "commit_under_test": "e2ff8926f4ac4b432c4d6acf8fbc1cd42c93a0f2",
+  "files": {
+    "cross-platform-ci-e2ff892.json": "9e56358c439d0e54f7cdea6e0359f6407c46e89e5bf847025a6cb41aded6c3b2",
+    "cross-platform-ci-e2ff892.md": "baaf4d716bc81cfbb727cb6f94ac8270c59f9a5b7fa16c3b279a8810e2dc8d87"
+  },
+  "scope": "New e2ff892 evidence only; historical manifests unchanged."
+}

@@ -66,7 +66,7 @@
 - [x] 不存在 Rscript、错误 Amelia 版本、缺少 hybrid R DLL/Torch、不可用 CUDA 均明确失败；带中文/空格的实际 venv 与 R 库完成 hybrid 拟合。缺 Torch 使用子进程故障注入，路径 venv 复用已有依赖，这些不冒称干净安装；真实无 Torch wheel 安装见 G1 和下方 Intel Mac 证据。
 - [x] Python reference/hybrid、extend、RDS/arglist 前门明确拒绝 `frontend=True` 及非布尔 False 参数，启动 R 之前即说明需用原版交互式 R/Tcl/Tk 会话；正常 False 流程不变。测试禁止任何子进程启动验证拒绝路径，没有启动或视觉验收 GUI。
 
-证据：[G3 记录](validation/2026-09-26-g3/README.md)：新增 29 项与现有 24 项 reference/hybrid 回归共 53 passed。新 frontend 修复与 G3 边界尚未运行后续三平台 CI，不能算入 `fa08a52` 的历史通过；交互式 RStudio/AmeliaView 仍属于 G6 的未测范围。
+证据：[G3 记录](validation/2026-09-26-g3/README.md)：新增 29 项与现有 24 项 reference/hybrid 回归共 53 passed。新 frontend 修复与 G3 边界已在 `e2ff892` 三平台 CI 通过；交互式 RStudio/AmeliaView 仍属于 G6 的未测范围。
 
 R `moPrep` 默认保存调用表达式而非数据。跨进程必须使用已物化数据的自包含 RDS；现有测试和文档已经说明。Python-only index/扩展 dtype 不写入原版 RDS、重新读盘默认追加走 reference、hybrid 原对象 `extend` 保持原引擎，也都是已明确的产品契约，不应被误记成算法缺陷。
 
@@ -76,7 +76,7 @@ R `moPrep` 默认保存调用表达式而非数据。跨进程必须使用已物
 - [x] R reference 入口 supplied-cl 复用相同两个 worker，完整结果及 worker 后续 RNG 对照原版；调用后 cluster 仍存活，最后由调用者关闭。
 - [x] 本机 Unix multicore 2-worker 路由对照原版逐值通过；测试在 Windows 明确记录不运行 fork，使用 snow/serial 路线。
 
-证据：[G4 并行回归记录](validation/2026-09-26-g4/README.md)。这些新增测试尚未实际完成新三平台 CI；本机通过不表示此前 hosted CPU CI 已覆盖新增测试。
+证据：[G4 并行回归记录](validation/2026-09-26-g4/README.md)。这些新增测试已在 `e2ff892` 三平台 CI 通过；Windows 明确不运行 Unix fork，实际使用 snow。
 
 Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路径，所以这些功能可以通过 reference 完成；**不把 GPU 多副本调度器作为新造出的首版阻塞项**，但 API/文档必须告诉用户使用哪一条路线，不能静默切引擎。
 
@@ -89,7 +89,7 @@ Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路
 
 ### G6：关闭用户要求的平台实测缺口
 
-- [x] Linux x64/macOS arm64/Windows x64 hosted CPU CI 在 `fa08a52` 已实际通过：开发代码安装、R 源码包/C helper 编译、各 161 项 Python 与七个 R 测试文件及下游示例，见[CI证据](validation/2026-09-26-ci/README.md)。新 G3/G4 等后续代码不计入该历史结果；单独 wheel 安装仍需与源码安装分开记录。
+- [x] Linux x64/macOS arm64/Windows x64 hosted CPU CI 在 `e2ff892` 已实际通过：开发代码安装、R 源码包/C helper 编译、各 235 项 Python 与九个 R 测试文件及下游示例，见[CI证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)。Linux/Windows 原版病态 autopri 未触发，分支覆盖须单列；单独 wheel 安装仍需与源码安装分开记录。
 - [ ] 云端 CUDA 核验（用户已授权替代本地 3080）：记录实际系统/驱动/runtime/显存，执行 CUDA64/CUDA32 正确性与质量检查；在**同一云端 GPU 机器**完成原版 R 串行/合理 snow、Torch CPU64/CPU32 与 CUDA 对照。Mac 与 Windows 的耗时不能拼成 GPU 加速比。
 - [x] 无 CUDA 的 Windows hosted runner已验证 reference 与 CPU 路线；Intel Mac 在 `ad9bed2` 的独立任务实际核验 x86_64、隔离 wheel[reference]、Torch 未安装、原版拟合与 Python/R 下游往返，见[Intel 证据](validation/2026-09-26-ci/intel-mac-reference.md)。这不代表 Intel hybrid/Torch、交互式 GUI 或任何 CUDA 路线已测；GPU 仍由上一项单独验收。
 - [ ] 已安装包在 RStudio 实际会话跑一次数据框插补、检查解释器选择、展示/保存结果和一个诊断图。当前 Rscript、headless PDF 与包检查不能替代这一用户流程。
@@ -101,13 +101,13 @@ Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路
 - [x] 5000×7 独立 MCAR 输入的 125 种模式已原样实测 reference/CPU64/MPS32 各一次 m=5。所有拟合收敛且保留观察值，但原版规定的两条全空行令每份 14 个 heldout 未评分；完整 RMSE=null、质量状态 heldout_incomplete、执行器 exit1，全部保留为压力结果，不算质量成功加速样本。峰值内存未测为 null。
 - [ ] CUDA 测试记录实际内存需求/OOM；未测的峰值 RAM/VRAM 继续为 null，不能填 0 或声称已测。速度表解释 MPS/CUDA 相对本机 Torch CPU 和合理 R CPU 并行的结果，不能只挑有利基线。
 
-新增有限测量的预定计划、九次全部结果、独立审计、源码快照与边界见 [G7 记录](validation/2026-09-26-g7/README.md)。纯评分/审计测试与 G2/G4 R 测试已接 CI，但新增测试尚未由后续 hosted 运行验收。以上不外推至高维逐格 MCAR 或全量数据。
+新增有限测量的预定计划、九次全部结果、独立审计、源码快照与边界见 [G7 记录](validation/2026-09-26-g7/README.md)。纯评分/审计测试与 G2/G4 R 测试已在 `e2ff892` 后续 hosted 运行验收，平台分支覆盖限制见 CI 记录。以上不外推至高维逐格 MCAR 或全量数据。
 
 “GPU 比原版快”是待检验命题，不是必须制造的正面结论。三组公开数据、小样本加可核验完整下载脚本的交付方案已获用户同意，不再要求把全部大文件提交 Git，也不把全量行数实验新增为发布前必做项。
 
 ### G8：以可复现开发成果公开，再按证据标记首版
 
-- [ ] 将原版精确版本的安装/校验步骤、已批准许可证/来源、数据许可/下载哈希、复现命令和已审计结果放进用户授权的公开仓库；从干净目录按说明完成最小复现。无需额外等待 PyPI/CRAN 上架才可公开 GitHub 开发成果。
+- [x] 原版精确版本安装/校验、GPL 来源、数据许可/哈希、复现命令及已审计开发结果已公开。`e2ff892` 全新三平台 runner 完成源码安装/编译及公开示例；Intel 独立隔离 wheel[reference] 完成无 Torch 最小复现。二者覆盖范围分开记录，不声称所有安装组合或 PyPI/CRAN 已发布。
 - [ ] 用最终证据更新兼容表和 README：逐条区分通过、明确转到 reference、未测/不支持；保留上游已知特例和 GPU 适用边界。首版标签应等上述适用验收项关闭，不能因 128 个现有测试或 `R CMD check` 成功就自动签发。
 
 本文件只列本次盘点发现的有限缺口。后续关闭项目时应附对应测试/报告，而不是将清单扩大为无穷参数笛卡尔积；任何与这里重复的已测证据可以直接引用并勾选。
