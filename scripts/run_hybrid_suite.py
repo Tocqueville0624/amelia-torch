@@ -228,6 +228,7 @@ def main() -> int:
         "planned_order": plan,
         "inputs": {},
         "execution": [],
+        "status": "running",
         "input_policy": "Separate regenerated CSVs with the main suite format"
         if args.generate_inputs
         else "Exact existing main-suite CSV files reused read-only",
@@ -255,122 +256,140 @@ def main() -> int:
             "source_archive_sha256": metadata["source_archive_sha256"],
         }
     save_suite(suite_path, suite)
-    for task in plan:
-        changed_sources = [
-            str(path.relative_to(ROOT))
-            for path in sources
-            if not path.exists() or file_hash(path) != source_hashes[str(path.relative_to(ROOT))]
-        ]
-        if changed_sources:
-            suite["aborted_reason"] = "workspace_sources_changed_after_initial_fingerprint"
-            suite["changed_sources"] = changed_sources
-            suite["all_requested_tasks_succeeded"] = False
+    active_entry = None
+    try:
+        for task in plan:
+            changed_sources = [
+                str(path.relative_to(ROOT))
+                for path in sources
+                if not path.exists() or file_hash(path) != source_hashes[str(path.relative_to(ROOT))]
+            ]
+            if changed_sources:
+                suite["status"] = "failed"
+                suite["aborted_reason"] = "workspace_sources_changed_after_initial_fingerprint"
+                suite["changed_sources"] = changed_sources
+                suite["all_requested_tasks_succeeded"] = False
+                save_suite(suite_path, suite)
+                return 2
+            dataset, method = task["dataset"], task["method"]
+            output = args.output_dir / f"{dataset}-{method}.json"
+            config_path = args.output_dir / f"{dataset}-{method}.config.json"
+            log_path = args.output_dir / f"{dataset}-{method}.log"
+            if any(path.exists() for path in (output, config_path, log_path)):
+                raise FileExistsError(f"Refusing to overwrite previous hybrid task: {dataset}/{method}")
+            csv_dir = args.output_dir / "inputs" if args.generate_inputs else args.csv_dir
+            config = {
+                **{
+                    f"{name}_csv": str((csv_dir / f"{dataset}-{name}.csv").absolute())
+                    for name in ("input", "truth", "mask")
+                },
+                "output_json": str(output.absolute()),
+                "m": args.m,
+                "seeds": suite["seeds"],
+                "warmups": args.warmups,
+                "warmup_seed": args.warmup_seed,
+                "parallel": "no",
+                "ncpus": 1,
+                "threads": args.threads,
+                "device": task["device"],
+                "dtype": task["dtype"],
+                "tolerance": 1e-4,
+                "emburn": [0, args.max_iterations],
+                "empri": None,
+                "autopri": 0.05,
+                "startvals": 0,
+                "boot.type": "ordinary",
+                "provenance": {"input": suite["inputs"][dataset], "source_sha256": source_hashes},
+            }
+            config_path.write_text(json.dumps(config, indent=2) + "\n")
+            environment = os.environ.copy()
+            environment.update({key: str(args.threads) for key in THREAD_VARIABLES})
+            environment["RETICULATE_PYTHON"] = sys.executable  # Preserve the venv executable symlink.
+            environment["PYTORCH_ENABLE_MPS_FALLBACK"] = "0"
+            print(f"Starting hybrid R pipeline: {dataset} / {method}", flush=True)
+            entry = {
+                "dataset": dataset,
+                "method": method,
+                "device": task["device"],
+                "dtype": task["dtype"],
+                "result": output.name,
+                "log": log_path.name,
+                "started_utc": datetime.now(UTC).isoformat(),
+                "status": "running",
+                "exit_status": None,
+            }
+            active_entry = entry
+            suite["execution"].append(entry)
             save_suite(suite_path, suite)
-            return 2
-        dataset, method = task["dataset"], task["method"]
-        output = args.output_dir / f"{dataset}-{method}.json"
-        config_path = args.output_dir / f"{dataset}-{method}.config.json"
-        log_path = args.output_dir / f"{dataset}-{method}.log"
-        if any(path.exists() for path in (output, config_path, log_path)):
-            raise FileExistsError(f"Refusing to overwrite previous hybrid task: {dataset}/{method}")
-        csv_dir = args.output_dir / "inputs" if args.generate_inputs else args.csv_dir
-        config = {
-            **{
-                f"{name}_csv": str((csv_dir / f"{dataset}-{name}.csv").absolute())
-                for name in ("input", "truth", "mask")
-            },
-            "output_json": str(output.absolute()),
-            "m": args.m,
-            "seeds": suite["seeds"],
-            "warmups": args.warmups,
-            "warmup_seed": args.warmup_seed,
-            "parallel": "no",
-            "ncpus": 1,
-            "threads": args.threads,
-            "device": task["device"],
-            "dtype": task["dtype"],
-            "tolerance": 1e-4,
-            "emburn": [0, args.max_iterations],
-            "empri": None,
-            "autopri": 0.05,
-            "startvals": 0,
-            "boot.type": "ordinary",
-            "provenance": {"input": suite["inputs"][dataset], "source_sha256": source_hashes},
-        }
-        config_path.write_text(json.dumps(config, indent=2) + "\n")
-        environment = os.environ.copy()
-        environment.update({key: str(args.threads) for key in THREAD_VARIABLES})
-        environment["RETICULATE_PYTHON"] = sys.executable  # Preserve the venv executable symlink.
-        environment["PYTORCH_ENABLE_MPS_FALLBACK"] = "0"
-        print(f"Starting hybrid R pipeline: {dataset} / {method}", flush=True)
-        entry = {
-            "dataset": dataset,
-            "method": method,
-            "device": task["device"],
-            "dtype": task["dtype"],
-            "result": output.name,
-            "log": log_path.name,
-            "started_utc": datetime.now(UTC).isoformat(),
-            "status": "running",
-        }
-        suite["execution"].append(entry)
-        save_suite(suite_path, suite)
-        with log_path.open("x") as log:
-            try:
-                result = subprocess.run(
-                    [
-                        args.rscript,
-                        str(ROOT / "scripts/benchmark_hybrid.R"),
-                        str(config_path.absolute()),
-                    ],
-                    cwd=ROOT,
-                    env=environment,
-                    stdout=log,
-                    stderr=subprocess.STDOUT,
-                    timeout=args.timeout_seconds,
-                    check=False,
-                )
-                entry["exit_status"] = result.returncode
-                entry["status"] = "completed" if result.returncode == 0 else "failed"
-            except subprocess.TimeoutExpired:
-                entry.update(
-                    {
-                        "exit_status": None,
-                        "status": "timeout",
-                        "timeout_seconds": args.timeout_seconds,
-                    }
-                )
-            except OSError as error:
-                entry.update(
-                    {
-                        "exit_status": None,
-                        "status": "launch_failed",
-                        "error_type": type(error).__name__,
-                    }
-                )
-        entry["finished_utc"] = datetime.now(UTC).isoformat()
-        entry["source_unchanged_during_process"] = all(
-            path.exists() and file_hash(path) == source_hashes[str(path.relative_to(ROOT))]
-            for path in sources
-        )
-        if not entry["source_unchanged_during_process"]:
-            entry["status"] = "workspace_source_changed"
-        entry["report_exists"] = output.exists()
-        if output.exists():
-            report = json.loads(output.read_text())
-            entry["all_requested_runs_succeeded"] = report.get("summary", {}).get(
-                "all_requested_runs_succeeded", False
+            with log_path.open("x") as log:
+                try:
+                    result = subprocess.run(
+                        [
+                            args.rscript,
+                            str(ROOT / "scripts/benchmark_hybrid.R"),
+                            str(config_path.absolute()),
+                        ],
+                        cwd=ROOT,
+                        env=environment,
+                        stdout=log,
+                        stderr=subprocess.STDOUT,
+                        timeout=args.timeout_seconds,
+                        check=False,
+                    )
+                    entry["exit_status"] = result.returncode
+                    entry["status"] = "completed" if result.returncode == 0 else "failed"
+                except subprocess.TimeoutExpired:
+                    entry.update(
+                        {
+                            "exit_status": None,
+                            "status": "timeout",
+                            "timeout_seconds": args.timeout_seconds,
+                        }
+                    )
+                except OSError as error:
+                    entry.update(
+                        {
+                            "exit_status": None,
+                            "status": "launch_failed",
+                            "error_type": type(error).__name__,
+                        }
+                    )
+            entry["finished_utc"] = datetime.now(UTC).isoformat()
+            entry["source_unchanged_during_process"] = all(
+                path.exists() and file_hash(path) == source_hashes[str(path.relative_to(ROOT))]
+                for path in sources
             )
-            entry["report_sha256"] = file_hash(output)
-        else:
-            entry["all_requested_runs_succeeded"] = False
+            if not entry["source_unchanged_during_process"]:
+                entry["status"] = "workspace_source_changed"
+            entry["report_exists"] = output.exists()
+            if output.exists():
+                report = json.loads(output.read_text())
+                entry["all_requested_runs_succeeded"] = report.get("summary", {}).get(
+                    "all_requested_runs_succeeded", False
+                )
+                entry["report_sha256"] = file_hash(output)
+            else:
+                entry["all_requested_runs_succeeded"] = False
+            save_suite(suite_path, suite)
+            print(f"Finished {dataset} / {method}: {entry['status']}", flush=True)
+            active_entry = None
+    except (KeyboardInterrupt, Exception) as error:  # noqa: BLE001 - retain partial task evidence
+        interrupted = isinstance(error, KeyboardInterrupt)
+        state = "interrupted" if interrupted else "failed"
+        if active_entry is not None:
+            active_entry.update(status=state, error_type=type(error).__name__,
+                                finished_utc=datetime.now(UTC).isoformat())
+        suite.update(status=state, aborted_reason="keyboard_interrupt" if interrupted else "runner_error",
+                     error_type=type(error).__name__, all_requested_tasks_succeeded=False,
+                     updated_utc=datetime.now(UTC).isoformat())
         save_suite(suite_path, suite)
-        print(f"Finished {dataset} / {method}: {entry['status']}", flush=True)
+        return 130 if interrupted else 1
     suite["completed_utc"] = datetime.now(UTC).isoformat()
     suite["all_requested_tasks_succeeded"] = all(
         entry["status"] == "completed" and entry["all_requested_runs_succeeded"]
         for entry in suite["execution"]
     )
+    suite["status"] = "completed" if suite["all_requested_tasks_succeeded"] else "failed"
     save_suite(suite_path, suite)
     return 0 if suite["all_requested_tasks_succeeded"] else 1
 

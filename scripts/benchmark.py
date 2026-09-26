@@ -91,6 +91,15 @@ def metrics(outputs, original, truth, mask):
     }
 
 
+def save_report(path: Path, report: dict) -> None:
+    """Replace a complete snapshot; an interrupted write leaves the prior JSON intact."""
+    temporary = path.with_name(path.name + ".tmp")
+    if path.is_symlink() or temporary.is_symlink():
+        raise ValueError("Refusing symbolic-link report destination")
+    temporary.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
+    os.replace(temporary, path)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path)
@@ -111,6 +120,8 @@ def main():
         parser.error("Invalid repeat/warmup/thread count")
     if args.device == "mps" and os.environ.get("PYTORCH_ENABLE_MPS_FALLBACK") != "0":
         parser.error("Set PYTORCH_ENABLE_MPS_FALLBACK=0 before launching GPU benchmarks")
+    if args.output.exists() or args.output.with_suffix(".parameters.npz").exists():
+        parser.error("Output already exists; use a fresh path to preserve earlier records")
     torch.set_num_threads(args.threads)
     # Float32 comparisons must not silently use reduced precision TF32 kernels.
     if args.device == "cuda":
@@ -145,6 +156,7 @@ def main():
         },
         "timing_scope": "in-memory input to all CPU NumPy completed datasets; preprocessing/bootstrap/EM/draws/transfers included; process startup excluded",
         "runs": [],
+        "status": "running",
     }
     if dev.type == "cuda":
         properties = torch.cuda.get_device_properties(dev)
@@ -153,79 +165,113 @@ def main():
             "vram_bytes": properties.total_memory,
         }
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    for run in range(args.warmups + args.repeats):
-        warmup = run < args.warmups
-        seed = args.seed + (100000 + run if warmup else run - args.warmups)
-        if dev.type == "cuda":
-            torch.cuda.reset_peak_memory_stats(dev)
-        synchronize(dev)
-        started = time.perf_counter()
-        try:
-            result = amelia(
-                data,
-                m=args.m,
-                seed=seed,
-                device=args.device,
-                dtype=args.dtype,
-                tolerance=args.tolerance,
-                empri=args.empri,
-                autopri=args.autopri,
-                emburn=(0, args.max_iterations),
-            )
+    save_report(args.output, report)
+    run = warmup = seed = None
+    try:
+        for run in range(args.warmups + args.repeats):
+            warmup = run < args.warmups
+            seed = args.seed + (100000 + run if warmup else run - args.warmups)
+            if dev.type == "cuda":
+                torch.cuda.reset_peak_memory_stats(dev)
             synchronize(dev)
-            elapsed = time.perf_counter() - started
-            record = {
-                "warmup": warmup,
-                "seed": seed,
-                "status": "ok",
-                "wall_seconds": elapsed,
-                "diagnostics": result["diagnostics"],
-                "quality": metrics(result["imputations"], data, truth, mask),
-            }
-            if not result["diagnostics"]["converged"]:
-                record["status"] = "not_converged"
-            elif not record["quality"]["quality_passed"]:
-                record["status"] = "quality_failed"
-            # Parameters suffice for matched-seed CPU/GPU comparisons; save first measured call.
-            if not warmup and run == args.warmups:
-                parameter_path = args.output.with_suffix(".parameters.npz")
-                np.savez_compressed(
-                    parameter_path,
-                    theta=result["theta"],
-                    sample_imputations=np.stack([out[:1000] for out in result["imputations"]]),
+            started = time.perf_counter()
+            try:
+                result = amelia(
+                    data,
+                    m=args.m,
+                    seed=seed,
+                    device=args.device,
+                    dtype=args.dtype,
+                    tolerance=args.tolerance,
+                    empri=args.empri,
+                    autopri=args.autopri,
+                    emburn=(0, args.max_iterations),
                 )
-                report["parameter_file"] = parameter_path.name
-        except Exception as error:  # noqa: BLE001 - preserve failed benchmark runs in the artifact
-            record = {
-                "warmup": warmup,
-                "seed": seed,
-                "status": "error",
-                "wall_seconds": time.perf_counter() - started,
-                "error_type": type(error).__name__,
-                "message": str(error),
-                "traceback": traceback.format_exc().replace(str(ROOT), "<project>"),
-            }
-        record["peak_cuda_allocated_bytes"] = (
-            torch.cuda.max_memory_allocated(dev) if dev.type == "cuda" else None
-        )
-        report["runs"].append(record)
-        report["completed_utc"] = datetime.now(UTC).isoformat()
-        args.output.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
-        print(
-            json.dumps(
-                {
-                    "device": args.device,
-                    "dtype": args.dtype,
-                    "run": run,
+                synchronize(dev)
+                elapsed = time.perf_counter() - started
+                record = {
                     "warmup": warmup,
-                    "status": record["status"],
-                    "seconds": record["wall_seconds"],
+                    "seed": seed,
+                    "status": "ok",
+                    "wall_seconds": elapsed,
+                    "diagnostics": result["diagnostics"],
+                    "quality": metrics(result["imputations"], data, truth, mask),
                 }
-            ),
-            flush=True,
-        )
-        if record["status"] == "error":
-            break
+                if not result["diagnostics"]["converged"]:
+                    record["status"] = "not_converged"
+                elif not record["quality"]["quality_passed"]:
+                    record["status"] = "quality_failed"
+                # Parameters suffice for matched-seed CPU/GPU comparisons; save first measured call.
+                if not warmup and run == args.warmups:
+                    parameter_path = args.output.with_suffix(".parameters.npz")
+                    np.savez_compressed(
+                        parameter_path,
+                        theta=result["theta"],
+                        sample_imputations=np.stack([out[:1000] for out in result["imputations"]]),
+                    )
+                    report["parameter_file"] = parameter_path.name
+            except Exception as error:  # noqa: BLE001 - preserve failed benchmark runs in the artifact
+                record = {
+                    "warmup": warmup,
+                    "seed": seed,
+                    "status": "error",
+                    "wall_seconds": time.perf_counter() - started,
+                    "error_type": type(error).__name__,
+                    "message": str(error),
+                    "traceback": traceback.format_exc().replace(str(ROOT), "<project>"),
+                }
+            record["peak_cuda_allocated_bytes"] = (
+                torch.cuda.max_memory_allocated(dev) if dev.type == "cuda" else None
+            )
+            try:
+                json.dumps(record, allow_nan=False)
+            except (TypeError, ValueError) as error:
+                # Do not append an unserializable record: it would also break the
+                # failure snapshot and hide both the failure and previous repeats.
+                elapsed = record.get("wall_seconds")
+                record = {
+                    "warmup": warmup,
+                    "seed": seed,
+                    "status": "error",
+                    "stage": "record_serialization",
+                    "original_status": record.get("status"),
+                    "wall_seconds": elapsed if isinstance(elapsed, (int, float))
+                    and np.isfinite(elapsed) else None,
+                    "error_type": type(error).__name__,
+                    "message": str(error),
+                    "peak_cuda_allocated_bytes": None,
+                }
+            report["runs"].append(record)
+            report["updated_utc"] = datetime.now(UTC).isoformat()
+            save_report(args.output, report)
+            print(
+                json.dumps(
+                    {
+                        "device": args.device,
+                        "dtype": args.dtype,
+                        "run": run,
+                        "warmup": warmup,
+                        "status": record["status"],
+                        "seconds": record["wall_seconds"],
+                    }
+                ),
+                flush=True,
+            )
+            if record["status"] == "error":
+                break
+    except KeyboardInterrupt:
+        report.update(status="interrupted", aborted_reason="keyboard_interrupt",
+                      updated_utc=datetime.now(UTC).isoformat())
+        if run is not None and len(report["runs"]) <= run:
+            report["unfinished_run"] = {"run": run, "warmup": warmup, "seed": seed,
+                                        "status": "interrupted_before_record_commit"}
+        save_report(args.output, report)
+        return 130
+    except Exception as error:  # noqa: BLE001 - retain completed snapshots on recording failures
+        report.update(status="failed", aborted_reason="runner_or_recording_error",
+                      error_type=type(error).__name__, updated_utc=datetime.now(UTC).isoformat())
+        save_report(args.output, report)
+        return 1
     measured = [
         run["wall_seconds"] for run in report["runs"] if not run["warmup"] and run["status"] == "ok"
     ]
@@ -235,9 +281,14 @@ def main():
         "iqr_seconds": [float(v) for v in np.quantile(measured, [0.25, 0.75])]
         if len(measured) == args.repeats
         else None,
-        "all_requested_runs_succeeded": len(measured) == args.repeats,
+        "all_requested_runs_succeeded": (
+            len(report["runs"]) == args.warmups + args.repeats
+            and all(run["status"] == "ok" for run in report["runs"])
+        ),
     }
-    args.output.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
+    report["status"] = "completed" if report["summary"]["all_requested_runs_succeeded"] else "failed"
+    report["completed_utc"] = datetime.now(UTC).isoformat()
+    save_report(args.output, report)
     return 0 if report["summary"]["all_requested_runs_succeeded"] else 1
 
 
