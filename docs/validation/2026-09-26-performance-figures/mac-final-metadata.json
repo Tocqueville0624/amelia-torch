@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "kind": "plot_of_audited_benchmark_summaries",
+  "plotting_only": true,
+  "source_script_md5": "43f6e0603372038f77e12746ec404587",
+  "inputs": [
+    {
+      "file": "benchmark-summary-audit-v2.json",
+      "md5": "2ffb58ed01e7472882a4a040ceac007a"
+    },
+    {
+      "file": "hybrid-summary.json",
+      "md5": "50a71600b551d31ae0f688dab0010f50"
+    }
+  ],
+  "host_labels": {
+    "native": "Mac M4",
+    "hybrid": "Mac M4"
+  },
+  "same_host_caller_attestation": true,
+  "host_identity_verified_by_plotter": false,
+  "evidence_policy": "Input audit flags, planned grid, per-row process/quality/count/timing fields are checked. This plotter does not rerun the independent auditor or authenticate host identity; retain upstream reports and host evidence.",
+  "timing_policy": "Only reported median seconds and IQR are plotted. With --same-host, R reference bars repeat native-suite observations in the hybrid panel for context; otherwise they only appear in the native panel. Native and hybrid are different product routes; no ratios cross routes, hosts or dtypes.",
+  "ratio_policy": "Ratios require --same-host caller attestation plus host labels and only compare CPU/GPU of identical dtype within one audited suite. These are ratios of medians, not paired-run estimators or confidence intervals. Values below 1 mean slower GPU route.",
+  "ratios": [
+    {
+      "dataset": "covertype",
+      "route": "native",
+      "cpu": "cpu32",
+      "gpu": "mps32",
+      "dtype": "float32",
+      "cpu_median_divided_by_gpu_median": 0.587637178412386,
+      "interpretation": "Descriptive same-dtype same-suite ratio; >1 means GPU route took less wall time. Caller attests common host; not a causal attribution or ratio CI."
+    },
+    {
+      "dataset": "household_power",
+      "route": "native",
+      "cpu": "cpu32",
+      "gpu": "mps32",
+      "dtype": "float32",
+      "cpu_median_divided_by_gpu_median": 0.662150793271821,
+      "interpretation": "Descriptive same-dtype same-suite ratio; >1 means GPU route took less wall time. Caller attests common host; not a causal attribution or ratio CI."
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "route": "native",
+      "cpu": "cpu32",
+      "gpu": "mps32",
+      "dtype": "float32",
+      "cpu_median_divided_by_gpu_median": 0.596510327470073,
+      "interpretation": "Descriptive same-dtype same-suite ratio; >1 means GPU route took less wall time. Caller attests common host; not a causal attribution or ratio CI."
+    },
+    {
+      "dataset": "covertype",
+      "route": "hybrid",
+      "cpu": "cpu32",
+      "gpu": "mps32",
+      "dtype": "float32",
+      "cpu_median_divided_by_gpu_median": 0.754502369668246,
+      "interpretation": "Descriptive same-dtype same-suite ratio; >1 means GPU route took less wall time. Caller attests common host; not a causal attribution or ratio CI."
+    },
+    {
+      "dataset": "household_power",
+      "route": "hybrid",
+      "cpu": "cpu32",
+      "gpu": "mps32",
+      "dtype": "float32",
+      "cpu_median_divided_by_gpu_median": 0.813460935048635,
+      "interpretation": "Descriptive same-dtype same-suite ratio; >1 means GPU route took less wall time. Caller attests common host; not a causal attribution or ratio CI."
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "route": "hybrid",
+      "cpu": "cpu32",
+      "gpu": "mps32",
+      "dtype": "float32",
+      "cpu_median_divided_by_gpu_median": 0.881859264041317,
+      "interpretation": "Descriptive same-dtype same-suite ratio; >1 means GPU route took less wall time. Caller attests common host; not a causal attribution or ratio CI."
+    }
+  ],
+  "observations": 24,
+  "outputs": [
+    {
+      "file": "mac-final.pdf",
+      "format": "pdf",
+      "backend": "base-R-pdf",
+      "bytes": 7638,
+      "md5": "72cd9cca731bc18d5bf6fd8f20a346f6"
+    },
+    {
+      "file": "mac-final.png",
+      "format": "png",
+      "backend": "macOS-quartz-png",
+      "bytes": 286596,
+      "md5": "e75912a7165bf98bcd67576773189250"
+    }
+  ],
+  "plotted_data": {
+    "file": "mac-final-plotted-data.csv",
+    "md5": "f8804ecae5d92d9b6a1ccf12d2e2cbe6"
+  },
+  "svg_available": false,
+  "absent_method_policy": "Unrecorded methods (including unavailable CUDA/MPS precisions) are omitted, never assigned zero or extrapolated."
+}

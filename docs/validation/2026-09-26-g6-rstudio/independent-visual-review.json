@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "status": "passed_for_actual_rstudio_plot_display",
+  "relationship_to_machine_report": "session.json remains byte-identical to the pre-review report. Its Pending text is superseded for visual review only by this separately recorded observation.",
+  "screenshot": "rstudio-plot-ui.jpg",
+  "screenshot_sha256": "d97916eed48ec1449295268737d90d2a7a017c4df5aad2b7db51450453f7f371",
+  "format": "JPEG",
+  "width": 2400,
+  "height": 1800,
+  "screenshot_unmodified": true,
+  "reviews": [
+    {
+      "reviewer": "delegated_rstudio_validation_agent",
+      "method": "Observed actual Data Viewer, Plots pane and Plot Zoom through native UI; subsequently inspected the saved screenshot.",
+      "result": "passed"
+    },
+    {
+      "reviewer": "independent_parent_agent",
+      "method": "Captured and independently visually inspected actual Plot Zoom screenshot.",
+      "result": "passed"
+    }
+  ],
+  "visible_plot_features": [
+    "complete title",
+    "red Mean Imputations curve",
+    "blue Observed Values curve",
+    "Density y-axis",
+    "Synthetic outcome x-axis",
+    "ticks",
+    "legend"
+  ],
+  "private_user_documents_or_paths_visible": false,
+  "screenshot_scope": "Plot Zoom only; console and Data Viewer observations are execution observations recorded separately in review.json.",
+  "limitations": [
+    "One synthetic CPU64 example on macOS arm64 RStudio.",
+    "Not AmeliaView startup or GPU verification.",
+    "Exported diagnostic.png is not a GUI screenshot."
+  ],
+  "image_metadata_review": {
+    "jpeg_exif": "Only ExifIFD pointer and pixel dimensions; no user, location, device serial, path or timestamp tags.",
+    "jpeg_app13": "Empty IPTC block and its empty-content digest.",
+    "png_exif": "Only ExifIFD pointer and pixel dimensions.",
+    "image_bytes_changed": false
+  }
+}

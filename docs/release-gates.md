@@ -66,7 +66,7 @@
 - [x] 不存在 Rscript、错误 Amelia 版本、缺少 hybrid R DLL/Torch、不可用 CUDA 均明确失败；带中文/空格的实际 venv 与 R 库完成 hybrid 拟合。缺 Torch 使用子进程故障注入，路径 venv 复用已有依赖，这些不冒称干净安装；真实无 Torch wheel 安装见 G1 和下方 Intel Mac 证据。
 - [x] Python reference/hybrid、extend、RDS/arglist 前门明确拒绝 `frontend=True` 及非布尔 False 参数，启动 R 之前即说明需用原版交互式 R/Tcl/Tk 会话；正常 False 流程不变。测试禁止任何子进程启动验证拒绝路径，没有启动或视觉验收 GUI。
 
-证据：[G3 记录](validation/2026-09-26-g3/README.md)：新增 29 项与现有 24 项 reference/hybrid 回归共 53 passed。新 frontend 修复与 G3 边界已在 `e2ff892` 三平台 CI 通过；交互式 RStudio/AmeliaView 仍属于 G6 的未测范围。
+证据：[G3 记录](validation/2026-09-26-g3/README.md)：新增 29 项与现有 24 项 reference/hybrid 回归共 53 passed。新 frontend 修复与 G3 边界已在 `e2ff892` 三平台 CI 通过；交互式 RStudio 已按下方 G6 完成有限验收；原版独立 AmeliaView 仍未测。
 
 R `moPrep` 默认保存调用表达式而非数据。跨进程必须使用已物化数据的自包含 RDS；现有测试和文档已经说明。Python-only index/扩展 dtype 不写入原版 RDS、重新读盘默认追加走 reference、hybrid 原对象 `extend` 保持原引擎，也都是已明确的产品契约，不应被误记成算法缺陷。
 
@@ -91,10 +91,10 @@ Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路
 
 ### G6：关闭用户要求的平台实测缺口
 
-- [x] Linux x64/macOS arm64/Windows x64 hosted CPU CI 在 `e2ff892` 已实际通过：开发代码安装、R 源码包/C helper 编译、各 235 项 Python 与九个 R 测试文件及下游示例，见[CI证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)。Linux/Windows 原版病态 autopri 未触发，分支覆盖须单列；单独 wheel 安装仍需与源码安装分开记录。
+- [x] Linux x64/macOS arm64/Windows x64 hosted CPU CI 在 `8b5ede9` 已实际通过：开发代码安装、R 源码包/C helper 编译、各 262 项 Python 与九个 R 测试文件及下游示例，见[CI证据](validation/2026-09-26-ci/cross-platform-ci-8b5ede9.md)。Linux/Windows 原版病态 autopri 未触发，分支覆盖须单列；单独 wheel 安装仍需与源码安装分开记录。
 - [ ] 云端 CUDA 核验（用户已授权替代本地 3080）：记录实际系统/驱动/runtime/显存，执行 CUDA64/CUDA32 正确性与质量检查；在**同一云端 GPU 机器**完成原版 R 串行/合理 snow、Torch CPU64/CPU32 与 CUDA 对照。Mac 与 Windows 的耗时不能拼成 GPU 加速比。
 - [x] 无 CUDA 的 Windows hosted runner已验证 reference 与 CPU 路线；Intel Mac 在 `ad9bed2` 的独立任务实际核验 x86_64、隔离 wheel[reference]、Torch 未安装、原版拟合与 Python/R 下游往返，见[Intel 证据](validation/2026-09-26-ci/intel-mac-reference.md)。这不代表 Intel hybrid/Torch、交互式 GUI 或任何 CUDA 路线已测；GPU 仍由上一项单独验收。
-- [ ] 已安装包在 RStudio 实际会话跑一次数据框插补、检查解释器选择、展示/保存结果和一个诊断图。当前 Rscript、headless PDF 与包检查不能替代这一用户流程。
+- [x] 已安装包在 Mac RStudio 实际会话完成 reference/hybrid CPU64 数据框插补、解释器选择、RDS/CSV 保存读回、Data Viewer 及可见诊断图；[报告与真实截图](validation/2026-09-26-g6-rstudio/README.md)。这是一个有限 Mac 用户流程，不外推其他平台 GUI；原版独立 AmeliaView 尚待 XQuartz 安装后单独启动/载入/关闭验证。脚本执行后的清理顺序调整仅语法检查，精确已执行副本另存。
 
 ### G7：收尾三组大数据与产品耗时证据（本机有界范围已完成）
 

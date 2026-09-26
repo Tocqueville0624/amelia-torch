@@ -1,0 +1,17 @@
+{
+  "algorithm": "SHA-256",
+  "base": "repository root",
+  "files": {
+    "docs/validation/2026-09-26-g6-rstudio/README.md": "40804411c23cfa036e0b7307551984cbf8a362519bfc7d2d4fa70369caba8d78",
+    "docs/validation/2026-09-26-g6-rstudio/completed.csv": "265b932dcc5e6564a1c4d3f96edddb57c61fe3812d262e03d9b7a46112834057",
+    "docs/validation/2026-09-26-g6-rstudio/diagnostic.png": "b4b501834863af8031d6a81fc05262714f6116de6bedaaaeb0f40ab75313a463",
+    "docs/validation/2026-09-26-g6-rstudio/executed-rstudio-smoke.R": "1e66f712a651c8c5e4c48a3cd5aa2e5806337de6847552993c3444b1a40f15e7",
+    "docs/validation/2026-09-26-g6-rstudio/independent-visual-review.json": "249a4299e718938b8c7d29afe406c275d1a1825e3a70099f371ce7f0a0a08c22",
+    "docs/validation/2026-09-26-g6-rstudio/input.csv": "62e43daf6552c35b7f3b46c7649737e79c869fbe9c459bdf155a4925bfc6b24c",
+    "docs/validation/2026-09-26-g6-rstudio/review.json": "b1d726873af1dce3fc342ecdc48cb2653b80b7caf428142b490839d6233f74ef",
+    "docs/validation/2026-09-26-g6-rstudio/rstudio-plot-ui.jpg": "d97916eed48ec1449295268737d90d2a7a017c4df5aad2b7db51450453f7f371",
+    "docs/validation/2026-09-26-g6-rstudio/session.json": "763cf53170fd6e9bbebf8fc03fe58e8b771bf23ed3410a06814314c8f4641f8a",
+    "docs/validation/2026-09-26-g6-rstudio/xquartz-prerequisite.json": "28133067019fee39e4e9217716585011c2b47f5232729ee153091f9d284b4e29",
+    "scripts/rstudio_smoke.R": "ba0b68cf8ff429cb67d97f26a33a1dac8d47ef5016de13fa4f0de234cfa3a170"
+  }
+}

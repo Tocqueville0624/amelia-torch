@@ -2,11 +2,12 @@
 
 ## 用户目标与当前阶段
 - 用户为求职展示项目能力，要求全部功能完成后才算首版，完整复现 Amelia 1.8.3 流程/算法，在 Python 与 R/RStudio 跨 Mac、Windows、有/无 CUDA 使用，并以三组较大公开数据实测性能；不能随意改变统计语义。
-- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权直接使用云端 CUDA 测试并留存记录，不再依赖本地 3080。免费 Colab T4 的 CUDA32/64 固定正确性案例已在旧会话通过；9/26 已恢复旧笔记本并重连免费 T4，正式性能与统计质量仍待完成；Andrew Wang 只预留未来协作位，尚非当前作者。
+- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权直接使用云端 CUDA 测试并留存记录，不再依赖本地 3080。新 Colab T4 会话的 15 步固定正确性验证已保存；固定到 905cc79 的正式性能与 CUDA 统计质量验收仍在进行；Andrew Wang 只预留未来协作位，尚非当前作者。
 - 当前为公开开发快照：native 连续 EMB、Python/R 原版及混合兼容入口已实现；仍须完成 GPU 统计质量与云端正式性能验收。状态见 `docs/roadmap.zh-CN.md`、`docs/amelia-compatibility.md`。
 - 2026-09-26：e2ff892 的三平台 hosted CI 各 235 项 Python、9 个 R 测试文件及下游示例通过，本机 R build/check 九文件零问题；ad9bed2 的 Intel Mac x86_64 隔离 wheel[reference]、无 Torch 原版/RDS 工作流亦实际通过。该 CI 已覆盖 G3/G4；Linux/Windows 的原版病态 autopri 分支未触发需如实保留，Windows 使用 snow 并明确跳过 Unix fork。修复显式 startvals 的原版原位更新语义；Mac 三组 100k 样本的 native/hybrid 正式基准均完成，MPS 未比同机 Torch CPU 更快；旧测量源码哈希不得随修复改写。详见 `docs/validation/2026-09-26-ci/`、`2026-09-26-g1/`、`2026-09-26-g2/`。
 - 新 T4 会话在 fa08a52 完成全部 15 步正确性验证；同机正式性能固定到 905cc79，正在运行。G5 统计门槛与各 200 次 MCAR/MAR、20 次压力方案已在 06b0fe8 固定，正式结果不得反向改变门槛；见 `docs/validation/g5-prespecified/`。仍不算完整首版验收。
 - G5 Mac 五路线 10,500 次拟合均成功，MAR/压力通过，但 MCAR 绝对/配对覆盖率区间略超冻结界限，原版 R 自身亦未过绝对界限；见 `docs/validation/2026-09-26-g5-mps/`。保留整体未通过，不归因于 GPU 独有错误。新独立 1,000 次 MCAR 方案只是待用户答复的提案，尚未执行。
+- 最新 `8b5ede9` 三平台 CI 各 262 项 Python、9 个 R 文件和下游示例通过；新增中断记录保护不改变拟合/计时，旧测量版本不改写。实际 Mac RStudio 的已安装 reference/hybrid CPU64、保存读回、Data Viewer 和诊断图已通过；原版 AmeliaView 仍缺 XQuartz，管理员安装未完成。详见 `docs/validation/2026-09-26-ci/cross-platform-ci-8b5ede9.md` 与 `2026-09-26-g6-rstudio/`。
 - 三组 UCI 全压缩数据已下载、校验，合计约 232 MiB。数据来源/许可/哈希见 `data/manifest.json`；原始全量文件不进 Git，小样本和复现脚本已入项目。
 
 ## 环境与命令

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "scope": "Actual interactive RStudio on macOS arm64; installed original-reference and hybrid CPU64 routes plus visual diagnostic.",
+  "status": "passed_for_bounded_rstudio_workflow",
+  "execution": {
+    "script": "scripts/rstudio_smoke.R",
+    "executed_script_snapshot": "executed-rstudio-smoke.R",
+    "executed_script_sha256": "1e66f712a651c8c5e4c48a3cd5aa2e5806337de6847552993c3444b1a40f15e7",
+    "current_script_sha256": "ba0b68cf8ff429cb67d97f26a33a1dac8d47ef5016de13fa4f0de234cfa3a170",
+    "post_execution_review_change": "Only cleanup ordering hardened: restore previous Torch thread count before final two-layer R RNG restore. Fit/comparison/export/plot code unchanged. Adjustment parsed, not rerun in GUI.",
+    "source_method": "Native-UI RStudio console, local environment. Installed package; no workspace clear/save.",
+    "model_rows": 120,
+    "model_columns": 4,
+    "m": 3,
+    "input_seed": 20260926,
+    "fit_seed": 871,
+    "imputation_all_equal_tolerance": 1e-06,
+    "csv_readback_all_equal_tolerance": 1e-12
+  },
+  "machine_report": "session.json",
+  "visual_review": {
+    "complete": true,
+    "reviewers": "Delegated RStudio validation agent and independent parent agent",
+    "method": "Actual RStudio Plots pane and Plot Zoom; reviewed native screenshot and saved JPEG.",
+    "observations": [
+      "Data Viewer showed 12 completed synthetic rows and 4 named columns.",
+      "Plots pane showed compare.density output.",
+      "Plot Zoom displayed entire title, red Mean Imputations curve, blue Observed Values curve, Density axis, Synthetic outcome axis, ticks and legend.",
+      "Console showed G6 RSTUDIO PASS.",
+      "Global Environment remained empty; original source tabs and unsaved edits stayed open."
+    ],
+    "screenshot": "rstudio-plot-ui.jpg",
+    "screenshot_sha256": "d97916eed48ec1449295268737d90d2a7a017c4df5aad2b7db51450453f7f371",
+    "format": "JPEG",
+    "width": 2400,
+    "height": 1800,
+    "screenshot_unmodified": true,
+    "private_user_documents_or_paths_visible": false,
+    "machine_report_pending_note": "session.json was emitted before visual review; its pending field is retained. This separate report records the later actual inspection."
+  },
+  "verified_checks": {
+    "project_venv_selected": true,
+    "reference_code_1": true,
+    "hybrid_code_1": true,
+    "same_seed_outputs_match": true,
+    "observed_unchanged": true,
+    "completed_finite": true,
+    "three_hybrid_fits_converged": true,
+    "rds_readback": true,
+    "csv_readback": true,
+    "actual_data_viewer": true,
+    "actual_visible_plot": true
+  },
+  "preservation": {
+    "user_source_tabs_closed": false,
+    "user_source_documents_saved": false,
+    "workspace_cleared": false,
+    "workspace_saved": false,
+    "working_directory_changed": false,
+    "synthetic_files_only": true
+  },
+  "initial_helper_failure": {
+    "description": "Explicit utils::View bypassed RStudio and requested missing X11 data editor after fitting/export/plot completed.",
+    "resolution": "Changed to session View; second full GUI execution passed.",
+    "first_attempt_artifacts_retained_locally": true,
+    "package_math_changed": false
+  },
+  "amelia_view": {
+    "status": "not_run_not_verified",
+    "startup_executed": false,
+    "data_load_executed": false,
+    "close_executed": false,
+    "reasons": [
+      "Missing XQuartz libraries required by R Tcl/Tk.",
+      "Official cask installation stopped for administrator authentication, not automatic-review rejection.",
+      "Requested AmeliaView launch rejected before execution by automatic approval, citing earlier no-GUI constraint and missing-dependency hang risk. Not bypassed.",
+      "Native Installer connection yielded no UI. Parent agent interrupted the wait after about 2266.7 seconds; the tool returned literal 'aborted by user', which is not attributed to the human user. Opening/authentication state unknown."
+    ],
+    "credentials_entered": false,
+    "legal_agreement_accepted": false,
+    "logout_or_restart": false
+  },
+  "local_artifact_hashes": {
+    "reference.rds": "a35a2eca922cb9cf99d76dbbf2c456f76905af6218b6d0ba6cc2b450d1c36cbd",
+    "hybrid.rds": "6d74cbdea10ec4ee8e3e2ae6a670d60d311c552e04ba6e33a8f41bdcc693f6c5",
+    "completed.csv": "265b932dcc5e6564a1c4d3f96edddb57c61fe3812d262e03d9b7a46112834057",
+    "input.csv": "62e43daf6552c35b7f3b46c7649737e79c869fbe9c459bdf155a4925bfc6b24c",
+    "diagnostic.png": "b4b501834863af8031d6a81fc05262714f6116de6bedaaaeb0f40ab75313a463",
+    "session.json": "763cf53170fd6e9bbebf8fc03fe58e8b771bf23ed3410a06814314c8f4641f8a",
+    "rstudio-plot-ui.jpg": "d97916eed48ec1449295268737d90d2a7a017c4df5aad2b7db51450453f7f371"
+  },
+  "limits": [
+    "One small macOS arm64 RStudio workflow; no Windows/Linux/Intel RStudio GUI extrapolation.",
+    "No GPU/performance claim.",
+    "No AmeliaView startup/load/close success.",
+    "PNG is exported plot; JPEG is actual GUI screenshot."
+  ]
+}

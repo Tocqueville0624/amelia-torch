@@ -1,0 +1,9 @@
+{
+  "scripts/plot_audited_performance.R": "c4ca4ec843bf7bc029568990b7a82e9f1cfb01315b3be5a75bb0cfc7ae325fbe",
+  "docs/validation/2026-09-23-development/benchmark-summary-audit-v2.json": "36d0cbe954511e6cb048e3b2760d2ac493d3ba934dc1d92f7734e83caa9e4164",
+  "docs/validation/2026-09-23-development/hybrid-summary.json": "62efffcd07fd92e74ddf6ce5a622455221dd6d892367dafc3847cbd1f20867c7",
+  "docs/validation/2026-09-26-performance-figures/mac-final-metadata.json": "449baf67c791caf857c6c6bafc3e0ece6d72718e206233c0c602ffda26ea8775",
+  "docs/validation/2026-09-26-performance-figures/mac-final-plotted-data.csv": "43e320aa34883e6bfaa3a58a9b7fe121b1b14c497b8577e3423b921f2e44dc44",
+  "docs/validation/2026-09-26-performance-figures/mac-final.pdf": "ea512b346b46ea7965e2103060023cc20fd12e96b5196c9c304d513e5ddf9293",
+  "docs/validation/2026-09-26-performance-figures/mac-final.png": "701d3cdc57a0e3fccc5327c70c36e06235633e0c596afbf0626f80db8820a415"
+}

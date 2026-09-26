@@ -52,14 +52,14 @@
 | `summary.mi` / `plot.amelia` | 已有 | **未移植** | summary文本/表及plot compare/overimpute PDF分支通过；不等于视觉验收 |
 | `write.amelia` CSV/table/DTA | 已有 | **未移植** | CPU64逐份/合并文件读回、factor标签、orig.data=FALSE和自定义impvar通过 |
 | `compare.density` / `overimpute` / `disperse` 等诊断 | 已有 | **未移植** | 这些方法及missmap/tscsPlot已在小案例输出PDF并对照；仍执行官方CPU代码 |
-| Rubin pooling | `mi.meld`等可用于结果分析 | 验证脚本及手算对照测试已编写；**完整统计质量验收未完成** | mi.meld和mi.combine功能对照已测；总体统计质量仍需独立模拟，不能以功能测试代替 |
+| Rubin pooling | `mi.meld`等可用于结果分析 | 验证脚本及手算对照测试已编写；**完整统计质量验收未完成** | mi.meld和mi.combine功能对照已测；Mac五路线正式模拟已完成，MAR和有界压力检查通过，但MCAR冻结统计界限未全部通过；CUDA正式模拟仍待完成 |
 | R调用native连续数据接口 | 不适用 | Mac源码桥接CPU32/64测试通过；用自有 `ameliatorch_result` | 与此列过渡方案不同 |
 | Windows CPU | 官方参考与本包在 GitHub Windows runner 通过 | hosted CPU CI通过；用户RTX3080电脑未接入 | hosted CPU CI通过；不代表CUDA |
 | 云端 CUDA / Windows CUDA | 原版无CUDA内核 | 用户已授权云端替代不可接入的 RTX 3080；完整 CUDA 验收进行中，不以设备探针宣称通过 | 云端 CUDA 仍需同机完整质量/速度验收；Linux 云端不冒称 Windows CUDA 已测 |
 | macOS CPU float64 | 本机R参考实测 | CPU确定性参考测试通过 | 已安装包代表案例通过 |
 | macOS MPS float32 | 原版无MPS内核 | 3个 EM 样例和三组大数据已测；MPS 比同机 CPU32 慢 51%–70%，推断质量验收仍待完成 | 变换/类别/先验边界3公共案例及三组大数据通过有限性等门槛；MPS 比同机 hybrid CPU32 慢13%–33%，不是全部 GPU 质量验收 |
-| Linux CPU/CUDA | GitHub Ubuntu CPU runner已测 | CPU CI通过；CUDA未测 | CPU CI通过；CUDA未测 |
-| 安装包、RStudio分发、CRAN/PyPI | 官方包已有 | Python开发环境可调用；Mac R安装/build及包测试通过；**未发布正式包** | Mac R CMD check零错误/警告/NOTE；RStudio会话待测 |
+| Linux CPU/CUDA | GitHub Ubuntu CPU runner已测 | CPU CI通过；Linux T4 native CUDA32/64固定正确性案例已通过；正式性能与CUDA G5仍未完成 | CPU CI通过；Linux T4 hybrid CUDA32/64固定正确性案例已通过；正式性能与CUDA G5仍未完成，不代表Windows CUDA已测 |
+| 安装包、RStudio分发、CRAN/PyPI | 官方包已有 | Python开发环境可调用；Mac R安装/build及包测试通过；**未发布正式包** | Mac R CMD check零错误/警告/NOTE；实际Mac RStudio reference/hybrid CPU64插补、保存/读回及可见诊断图通过；独立AmeliaView未测 |
 | 三个大公开数据集端到端比较 | 本机原版串行/snow4已测 | 3组各10万行native数值子集正式基准已完成并审计 | CPU64/CPU32/MPS32 共9配置63调用315插补已审计；完整 R 调用包含桥接，排除进程初始化；不宣称全量/全部缺失机制 |
 | Python → R 完整公开调用成本 | 官方 CPU 引擎，经 binary/RDS 传输 | 与 native 内存计时边界不同 | G7 100k Covertype m5 reference/hybrid CPU64 各首次+2次后续，均约12秒；每次新R进程，不能与旧R计时相减 |
 | 独立逐格 MCAR 有界压力 | 原版全空行仍NA | 本轮未新增 native 压力计时 | G7 5000×7、125模式、m5 的 reference/CPU64/MPS32 已记录；14 heldout/份未评分，完整RMSE=null，不算有效速度质量样本 |
@@ -71,19 +71,24 @@ G1 的 2026-09-26 新增例子、源码哈希、原版 `mi.combine` 特例及可
 [独立回归记录](validation/2026-09-26-g1/downstream-extended.md)。可运行
 [Python/R 示例](../examples/README.md) 已在 reference 和 CPU64 hybrid 模式完成
 官方 RDS 往返、R 方法调用与再次 Python 读取。这些下游方法继续在原版 R CPU
-执行；新的 CI 步骤未经真实运行前不计入下方既有三平台结果。
+执行；这些 G1 下游步骤已包含在 `e2ff892` 的三平台实际 CI 结果中。
 
 同日 [G2 公共边界记录](validation/2026-09-26-g2/README.md) 包含 33 个 CPU64
 案例、显式初值 alias 修复，以及两条 public 病态轨迹的 autopri/固定 hold 检查。
-近奇异案例的结果码和轨迹有已记录差异，不能算有效质量样本；新增 GPU 精度验收仍待完成。
-[G4 并行记录](validation/2026-09-26-g4/README.md) 是本机 reference CPU 路线的真实
-worker 测试，新增 Windows/Linux CI 尚未运行，不表示 hybrid 开放了多 worker。
+近奇异案例的结果码和轨迹有已记录差异，不能算有效质量样本。
+新增 [MPS32 八个预定公共边界断言](validation/2026-09-26-g2/accelerator-edges-mps32.md)
+已通过：13 次 EM 中 11 次收敛，另外两次为预定截止和病态非收敛；病态 autopri
+轨迹与原版有已记录差异，不能作为有效质量样本。CPU64 allthetas 检查单列，CUDA
+同脚本仍待完成；这不是 33 个 CPU 案例的全量 GPU 复测。
+[G4 并行记录](validation/2026-09-26-g4/README.md) 的 Python snow2 与 R 调用方持有
+cluster 已在 `e2ff892` 的三个系统执行；multicore 在 macOS/Linux 执行，Windows
+明确不执行 Unix fork。hybrid 仍仅支持串行副本调度。
 
 [Mac 性能与 MPS 公共精度记录](validation/2026-09-23-development/README.md)保存全部成功/慢速结果及实际测量源码；低模式 block-MCAR 的有限性门槛不等于推断分布等价。新增 [G7 记录](validation/2026-09-26-g7/README.md)单列 Python 完整调用与独立 MCAR 未完整评分压力样本；峰值 RAM/VRAM 未测为 null。G3 类型/会话及明确错误的有限证据见 [G3 记录](validation/2026-09-26-g3/README.md)，Python frontend GUI 前门明确拒绝。
 
 [正式 Mac 五路线统计验证](validation/2026-09-26-g5-mps/README.md)已完成 10,500 次拟合，全部收敛，MAR 和有界压力检查通过；MCAR 的绝对/配对覆盖率区间略超冻结界限，原版 R 与 GPU/CPU 均有未通过项。因此统计验收尚未整体完成，不能从数值兼容或拟合成功推断全部质量标准已通过。
 
-Linux/macOS/Windows hosted CPU CI 在 `e2ff892` 已实际完成各 235 项 Python 与九个 R 测试文件，见 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)；Intel no-Torch reference 的独立记录见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)。该版本包含 G3/G4/autopri/G7；原版病态 autopri 在 Linux/Windows 未触发，不能把绿色任务当成该分支已覆盖。CUDA 完整验收和 RStudio 已安装包的真实会话测试仍待完成。已确定分发名 `amelia-torch`、许可证 `GPL-3.0-only`、维护者 Sheng Wan（`swan0624@uw.edu`）、小样本加完整下载脚本的数据方案及明确标注的 R 过渡路径；公开仓库账号 `Tocqueville0624`，当前保持开发快照标记。
+Linux/macOS/Windows hosted CPU CI 在 `8b5ede9` 已实际完成各 262 项 Python 与九个 R 测试文件，见 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-8b5ede9.md)；Intel no-Torch reference 的独立记录见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)。该版本包含 G3/G4/autopri/G7；原版病态 autopri 在 Linux/Windows 未触发，不能把绿色任务当成该分支已覆盖。CUDA 完整验收仍待完成；Mac RStudio 已安装包的真实会话已通过有限验收，见 [G6 证据](validation/2026-09-26-g6-rstudio/README.md)，原版独立 AmeliaView 未测。已确定分发名 `amelia-torch`、许可证 `GPL-3.0-only`、维护者 Sheng Wan（`swan0624@uw.edu`）、小样本加完整下载脚本的数据方案及明确标注的 R 过渡路径；公开仓库账号 `Tocqueville0624`，当前保持开发快照标记。
 
 ## 验收与宣传规则
 
