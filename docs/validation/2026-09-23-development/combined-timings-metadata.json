@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source_script_md5": "5afe1bc6f67c7fd47bd312ada086b038",
+  "inputs": [
+    {
+      "file": "benchmark-summary-audit-v2.json",
+      "md5": "2ffb58ed01e7472882a4a040ceac007a"
+    },
+    {
+      "file": "hybrid-summary.json",
+      "md5": "50a71600b551d31ae0f688dab0010f50"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "combined-timings.pdf",
+      "format": "pdf",
+      "backend": "base-R-pdf",
+      "bytes": 6731,
+      "md5": "03679e2960be0a79c798ed5a970ab6cc"
+    },
+    {
+      "file": "combined-timings.png",
+      "format": "png",
+      "backend": "macOS-quartz-png",
+      "bytes": 188588,
+      "md5": "02fbed8493f2bdc7d05560d3fb834c48"
+    }
+  ],
+  "svg_available": false,
+  "plotting_only": true
+}

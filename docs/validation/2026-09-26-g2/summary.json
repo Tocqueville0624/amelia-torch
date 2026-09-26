@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "scope": "CPU float64 regression evidence; no GPU or performance claim",
+  "environment": {
+    "system": "Darwin",
+    "architecture": "arm64",
+    "R": "4.5.3",
+    "Amelia": "1.8.3",
+    "Python": "3.12.13",
+    "torch": "2.14.0",
+    "device": "cpu",
+    "dtype": "float64"
+  },
+  "reference_source": {
+    "url": "https://cran.r-project.org/src/contrib/Amelia_1.8.3.tar.gz",
+    "sha256": "7699455ca3e9dabd60ad0ec69185ece3f24a597ef8da18033ea0b7a32356967f"
+  },
+  "installation": {
+    "command": "R_LIBS_USER=<PROJECT_ROOT>/.R-library R CMD INSTALL --clean --library=.R-library r-package",
+    "exit_code": 0
+  },
+  "python_tests": {
+    "command": ".venv/bin/python -m pytest -q tests/test_hybrid_reference.py tests/test_reference.py tests/test_public_reference.py",
+    "exit_code": 0,
+    "passed": 26,
+    "reported_duration_seconds": 10.87,
+    "stdout_tail": "26 passed in 10.87s"
+  },
+  "r_tests": {
+    "report": "r-tests.json",
+    "files_passed": 7,
+    "files_failed": 0,
+    "public_edge_cases": 33
+  },
+  "source_sha256": {
+    "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+    "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+    "r-package/tests/public-edge-cases.R": "9044720d6255e9f79a65a379d6e5b99ab046d29b82bf7b4b3aa2a7efc0231397",
+    "src/amelia_torch/em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d",
+    "src/amelia_torch/reference.py": "5e8107909eaf366189a171624703fb70557f53ef5d117b618d4d52dc12278070"
+  },
+  "limitations": [
+    "No GPU precision acceptance in this run",
+    "No public autopri-update/fixed-hold pathological trigger in these 33 cases",
+    "Small local fits only, not a benchmark",
+    "R elapsed durations are test execution durations, not speed comparisons"
+  ]
+}

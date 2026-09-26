@@ -45,6 +45,8 @@
 
 上游 `emcore` 将 `thetaold` 作为无复制 Armadillo view 并原地写回。**参考导出脚本必须深复制每次传入的 theta**；R 普通赋值不足以防止别名污染。脚本使用 `unserialize(serialize(..., NULL))`，使单步调用、完整调用和保存的初值互不干扰。
 
+公共 R 混合入口须保留这项副作用：显式 **double** `startvals` 的调用者对象、`arguments$startvals` 归档与下一份插补都会看到最终 theta。注册 C helper 在保存 `allthetas` 初列后原位回写；**integer** 初值经原版 Rcpp 转换，不回写原整数对象；完整 bootstrap 样本跳过 EM，也不回写。native Python 的输入不变契约仍保留。多份插补、arglist/追加与 RNG 对照见 [2026-09-26 公共边界证据](validation/2026-09-26-g2/README.md)。
+
 ## 4. E 步及 cell priors
 
 每个缺失模式有观察集合 O、缺失集合 M。令当前参数为 μ、Σ，条件矩为

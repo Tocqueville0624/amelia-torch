@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-26",
+  "scope": "bounded G1 official downstream regressions, CPU float64",
+  "platform": "macOS arm64",
+  "versions": {
+    "R": "4.5.3",
+    "Amelia": "1.8.3",
+    "ameliatorch": "0.0.0.9000",
+    "reticulate": "1.47.0",
+    "Python": "3.12.13",
+    "torch": "2.14.0",
+    "broom": "1.0.12",
+    "foreign": "0.8.91",
+    "rlang": "1.2.0"
+  },
+  "results": {
+    "downstream_extended_R_exit_code": 0,
+    "available_broom_branch": "passed",
+    "missing_broom_branch": "passed private dependency-probe simulation; no uninstall",
+    "python_reference_example_exit_code": 0,
+    "python_hybrid_cpu64_example_exit_code": 0,
+    "example_ruff_exit_code": 0,
+    "hosted_CI_for_new_test": "not_run",
+    "R_CMD_check_including_new_test": "passed with seven test files; Status OK, 0 errors, 0 warnings, 0 notes",
+    "visual_inspection_of_PDF": "not_run"
+  },
+  "source_sha256": {
+    "r-package/tests/downstream_extended.R": "5beaead8e161e6958c40abcde0249de4cc144c51a5856ea6365696befb2a0bcc",
+    "examples/python_r_downstream.py": "dc18b52a2927094c9d0a8990e7f2eb2a4228afa416c09ca02d5e309ce8f44fee",
+    "examples/python_r_downstream.R": "1ca8867581712c380700032ba02339d0b143335b4e44dadbc7640e8d9dc2cd16"
+  },
+  "limitations": [
+    "No statistical-equivalence or GPU-performance conclusion",
+    "Original Amelia 1.8.3 mi.combine interval ordering and signed-tail p-values preserved",
+    "Downstream transformations, diagnostics, pooling and export execute official R CPU methods",
+    "Unknown backend provenance after original ameliabind remains unknown"
+  ]
+}

@@ -13,6 +13,6 @@ License: GPL-3
 Encoding: UTF-8
 Depends: R (>= 4.1.0)
 Imports: reticulate (>= 1.41)
-Suggests: Amelia (== 1.8.3)
+Suggests: Amelia (== 1.8.3), broom, foreign
 SystemRequirements: Python (>= 3.12, < 3.13) and amelia-torch for the native interface
 NeedsCompilation: yes

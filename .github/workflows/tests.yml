@@ -45,24 +45,32 @@ jobs:
       - name: Install R dependencies and local R package
         shell: Rscript {0}
         run: |
-          install.packages(c("reticulate", "Amelia", "jsonlite"))
+          install.packages(c("reticulate", "Amelia", "jsonlite", "broom", "foreign"))
           stopifnot(as.character(packageVersion("Amelia")) == "1.8.3")
+          stopifnot(requireNamespace("broom", quietly = TRUE),
+                    requireNamespace("foreign", quietly = TRUE))
           install.packages("r-package", repos = NULL, type = "source")
           stopifnot(requireNamespace("ameliatorch", quietly = TRUE))
       - name: Python tests
         run: python -m pytest -q
       - name: Python lint
-        run: python -m ruff check src tests scripts
+        run: python -m ruff check src tests scripts examples
       - name: R environment and imputation interface contract
         run: Rscript r-package/tests/bridge.R
       - name: Official R compatibility
         run: Rscript r-package/tests/compatibility.R
       - name: R hybrid compatibility
         run: Rscript r-package/tests/torch-compat.R
+      - name: Public hybrid boundary and startvals compatibility
+        run: Rscript r-package/tests/public-edge-cases.R
       - name: Backend history metadata
         run: Rscript r-package/tests/reference_metadata.R
       - name: Downstream workflows and random-stream regression
         run: Rscript r-package/tests/downstream.R
+      - name: Extended official downstream workflows and Python RDS roundtrip
+        run: Rscript r-package/tests/downstream_extended.R
+      - name: Python to official R downstream example
+        run: python examples/python_r_downstream.py --output results/local/ci-downstream-example
 
   # Hosted CPU runners do not validate MPS or CUDA performance. Accelerator
   # correctness and synchronized benchmarks are run explicitly on local devices.

@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-26",
+  "platform": "macOS arm64",
+  "wheel": {
+    "filename": "amelia_torch-0.0.1.dev0-py3-none-any.whl",
+    "sha256": "7b9c18864b0a18c92179f8d391366d54db979738c3871de828c1ce24d65a67e0",
+    "build_exit_code": 0,
+    "temporary_target_import": "passed",
+    "reference_R_resource_matches_source": true,
+    "public_R_interface_import_does_not_load_torch": true
+  },
+  "reference_only_environment": {
+    "python": "3.12.13",
+    "amelia-torch": "0.0.1.dev0",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "pandas": "3.0.6",
+    "python-dateutil": "2.9.0.post0",
+    "six": "1.17.0",
+    "torch_installed": false,
+    "standalone_example_exit_code": 0,
+    "R_dependencies": "existing local installed packages, not freshly provisioned"
+  },
+  "new_hosted_CI": "configured_not_run",
+  "new_R_build_check": {
+    "build_exit_code": 0,
+    "check_exit_code": 0,
+    "status": "OK",
+    "errors": 0,
+    "warnings": 0,
+    "notes": 0,
+    "tests": [
+      "bridge.R",
+      "compatibility.R",
+      "downstream_extended.R",
+      "downstream.R",
+      "public-edge-cases.R",
+      "reference_metadata.R",
+      "torch-compat.R"
+    ],
+    "source_file_count": 20,
+    "source_sha256_file": "r-package-source-hashes.json",
+    "tarball_sha256": "712bfc700b1e9ed13a088022c97bf1e31fd80890b936c03daf943bde5fd7a98c",
+    "remote_package_index_access": "unavailable; installed dependency checks passed"
+  }
+}

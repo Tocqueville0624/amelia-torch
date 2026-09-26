@@ -75,15 +75,27 @@ Explicit accelerators use `device="cuda", dtype="float64"` or `device="mps", dty
 
 ## Measured results
 
-On this M4/16 GB Mac, three public datasets were evaluated at **100,000 rows each**, with 5 imputations, 2 warmups and 5 measured repetitions. Median seconds for the native Python route:
+On this M4/16 GB Mac, three public datasets were evaluated at **100,000 rows each**, with 5 imputations, 2 warmups and 5 measured repetitions. The R compatibility interface retains original R preprocessing, bootstrap, random draws and postprocessing; its measured calls include the R/Python bridge and device transfers. Median seconds:
 
-| Dataset | R serial | R ×4 | Torch CPU64 | Torch MPS32 |
-|---|---:|---:|---:|---:|
-| Covertype, 10 variables | 8.489 | 4.357 | 2.126 | 3.225 |
-| Household Power, 7 variables | 5.490 | 2.885 | 1.552 | 2.232 |
-| Year Prediction MSD, 90 variables | 194.947 | 121.373 | 13.744 | 20.267 |
+| Dataset | R serial | R ×4 | R + Torch CPU64 | R + Torch CPU32 | R + Torch MPS32 |
+|---|---:|---:|---:|---:|---:|
+| Covertype, 10 variables | 8.489 | 4.357 | 7.909 | 7.960 | 10.550 |
+| Household Power, 7 variables | 5.490 | 2.885 | 5.288 | 5.185 | 6.374 |
+| Year Prediction MSD, 90 variables | 194.947 | 121.373 | 70.422 | 66.934 | 75.901 |
 
-**MPS was slower than Torch CPU on these tasks.** The speed difference from the local R baseline combines implementation and numerical-library effects; it is not evidence of GPU speedup. The table includes native preprocessing, bootstrap, imputation and transfers, but excludes R-to-Python calling overhead. [View the timing chart](docs/validation/2026-09-23-development/native-timings.png). Full repetitions, quality gates, source snapshots and limitations are in the [validation report](docs/validation/2026-09-23-development/README.md).
+The default hybrid CPU64 route recorded a 70.422-second median on the 90-variable task, compared with 194.947 seconds for serial R and 121.373 seconds for R ×4. Its two low-dimensional medians were close to serial R and slower than R ×4. **Hybrid MPS32 was 13%–33% slower than hybrid CPU32.** The reference and hybrid suites ran in separate batches; initial imports and cold startup were excluded, and background load was not fully isolated. These are measured development results, not a universal speed guarantee.
+
+The separate native Python route had these medians; it omits the R/Python bridge and supports a narrower continuous-data workflow:
+
+| Dataset | Native CPU64 | Native CPU32 | Native MPS32 |
+|---|---:|---:|---:|
+| Covertype | 2.126 | 1.895 | 3.225 |
+| Household Power | 1.552 | 1.478 | 2.232 |
+| Year Prediction MSD | 13.744 | 12.089 | 20.267 |
+
+MPS was also slower than native CPU on these tasks. Differences from R combine implementation, numerical-library and workflow costs; native timings cannot stand in for the R product interface. [Combined timing chart](docs/validation/2026-09-23-development/combined-timings.png) · [Validation report, IQRs and source snapshots](docs/validation/2026-09-23-development/README.md).
+
+With matched R RNG settings and seeds, hybrid CPU64 matched all 105 paired imputation iteration counts and closely matched the recorded numerical summaries. Float32 changed some iteration counts and summary values, including covariance entries. Full completed matrices were not retained, so this [paired summary comparison](docs/validation/2026-09-23-development/hybrid-reference-comparison.json) does not establish elementwise or bitwise equivalence. CPU64 remains the default.
 
 A separate, specified joint-normal simulation completed 400 independent datasets / 2,000 EM fits. CPU64 Rubin-pooled 95% coverage was 96% under MCAR and 97% under MAR; Monte Carlo uncertainty and model limitations are reported. This does not establish validity for arbitrary data or full cross-language distributional equivalence.
 

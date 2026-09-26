@@ -3,6 +3,7 @@
 #include <R_ext/Random.h>
 #include <R_ext/Rdynload.h>
 #include <R_ext/Visibility.h>
+#include <string.h>
 
 /* Amelia 1.8.3's C++ imputer advances R's C-level RNG without PutRNGstate.
  * A subsequent reticulate RNGScope would otherwise reload a stale .Random.seed.
@@ -41,9 +42,28 @@ static SEXP rng_restore(SEXP snapshot) {
     return R_NilValue;
 }
 
+/* Amelia 1.8.3 emcore aliases the NumericMatrix theta buffer (em.cpp:34)
+ * and overwrites it after each iteration (em.cpp:207). This intentionally
+ * bypasses R copy-on-write: double startvals aliases, including the archived
+ * arguments, must see the final theta before the next imputation. Rcpp coerces
+ * integer inputs into a separate double buffer, so their aliases stay intact.
+ * The complete-sample shortcut never calls emcore and must not call us either. */
+static SEXP theta_writeback(SEXP target, SEXP value) {
+    if (!Rf_isMatrix(target) || !Rf_isMatrix(value) || TYPEOF(value) != REALSXP ||
+        Rf_nrows(target) != Rf_nrows(value) ||
+        Rf_ncols(target) != Rf_ncols(value)) {
+        Rf_error("Invalid internal theta writeback matrices");
+    }
+    if (TYPEOF(target) == REALSXP) {
+        memcpy(REAL(target), REAL(value), (size_t) XLENGTH(target) * sizeof(double));
+    }
+    return R_NilValue;
+}
+
 static const R_CallMethodDef call_methods[] = {
     {"C_amelia_rng_snapshot", (DL_FUNC) &rng_snapshot, 0},
     {"C_amelia_rng_restore", (DL_FUNC) &rng_restore, 1},
+    {"C_amelia_theta_writeback", (DL_FUNC) &theta_writeback, 2},
     {NULL, NULL, 0}
 };
 

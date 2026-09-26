@@ -1,6 +1,6 @@
 # Amelia 1.8.3 功能兼容矩阵
 
-最后审计：2026-09-23。以下将**官方参考**、**正在开发的 native PyTorch 路径**、**开发中的 R 过渡兼容路径**分开。固定算法契约见 [algorithm-contract.md](algorithm-contract.md)。用户已明确：**完整兼容验收后才算首版**。本项目暂不是 Amelia 全 API 的替代品；“已有 fixture”“代码已写”和“验证通过”不能混用。
+最后审计：2026-09-23；G1 下游方法补充：2026-09-26。以下将**官方参考**、**正在开发的 native PyTorch 路径**、**开发中的 R 过渡兼容路径**分开。固定算法契约见 [algorithm-contract.md](algorithm-contract.md)。用户已明确：**完整兼容验收后才算首版**。本项目暂不是 Amelia 全 API 的替代品；“已有 fixture”“代码已写”和“验证通过”不能混用。
 
 目前可调用 `amelia_torch.amelia()` 完成连续数值数据的标准化、bootstrap、EM、随机补值及原始尺度恢复；Mac CPU float64 的 R 参考样例对照和 R 源码接口测试已通过。MPS float32 已通过三个小型 EM 参考样例，但这不足以证明完整统计质量或性能优势。开发验证记录汇总至 [2026-09-23 development](validation/2026-09-23-development/README.md)。
 
@@ -45,9 +45,14 @@
 | `arglist`、已有amelia/molists扩展 | 已有S3方法 | **未实现** | CPU saved-arglist、追加历史draw、局部moPrep对象案例通过 |
 | `parallel`、`ncpus`、`cl` | no/multicore/snow | **未实现公共副本调度** | 仅串行副本调度；原版并行走reference入口，均待测试 |
 | `allthetas` 内部诊断格式 | 参数向量×初值及每轮 | 有native矩阵历史；**不是同格式** | CPU初值+每轮上三角向量及iter.hist对照通过 |
-| 官方 `amelia` / `mi` 返回类 | 已有 | 自有结果结构，**不得伪装官方类** | 原版输出层及结果class/arguments对照通过；下游方法待测 |
+| 官方 `amelia` / `mi` 返回类 | 已有 | 自有结果结构，**不得伪装官方类** | 原版输出层class/arguments通过；代表性官方下游及G1指定分支已在CPU64小例实测 |
+| `ameliabind` / `transform.amelia` | 已有 | **未移植** | CPU64直接合并、错误分支、派生列、transform.calls及追加旧份保留通过；bind丢失来源后保守标unknown |
+| `with.amelia` / `mi.combine` | 已有，存在1.8.3公式特例 | **未移植** | CPU64 with/lm、两种conf.int及.90区间全部返回列对照；保留官方端点倒序及带符号p值，不代表推断公式正确 |
+| `moPrep` 的四个补充分支 | proportion、gold standard、proxy、已有molist增加 | **未移植** | CPU64 priors/overimp/RDS及original/reference/hybrid小例通过；局部caller/error.sd另有既存测试 |
+| `summary.mi` / `plot.amelia` | 已有 | **未移植** | summary文本/表及plot compare/overimpute PDF分支通过；不等于视觉验收 |
+| `write.amelia` CSV/table/DTA | 已有 | **未移植** | CPU64逐份/合并文件读回、factor标签、orig.data=FALSE和自定义impvar通过 |
 | `compare.density` / `overimpute` / `disperse` 等诊断 | 已有 | **未移植** | 这些方法及missmap/tscsPlot已在小案例输出PDF并对照；仍执行官方CPU代码 |
-| Rubin pooling | `mi.meld`等可用于结果分析 | 验证脚本及手算对照测试已编写；**完整统计质量验收未完成** | 需另做统计质量验证 |
+| Rubin pooling | `mi.meld`等可用于结果分析 | 验证脚本及手算对照测试已编写；**完整统计质量验收未完成** | mi.meld和mi.combine功能对照已测；总体统计质量仍需独立模拟，不能以功能测试代替 |
 | R调用native连续数据接口 | 不适用 | Mac源码桥接CPU32/64测试通过；用自有 `ameliatorch_result` | 与此列过渡方案不同 |
 | Windows CPU | 官方参考与本包在 GitHub Windows runner 通过 | hosted CPU CI通过；用户RTX3080电脑未接入 | hosted CPU CI通过；不代表CUDA |
 | Windows CUDA（RTX 3080） | 原版无CUDA内核 | **未到机测试**，不可宣称加速 | 未到机测试 |
@@ -58,6 +63,12 @@
 | 三个大公开数据集端到端比较 | 不适用 | 3组各10万行native数值子集正式基准已完成并审计，性能见独立验证记录 | 该路径基准尚未运行 |
 
 最后一列的“代码已写，待验证”仅说明原版流程委托或EM适配代码存在，不构成该功能通过验收的证据。每个公共选项和边界情况必须独立对照后才能改为支持。
+
+G1 的 2026-09-26 新增例子、源码哈希、原版 `mi.combine` 特例及可选依赖边界见
+[独立回归记录](validation/2026-09-26-g1/downstream-extended.md)。可运行
+[Python/R 示例](../examples/README.md) 已在 reference 和 CPU64 hybrid 模式完成
+官方 RDS 往返、R 方法调用与再次 Python 读取。这些下游方法继续在原版 R CPU
+执行；新的 CI 步骤未经真实运行前不计入下方既有三平台结果。
 
 Linux/macOS/Windows 的 hosted CPU CI 已实际通过，包含 Python 和五个 R 测试文件；详见[CI证据](validation/2026-09-23-development/cross-platform-ci.md)。GPU CI、Windows RTX 3080 到机验证，以及 RStudio 已安装包的真实会话测试仍待完成。已确定分发名 `amelia-torch`、许可证 `GPL-3.0-only`、维护者 Sheng Wan（`swan0624@uw.edu`）、小样本加完整下载脚本的数据交付方式，以及明确标注的 R 过渡方案；GitHub 用户名已确认为 `Tocqueville0624`，用户确认 Windows RTX3080 暂不能接入，本轮先公开开发快照。
 

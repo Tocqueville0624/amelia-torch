@@ -2,8 +2,9 @@
 
 ## 用户目标与当前阶段
 - 用户为求职展示项目能力，要求全部功能完成后才算首版，完整复现 Amelia 1.8.3 流程/算法，在 Python 与 R/RStudio 跨 Mac、Windows、有/无 CUDA 使用，并以三组较大公开数据实测性能；不能随意改变统计语义。
-- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权直接使用云端 CUDA 测试并留存记录，不再依赖本地 3080。免费 Colab 已获 T4 并通过双精度基础算子探针，完整 CUDA 验收仍待完成；Andrew Wang 只预留未来协作位，尚非当前作者。
+- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权直接使用云端 CUDA 测试并留存记录，不再依赖本地 3080。免费 Colab T4 的 CUDA32/64 固定正确性案例已在旧会话通过；9/26 已恢复旧笔记本并重连免费 T4，正式性能与统计质量仍待完成；Andrew Wang 只预留未来协作位，尚非当前作者。
 - 2026-09-23：native 连续 EMB、Python/R 原版及混合兼容入口已实现；三个系统各 149 项 Python 测试与 5 个 R 测试文件通过，R 安装/build/check 零问题。Windows/macOS/Linux hosted CPU CI 已通过；尚未完整验收 Amelia 或完成 CUDA/Intel Mac实测。状态见 `docs/roadmap.zh-CN.md`、`docs/amelia-compatibility.md`。
+- 2026-09-26：本机新增下游/RDS 工作流与 33 个公共边界案例已通过；161 项 Python 测试、7 个 R 测试文件及 R build/check 零问题。修复显式 startvals 的原版原位更新语义；新增测试的 hosted CI 尚待运行。Mac 三组 100k 样本的 native/hybrid 正式基准均完成，MPS 未比同机 Torch CPU 更快；旧测量源码哈希不得随修复改写。详见 `docs/validation/2026-09-26-g1/`、`2026-09-26-g2/`。
 - 三组 UCI 全压缩数据已下载、校验，合计约 232 MiB。数据来源/许可/哈希见 `data/manifest.json`；原始全量文件不进 Git，小样本和复现脚本已入项目。
 
 ## 环境与命令
@@ -20,6 +21,7 @@
 - 当前顺序：观察值标准化→bootstrap→条件矩及充分统计量 EM→对原始样本随机补值→恢复行列与单位。条件协方差不可丢弃；均值填充不是 EMB。
 - 已观测值必须保留；Amelia 1.8.3 单行 priors 索引 bug 是已核验上游例外，兼容路径不静默修正，见算法契约。原版全空行移出拟合、最终仍为 NA；不能为了填满或计分而偷偷改变。全空列、少观察值、常量、病态和未收敛均需显式处理。
 - 尊重原版初值、样本协方差分母、整数 empri、autopri 固定初始 hold、上三角收敛规则与完整 bootstrap 样本特例；不要未经论证“修正”原版行为。
+- 显式 double `startvals` 在原版 C EM 中原位更新，影响调用者、归档与后续多份插补；混合路径的注册 C writeback 必须保留。integer 初值与完整 bootstrap 样本不回写；先保存 allthetas 初列。native Python 仍不改输入。
 - 同一 seed 不保证 R/NumPy/GPU 相同抽样；确定性对照使用显式随机输入，分布与推断质量另行验证。native RNG 为 NumPy PCG64，兼容路线使用原版 R RNG。
 - CPU float64 是数值参考。MPS/CUDA float32 必须显式选择并过独立质量门槛；不静默降精度、加 ridge 或裁剪协方差。
 - MPS 的特征值诊断在 CPU 明确执行并记录，属于混合路线。fallback=0 不能独自证明纯 GPU；记录设备、dtype、伪逆、CPU工作、迭代、失败与内存。

@@ -111,6 +111,17 @@ Inversion and Box–Muller generators, matching draws, the final `.Random.seed`,
 and subsequent `runif()` and `rnorm()` values. See the
 [downstream record](validation/2026-09-23-development/r-downstream-validation.md).
 
+The bounded G1 extension also passed on local CPU float64: direct `ameliabind`,
+`transform` followed by append, `with`/`mi.combine`, four additional `moPrep`
+branches, `summary.mi`/`plot.amelia`, table/DTA readback and a real Python/RDS/R
+roundtrip. See the [G1 record](validation/2026-09-26-g1/downstream-extended.md) and
+the [runnable example](../examples/README.md). This is not a GPU quality or GUI
+validation. `mi.combine` requires optional `broom`; `rlang` is installed with
+Amelia's normal Imports, and `foreign` supplies DTA support. Official `AmeliaView`
+requires an interactive R/Tcl/Tk session. The example explains the preserved
+Amelia 1.8.3 reversed interval endpoints and signed-tail p-values; reproducing
+these values does not endorse their inferential interpretation.
+
 Both interfaces use the original R option names, including `boot.type` and
 `max.resample`. They do not use the native wrapper's option alias mapping. Missing
 dependencies and incompatible reference versions raise errors without installation.
