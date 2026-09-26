@@ -28,7 +28,13 @@ def main():
     parser.add_argument("--warmups", type=int, default=2)
     parser.add_argument("--gpu", choices=["mps", "cuda", "none"], default="none")
     parser.add_argument("--max-iterations", type=int, default=300)
+    parser.add_argument("--threads", type=int, default=4,
+                        help="BLAS/Torch threads for serial methods and GPU host work")
+    parser.add_argument("--workers", type=int, choices=[2, 4], default=4,
+                        help="R snow processes; each worker uses one BLAS thread")
     args = parser.parse_args()
+    if args.threads < 1:
+        parser.error("threads must be positive")
     args.output_dir.mkdir(parents=True, exist_ok=True)
     csv_dir = args.output_dir / "inputs"
     csv_dir.mkdir(exist_ok=True)
@@ -45,6 +51,8 @@ def main():
         "source_sha256": source_hashes,
         "description": "100k uniform public-data samples; block MCAR ~30%; methods randomized by dataset; failures retained",
         "seeds": list(range(20260923, 20260923 + args.repeats)),
+        "cpu_budget": {"serial_threads": args.threads, "snow_workers": args.workers,
+                       "snow_worker_blas_threads": 1},
         "execution": [],
     }
     generator = random.Random(20260923)
@@ -71,7 +79,8 @@ def main():
                     fmt="%d" if name == "mask" else "%.17g",
                 )
                 paths[name] = str(path)
-        methods = ["cpu64", "cpu32", "r_serial", "r_snow4"]
+        snow_method = f"r_snow{args.workers}"
+        methods = ["cpu64", "cpu32", "r_serial", snow_method]
         if args.gpu != "none":
             methods.append(f"{args.gpu}32")
         if args.gpu == "cuda":
@@ -91,8 +100,8 @@ def main():
                     "seeds": suite["seeds"],
                     "warmups": args.warmups,
                     "warmup_seeds": list(range(20360923, 20360923 + args.warmups)),
-                    "parallel": "snow" if method == "r_snow4" else "no",
-                    "ncpus": 4 if method == "r_snow4" else 1,
+                    "parallel": "snow" if method == snow_method else "no",
+                    "ncpus": args.workers if method == snow_method else 1,
                     "autopri": 0.05,
                     "tolerance": 1e-4,
                     "emburn": [0, args.max_iterations],
@@ -101,7 +110,7 @@ def main():
                 config_path.write_text(json.dumps(config, indent=2))
                 command = ["Rscript", "scripts/benchmark_reference.R", str(config_path)]
                 # A process/thread budget: parallel workers each get one BLAS thread.
-                threads = "1" if method == "r_snow4" else "4"
+                threads = "1" if method == snow_method else str(args.threads)
                 environment.update(
                     {
                         key: threads
@@ -133,13 +142,13 @@ def main():
                     "--warmups",
                     str(args.warmups),
                     "--threads",
-                    "4",
+                    str(args.threads),
                     "--max-iterations",
                     str(args.max_iterations),
                 ]
                 environment.update(
                     {
-                        key: "4"
+                        key: str(args.threads)
                         for key in (
                             "OMP_NUM_THREADS",
                             "OPENBLAS_NUM_THREADS",
