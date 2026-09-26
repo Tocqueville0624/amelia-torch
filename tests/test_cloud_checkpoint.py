@@ -72,3 +72,18 @@ def test_collector_only_includes_reports_and_redacts_paths(tmp_path):
     bundle = MODULE.checked_bundle(envelope)
     assert len(bundle["files"]) == 1
     assert bundle["files"][0]["text"] == "<project>/example"
+
+
+def test_phase_checkpoint_excludes_other_phases_and_rejects_escape(tmp_path):
+    spec = importlib.util.spec_from_file_location("phase_checkpoint", SCRIPT.with_name("cloud_checkpoint.py"))
+    collector = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(collector)
+    for phase in ("native", "g5-formal"):
+        directory = tmp_path / "results/local/cloud" / phase
+        directory.mkdir(parents=True)
+        (directory / "report.json").write_text('{}')
+    bundle = MODULE.checked_bundle(collector.collect(tmp_path, "g5", "a" * 40, "g5-formal"))
+    assert [item["path"] for item in bundle["files"]] == ["results/local/cloud/g5-formal/report.json"]
+    for invalid in ("../native", "nested/phase", "missing"):
+        with pytest.raises(ValueError):
+            collector.collect(tmp_path, "bad", "a" * 40, invalid)

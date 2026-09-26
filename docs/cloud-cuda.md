@@ -173,6 +173,8 @@ print(checkpoint_text, flush=True)
 
 保存的 notebook 即使离线也能恢复这些文件。如果下载受阻，可用 Colab 的“查看笔记本 JSON”复制完整内容，按 UTF-8 保存为 `.ipynb`；或复制单条 `amelia_checkpoint` JSON 保存。之后在本地使用：
 
+正式推断会保留较多逐份诊断，可为上面的命令加 `--phase g5-formal`，仅备份 `results/local/cloud/g5-formal/` 和公共数据元信息；`native`、`hybrid` 等阶段也分别备份。这样避免不断重复累计报告，仍保留每个文件原始/可公开哈希；单批解压上限为 64 MiB。阶段名必须是一个已存在的直接子目录，不允许路径穿越。
+
 ```sh
 .venv/bin/python scripts/recover_cloud_checkpoint.py saved-notebook.ipynb \
   --label validation-20260926 --output-dir results/local/recovered-validation
