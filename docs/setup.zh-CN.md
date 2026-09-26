@@ -18,6 +18,16 @@ R CMD INSTALL --library=.R-library r-package
 
 R 安装脚本使用当前 CRAN 二进制包并检查安装成功，不自动覆盖已满足的依赖；本次实际版本写入验证快照。未来正式 R 实验需进一步锁定 R、Amelia、reticulate、依赖与 BLAS，不能把这个初始化脚本当完整 R 锁文件。
 
+若 CRAN 的当前 Amelia 版本已经变化，初始化脚本会明确停止。可在项目根目录下载固定的官方 1.8.3 源码包，校验后安装到项目库；这一步需要上述 C/C++/Fortran 编译工具链。下载器只尝试 CRAN 当前目录和 Archive，并要求 SHA-256 `7699455ca3e9dabd60ad0ec69185ece3f24a597ef8da18033ea0b7a32356967f`，不会换到不同版本：
+
+```sh
+python -c "from pathlib import Path; from scripts.cloud_bootstrap import fetch_amelia; p=Path('.cache/Amelia_1.8.3.tar.gz'); p.parent.mkdir(parents=True, exist_ok=True); print(fetch_amelia(p))"
+Rscript -e 'lib <- file.path(getwd(), ".R-library"); dir.create(lib, showWarnings=FALSE); .libPaths(c(lib, .libPaths())); install.packages(c("Rcpp", "RcppArmadillo", "rlang", "foreign"), repos="https://cloud.r-project.org", lib=lib); install.packages(".cache/Amelia_1.8.3.tar.gz", repos=NULL, type="source", lib=lib); stopifnot(as.character(packageVersion("Amelia")) == "1.8.3")'
+Rscript scripts/setup_r.R
+```
+
+这里的 `python` 应为已激活的项目虚拟环境解释器；也可以使用 `.venv/bin/python` 或 Windows 的 `.venv\Scripts\python.exe`。这是固定 Amelia 本体的方法，不能代替其余 R 依赖版本的完整锁定。
+
 验证：
 
 ```sh
@@ -59,9 +69,9 @@ uv venv --python 3.12 .venv
 ```powershell
 uv pip install --python .venv\Scripts\python.exe -e ".[dev,reference]"
 .venv\Scripts\python.exe -m amelia_torch.diagnostics --require-device cuda --output results/local/windows_probe.json
-.venv\Scripts\python.exe -m pytest -q
 Rscript scripts/setup_r.R
 R CMD INSTALL --library=.R-library r-package
+.venv\Scripts\python.exe -m pytest -q
 Rscript scripts/smoke_amelia.R
 Rscript scripts/smoke_r_bridge.R
 ```
