@@ -157,3 +157,25 @@ files.download(str(archive))
 ```
 
 将 notebook 通过 File → Download → `.ipynb` 另存，收到本机后核验下载文件哈希，再断开并删除 Colab runtime。公开 GitHub 前使用已清理的审计报告；原始 `.config.json` 和 R 日志可能含 VM 绝对路径，保留作本地记录，不直接发布。未测的内容、失败与平台范围一并写入验证说明。
+
+### 可从保存的 notebook 恢复的报告备份
+
+2026-09-26 实际遇到浏览器下载命令未产生可取回文件。为避免运行时释放后只剩截断日志，每个主要阶段完成后，另在 notebook 输出完整报告的压缩备份。以下代码在计时阶段之外运行：
+
+```python
+checkpoint_text = subprocess.check_output(
+    [PYTHON, "scripts/cloud_checkpoint.py", "--label", "validation-20260926"],
+    cwd=REPO, text=True)
+print(checkpoint_text, flush=True)
+```
+
+此工具仅收集 `results/local/cloud` 内的 JSON/log/text、准备数据的 JSON 元数据和公共来源清单，记录原始/便携文本哈希，将项目和 home 路径替换为占位符；不读取 Google 认证目录、原始数据包、RDS 或依赖库。压缩结果应保存在 notebook 输出或报告目录以外，避免递归打包旧备份。发布前仍须检查日志内容。
+
+保存的 notebook 即使离线也能恢复这些文件。如果下载受阻，可用 Colab 的“查看笔记本 JSON”复制完整内容，按 UTF-8 保存为 `.ipynb`；或复制单条 `amelia_checkpoint` JSON 保存。之后在本地使用：
+
+```sh
+.venv/bin/python scripts/recover_cloud_checkpoint.py saved-notebook.ipynb \
+  --label validation-20260926 --output-dir results/local/recovered-validation
+```
+
+恢复工具不执行 notebook 代码；先检查 gzip、文件哈希与受限路径，拒绝覆盖已有目录。这补充常规下载，不声称能恢复未完成计算或未写入的结果。9/26 的实际执行使用 notebook 内同格式的独立函数；其代码和完整输出仍保存在该次 notebook，本仓库脚本提供后续可重复入口。

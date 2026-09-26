@@ -1,0 +1,42 @@
+{
+  "protocol_version": 1,
+  "fixed_before_formal_execution": true,
+  "registered_on": "2026-09-26",
+  "design": {
+    "seed": 20260923,
+    "n": 300,
+    "m": 5,
+    "replicates_per_primary_scenario": 200,
+    "primary_scenarios": ["mcar", "mar_y_observed"],
+    "primary_covariate_correlation": 0.3,
+    "primary_covariate_missing_probability": 0.2,
+    "stress_replicates": 20,
+    "stress_scenario": "stress_mcar",
+    "stress_covariate_correlation": 0.95,
+    "stress_covariate_missing_probability": 0.5,
+    "r_seed_mapping": "native_uint32_imputation_seed % (2**31 - 1)",
+    "r_rng_kind": ["L'Ecuyer-CMRG", "Inversion", "Rejection"],
+    "native_rng": "NumPy PCG64 with original unmapped uint32 seed",
+    "torch_threads": 1,
+    "tolerance": 0.0001,
+    "autopri": 0.05,
+    "empri": null,
+    "emburn": [0, 500],
+    "boot_type": "ordinary"
+  },
+  "gates": {
+    "confidence_level": 0.9,
+    "absolute_bias_interval": [-0.02, 0.02],
+    "absolute_coverage_interval": [0.9, 0.99],
+    "paired_estimate_difference_interval": [-0.01, 0.01],
+    "paired_coverage_difference_interval": [-0.05, 0.05],
+    "paired_geometric_se_ratio_interval": [0.95, 1.05],
+    "paired_geometric_width_ratio_interval": [0.95, 1.05],
+    "all_planned_datasets_and_imputations_required": true,
+    "all_primary_fits_converged_and_finite_required": true,
+    "stress_is_descriptive_and_not_coverage_gated": true
+  },
+  "scope": "Operational equivalence bounds for this fixed synthetic model, not universal scientific tolerances. Formal acceptance is per route and scenario, with every listed interval fully inside its bound and complete valid primary fits. Failure or insufficient precision cannot be changed to pass by dropping records, increasing bounds, or selecting seeds.",
+  "multiplicity": "Each comparison has its stated marginal confidence level; simultaneous familywise equivalence is not claimed. Every required comparison must pass.",
+  "pooling": "Reuse validate_inference.pool_scalar: Rubin T=Ubar+(1+1/m)B and original finite-m t degrees of freedom; no Barnard-Rubin finite-complete-sample correction."
+}
