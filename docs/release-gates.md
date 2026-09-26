@@ -1,6 +1,6 @@
 # 首版验收缺口：Amelia 1.8.3 功能与产品边界
 
-审计日期：2026-09-23，正式 hybrid 性能实验开始后。此次仅读取源码、现有测试和验证报告，并读取已安装 Amelia 1.8.3 的 namespace exports/formals；没有运行拟合、模拟或性能测试，也没有修改冻结源码。下列未勾选项是可执行的剩余验收任务，不是已发现算法均错误，也不是要求遍历任意参数组合。
+初次审计日期：2026-09-23，正式 hybrid 性能实验开始后，初审仅做源码与接口盘点。2026-09-26 补充 G1 小型 CPU64 实测及独立 Python/R 示例，具体范围见下方证据。下列未勾选项是可执行的剩余验收任务，不是已发现算法均错误，也不是要求遍历任意参数组合。
 
 用户已同意明确标注的原版 R 过渡依赖，因此首版可以由原版 reference、R/PyTorch hybrid 和 native 子集共同提供能力。**无需先把每个 R 图形函数改写为 Python 才能交付，但不能把委托给原版 CPU 的功能标成原生 GPU 实现。** 用户要求完整功能完成才算首版；当前开发快照、成功打包和局部速度结果不等于首版验收。
 
@@ -22,26 +22,28 @@
 | 导出函数 / 注册方法 | 现有证据 | 有限的剩余验收 |
 |---|---|---|
 | `amelia`、`amelia.default`、`amelia.molist`；S3 `amelia.amelia` | 三条路径均有公开调用；普通/无 bootstrap、追加、局部 molist、self-contained molist RDS 已测 | 下节 G2 的公共边界与 G4 并行路由 |
-| `ameliabind` | 每次多份输出与追加已间接执行 | 直接合并两个兼容结果；再用不同 missingness 或不同 model arguments 验证原版错误；从合并 RDS 重读时不能把丢失的 backend 记录伪造为已知 CPU |
-| `transform.amelia` | 尚无独立验收；现有 `logs/sqrts/lgstc` 测试不是该函数 | 派生一列后继续追加，检查每份派生值、`missMatrix`、`transform.calls`、旧份数不变；经 RDS 跨 Python/R 后再追加 |
-| `with.amelia`、`mi.combine` | 尚未测；已有 pooling 用 `lapply(lm)` 与 `mi.meld`，没有经过这两函数 | 一个 `with(fit, lm(...))`，分别比较 `mi.combine(conf.int=FALSE/TRUE, conf.level=.90)` 的估计/SE/区间/df；`rlang` 是 Amelia 的 Imports，`broom` 是 `mi.combine` 所需的 Suggests，缺后者时明确报错，不静默换 pooling 公式 |
+| `ameliabind` | G1 已直接合并两个兼容结果、保留每份旧数据；不同 missingness/model arguments 返回原版错误；合并 RDS 无 backend 时 Python 保持 unknown | 仍沿用原版仅检查 missingness/arguments 的限制，不声称检查所有原始数据值 |
+| `transform.amelia` | G1 已测派生列、`missMatrix`、`transform.calls`、旧份数据不变；RDS 跨 Python/R 后继续追加 | 使用原版 R CPU 方法，没有移植为 native Python 方法 |
+| `with.amelia`、`mi.combine` | G1 已对照 `with(fit, lm(...))` 及 `conf.int=FALSE/TRUE, conf.level=.90` 全部返回列；broom 可用及缺失探测分支已测 | 原版 1.8.3 区间端点倒序、带符号上尾 p 值行为明确保留；不能把兼容对照当成这些值的统计正确性证明 |
 | `mi.meld` | 原版/混合结果和手算 Rubin SE 已比对 | 已有核心证据；与 `mi.combine` 区别写清，不重复声称另一种自由度修正已验证 |
-| `moPrep`；S3 default/molist | `error.sd`、局部 caller frame、自包含 molist RDS 已测 | 固定小例分别覆盖 `error.proportion`、`subset/gold.standard`、proxy formula，以及对已有 molist 再 `moPrep`；验证 prior/overimp 档案及原版结果 |
+| `moPrep`；S3 default/molist | 已测 `error.sd`、局部 caller、自包含 RDS；G1 又测 `error.proportion`、`subset/gold.standard`、proxy formula、已有 molist 增补及 prior/overimp 档案 | 指定有限分支已覆盖；保留原版错误检查与统计公式 |
 | `compare.density`、`overimpute`、`disperse`、`tscsPlot`、`missmap` | 小数据 numeric return 对照及 PDF 文件检查已通过；`disperse` 继续执行官方 CPU EM | 无需重写为 GPU；RStudio 中人工确认至少一张图正常显示，不能把 PDF 魔数/大小检查称为视觉检查 |
 | S3 `print.amelia`、`summary.amelia` | 输出文本对照通过 | 已有证据 |
-| S3 `summary.mi`、`plot.amelia` | 尚未直接覆盖；调用各个绘图 helper 不等于 `plot` 调度已测 | `summary(fit$imputations)` 对照；`plot(fit, which.vars=..., ask=FALSE)` 的 compare/overimpute 分支各一个 headless PDF 与设备清理检查 |
-| `write.amelia` | separate/combined CSV 已读回核验 | 支持的另外两种格式 `table` 和 `dta` 各一份读回；`orig.data=FALSE`、自定义 `impvar` 的一个 combined 文件；与原版处理因素标签/行数一致 |
+| S3 `summary.mi`、`plot.amelia` | G1 已直接对照 summary 表与文本；plot 的 compare/overimpute 分支均生成 PDF 并清理设备 | 文件检查不等于 RStudio 图形视觉验收，后者仍在 G6 |
+| `write.amelia` | CSV 及 G1 table/DTA 均读回核验；combined `orig.data=FALSE`、自定义 `impvar`、factor 标签/行数均通过 | `sep` 转发需显式 `separate=TRUE` 避免 R 部分匹配；DTA caller 显式绑定 `foreign::write.dta` |
 | `AmeliaView` | 未启动、未测试 | 这是原版 R/Tcl/Tk GUI。若对外列为可用功能，在可用图形环境做一次官方启动/载入/关闭检查并明确其仍走原版 CPU。用户要求 RStudio 调包，不自动产生重写 GUI 或给原版 GUI 注入 GPU 的新需求 |
 
 `amelia.default` 的实际 formals 包括：`x, m, p2s, frontend, idvars, ts, cs, polytime, splinetime, intercs, lags, leads, startvals, tolerance, logs, sqrts, lgstc, noms, ords, incheck, collect, arglist, empri, priors, autopri, emburn, bounds, max.resample, overimp, boot.type, parallel, ncpus, cl, ...`。`allthetas` 是内部 EM/诊断接口，**不是** `amelia.default` 的同名公开参数；已有内部格式对照不能宣称公共函数新增了此参数。
 
 ## 可关闭的首版验收任务
 
-### G1：补齐尚无测试的公开下游工作流
+### G1：公开下游工作流（指定本机例子已完成）
 
-- [ ] 完成上表中的 direct `ameliabind`、`transform` 后追加、`with`→`mi.combine`、`moPrep` 四个指定分支、`summary.mi`/`plot.amelia`、table/dta 导出。用现有小合成数据与原版结果，固定 CPU64，不增加大规模模拟。
-- [ ] 为这些工作流提供从 Python `save_rds` 到 R 原版方法、再回到 Python 的一条可运行示例。允许继续委托 R；不要把“仅生成 RDS”写成所有下游操作都已有 Python 方法。
-- [ ] 安装说明列出 `mi.combine` 的可选 `broom` 依赖、Amelia 正常安装所带的 `rlang`，以及 GUI 的 Tcl/Tk 会话要求；验证可选依赖可用和缺失时的清晰行为。
+- [x] `downstream_extended.R` 在本机 CPU64 完成 direct bind、transform 后追加、with/pooling、moPrep 四分支、summary/plot、table/DTA 对照；不增加大规模模拟。
+- [x] 独立 [Python/R 示例](../examples/README.md) 在 reference 与 CPU64 hybrid 两模式均实际完成 save_rds → R 变换/追加/绘图/导出 → Python 读回，并核对派生值及旧份数据。
+- [x] 示例安装说明列出 broom/rlang/foreign/TclTk；broom 可用分支实际通过，缺失分支以私有依赖探测环境触发原版明确错误，没有卸载或修改安装的 namespace。
+
+证据与边界：[G1 回归记录](validation/2026-09-26-g1/downstream-extended.md)。这是小型公开方法验收，仍不等于 GPU 推断质量、GUI、跨平台新增测试或完整首版验收；新 CI 配置只有真实运行后才能记为通过。
 
 ### G2：封闭混合公共入口的核心边界
 

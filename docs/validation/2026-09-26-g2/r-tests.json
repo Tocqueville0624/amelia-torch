@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "scope": "Small local CPU64 regressions, not performance measurements",
+  "commands": "R_LIBS_USER=<PROJECT_ROOT>/.R-library RETICULATE_PYTHON=<PROJECT_ROOT>/.venv/bin/python OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 Rscript <test>",
+  "tests": [
+    {
+      "test": "r-package/tests/bridge.R",
+      "exit_code": 0,
+      "elapsed_seconds": 1.966,
+      "log": "bridge.log"
+    },
+    {
+      "test": "r-package/tests/compatibility.R",
+      "exit_code": 0,
+      "elapsed_seconds": 0.523,
+      "log": "compatibility.log"
+    },
+    {
+      "test": "r-package/tests/downstream.R",
+      "exit_code": 0,
+      "elapsed_seconds": 1.906,
+      "log": "downstream.log"
+    },
+    {
+      "test": "r-package/tests/downstream_extended.R",
+      "exit_code": 0,
+      "elapsed_seconds": 5.364,
+      "log": "downstream_extended.log"
+    },
+    {
+      "test": "r-package/tests/public-edge-cases.R",
+      "exit_code": 0,
+      "elapsed_seconds": 2.985,
+      "log": "public-edge-cases.log"
+    },
+    {
+      "test": "r-package/tests/reference_metadata.R",
+      "exit_code": 0,
+      "elapsed_seconds": 0.077,
+      "log": "reference_metadata.log"
+    },
+    {
+      "test": "r-package/tests/torch-compat.R",
+      "exit_code": 0,
+      "elapsed_seconds": 1.586,
+      "log": "torch-compat.log"
+    }
+  ],
+  "all_passed": true,
+  "source_sha256": {
+    "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+    "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+    "r-package/tests/bridge.R": "8da172201ff5f16671cf37d83d3b028f6f466ffb23c428928f3a10713ade67cb",
+    "r-package/tests/compatibility.R": "b5f8f294581e9ab5ea5140e4ab6401389d545bfa0518c78a1015fb9caf4d3283",
+    "r-package/tests/downstream.R": "729760ef0e9197d537392809e540b84280c36d996a57ac7d1e98df0d39c3fba5",
+    "r-package/tests/downstream_extended.R": "a15c876a22d4dda4ed2faa87d0ccfe2bbdc95623579d8d63f347f64379c13ea4",
+    "r-package/tests/public-edge-cases.R": "9044720d6255e9f79a65a379d6e5b99ab046d29b82bf7b4b3aa2a7efc0231397",
+    "r-package/tests/reference_metadata.R": "5a1d9998208f99626f56ce486270dc5cf5f0d1492ac8c6f26df23d6870f275d6",
+    "r-package/tests/torch-compat.R": "1311101431d93bf11cedf58f14cd45eb5f8ef453da1bec93f2c7d576c3e33c17"
+  }
+}

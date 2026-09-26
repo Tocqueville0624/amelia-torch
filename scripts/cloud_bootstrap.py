@@ -61,12 +61,20 @@ report = {
 print(json.dumps(report))
 '''
 
+RUFF_METADATA = r'''
+import importlib.metadata, json, sys
+distribution = importlib.metadata.distribution("ruff")
+print(json.dumps({"version": distribution.version, "prefix": sys.prefix,
+                  "base_prefix": sys.base_prefix,
+                  "distribution_root": str(distribution.locate_file(""))}))
+'''
+
 R_INSTALL = r'''
 args <- commandArgs(trailingOnly = TRUE)
 lib <- args[[1]]
 dir.create(lib, recursive = TRUE, showWarnings = FALSE)
 .libPaths(c(lib, .libPaths()))
-deps <- c("Rcpp", "RcppArmadillo", "rlang", "foreign", "jsonlite", "reticulate")
+deps <- c("Rcpp", "RcppArmadillo", "rlang", "foreign", "broom", "jsonlite", "reticulate")
 missing <- deps[!vapply(deps, requireNamespace, logical(1), quietly = TRUE)]
 if (length(missing)) install.packages(missing, repos = "https://cloud.r-project.org",
                                     lib = lib, Ncpus = 2L)
@@ -141,7 +149,8 @@ def write_report(path: Path, report: dict) -> None:
     temporary.replace(path)
 
 
-def run_step(name: str, command: list[str], env: dict, output: Path, report: dict) -> None:
+def run_step(name: str, command: list[str], env: dict, output: Path, report: dict,
+             *, allow_failure: bool = False) -> int:
     """Keep every setup failure and its exit status, without shell interpolation."""
     print(f"Setup: {name}", flush=True)
     entry = {"step": name, "command": [redact(x) for x in command], "status": "running"}
@@ -162,8 +171,61 @@ def run_step(name: str, command: list[str], env: dict, output: Path, report: dic
     entry.update(exit_status=code, status="passed" if code == 0 else "failed",
                  elapsed_seconds=time.monotonic() - started)
     write_report(output / "bootstrap.json", report)
-    if code:
+    if code and not allow_failure:
         raise RuntimeError(f"Setup step {name} failed with exit status {code}; inspect its log")
+    return code
+
+
+def ensure_ruff(venv_dir: Path, env: dict, output: Path, report: dict) -> None:
+    """Repair a shared-site Ruff wrapper missing its binary, only inside the venv.
+
+    Colab may expose global Ruff metadata but no runnable executable. A normal
+    pip install then incorrectly considers Ruff satisfied. Keep the original
+    failed probe/log and pin the repair to that exact installed version.
+    """
+    python = str(venv_dir / "bin/python")  # Keep the venv interpreter path intact.
+    evidence = {"status": "checking", "repair_attempted": False}
+    report["ruff"] = evidence
+    try:
+        code = run_step("ruff_probe", [python, "-m", "ruff", "--version"], env,
+                        output, report, allow_failure=True)
+        evidence["initial_probe_exit_status"] = code
+        metadata = json.loads(capture([python, "-c", RUFF_METADATA], env))
+        prefix = Path(metadata["prefix"]).resolve()
+        if prefix != venv_dir.resolve() or prefix == Path(metadata["base_prefix"]).resolve():
+            raise ValueError("Ruff setup requires the expected virtual environment interpreter")
+        version = metadata["version"]
+        if not isinstance(version, str) or not re.fullmatch(r"[0-9][A-Za-z0-9.!+_-]*", version):
+            raise ValueError("Cannot pin Ruff repair to a valid installed package version")
+        evidence["installed_version"] = version
+        evidence["distribution_before"] = (
+            "virtual_environment" if Path(metadata["distribution_root"]).resolve().is_relative_to(prefix)
+            else "shared_runtime"
+        )
+        verify_log = output / "ruff_probe.log"
+        if code:
+            evidence["repair_attempted"] = True
+            evidence["status"] = "repairing"
+            run_step("ruff_venv_reinstall", [python, "-m", "pip", "--isolated", "install",
+                     "--index-url", "https://pypi.org/simple", "--ignore-installed", "--no-deps",
+                     "--prefix", str(venv_dir), f"ruff=={version}"], env, output, report)
+            run_step("ruff_verify", [python, "-m", "ruff", "--version"], env, output, report)
+            repaired = json.loads(capture([python, "-c", RUFF_METADATA], env))
+            if (repaired["version"] != version or Path(repaired["prefix"]).resolve() != prefix
+                    or not Path(repaired["distribution_root"]).resolve().is_relative_to(prefix)):
+                raise ValueError("Ruff repair must load the pinned version from inside the venv")
+            evidence["distribution_after"] = "virtual_environment"
+            evidence["installed_version_after"] = repaired["version"]
+            verify_log = output / "ruff_verify.log"
+        verified = verify_log.read_text().strip()
+        if verified != f"ruff {version}":
+            raise ValueError("Ruff CLI version does not match its installed package metadata")
+        evidence.update(status="passed", verified_cli_version=verified)
+    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
+        evidence["status"] = "failed"
+        raise
+    finally:
+        write_report(output / "bootstrap.json", report)
 
 
 def fetch_amelia(destination: Path) -> str:
@@ -246,6 +308,7 @@ def main() -> int:
         "install_system_packages": args.install_system_packages,
         "runs_imputation_or_benchmarks": False,
         "steps": ["check_cuda", "optional_apt", "create_venv", "install_python_package",
+                  "verify_ruff_and_repair_same_version_in_venv_if_needed",
                   "download_pinned_Amelia", "install_R_dependencies_and_Amelia",
                   "install_ameliatorch", "record_environment"],
     }
@@ -292,6 +355,7 @@ def main() -> int:
         python = str(venv_dir / "bin/python")
         run_step("python_install", [python, "-m", "pip", "install", "-e", ".[dev,reference]"],
                  env, output, report)
+        ensure_ruff(venv_dir, env, output, report)
         after = json.loads(capture([python, "-c", TORCH_PROBE], env))
         same_torch = after.pop("torch_file_internal") == base_torch_file
         if not same_torch or after["torch"] != base["torch"]:

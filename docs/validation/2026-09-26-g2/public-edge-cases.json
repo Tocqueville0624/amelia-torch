@@ -1,0 +1,626 @@
+{
+  "schema_version": 1,
+  "scope": "Bounded public hybrid CPU64 edge cases; no GPU or timing claim",
+  "R": "4.5.3",
+  "Amelia": "1.8.3",
+  "cases": {
+    "default_startvals": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        8
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "identity_startvals_1": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        10
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "explicit_startvals": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        10
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "startvals_m2_none_default": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        8,
+        8
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_alias_matched": true,
+      "startvals_storage_type": "double",
+      "startvals_mutated": false
+    },
+    "startvals_m2_none_identity": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        10,
+        10
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_alias_matched": true,
+      "startvals_storage_type": "double",
+      "startvals_mutated": false
+    },
+    "startvals_m2_none_double": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        10,
+        1
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_alias_matched": true,
+      "startvals_storage_type": "double",
+      "startvals_mutated": true
+    },
+    "startvals_m2_none_integer": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        10,
+        10
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_alias_matched": true,
+      "startvals_storage_type": "integer",
+      "startvals_mutated": false
+    },
+    "startvals_m2_ordinary_default": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        7,
+        10
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_alias_matched": true,
+      "startvals_storage_type": "double",
+      "startvals_mutated": false
+    },
+    "startvals_m2_ordinary_identity": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        9,
+        11
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_alias_matched": true,
+      "startvals_storage_type": "double",
+      "startvals_mutated": false
+    },
+    "startvals_m2_ordinary_double": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        10,
+        9
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_alias_matched": true,
+      "startvals_storage_type": "double",
+      "startvals_mutated": true
+    },
+    "startvals_m2_ordinary_integer": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        9,
+        11
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_alias_matched": true,
+      "startvals_storage_type": "integer",
+      "startvals_mutated": false
+    },
+    "explicit_archive_arglist": {
+      "seed": 918,
+      "code": 1,
+      "imputations": 2,
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "archived_arguments_matched": true,
+      "passed": true
+    },
+    "explicit_archive_append": {
+      "seed": 918,
+      "code": 1,
+      "imputations": 3,
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "archived_arguments_matched": true,
+      "passed": true
+    },
+    "allthetas_explicit_alias": {
+      "initial_column_preserved": true,
+      "caller_final_theta_matched": true,
+      "passed": true
+    },
+    "emburn_minimum_35": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        35
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "emburn_maximum_2": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        2
+      ],
+      "hybrid_converged": false,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": "Amelia EM reached emburn maximum before convergence",
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "all_missing_analysis_row": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        8
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "no_missing_checked_input": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 39,
+      "reference_message": "Your data has no missing values.  Make sure the code for \n missing data is set to the code for R, which is NA.",
+      "reference_iterations": [],
+      "hybrid_converged": false,
+      "hybrid_torch_used": false,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": false,
+      "error_contract_matched": true,
+      "passed": true
+    },
+    "no_missing_incheck_false": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        0
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "all_missing_column": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 4,
+      "reference_message": "The data has a column that is completely missing or only has one,observation.  Remove these columns: a",
+      "reference_iterations": [],
+      "hybrid_converged": false,
+      "hybrid_torch_used": false,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": false,
+      "error_contract_matched": true,
+      "passed": true
+    },
+    "constant_column": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 43,
+      "reference_message": "You have a variable in your dataset that does not vary.  Please remove this variable. Variables that do not vary:  a",
+      "reference_iterations": [],
+      "hybrid_converged": false,
+      "hybrid_torch_used": false,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": false,
+      "error_contract_matched": true,
+      "passed": true
+    },
+    "too_few_rows": {
+      "seed": 77,
+      "input_dimensions": [5, 3],
+      "code": 34,
+      "reference_message": "The number of observations is too low to estimate the number of \n parameters.  You can either remove some variables, reduce \n the order of the time polynomial, or increase the empirical prior.",
+      "reference_iterations": [],
+      "hybrid_converged": false,
+      "hybrid_torch_used": false,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": false,
+      "error_contract_matched": true,
+      "passed": true
+    },
+    "max_resample_zero_rejected": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 52,
+      "reference_message": "The max.resample argument needs to be a positive integer.",
+      "reference_iterations": [],
+      "hybrid_converged": false,
+      "hybrid_torch_used": false,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": false,
+      "error_contract_matched": true,
+      "passed": true
+    },
+    "bounds_resampling_exhausted": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        8
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "boundary_clamped_cells": 9,
+      "evidence": "All nine missing a values equal the remote lower bound after one allowed resample."
+    },
+    "incheck_false_missing_input": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        8
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "collect_true": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        8
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "p2s_1": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        8
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "p2s_2": {
+      "seed": 77,
+      "input_dimensions": [80, 3],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        8
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "bootstrap_complete": {
+      "seed": 1,
+      "input_dimensions": [24, 2],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        0
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "bootstrap_complete_instrumented": {
+      "seed": 1,
+      "input_dimensions": [24, 2],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        0
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "bootstrap_complete_explicit_startvals": {
+      "seed": 1,
+      "input_dimensions": [24, 2],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        0
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": true,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true,
+      "caller_and_archive_unchanged": true
+    },
+    "bootstrap_redraw": {
+      "seed": 5,
+      "input_dimensions": [24, 2],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        56
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    },
+    "bootstrap_redraw_instrumented": {
+      "seed": 5,
+      "input_dimensions": [24, 2],
+      "code": 1,
+      "reference_message": "Normal EM convergence.",
+      "reference_iterations": [
+        56
+      ],
+      "hybrid_converged": true,
+      "hybrid_torch_used": true,
+      "reference_r_warnings": [],
+      "hybrid_r_warnings": [],
+      "hybrid_python_warnings": [],
+      "rng_seed_and_followup_checked": false,
+      "matching_outputs_and_history": true,
+      "error_contract_matched": false,
+      "passed": true
+    }
+  },
+  "instrumentation": {
+    "complete": {
+      "seed": 1,
+      "actual_orders": [
+        [18, 17, 12, 21, 11, 6, 2, 3, 8, 13, 16, 10, 22, 8, 12, 8, 16, 7, 12, 19, 3, 22, 9, 21]
+      ],
+      "observed_column_counts": [
+        [24, 24]
+      ],
+      "public_uninstrumented_outputs_identical": true,
+      "original_hybrid_orders_identical": true,
+      "accepted_complete": true
+    },
+    "redraw": {
+      "seed": 5,
+      "actual_orders": [
+        [5, 17, 23, 7, 3, 17, 13, 20, 23, 3, 7, 12, 8, 14, 7, 5, 10, 22, 14, 21, 22, 18, 6, 6],
+        [4, 12, 11, 24, 4, 23, 11, 2, 7, 1, 1, 12, 15, 15, 10, 10, 20, 6, 20, 13, 23, 14, 19, 2]
+      ],
+      "observed_column_counts": [
+        [24, 0],
+        [24, 4]
+      ],
+      "public_uninstrumented_outputs_identical": true,
+      "original_hybrid_orders_identical": true,
+      "accepted_complete": false
+    }
+  },
+  "not_covered": ["GPU precision variants", "public autopri-update trigger and fixed-hold audit"],
+  "all_passed": true
+}

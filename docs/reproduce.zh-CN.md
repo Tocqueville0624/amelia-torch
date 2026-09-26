@@ -26,14 +26,14 @@ Mac MPS：
 
 ```sh
 PYTORCH_ENABLE_MPS_FALLBACK=0 .venv/bin/python scripts/run_benchmark_suite.py --gpu mps
-.venv/bin/python scripts/summarize_benchmarks.py
+.venv/bin/python scripts/summarize_benchmarks.py --output-dir results/local/native-audit
 ```
 
-CPU-only 机器使用 `--gpu none`。Windows PowerShell 上用 `.venv\Scripts\python.exe`，确认 `Rscript` 在 PATH、CUDA 探针通过后运行：
+CPU-only 机器使用 `--gpu none`，汇总时显式指定 `--methods cpu64 cpu32 r_serial r_snow4`；审计器不会把漏跑的 GPU 项目默认为成功。Windows PowerShell 上用 `.venv\Scripts\python.exe`，确认 `Rscript` 在 PATH、CUDA 探针通过后运行：
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_benchmark_suite.py --gpu cuda
-.venv\Scripts\python.exe scripts/summarize_benchmarks.py
+.venv\Scripts\python.exe scripts/summarize_benchmarks.py --methods cpu64 cpu32 cuda64 cuda32 r_serial r_snow4 --output-dir results/local/native-audit
 ```
 
 每个数据集按固定随机顺序依次执行原版 R 串行、R snow 4 进程、PyTorch CPU float64/float32，以及选定 GPU；CUDA 额外测 float64。每种配置 2 次预热、5 次正式计时，每次生成 5 份插补。GPU 必须同步；默认最多 300 EM 轮，超过上限是未收敛而非成功。原版 R 使用 1.8.3。
@@ -59,10 +59,15 @@ CPU-only 机器使用 `--gpu none`。Windows PowerShell 上用 `.venv\Scripts\py
 ```sh
 PYTORCH_ENABLE_MPS_FALLBACK=0 .venv/bin/python scripts/run_hybrid_suite.py --methods cpu64 cpu32 mps32
 .venv/bin/python scripts/summarize_hybrid.py --input-dir results/local/benchmarks/hybrid --output-dir results/local/hybrid-audit
+.venv/bin/python scripts/compare_hybrid_reference.py --output results/local/hybrid-audit/hybrid-reference-comparison.json
 Rscript scripts/plot_benchmarks.R --native results/local/native-audit/benchmark-summary.json --hybrid results/local/hybrid-audit/hybrid-summary.json --output-prefix results/local/figures/timings
 ```
 
-其中 native 审计目录可用 `summarize_benchmarks.py --output-dir results/local/native-audit` 生成。Windows CUDA 将 methods 改为 `cpu64 cpu32 cuda64 cuda32`，Python 路径使用 `.venv\Scripts\python.exe`。混合路线固定保留 R 预处理、抽样与后处理，只替换 EM，计时包括 R/reticulate 转换；初次 Python 导入和文件读取在计时外。运行期间不要改动被指纹记录的 Python/R 源码，也不要同时做 CPU/GPU 拟合。
+其中 native 审计目录由前一节生成。Windows CUDA 将 hybrid methods 改为 `cpu64 cpu32 cuda64 cuda32`，配对比较器另加 `--reference-methods cpu64 cpu32 cuda64 cuda32 r_serial r_snow4`；Python 路径使用 `.venv\Scripts\python.exe`。混合路线固定保留 R 预处理、抽样与后处理，只替换 EM，计时包括 R/reticulate 转换；初次 Python 导入和文件读取在计时外。运行期间不要改动被指纹记录的 Python/R 源码，也不要同时做 CPU/GPU 拟合。
+
+配对比较必须等两套实验完整结束且通过独立审计后运行。它按 `phase + seed` 对齐全部预热和正式调用，要求匹配的 R RNG、参数与输入来源，比较已保存的均值、协方差、迭代数和 RMSE；这些汇总不能证明完整插补矩阵逐格等价。新实验使用不同目录时同时指定 `--reference-dir` 和 `--hybrid-dir`。默认要求复用主基准 CSV；`--generate-inputs` 的新 CSV 不自动获得相同历史输入的配对证据。
+
+绘图脚本实际检测图形设备并核验输出文件，生成 PNG 和矢量 PDF；Cairo 可用时另生成 SVG。本机不依赖 XQuartz，PNG 使用 macOS Quartz。已有文件不会被覆盖，重新出图需选择新的 `--output-prefix`。
 
 固定小型 GPU 正确性对照与正式性能测量分开运行：
 

@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-24T03:37:08.841778+00:00",
+  "description": "Original R Amelia pipeline with only EM replaced by PyTorch; full R-user end-to-end calls, serial replicate scheduling",
+  "settings": {
+    "rows": 100000,
+    "m": 5,
+    "warmups": 2,
+    "repeats": 5,
+    "threads": 4,
+    "tolerance": 0.0001,
+    "emburn": [
+      0,
+      300
+    ],
+    "empri": null,
+    "autopri": 0.05,
+    "startvals": 0,
+    "boot.type": "ordinary",
+    "parallel": "no",
+    "ncpus": 1,
+    "RNGkind": "L'Ecuyer-CMRG",
+    "order_seed": 20260923
+  },
+  "source_sha256": {
+    "src/amelia_torch/__init__.py": "b268c56890218a31dca7f57894a852f51016b23d01ad2caca9755a78cf1a2734",
+    "src/amelia_torch/api.py": "29d5701a2ef107bba5dc14f1f836289e804f5fe19d1246e47c8b26973b3f0db2",
+    "src/amelia_torch/backends.py": "14ae3f26b081d26faa7e040a24910db1f3c310f85218202b3d4cc224bab52542",
+    "src/amelia_torch/diagnostics.py": "68f26f34edc6ecf1258518ea569248ef2ff9b2fb54bd82dc0fb1f8fb8aa90691",
+    "src/amelia_torch/em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d",
+    "src/amelia_torch/imputation.py": "723ad352a769f1fc0f73818f2b629f0b78088a9168119f852575ff38d6fb5cd2",
+    "src/amelia_torch/reference.py": "5e8107909eaf366189a171624703fb70557f53ef5d117b618d4d52dc12278070",
+    "r-package/R/amelia.R": "c3fd8ff065e31113bab6ddcaf09457373061db335361bb4c83b1db32ead3b234",
+    "r-package/R/compatibility.R": "8771e41249fb2dd0802003091eb8c423f4e4d60956ca9a8ca206bb1cb577d4ec",
+    "r-package/R/environment.R": "7556c729dbd8fafc83503226f5b29dfa5703d6fb62b4591c39708b25c34b8c08",
+    "r-package/R/torch_compat.R": "e3ae633351a7c0712a4c906443e12b90e603689fb0bad0598162bcdcca2d3bcb",
+    "r-package/src/rng_state.c": "97d40a3027fa5909d978784b98331a8528b81f1d737900a58e3546e9d76e7f6d",
+    "r-package/DESCRIPTION": "4419822f8b32d7921d1f8d00c8dc454b9aaf78daa0c9254e67ba1e7dfd12fb4e",
+    "r-package/NAMESPACE": "26261a11e094828bcb1cde6e93e090501469a618a39f4bb4d9fa41383396fc05",
+    "scripts/benchmark_hybrid.R": "988d4068f51c4d122fc0463737be88f45f8d8960d8d005d0020a8a9eba8f5b03",
+    "scripts/run_hybrid_suite.py": "774c6f17faa8fabd8b9981ac47359dfd404c4ddf9650f5ec92f1db205f491953"
+  },
+  "source_scope": "Workspace source fingerprints; installed bridge/package versions are separately recorded by the R runner.",
+  "seeds": [
+    20260923,
+    20260924,
+    20260925,
+    20260926,
+    20260927
+  ],
+  "warmup_seeds": [
+    20360923,
+    20360924
+  ],
+  "planned_order": [
+    {
+      "dataset": "covertype",
+      "method": "mps32",
+      "device": "mps",
+      "dtype": "float32"
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64"
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32"
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64"
+    },
+    {
+      "dataset": "household_power",
+      "method": "mps32",
+      "device": "mps",
+      "dtype": "float32"
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "mps32",
+      "device": "mps",
+      "dtype": "float32"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64"
+    }
+  ],
+  "inputs": {
+    "covertype": {
+      "npz_filename": "covertype-n100000-block_mcar-rate30-seed20260923.npz",
+      "npz_sha256": "7023849c1f1cbef5765d1481e0ecafbbc5dfba1ed42fd9e08cfeefb47430f6f0",
+      "shape": [
+        100000,
+        10
+      ],
+      "csv": {
+        "input": {
+          "filename": "covertype-input.csv",
+          "sha256": "507353d567ce8326b87038eeafd86f43c860277d775ad6499804e7526a8f1d8a",
+          "rows": 100000,
+          "columns": 10,
+          "bytes": 3974500
+        },
+        "truth": {
+          "filename": "covertype-truth.csv",
+          "sha256": "f3e5c01b787c6148e216da58325e01ab854698e3345e81db85fae1b5e78f0cf5",
+          "rows": 100000,
+          "columns": 10,
+          "bytes": 3937166
+        },
+        "mask": {
+          "filename": "covertype-mask.csv",
+          "sha256": "3fff6783603f6b39fa3729063469813877bb691206fdf30815f0a7f983adf7d2",
+          "rows": 100000,
+          "columns": 10,
+          "bytes": 2000197
+        }
+      },
+      "source_archive_sha256": "89a975c2457cd48e824238ae43c5a3cb762e42c4b4078d9b44a4514055105f6d"
+    },
+    "household_power": {
+      "npz_filename": "household_power-n100000-block_mcar-rate30-seed20260923.npz",
+      "npz_sha256": "ac93b8b96d3605668ce486651e1ea9ec821bb28f01189cc82911dc6a131a7b0d",
+      "shape": [
+        100000,
+        7
+      ],
+      "csv": {
+        "input": {
+          "filename": "household_power-input.csv",
+          "sha256": "4cbabe0037065888548de4472c072915aa4d69d5eae149b57657c0de458cbf40",
+          "rows": 100000,
+          "columns": 7,
+          "bytes": 5140915
+        },
+        "truth": {
+          "filename": "household_power-truth.csv",
+          "sha256": "2d72900dfe8f6c7e5bddcd6fec133166eef5e827a545158edc4d03829c73e1d0",
+          "rows": 100000,
+          "columns": 7,
+          "bytes": 6259078
+        },
+        "mask": {
+          "filename": "household_power-mask.csv",
+          "sha256": "fe8d38131e2d23b934f21e8b4f30a4a28bfdf1e532bbd7912d4264388a59a649",
+          "rows": 100000,
+          "columns": 7,
+          "bytes": 1400112
+        }
+      },
+      "source_archive_sha256": "9f84b46ade8a2d8e1286ec4b2b6c2987a45a755c59f263be3b3b3d10dfbda3ff"
+    },
+    "year_prediction_msd": {
+      "npz_filename": "year_prediction_msd-n100000-block_mcar-rate30-seed20260923.npz",
+      "npz_sha256": "ca9be928f129b2ce56388da495c0ef34c9ba6e50870f75a53d48445dcca98419",
+      "shape": [
+        100000,
+        90
+      ],
+      "csv": {
+        "input": {
+          "filename": "year_prediction_msd-input.csv",
+          "sha256": "11eac1bcca2b513e63eb5e18dac8ba8c2eeb8486ec9a96a4ff19c366ef6c6983",
+          "rows": 100000,
+          "columns": 90,
+          "bytes": 117708914
+        },
+        "truth": {
+          "filename": "year_prediction_msd-truth.csv",
+          "sha256": "56d6d9f231c884924540c76b954dc08da8eb1fb4612addc13cd3714361087b49",
+          "rows": 100000,
+          "columns": 90,
+          "bytes": 152693995
+        },
+        "mask": {
+          "filename": "year_prediction_msd-mask.csv",
+          "sha256": "603e1de9d5aade59c5f50f27417deb670fb39d41c26c16adb7ecd8b5542f83ae",
+          "rows": 100000,
+          "columns": 90,
+          "bytes": 18001854
+        }
+      },
+      "source_archive_sha256": "06f801af323bb7798e800583acce4ea1ed2697ac12c23f4424aea0a7a3d09e11"
+    }
+  },
+  "execution": [
+    {
+      "dataset": "covertype",
+      "method": "mps32",
+      "device": "mps",
+      "dtype": "float32",
+      "result": "covertype-mps32.json",
+      "log": "covertype-mps32.log",
+      "started_utc": "2026-09-24T03:37:09.093911+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T03:38:28.430287+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "bf1954bca2146e116e044e3f191dda16c258fb0832ac5a495dd206e5f935154c"
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64",
+      "result": "covertype-cpu64.json",
+      "log": "covertype-cpu64.log",
+      "started_utc": "2026-09-24T03:38:28.436135+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T03:39:27.860014+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "a068d9fc1b99ca35a55b9f157c36d120aa09579a385060fd3188f9c240cc6975"
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32",
+      "result": "covertype-cpu32.json",
+      "log": "covertype-cpu32.log",
+      "started_utc": "2026-09-24T03:39:27.865513+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T03:40:27.404107+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "b5c5bfd13f094b39374c182ac55166f10297d9b3f1395397c7b13a68de9a245e"
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64",
+      "result": "household_power-cpu64.json",
+      "log": "household_power-cpu64.log",
+      "started_utc": "2026-09-24T03:40:27.408301+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T03:41:07.681873+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "3ca2b0f4f089b62d27963dc7c2aa7e555781a461f8c5910d6c37d7304eaa6ba6"
+    },
+    {
+      "dataset": "household_power",
+      "method": "mps32",
+      "device": "mps",
+      "dtype": "float32",
+      "result": "household_power-mps32.json",
+      "log": "household_power-mps32.log",
+      "started_utc": "2026-09-24T03:41:07.687756+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T03:41:56.459720+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "6c3afd9af2e523f832b831ab19893517018a626eff7361af382620a145e9b3c4"
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32",
+      "result": "household_power-cpu32.json",
+      "log": "household_power-cpu32.log",
+      "started_utc": "2026-09-24T03:41:56.465266+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T03:42:35.942464+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "7df5a3eb31b272e44dc870ca2ae3708041bc0025fb6a95829fdf691947aa4259"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "mps32",
+      "device": "mps",
+      "dtype": "float32",
+      "result": "year_prediction_msd-mps32.json",
+      "log": "year_prediction_msd-mps32.log",
+      "started_utc": "2026-09-24T03:42:35.949065+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T03:52:31.451634+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "581be4b9bb1648a77b4e7c4e5ce784b699b82d83da7b9dc502705e67095e77ab"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32",
+      "result": "year_prediction_msd-cpu32.json",
+      "log": "year_prediction_msd-cpu32.log",
+      "started_utc": "2026-09-24T03:52:31.465869+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T04:01:11.875513+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "7beaf14ed37a94fad40d12cd1e33316a53d28b9201a3ec8788a6b275a5b1470f"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64",
+      "result": "year_prediction_msd-cpu64.json",
+      "log": "year_prediction_msd-cpu64.log",
+      "started_utc": "2026-09-24T04:01:11.888058+00:00",
+      "status": "completed",
+      "exit_status": 0,
+      "finished_utc": "2026-09-24T04:10:26.240895+00:00",
+      "source_unchanged_during_process": true,
+      "report_exists": true,
+      "all_requested_runs_succeeded": true,
+      "report_sha256": "818825b62289af54965b4ea4c35aa4cd1294556491d80d8850297b96becc779a"
+    }
+  ],
+  "input_policy": "Exact existing main-suite CSV files reused read-only",
+  "cross_suite_comparison_caution": "Main and hybrid suites run at different wall-clock times; retain run order, settings and load limitations when comparing.",
+  "completed_utc": "2026-09-24T04:10:26.252046+00:00",
+  "all_requested_tasks_succeeded": true
+}

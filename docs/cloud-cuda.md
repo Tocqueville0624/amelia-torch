@@ -2,6 +2,8 @@
 
 这里提供云端执行步骤，不代表以下测试已经通过。报告必须使用实际 GPU 名称；Colab 的 Linux/T4 结果不能称作 Windows 或 RTX 3080 结果。Windows 安装和 RStudio 的验收仍分别保留。
 
+2026-09-26 已从旧保存 notebook [恢复历史输出](validation/2026-09-23-colab-recovered/README.md)：旧 Linux/T4 环境中的 149 项 Python 测试、5 个 R 测试文件及 CUDA float64/float32 小型 native/hybrid 对照记录为成功，Ruff 因可执行文件缺失失败，最终验证断言也失败。原 VM 的 JSON/完整日志已失，此记录不是新运行，不包含 CUDA 性能基准。下面的重跑清单已扩展到 7 个 R 测试文件和下游示例，旧记录不能替代这些新增检查。
+
 官方 Colab [过去运行时说明](https://research.google.com/colaboratory/runtime-version-faq.html)列有 Python 3.12 镜像，但默认镜像会改变。2026-09-23 实际首次分配的免费 T4 环境为 Python 3.13.15、Torch 2.11.0+cu128、R 4.6.1。该项目当前要求 Python 3.12，因此先在 Runtime → Change runtime type 选择可用的 Python 3.12 过去镜像，再实际检查。不能仅根据文档推断当前 VM 的版本。
 
 免费资源没有供应或完整运行时长保证。失败、额度不足、断线都保留记录；不自动购买积分，不用其他账户或非官方代理绕开限制。当前运行期间不要更换 runtime；CPU 和 CUDA 必须在同一个 GPU VM 中测试。[官方资源说明](https://research.google.com/colaboratory/faq.html)
@@ -43,6 +45,8 @@ PYTHON = str(REPO / ".venv/bin/python")
 
 脚本不进行拟合，也不下载或替换 Torch。它要求当前运行时的 CUDA Torch 为 `>=2.10,<3`，创建带 `--system-site-packages` 的 `.venv`，复用相同 Torch 文件，并安装项目、测试和 pandas 依赖。这是与 Colab 基础环境共享已装包的项目环境，不是完全隔离的依赖锁；具体 Python/R 包版本写入报告，后续复现应保留相同镜像和这些记录。不要拿 Mac 的 lock 文件安装 CUDA。
 
+共享环境可能让 pip 看见 Ruff 的全局包元数据，却没有可用的 Ruff binary。脚本在安装后实际执行虚拟环境的 `python -m ruff --version`；失败时读取已装版本，仅用该解释器的 pip `--isolated --ignore-installed --no-deps --prefix <venv>` 重装同版本 Ruff，再验证 CLI 版本和包位置。不会重装 Torch 或修改全局包。初次失败日志和退出码保留，`bootstrap.json` 的 `ruff` 字段单独记录恢复及最终状态；恢复失败仍终止 bootstrap。
+
 若该镜像缺少 `ensurepip`，脚本仅为这一失败启用 [uv 官方工具](https://docs.astral.sh/uv/getting-started/installation/)的项目缓存安装，再以同一个 Python 解释器、相同 system-site-packages 设置建立并 seed venv；记录 uv 的实际版本。不会用另一套 Python 或自动改变 CUDA wheel。
 
 原版 Amelia 使用下列源码与 SHA-256，当前地址不可用时仅回退到 CRAN 官方 Archive 同版本，校验不符即停止：
@@ -51,7 +55,7 @@ PYTHON = str(REPO / ".venv/bin/python")
 - `https://cran.r-project.org/src/contrib/Archive/Amelia/Amelia_1.8.3.tar.gz`
 - SHA-256：`7699455ca3e9dabd60ad0ec69185ece3f24a597ef8da18033ea0b7a32356967f`
 
-R 依赖和固定 Amelia 装入 `.R-library`，然后执行现有 `setup_r.R` 和 `R CMD INSTALL --clean r-package`。若环境缺少 R/编译器，脚本明确失败；可保留失败目录后，用新的输出目录追加 `--install-system-packages --output-dir results/local/cloud/bootstrap-2` 重试。这会通过 `apt-get` 安装系统依赖，仅适用于用户已授权的云端 VM。不要在 Mac 上执行。
+R 依赖和固定 Amelia 装入 `.R-library`，包括新增下游检查需要的 `broom` 和 `foreign`，然后执行现有 `setup_r.R` 和 `R CMD INSTALL --clean r-package`。若环境缺少 R/编译器，脚本明确失败；可保留失败目录后，用新的输出目录追加 `--install-system-packages --output-dir results/local/cloud/bootstrap-2` 重试。这会通过 `apt-get` 安装系统依赖，仅适用于用户已授权的云端 VM。不要在 Mac 上执行。
 
 `results/local/cloud/bootstrap/bootstrap.json` 记录 Git commit、所有已跟踪文件的哈希、CUDA/驱动/GPU、CPU 型号/可见核心/affinity/cgroup 配额、内存、版本、安装步骤及失败；同目录含安装日志和 Python 包版本列表。不读取机器序列号、主机名或全量环境变量。输出目录存在时拒绝覆盖。
 
@@ -63,7 +67,14 @@ def run(*args):
 
 run(PYTHON, "-m", "amelia_torch.diagnostics", "--require-device", "cuda",
     "--output", "results/local/cloud/cuda-probe.json")
+run(PYTHON, "-m", "ruff", "--version")
+run(PYTHON, "-m", "ruff", "check", "src", "tests", "scripts", "examples")
 run(PYTHON, "-m", "pytest", "-q")
+for case in ("bridge", "compatibility", "torch-compat", "public-edge-cases",
+             "reference_metadata", "downstream", "downstream_extended"):
+    run("Rscript", f"r-package/tests/{case}.R")
+run(PYTHON, "examples/python_r_downstream.py",
+    "--output", "results/local/cloud/downstream-example")
 for dtype in ("float64", "float32"):
     run(PYTHON, "scripts/validate_accelerator.py", "--device", "cuda", "--dtype", dtype,
         "--output", f"results/local/cloud/native-{dtype}-validation.json")
@@ -72,6 +83,8 @@ for dtype in ("float64", "float32"):
 ```
 
 `NVIDIA_TF32_OVERRIDE=0` 显式禁用 TF32；所有拟合在新子进程里执行，不复用 notebook 已初始化的 Torch/R 状态。探针包含 CUDA float64/float32 基础算子；小型参考对照还检查 EM 和补值。任何失败都保留，不能调宽阈值后把原失败记为成功。通过这些检查不等于所有算法功能或推断质量已验收。
+
+7 个 R 文件及 Python→RDS→原版 R 下游示例是独立检查；Ruff 对 `examples` 的静态检查不能代替运行示例。新增 G1 下游和公开边界回归不包含在旧 notebook 的 5 个 R 测试结果中。命令失败时应先保存输出与失败状态，不能以旧结果补算新检查通过。
 
 ## 4. 三组公共数据与同机计时
 

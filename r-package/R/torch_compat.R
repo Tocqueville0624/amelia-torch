@@ -12,6 +12,7 @@
   own_namespace <- asNamespace("ameliatorch")
   snapshot_rng <- get("C_amelia_rng_snapshot", envir = own_namespace, inherits = FALSE)
   restore_rng <- get("C_amelia_rng_restore", envir = own_namespace, inherits = FALSE)
+  writeback_theta <- get("C_amelia_theta_writeback", envir = own_namespace, inherits = FALSE)
   # Preserve C RNG state as well as .Random.seed, which the upstream C++ imputer
   # can leave stale. An R-vector-only snapshot is insufficient across reticulate.
   initial_rng <- .Call(snapshot_rng)
@@ -47,6 +48,12 @@
       upper[1, 1] <- FALSE
       parameters <- do.call(cbind, lapply(c(list(initial), fit$theta_history),
                                          function(theta) theta[upper]))
+    }
+    if (!isTRUE(fit$diagnostics$complete_sample)) {
+      # Preserve upstream's double-matrix alias side effect after recording the
+      # initial allthetas column. Integer starts are coerced by Rcpp and stay
+      # unchanged; the C helper mirrors that distinction without R copy-on-write.
+      .Call(writeback_theta, initial, fit$theta)
     }
     if (isTRUE(p2s > 0)) {
       cat("PyTorch EM:", fit$diagnostics$iterations, "iterations on", device, dtype, "\n")

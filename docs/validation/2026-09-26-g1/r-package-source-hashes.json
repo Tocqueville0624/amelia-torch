@@ -1,0 +1,22 @@
+{
+  "r-package/.Rbuildignore": "cf752c557129a839f5ba9fcd7b636d07a27577256312033064dec23c3e4b0a57",
+  "r-package/DESCRIPTION": "6b74f0fa21ac630806e2f5c6404e23a64e3f5c8f67904fabc52a9a03f0e69a34",
+  "r-package/NAMESPACE": "26261a11e094828bcb1cde6e93e090501469a618a39f4bb4d9fa41383396fc05",
+  "r-package/R/amelia.R": "c3fd8ff065e31113bab6ddcaf09457373061db335361bb4c83b1db32ead3b234",
+  "r-package/R/compatibility.R": "8771e41249fb2dd0802003091eb8c423f4e4d60956ca9a8ca206bb1cb577d4ec",
+  "r-package/R/environment.R": "7556c729dbd8fafc83503226f5b29dfa5703d6fb62b4591c39708b25c34b8c08",
+  "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+  "r-package/man/amelia_compat.Rd": "8780f2cda0a3a80e66f7cb0e9c66aeef31836d81034d1bb39e50268cef2ce6a9",
+  "r-package/man/amelia_torch.Rd": "d2f617497594405323556a0724c98bb2afa145f8076106429b3bab77f2c2aaa3",
+  "r-package/man/amelia_torch_compat.Rd": "dbaccd363eb080aecb9c30d9ea30c3aef0d1080f0a4f562333123a3ea854fb3f",
+  "r-package/man/check_environment.Rd": "9e7d89eca42fe53c575bfe0bb57c771dbd0b72d085458b6c5f8a80d7167032b5",
+  "r-package/man/use_amelia_python.Rd": "5b9aeadaa648a5889b426f49d9b5a759728b1f0e9da835279779e6036a668139",
+  "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+  "r-package/tests/bridge.R": "8da172201ff5f16671cf37d83d3b028f6f466ffb23c428928f3a10713ade67cb",
+  "r-package/tests/compatibility.R": "b5f8f294581e9ab5ea5140e4ab6401389d545bfa0518c78a1015fb9caf4d3283",
+  "r-package/tests/downstream.R": "729760ef0e9197d537392809e540b84280c36d996a57ac7d1e98df0d39c3fba5",
+  "r-package/tests/downstream_extended.R": "5beaead8e161e6958c40abcde0249de4cc144c51a5856ea6365696befb2a0bcc",
+  "r-package/tests/public-edge-cases.R": "9044720d6255e9f79a65a379d6e5b99ab046d29b82bf7b4b3aa2a7efc0231397",
+  "r-package/tests/reference_metadata.R": "5a1d9998208f99626f56ce486270dc5cf5f0d1492ac8c6f26df23d6870f275d6",
+  "r-package/tests/torch-compat.R": "1311101431d93bf11cedf58f14cd45eb5f8ef453da1bec93f2c7d576c3e33c17"
+}
