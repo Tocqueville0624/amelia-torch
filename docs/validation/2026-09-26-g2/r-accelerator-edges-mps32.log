@@ -1,0 +1,9 @@
+identity_none_m2 PASS 
+identity_ordinary_m2 PASS 
+double_none_m2 PASS 
+double_ordinary_m2 PASS 
+integer_none_m2 PASS 
+emburn_minimum_35 PASS 
+emburn_maximum_2 PASS 
+pathological_autopri PASS (status/diagnostics only) 
+Boundary checks: PASS 
