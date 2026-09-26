@@ -19,6 +19,7 @@
 - 设备探针：`.venv/bin/python -m amelia_torch.diagnostics --require-device mps`；Windows CUDA 改 `cuda`。GPU 不可见先检查执行权限；sandbox 也可能阻止 R snow localhost socket。
 - 数据、质量与基准复现入口见 `docs/reproduce.zh-CN.md`，验证产物放 `docs/validation/`；机器临时结果放忽略的 `results/local/`。
 - Colab 每阶段在计时外保存完整 JSON/log 报告备份，见 `scripts/cloud_checkpoint.py` 与 `scripts/recover_cloud_checkpoint.py`。下载失效时可从保存 notebook 的压缩输出恢复；必须核验哈希，不把截断 stdout 当成原始 JSON。云主机按实测 CPU 配额统一线程/worker 预算，9/26 T4 VM 为两核。
+- 中断后可先读本地忽略目录 `results/local/cloud-recovery-*/resume-state.json`，再实际核验 notebook 状态；文件只是恢复提示，不证明排队项已执行。不要把私有 notebook 链接或账号元数据提交到公开仓库。
 
 ## 算法与兼容性约束
 - `docs/algorithm-contract.md` 是固定版本语义依据。每开放一项原版功能，都先建参考对照，再更新兼容表；不支持的选项明确拒绝，不能忽略后继续计算。

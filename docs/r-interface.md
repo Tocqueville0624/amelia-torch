@@ -193,18 +193,22 @@ selection, invalid arguments, duplicate aliases, and actual CPU imputation
 through Python. Set `RETICULATE_PYTHON` to enable the bridge tests. Tests without
 it explicitly report the bridge as skipped, not passed.
 
-`.github/workflows/tests.yml` configures Linux/macOS/Windows CPU Python tests and
-R interface tests. Configuration is not evidence that remote CI ran. Hosted CPU
-runners are not treated as CUDA/MPS benchmark machines. The workflow uses the
+`.github/workflows/tests.yml` runs Linux/macOS/Windows CPU Python tests and
+R interface tests. At `8b5ede9`, all three hosted jobs actually passed 262 Python
+tests, nine R test files and the downstream example; see the
+[versioned CI evidence](validation/2026-09-26-ci/cross-platform-ci-8b5ede9.md).
+Hosted CPU runners are not treated as CUDA/MPS benchmark machines. The workflow uses the
 [GitHub Python matrix workflow](https://docs.github.com/en/actions/tutorials/build-and-test-code/python)
 and [r-lib setup-r action](https://github.com/r-lib/actions/tree/v2/setup-r).
 
-Before release: validate every required compatibility feature, verify supported
-platforms, and exercise installed-package
-RStudio sessions. The approved name, license, and maintainer are no longer pending
-requirements. CI is configured for installation and interface checks when
-executed; no remote workflow result is currently claimed. The destination account
-`Tocqueville0624` is confirmed; completed release checks remain required.
+An actual installed-package Mac RStudio workflow passed reference/hybrid CPU64
+imputation, interpreter selection, RDS/CSV readback, Data Viewer and visible
+diagnostic checks; see the [GUI evidence](validation/2026-09-26-g6-rstudio/README.md).
+This does not cover the separate AmeliaView window or other systems' GUI sessions.
+Before release, complete the remaining [acceptance gates](release-gates.md),
+including accelerator inference quality and cloud performance validation. The
+approved name, license, maintainer and destination account `Tocqueville0624` are
+no longer pending decisions.
 
 For local source-only contract tests, set `AMELIATORCH_R_SOURCE` to `r-package`
 and `RETICULATE_PYTHON` to the explicit environment interpreter before running

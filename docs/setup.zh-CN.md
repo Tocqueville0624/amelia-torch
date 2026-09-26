@@ -49,7 +49,7 @@ source("scripts/smoke_r_bridge.R")
 source("scripts/smoke_amelia.R")
 ```
 
-脚本自动添加项目 `.R-library`，显式绑定 `.venv`。如当前会话已绑定别的 Python，先重启 R 会话；reticulate 不能在已初始化的解释器之间任意切换。R 包已通过本机安装和 `R CMD check`（0 ERROR/0 WARNING/0 NOTE）；运行 `R CMD INSTALL --library=.R-library r-package` 后可 `library(ameliatorch)`。见 [R 接口说明](r-interface.md)。实际 RStudio GUI 会话及其他机器仍需独立核验。
+脚本自动添加项目 `.R-library`，显式绑定 `.venv`。如当前会话已绑定别的 Python，先重启 R 会话；reticulate 不能在已初始化的解释器之间任意切换。R 包已通过本机安装和 `R CMD check`（0 ERROR/0 WARNING/0 NOTE）；运行 `R CMD INSTALL --library=.R-library r-package` 后可 `library(ameliatorch)`。见 [R 接口说明](r-interface.md)。2026-09-26 已完成实际 Mac RStudio 的已安装包插补、保存/读回和可见诊断图，复现步骤及截图见 [G6 记录](validation/2026-09-26-g6-rstudio/README.md)；其他系统 GUI 与原版独立 AmeliaView 不由此推定通过。正常 RStudio Data Viewer 不要求 XQuartz；原版 AmeliaView 的 Tcl/Tk 依赖单独处理。
 
 ## Windows CUDA：可选到机复现
 
