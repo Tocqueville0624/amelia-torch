@@ -1,0 +1,9 @@
+{
+  "algorithm": "SHA-256",
+  "commit_under_test": "8b5ede900ae27b7bf73e586c0b4798a225dc2fa2",
+  "files": {
+    "cross-platform-ci-8b5ede9.json": "a39cfd18178ef7b308a99f25687c3f28b487c3470f821130ae5c955480253f80",
+    "cross-platform-ci-8b5ede9.md": "02c3b6c5bbb0a7c0f48b9e2a4b1da048656c9d9196522074b14a853859f834bb"
+  },
+  "scope": "New 8b5ede9 evidence only; historical manifests unchanged."
+}

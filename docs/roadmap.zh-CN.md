@@ -17,7 +17,7 @@
 - 已实现多元正态条件矩、分缺失模式 EM、初值/迭代限制/经验先验、连续数据标准化、bootstrap、随机条件补值及原始尺度恢复。公共入口为 `amelia_torch.amelia()`。
 - CPU float64 已通过 R 参考样例的单步/收敛参数和显式随机输入补值对照；公共接口测试验证观察值保留、顺序与尺度恢复、种子可重复及全缺失行语义。
 - 低层 cell prior 已有参考对照，但公共 prior 坐标转换、类别、变换、边界、时间结构等未完成；不支持的公共选项明确报错。
-- 剩余验收：扩展兼容边界测试，并将已有 CPU64 的 400 次 MCAR/MAR 偏差/覆盖率/Rubin pooling 初筛扩展到原版与所发布 GPU 路线；许可与来源文件已公开。数值测试通过不能替代统计质量验收。
+- 原有 CPU64 的 400 次 MCAR/MAR 初筛已扩展到 Mac 原版、CPU 与 MPS 五路线正式模拟；MAR 和有界压力检查通过，但 MCAR 冻结统计界限未全部通过。CUDA 正式统计验证仍待完成；许可与来源文件已公开。执行完成不等于统计验收通过，数值测试也不能替代统计质量验收。
 
 ## M2：GPU 原型与瓶颈分析（进行中）
 
@@ -29,21 +29,22 @@
 ## M3：云端 CUDA 及跨平台验证（进行中）
 
 - 核验驱动、显存、wheel 与实际 CUDA 算子；同机运行 R 串行/并行、PyTorch CPU 与 GPU。
-- CUDA float64/float32 分别验证；Windows 无CUDA安装和 Linux CPU 也需独立运行。三个操作系统的 hosted CPU CI 已实际通过，Windows包亦已用Rtools编译；不能替代 CUDA 或所有系统配置的到机测试。云端 Linux CUDA 与 Windows CPU 的证据分开报告，不冒称 Windows GPU 已测试。
-- 2026-09-26 已从保存的 Colab notebook 恢复旧会话输出：149 项 Python、五组 R 及 CUDA32/64 native/hybrid 固定案例通过；Ruff 二进制缺失阻止了后续性能实验，旧 VM 临时 JSON 未保存。现已修复环境恢复逻辑并重连 T4，下一轮须重新保存结构化记录。
+- Linux T4 的 CUDA float64/float32 固定正确性案例已分别验证，正式性能与统计验收仍在进行。Windows 无 CUDA 与 Linux CPU 已由三平台 hosted CPU CI 实际执行，Windows 包亦已用 Rtools 编译；不能替代所有系统配置的到机测试。云端 Linux CUDA 与 Windows CPU 的证据分开报告，不冒称 Windows GPU 已测试。
+- 2026-09-26 已从保存的 Colab notebook 恢复旧会话输出：149 项 Python、五组 R 及 CUDA32/64 native/hybrid 固定案例通过；Ruff 二进制缺失阻止了后续性能实验，旧 VM 临时 JSON 未保存。随后新 T4 会话已重新保存完整结构化记录，见下一项；恢复的旧输出只保留为历史证据。
 - 新 T4 会话已重新完成 15 步验证并保存完整 JSON/log：161 项 Python、七个 R 测试文件、下游示例与两个精度的 CUDA 固定案例均通过，见 [CUDA 记录](validation/2026-09-26-cuda/README.md)。同机两线程/两 worker 的三数据集性能套件正在运行，不能提前宣称速度结论。
-- `e2ff892` 三平台 CI 已完成新增 235 项/九个 R 文件；`ad9bed2` 的 Intel Mac x86_64 独立 wheel[reference] 安装及无 Torch 实际拟合、RDS 下游工作流通过，见 [CI 证据](validation/2026-09-26-ci/README.md)。该 Intel 结果不覆盖 native Torch 或 GUI。
-- G5 [统计验证方案](validation/g5-prespecified/README.md) 已在正式扩展模拟前固定并提交：每路线 MCAR/MAR 各 200 份、压力 20 份，明确偏差、覆盖率、配对差与 Monte Carlo 区间门槛；CPU 小规模流程检查通过，正式结果仍待完成。
+- `e2ff892` 三平台各通过 235 项 Python 测试、九个 R 测试文件及下游示例，见该版本的 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)。`ad9bed2` 的 Intel Mac x86_64 独立 wheel[reference] 安装及无 Torch 实际拟合、RDS 下游工作流通过，见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)；该 Intel 结果不覆盖 native Torch 或 GUI。
+- G5 [统计验证方案](validation/g5-prespecified/README.md) 已在正式扩展模拟前固定并提交：每路线 MCAR/MAR 各 200 份、压力 20 份，明确偏差、覆盖率、配对差与 Monte Carlo 区间门槛；CPU 小规模流程检查与 Mac 五路线正式执行均已完成，Mac MCAR 冻结统计界限未全部通过，CUDA 正式验证仍待完成。
 - Mac 五路线正式 G5 已完成 10,500 次拟合且独立审计通过，但 MCAR 的冻结统计界限未全部达到；MAR 与有界压力检查通过，详见 [MPS 统计报告](validation/2026-09-26-g5-mps/README.md)。保留原版 R 也未通过的绝对覆盖率界限，不改规则让结果变绿；新独立补充提案待用户选择，CUDA 原计划仍在排队。
-- 保存完整结果、配置与绘图脚本，做可重复的端到端演示。
+- 最新 `8b5ede9` 三平台各 262 项 Python、九个 R 文件和下游示例通过，见 [新增 CI 证据](validation/2026-09-26-ci/cross-platform-ci-8b5ede9.md)。中断记录保护未改拟合/随机种子/计时范围；已测版本与旧报告保持不变。
+- 保存完整结果、配置与绘图脚本，做可重复的端到端演示；[两种调用流程的 Mac 性能图](validation/2026-09-26-performance-figures/README.md)直接使用既有审计摘要，没有重测。
 - 验收：明确是否加速、在哪些配置加速、超过哪个基线；负面结果也保留。
 
 ## M4：R 接口、完整兼容与作品集交付（本地包可安装，未正式交付）
 
 - 已建立 R 包骨架和 [源码接口](r-interface.md)：延迟初始化、显式解释器选择、设备检查、自有结果类及参数别名。Mac 上真实 R→Python CPU32/64 插补、matrix/data.frame 名称与观察值保留、全缺失行和大seed诊断测试已通过。
-- R 维护者、名称和许可证元数据已更新；Mac R 4.5.3 安装、源码构建及全部九个 R 包测试文件通过（2026-09-26），最终 `R CMD check` 为零错误、零警告、零NOTE，见[更新后的包检查记录](validation/2026-09-26-regression/README.md)。官方下游摘要、诊断图、pooling、CSV导出、arglist/追加/molists和allthetas已有小型CPU对照；已安装包的 RStudio 会话和完整类型/模型边界均未验收。
+- R 维护者、名称和许可证元数据已更新；Mac R 4.5.3 安装、源码构建及全部九个 R 包测试文件通过（2026-09-26），最终 `R CMD check` 为零错误、零警告、零NOTE，见[更新后的包检查记录](validation/2026-09-26-regression/README.md)。官方下游摘要、诊断图、pooling、CSV导出、arglist/追加/molists和allthetas已有小型CPU对照；已安装包的实际 Mac RStudio 数据框插补、保存/读回和可见诊断图已通过，见 [RStudio 证据](validation/2026-09-26-g6-rstudio/README.md)。G3 已完成有限类型/会话边界，原版 AmeliaView 独立 GUI 仍未测；不外推所有类型组合。
 - 已获准实施保留原版 R 预处理/抽样/输出的过渡方案。纯官方CPU入口 `amelia_compat(engine="reference")` 已通过官方结果及R RNG逐值一致对照；实验性 `amelia_torch_compat()` 已通过变换、类别、先验、边界、overimputation和panel组合的CPU float64代表案例。后者只替换EM，不修改 Amelia namespace，当前限定串行副本调度。完整兼容仍待验收；Python到R参考桥另行验证。
-- 2026-09-26 新增 G1 下游工作流及 G2 的 33 个 CPU 公共边界案例；显式 double startvals 原位更新已复现，integer/完整样本例外与后续 RNG 也已对照。当前本机及三平台各 235 项 Python 测试通过，完整验收缺口见 [release-gates](release-gates.md)。
+- 2026-09-26 新增 G1 下游工作流及 G2 的 33 个 CPU 公共边界案例；显式 double startvals 原位更新已复现，integer/完整样本例外与后续 RNG 也已对照。`e2ff892` 的三平台各 235 项 Python 测试通过；这是对应版本的历史结果，完整验收缺口见 [release-gates](release-gates.md)。
 - 完整功能必须逐项对照后才计入首版验收。已有 CI 配置、兼容表、实验代码和数据说明；已在确认的 `Tocqueville0624` 账号公开开发仓库；下一步扩展接口边界和 GPU 验收。公开开发仓库不等于首版验收完成。
 - 用户应能解释一个条件矩计算、一个数值难点、一个性能瓶颈、一个失败实验和一次设计取舍，避免只展示生成的代码量。
 

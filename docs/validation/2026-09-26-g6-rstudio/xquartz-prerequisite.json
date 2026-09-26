@@ -1,0 +1,28 @@
+{
+  "product": "XQuartz",
+  "version": "2.8.6",
+  "installed": false,
+  "installation_status": "administrator_authentication_required; native Installer UI unconfirmed",
+  "official_release_page": "https://www.xquartz.org/releases/XQuartz-2.8.6.html",
+  "official_package_url": "https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.6/XQuartz-2.8.6.pkg",
+  "package_basename": "XQuartz-2.8.6.pkg",
+  "actual_sha256": "9ac35a505095bfbd3009c3b4772f0c6421e2f79c4210ab908459270d1c447909",
+  "homebrew_hash_matches": true,
+  "signature": {
+    "status": "signed by a developer certificate issued by Apple for distribution",
+    "notarization": "trusted by Apple notary service",
+    "identity": "Developer ID Installer: Apple Inc. - XQuartz (NA574AWV7E)",
+    "trusted_timestamp": "2026-07-13 23:06:08 +0000",
+    "gatekeeper": "accepted; Notarized Developer ID",
+    "sandbox_caveat": "Initial sandboxed signature probe reported invalid; read-only out-of-sandbox pkgutil and Gatekeeper checks both succeeded. No security settings changed."
+  },
+  "blockers": [
+    "sudo required administrator authentication.",
+    "Native Installer connection did not yield observable UI before parent-agent interruption; the tool returned literal 'aborted by user', without implying a human-user action."
+  ],
+  "privileged_install_completed": false,
+  "password_collected_or_entered": false,
+  "legal_agreement_accepted": false,
+  "logout_or_restart": false,
+  "distinction": "sudo failure is distinct from the separately rejected AmeliaView launch."
+}
