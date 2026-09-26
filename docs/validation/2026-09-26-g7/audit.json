@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "audit_passed": true,
+  "audit_errors": [],
+  "scope": "Audit of nine specified calls and honestly retained stress scoring failures",
+  "all_runs_valid_for_speed_comparison": false,
+  "front_door": {
+    "reference": {
+      "first_call_seconds": 12.143546834005974,
+      "subsequent_call_seconds": [
+        12.113751250086352,
+        11.80404237494804
+      ],
+      "subsequent_median_seconds": 11.958896812517196,
+      "same_returned_rds_digest_across_three_calls": true
+    },
+    "hybrid_cpu64": {
+      "first_call_seconds": 11.96586058405228,
+      "subsequent_call_seconds": [
+        12.047002041013911,
+        12.209579166956246
+      ],
+      "subsequent_median_seconds": 12.128290603985079,
+      "same_returned_rds_digest_across_three_calls": true
+    }
+  },
+  "runs": [
+    {
+      "case": "front_door",
+      "method": "reference",
+      "phase": "first_call",
+      "repetition": 0,
+      "seconds": 12.143546834005974,
+      "status": "ok",
+      "iterations": [
+        52,
+        41,
+        43,
+        72,
+        59
+      ],
+      "unscored_per_imputation": 0
+    },
+    {
+      "case": "front_door",
+      "method": "hybrid_cpu64",
+      "phase": "first_call",
+      "repetition": 0,
+      "seconds": 11.96586058405228,
+      "status": "ok",
+      "iterations": [
+        52,
+        41,
+        43,
+        72,
+        59
+      ],
+      "unscored_per_imputation": 0
+    },
+    {
+      "case": "front_door",
+      "method": "reference",
+      "phase": "subsequent_call",
+      "repetition": 1,
+      "seconds": 12.113751250086352,
+      "status": "ok",
+      "iterations": [
+        52,
+        41,
+        43,
+        72,
+        59
+      ],
+      "unscored_per_imputation": 0
+    },
+    {
+      "case": "front_door",
+      "method": "hybrid_cpu64",
+      "phase": "subsequent_call",
+      "repetition": 1,
+      "seconds": 12.047002041013911,
+      "status": "ok",
+      "iterations": [
+        52,
+        41,
+        43,
+        72,
+        59
+      ],
+      "unscored_per_imputation": 0
+    },
+    {
+      "case": "front_door",
+      "method": "reference",
+      "phase": "subsequent_call",
+      "repetition": 2,
+      "seconds": 11.80404237494804,
+      "status": "ok",
+      "iterations": [
+        52,
+        41,
+        43,
+        72,
+        59
+      ],
+      "unscored_per_imputation": 0
+    },
+    {
+      "case": "front_door",
+      "method": "hybrid_cpu64",
+      "phase": "subsequent_call",
+      "repetition": 2,
+      "seconds": 12.209579166956246,
+      "status": "ok",
+      "iterations": [
+        52,
+        41,
+        43,
+        72,
+        59
+      ],
+      "unscored_per_imputation": 0
+    },
+    {
+      "case": "pattern_stress",
+      "method": "reference",
+      "phase": "single_stress_call",
+      "repetition": 0,
+      "seconds": 0.5608104579150677,
+      "status": "heldout_incomplete",
+      "iterations": [
+        18,
+        14,
+        15,
+        16,
+        12
+      ],
+      "unscored_per_imputation": 14
+    },
+    {
+      "case": "pattern_stress",
+      "method": "hybrid_cpu64",
+      "phase": "single_stress_call",
+      "repetition": 0,
+      "seconds": 2.81235799996648,
+      "status": "heldout_incomplete",
+      "iterations": [
+        18,
+        14,
+        15,
+        16,
+        12
+      ],
+      "unscored_per_imputation": 14
+    },
+    {
+      "case": "pattern_stress",
+      "method": "hybrid_mps32",
+      "phase": "single_stress_call",
+      "repetition": 0,
+      "seconds": 24.270982958958484,
+      "status": "heldout_incomplete",
+      "iterations": [
+        18,
+        14,
+        15,
+        16,
+        12
+      ],
+      "unscored_per_imputation": 14
+    }
+  ],
+  "interpretation": "First/later calls each include a fresh R process; no subtraction from old R-memory timings. Independent-MCAR results with unscored heldout cells are diagnostic outcomes, not successful benchmark scores.",
+  "plan_sha256": "cc53f806fbde462c1ccaddbf72f363a9f64875efae624c6de7d39c8f5b568e5c",
+  "result_sha256": "0402b566818cf8e289f66fc35f67899b516a3c3f28eec85b42f97a4ce4bc414a"
+}

@@ -45,33 +45,38 @@
 
 证据与边界：[G1 回归记录](validation/2026-09-26-g1/downstream-extended.md)。这是小型公开方法验收，仍不等于 GPU 推断质量、GUI、跨平台新增测试或完整首版验收；新 CI 配置只有真实运行后才能记为通过。
 
-### G2：封闭混合公共入口的核心边界
+### G2：封闭混合公共入口的核心边界（本机 CPU64 已补，GPU 待测）
 
-已有低层 fixtures 证明若干数学分支正确，但尚缺以下**公开 hybrid 路径**的小型回归；无需重做所有低层测试。
+2026-09-26 新增 33 个公共 CPU64 案例与独立病态 autopri 审计，证据见 [G2 回归记录](validation/2026-09-26-g2/README.md)。这些检查使用实际公共 pipeline；不以 low-level fixture 代替公共入口，也不扩大为全部参数组合。
 
-- [ ] `startvals=1` 与显式 theta 各一例；`emburn` 最小迭代/最大迭代各一例，核对 public history、收敛标志与 warning。CPU64 先与原版对照，再在支持的 GPU 精度下检查合法状态。
-- [ ] 固定一例 bootstrap 恰好完整和一例会先抽到全缺失列后重抽的输入/种子，核对 sample-covariance shortcut 与拒绝重抽。记录实际触发证据，不能只碰巧运行成功。
-- [ ] 固定一例会触发 `autopri` 更新或奇异处理的病态输入，检查更新记录、初始 prior hold 不被重建、最终失败/成功不被误标；病态特征值符号可依 BLAS 不同，不能要求临界舍入下的完全相同历史。现有 `adaptive_stress.json` 只是诊断样例。
-- [ ] 一个 public bounds 极窄且 `max.resample=0` 或很小的案例，确实触发原版耗尽后的边界处理；普通范围内样例不能证明该分支。
-- [ ] 一个带全缺失分析行、一个完全无缺失、一个全缺失列/常量列，以及一个 `p` 相对 `n` 不足的 public hybrid 输入：对照原版的输出/错误码，不把 low-level native 的测试代替该入口。
-- [ ] 一个合法输入比较 `incheck=FALSE`、`collect=TRUE` 及 `p2s=1/2` 的统计输出/执行行为。上游 `collect` 当前未改变 EM 数学，不能因此发明新统计逻辑；hybrid 进度文字与原版不完全相同，应明确说明。
+- [x] 默认、`startvals=1`、double/integer 显式 theta；m=2 ordinary/none、调用者/存档 alias、arglist/追加与 allthetas 初列实测。修复原版 double 初值原位覆盖副作用，同时保留 integer coercion 例外。`emburn` 最小 35/最大 2 轮及未收敛 warning/metadata 通过。
+- [x] 固定 complete bootstrap 和全缺失列拒绝重抽输入，私有记录器保存实际抽样索引；未修改原版 namespace，记录版输出与未插桩公共调用一致。sample-covariance shortcut 及初值不变行为通过。
+- [x] 固定 public exact-collinear 病态输入，本机原版/混合均触发 autopri；逐更新后的单步公式验证固定初始 hold=0。最终近零特征值令原版 code 2、混合 code 1，但混合正确记录未收敛；保留差异与全部失败状态，不算有效质量样本。其他 BLAS 若未触发则须记录未覆盖，不能由本机轨迹推断逐平台严格一致。
+- [x] 极窄远端 bounds、`max.resample=1` 实际产生 9 个边界夹值；0 被原版错误码 52 拒绝，均通过公共入口对照。
+- [x] 全缺失分析行保持 NA；无缺失默认 code 39 与 `incheck=FALSE` shortcut；全缺失列/常量/样本量不足的原版错误码 4/43/34 对照通过。
+- [x] `incheck=FALSE`、`collect=TRUE`、`p2s=1/2` 各自与原版统计结果对照；混合进度文字明确标 PyTorch，不宣称逐字符一致。原版 `incheck` 消耗随机数的行为保留。
+- [ ] 在发布支持的 GPU 精度下对新增初值/迭代边界与病态状态做有界验证；CPU64 的通过不能代替该项。
 
 单行 priors 改动无关观察值、log 逆变换及 stale `.Random.seed` 都是已核验的原版版本行为，见[算法契约](algorithm-contract.md)。以上验收不能以偷偷修改这些行为来让测试变绿；修正版应另命名/另决定，不能混进兼容模式。
 
-### G3：固定 Python/R 类型与会话边界
+### G3：固定 Python/R 类型与会话边界（本机有限例子已完成）
 
-- [ ] 完成一次真实拟合/RDS 往返：被排除的 id 列为全缺失 nullable integer/string，非 ASCII 列名/类别，以及重复 Python index。现有纯编码测试还不是完整 R 往返证据；列名字符串化碰撞已明确拒绝，不必重新发明索引规则。
-- [ ] 对不在承诺范围的 datetime、复杂/混合 object、稀疏/Arrow 类输入各取一个代表例，确认拒绝或要求用户显式转换；对外部 RDS 的 Date/自定义列类，确认 Python view 不会声称保留了未编码的 dtype，原 RDS 仍完整。无需为了首版自行移植每一种 Python/R 扩展类。
-- [ ] 测试不存在 Rscript、错误 Amelia 版本、缺少 hybrid R DLL/torch、不可用设备四类依赖失败，并覆盖一个带空格/中文的用户库/解释器路径；错误要指明修复步骤。当前测试已有部分检查，跨平台安装必须使用实际打包产物复核。
-- [ ] 明确 `frontend=TRUE` 和 `AmeliaView` 的 R GUI 会话路由；Python 子进程没有原会话 Tcl/Tk 状态时应清晰失败，不能挂起或暗示可控制现有 GUI。无需允许 Python 对象传送 live PSOCK cluster、连接、外部指针或 GUI 环境。
+- [x] reference/hybrid 各完成纯数值及含 noms 两种真实拟合/RDS 往返：全缺失 nullable integer/string ID、非 ASCII 列名/类别、重复 Python index；另跑独立未改动 R Amelia 对照。原版 integer ID→double、特定 noms 组合空字符 ID→字符串 `"1"` 的行为如实保留；RDS 不伪造 Python 重复 index。
+- [x] datetime、complex、混合 object、SciPy sparse 各有明确拒绝例；外部 RDS 的 Date/自定义数值类保留在权威 RDS 中，Python view 明确只给普通字符串/数值。Arrow 没有独立验收或通用支持承诺；若将其列为支持输入，须另补一个实际代表例，不扩大为所有扩展 dtype 的组合。
+- [x] 不存在 Rscript、错误 Amelia 版本、缺少 hybrid R DLL/Torch、不可用 CUDA 均明确失败；带中文/空格的实际 venv 与 R 库完成 hybrid 拟合。缺 Torch 使用子进程故障注入，路径 venv 复用已有依赖，这些不冒称干净安装；真实无 Torch wheel 安装见 G1 和下方 Intel Mac 证据。
+- [x] Python reference/hybrid、extend、RDS/arglist 前门明确拒绝 `frontend=True` 及非布尔 False 参数，启动 R 之前即说明需用原版交互式 R/Tcl/Tk 会话；正常 False 流程不变。测试禁止任何子进程启动验证拒绝路径，没有启动或视觉验收 GUI。
+
+证据：[G3 记录](validation/2026-09-26-g3/README.md)：新增 29 项与现有 24 项 reference/hybrid 回归共 53 passed。新 frontend 修复与 G3 边界尚未运行后续三平台 CI，不能算入 `fa08a52` 的历史通过；交互式 RStudio/AmeliaView 仍属于 G6 的未测范围。
 
 R `moPrep` 默认保存调用表达式而非数据。跨进程必须使用已物化数据的自包含 RDS；现有测试和文档已经说明。Python-only index/扩展 dtype 不写入原版 RDS、重新读盘默认追加走 reference、hybrid 原对象 `extend` 保持原引擎，也都是已明确的产品契约，不应被误记成算法缺陷。
 
-### G4：验证明确选择的并行 CPU 过渡路径
+### G4：验证明确选择的并行 CPU 过渡路径（本机小例通过）
 
-- [ ] 用 Python `amelia_reference(parallel="snow", ncpus=2, r_rng_kind="L'Ecuyer-CMRG")` 做一个小例的可重复输出、worker 项目库/正常用户库可见性与错误传播测试。原版 benchmark 的 snow4 成功不等于 Python 产品入口已测。
-- [ ] 在 R reference 入口测试一个调用者提供的 `cl`：既能复用 worker，也不会替调用者关闭 cluster；用相同显式 worker RNG streams 对照原版。
-- [ ] 在支持 fork 的平台测试一次原版 `parallel="multicore"` 路由；Windows 按原版平台能力报告限制，不能伪装其拥有 Unix fork。
+- [x] Python 产品入口 snow2 / L'Ecuyer-CMRG 实测 m=3，显式 R 库、开发默认库和正常 R_LIBS_USER 继承三条路线逐值可重复；实际 worker R 异常传播为 AmeliaReferenceError。不是用原版 benchmark 的 snow4 代替。
+- [x] R reference 入口 supplied-cl 复用相同两个 worker，完整结果及 worker 后续 RNG 对照原版；调用后 cluster 仍存活，最后由调用者关闭。
+- [x] 本机 Unix multicore 2-worker 路由对照原版逐值通过；测试在 Windows 明确记录不运行 fork，使用 snow/serial 路线。
+
+证据：[G4 并行回归记录](validation/2026-09-26-g4/README.md)。这些新增测试尚未实际完成新三平台 CI；本机通过不表示此前 hosted CPU CI 已覆盖新增测试。
 
 Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路径，所以这些功能可以通过 reference 完成；**不把 GPU 多副本调度器作为新造出的首版阻塞项**，但 API/文档必须告诉用户使用哪一条路线，不能静默切引擎。
 
@@ -84,17 +89,19 @@ Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路
 
 ### G6：关闭用户要求的平台实测缺口
 
-- [x] Linux/macOS/Windows hosted CPU CI 已实际通过：开发代码安装、R 源码包/C RNG helper 编译及Python与五组R测试，见[CI证据](validation/2026-09-23-development/cross-platform-ci.md)。单独构建wheel还需各平台扩展打包矩阵；本地wheel smoke已通过。
+- [x] Linux x64/macOS arm64/Windows x64 hosted CPU CI 在 `fa08a52` 已实际通过：开发代码安装、R 源码包/C helper 编译、各 161 项 Python 与七个 R 测试文件及下游示例，见[CI证据](validation/2026-09-26-ci/README.md)。新 G3/G4 等后续代码不计入该历史结果；单独 wheel 安装仍需与源码安装分开记录。
 - [ ] 云端 CUDA 核验（用户已授权替代本地 3080）：记录实际系统/驱动/runtime/显存，执行 CUDA64/CUDA32 正确性与质量检查；在**同一云端 GPU 机器**完成原版 R 串行/合理 snow、Torch CPU64/CPU32 与 CUDA 对照。Mac 与 Windows 的耗时不能拼成 GPU 加速比。
-- [ ] 没有 CUDA 的 Windows hosted runner已验证 reference 与 CPU 路线；仍需一个 Intel Mac 验证不装 Torch 的 reference 安装/拟合。若暂时没有机器，状态继续标“未实测”，不能写成所有 Windows/Mac 已支持。Linux CUDA 若未测，应同样单列，而非由 Windows CUDA 自动推断。
+- [x] 无 CUDA 的 Windows hosted runner已验证 reference 与 CPU 路线；Intel Mac 在 `ad9bed2` 的独立任务实际核验 x86_64、隔离 wheel[reference]、Torch 未安装、原版拟合与 Python/R 下游往返，见[Intel 证据](validation/2026-09-26-ci/intel-mac-reference.md)。这不代表 Intel hybrid/Torch、交互式 GUI 或任何 CUDA 路线已测；GPU 仍由上一项单独验收。
 - [ ] 已安装包在 RStudio 实际会话跑一次数据框插补、检查解释器选择、展示/保存结果和一个诊断图。当前 Rscript、headless PDF 与包检查不能替代这一用户流程。
 
-### G7：收尾三组大数据与产品耗时证据
+### G7：收尾三组大数据与产品耗时证据（本机有界范围已完成）
 
-- [ ] 正在运行的 hybrid 套件完成后，独立核验完整任务网格、每份收敛/有效质量、种子、warmup/正式次数、代码哈希与设备记录。先审计再汇总，保留失败/慢速结果，不能仅用进程 exit 0 判成功。
-- [ ] 报告各路径计时边界：目前 native 和 R hybrid 主计时均排除 CSV 读取、评分/保存；Python front door 还包含 Rscript、二进制传输和 RDS。至少以一个已准备的大输入测 Python reference/hybrid 的完整用户调用，并单列冷启动；未测前不把 R 内存中计时称为 Python 端到端速度。
-- [ ] 在当前少数 block-MCAR 模式之外，用一个有界规模的独立逐格缺失输入检查模式数增长后的耗时/内存或明确失败。无需立即全量跑三个百万行数据集，但必须保留当前“10万行完整数值子集、少数模式”的适用限制。
+- [x] 三组各 10 万行的 hybrid 主套件已完成并独立审计：9 配置、63 次调用、315 份插补，完整计划、每份收敛/有限 heldout/观察值、seed/m、2 次预热和 5 次正式重复、源码与后端记录均通过；见[原始记录与审计](validation/2026-09-23-development/README.md)。MPS32 比同机 hybrid CPU32 慢约 13%–33%，保留负面结果。
+- [x] 另测 100000×10 Covertype Python reference/hybrid CPU64 完整公开调用，包含新 Rscript 启动、typed transport 和 RDS 字节回传；各 1 次首次及 2 次后续调用、m=5。首次约 12.144/11.966 秒，后续中位数 11.959/12.128 秒。每次均新 R 进程，未清空 OS 缓存；旧 R 内存计时不能硬相减为桥接开销，也不把首次称为冷 OS 测量。
+- [x] 5000×7 独立 MCAR 输入的 125 种模式已原样实测 reference/CPU64/MPS32 各一次 m=5。所有拟合收敛且保留观察值，但原版规定的两条全空行令每份 14 个 heldout 未评分；完整 RMSE=null、质量状态 heldout_incomplete、执行器 exit1，全部保留为压力结果，不算质量成功加速样本。峰值内存未测为 null。
 - [ ] CUDA 测试记录实际内存需求/OOM；未测的峰值 RAM/VRAM 继续为 null，不能填 0 或声称已测。速度表解释 MPS/CUDA 相对本机 Torch CPU 和合理 R CPU 并行的结果，不能只挑有利基线。
+
+新增有限测量的预定计划、九次全部结果、独立审计、源码快照与边界见 [G7 记录](validation/2026-09-26-g7/README.md)。纯评分/审计测试与 G2/G4 R 测试已接 CI，但新增测试尚未由后续 hosted 运行验收。以上不外推至高维逐格 MCAR 或全量数据。
 
 “GPU 比原版快”是待检验命题，不是必须制造的正面结论。三组公开数据、小样本加可核验完整下载脚本的交付方案已获用户同意，不再要求把全部大文件提交 Git，也不把全量行数实验新增为发布前必做项。
 

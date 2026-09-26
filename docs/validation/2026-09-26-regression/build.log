@@ -1,0 +1,7 @@
+* checking for file ‘<local-path>/r-package/DESCRIPTION’ ... OK
+* preparing ‘ameliatorch’:
+* checking DESCRIPTION meta-information ... OK
+* cleaning src
+* checking for LF line-endings in source and make files and shell scripts
+* checking for empty or unneeded directories
+* building ‘ameliatorch_0.0.0.9000.tar.gz’
