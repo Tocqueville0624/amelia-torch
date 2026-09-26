@@ -1,0 +1,861 @@
+{
+  "schema_version": 1,
+  "kind": "Independent G5 evidence reconstruction",
+  "producer_mode": "formal",
+  "protocol_sha256": "7ea7882bccc8d92102a67786bc9c09c2055ce29d97350abfbcf4f74f2187e454",
+  "routes": {
+    "r-reference": {
+      "records": 420,
+      "all_planned_records_and_process_complete": true,
+      "status_counts": {
+        "success": 420
+      },
+      "scenarios": {
+        "mcar": {
+          "datasets": 200,
+          "covered": 195,
+          "bias": {
+            "mean": -0.0010527204533090939,
+            "mcse": 0.004599686936585359,
+            "interval": [
+              -0.008653918133748075,
+              0.006548477227129888
+            ]
+          },
+          "coverage": {
+            "mean": 0.975,
+            "mcse": 0.011039701082909813,
+            "interval": [
+              0.9481566608797095,
+              0.9900987557828924
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06756273459162179,
+            "mcse": 0.00045565966264545903,
+            "interval": [
+              0.06680973569875769,
+              0.0683157334844859
+            ]
+          },
+          "interval_width": {
+            "mean": 0.26836376279909946,
+            "mcse": 0.0019977052045544886,
+            "interval": [
+              0.26506246156351293,
+              0.271665064034686
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": false
+          },
+          "status": "outside_prespecified_bounds"
+        },
+        "mar_y_observed": {
+          "datasets": 200,
+          "covered": 191,
+          "bias": {
+            "mean": 0.001828573920027079,
+            "mcse": 0.0048712858561575255,
+            "interval": [
+              -0.0062214536712132396,
+              0.009878601511267397
+            ]
+          },
+          "coverage": {
+            "mean": 0.955,
+            "mcse": 0.014658615214269054,
+            "interval": [
+              0.9227890249826619,
+              0.9763264238434894
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06807348006478676,
+            "mcse": 0.0005246923832421099,
+            "interval": [
+              0.06720640137412164,
+              0.0689405587554519
+            ]
+          },
+          "interval_width": {
+            "mean": 0.2709049664066223,
+            "mcse": 0.002318548663678611,
+            "interval": [
+              0.2670734563566314,
+              0.27473647645661325
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": true
+          },
+          "status": "passed"
+        }
+      },
+      "fit_diagnostics": {
+        "returned": 2100,
+        "converged": 2100,
+        "maximum_em_iterations": 28,
+        "datasets_with_warnings": 0,
+        "datasets_missing_internal_diagnostics": 420,
+        "pseudoinverse_uses": null,
+        "datasets_with_positive_final_empri": null
+      },
+      "stress": {
+        "attempted": 20,
+        "all_valid": true,
+        "coverage_gate_applied": false
+      }
+    },
+    "hybrid-cpu64": {
+      "records": 420,
+      "all_planned_records_and_process_complete": true,
+      "status_counts": {
+        "success": 420
+      },
+      "scenarios": {
+        "mcar": {
+          "datasets": 200,
+          "covered": 195,
+          "bias": {
+            "mean": -0.0010527204533091184,
+            "mcse": 0.004599686936585357,
+            "interval": [
+              -0.008653918133748096,
+              0.00654847722712986
+            ]
+          },
+          "coverage": {
+            "mean": 0.975,
+            "mcse": 0.011039701082909813,
+            "interval": [
+              0.9481566608797095,
+              0.9900987557828924
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06756273459162182,
+            "mcse": 0.00045565966264546066,
+            "interval": [
+              0.06680973569875771,
+              0.06831573348448593
+            ]
+          },
+          "interval_width": {
+            "mean": 0.26836376279909957,
+            "mcse": 0.0019977052045544994,
+            "interval": [
+              0.26506246156351304,
+              0.2716650640346861
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": false,
+            "paired_estimate_difference": true,
+            "paired_coverage_difference": true,
+            "paired_se_ratio": true,
+            "paired_width_ratio": true
+          },
+          "paired_vs_reference": {
+            "estimate_difference": {
+              "mean": -2.4424906541753444e-17,
+              "mcse": 3.924173756099642e-17,
+              "interval": [
+                -8.927371226210027e-17,
+                4.042389917859339e-17
+              ]
+            },
+            "coverage_difference": {
+              "mean": 0.0,
+              "mcse": 0.0,
+              "interval": [
+                -0.01827534035513624,
+                0.01827534035513624
+              ],
+              "positive_discordances": 0,
+              "negative_discordances": 0
+            },
+            "geometric_se_ratio": {
+              "mean": 1.0000000000000002,
+              "log_mcse": 2.7994899853422256e-16,
+              "interval": [
+                0.9999999999999999,
+                1.0000000000000007
+              ]
+            },
+            "geometric_width_ratio": {
+              "mean": 1.0000000000000004,
+              "log_mcse": 3.401905876696666e-16,
+              "interval": [
+                0.9999999999999998,
+                1.0000000000000009
+              ]
+            }
+          },
+          "status": "outside_prespecified_bounds"
+        },
+        "mar_y_observed": {
+          "datasets": 200,
+          "covered": 191,
+          "bias": {
+            "mean": 0.0018285739200270856,
+            "mcse": 0.004871285856157529,
+            "interval": [
+              -0.0062214536712132396,
+              0.009878601511267411
+            ]
+          },
+          "coverage": {
+            "mean": 0.955,
+            "mcse": 0.014658615214269054,
+            "interval": [
+              0.9227890249826619,
+              0.9763264238434894
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06807348006478672,
+            "mcse": 0.0005246923832421105,
+            "interval": [
+              0.0672064013741216,
+              0.06894055875545185
+            ]
+          },
+          "interval_width": {
+            "mean": 0.27090496640662215,
+            "mcse": 0.0023185486636786113,
+            "interval": [
+              0.2670734563566312,
+              0.2747364764566131
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": true,
+            "paired_estimate_difference": true,
+            "paired_coverage_difference": true,
+            "paired_se_ratio": true,
+            "paired_width_ratio": true
+          },
+          "paired_vs_reference": {
+            "estimate_difference": {
+              "mean": 6.661338147750939e-18,
+              "mcse": 4.2372182299756244e-17,
+              "interval": [
+                -6.336067383968768e-17,
+                7.668335013518957e-17
+              ]
+            },
+            "coverage_difference": {
+              "mean": 0.0,
+              "mcse": 0.0,
+              "interval": [
+                -0.01827534035513624,
+                0.01827534035513624
+              ],
+              "positive_discordances": 0,
+              "negative_discordances": 0
+            },
+            "geometric_se_ratio": {
+              "mean": 0.9999999999999996,
+              "log_mcse": 3.5221959820435995e-16,
+              "interval": [
+                0.999999999999999,
+                1.0000000000000002
+              ]
+            },
+            "geometric_width_ratio": {
+              "mean": 0.9999999999999994,
+              "log_mcse": 4.251020241323835e-16,
+              "interval": [
+                0.9999999999999988,
+                1.0000000000000002
+              ]
+            }
+          },
+          "status": "passed"
+        }
+      },
+      "fit_diagnostics": {
+        "returned": 2100,
+        "converged": 2100,
+        "maximum_em_iterations": 28,
+        "datasets_with_warnings": 0,
+        "datasets_missing_internal_diagnostics": 0,
+        "pseudoinverse_uses": 0,
+        "datasets_with_positive_final_empri": 0
+      },
+      "stress": {
+        "attempted": 20,
+        "all_valid": true,
+        "coverage_gate_applied": false
+      }
+    },
+    "hybrid-mps32": {
+      "records": 420,
+      "all_planned_records_and_process_complete": true,
+      "status_counts": {
+        "success": 420
+      },
+      "scenarios": {
+        "mcar": {
+          "datasets": 200,
+          "covered": 195,
+          "bias": {
+            "mean": -0.0010527227136168276,
+            "mcse": 0.004599686924897077,
+            "interval": [
+              -0.008653920374740377,
+              0.006548474947506721
+            ]
+          },
+          "coverage": {
+            "mean": 0.975,
+            "mcse": 0.011039701082909813,
+            "interval": [
+              0.9481566608797095,
+              0.9900987557828924
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06756273323044161,
+            "mcse": 0.0004556597163509264,
+            "interval": [
+              0.0668097342488267,
+              0.06831573221205652
+            ]
+          },
+          "interval_width": {
+            "mean": 0.26836375734193735,
+            "mcse": 0.001997705461477746,
+            "interval": [
+              0.2650624556817731,
+              0.2716650590021016
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": false,
+            "paired_estimate_difference": true,
+            "paired_coverage_difference": true,
+            "paired_se_ratio": true,
+            "paired_width_ratio": true
+          },
+          "paired_vs_reference": {
+            "estimate_difference": {
+              "mean": -2.2603077337590706e-09,
+              "mcse": 2.4085050838736715e-09,
+              "interval": [
+                -6.240474973240132e-09,
+                1.7198595057219906e-09
+              ]
+            },
+            "coverage_difference": {
+              "mean": 0.0,
+              "mcse": 0.0,
+              "interval": [
+                -0.01827534035513624,
+                0.01827534035513624
+              ],
+              "positive_discordances": 0,
+              "negative_discordances": 0
+            },
+            "geometric_se_ratio": {
+              "mean": 0.9999999786177719,
+              "log_mcse": 1.7864988581024458e-08,
+              "interval": [
+                0.9999999490950442,
+                1.0000000081405005
+              ]
+            },
+            "geometric_width_ratio": {
+              "mean": 0.9999999780084564,
+              "log_mcse": 1.934042981738273e-08,
+              "interval": [
+                0.9999999460474933,
+                1.0000000099694206
+              ]
+            }
+          },
+          "status": "outside_prespecified_bounds"
+        },
+        "mar_y_observed": {
+          "datasets": 200,
+          "covered": 191,
+          "bias": {
+            "mean": 0.0018285730975515291,
+            "mcse": 0.004871285923254766,
+            "interval": [
+              -0.0062214546045701175,
+              0.009878600799673176
+            ]
+          },
+          "coverage": {
+            "mean": 0.955,
+            "mcse": 0.014658615214269054,
+            "interval": [
+              0.9227890249826619,
+              0.9763264238434894
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06807348009918744,
+            "mcse": 0.0005246923991174194,
+            "interval": [
+              0.06720640138228762,
+              0.06894055881608727
+            ]
+          },
+          "interval_width": {
+            "mean": 0.2709049667380812,
+            "mcse": 0.0023185487347912024,
+            "interval": [
+              0.26707345657057335,
+              0.274736476905589
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": true,
+            "paired_estimate_difference": true,
+            "paired_coverage_difference": true,
+            "paired_se_ratio": true,
+            "paired_width_ratio": true
+          },
+          "paired_vs_reference": {
+            "estimate_difference": {
+              "mean": -8.224755498886793e-10,
+              "mcse": 9.090766654395962e-10,
+              "interval": [
+                -2.3247672353768335e-09,
+                6.798161355994746e-10
+              ]
+            },
+            "coverage_difference": {
+              "mean": 0.0,
+              "mcse": 0.0,
+              "interval": [
+                -0.01827534035513624,
+                0.01827534035513624
+              ],
+              "positive_discordances": 0,
+              "negative_discordances": 0
+            },
+            "geometric_se_ratio": {
+              "mean": 1.000000000194131,
+              "log_mcse": 6.658155156192403e-09,
+              "interval": [
+                0.9999999891912182,
+                1.0000000111970435
+              ]
+            },
+            "geometric_width_ratio": {
+              "mean": 1.0000000008147658,
+              "log_mcse": 8.001595113450049e-09,
+              "interval": [
+                0.9999999875917558,
+                1.0000000140377758
+              ]
+            }
+          },
+          "status": "passed"
+        }
+      },
+      "fit_diagnostics": {
+        "returned": 2100,
+        "converged": 2100,
+        "maximum_em_iterations": 28,
+        "datasets_with_warnings": 0,
+        "datasets_missing_internal_diagnostics": 0,
+        "pseudoinverse_uses": 0,
+        "datasets_with_positive_final_empri": 0
+      },
+      "stress": {
+        "attempted": 20,
+        "all_valid": true,
+        "coverage_gate_applied": false
+      }
+    },
+    "native-cpu64": {
+      "records": 420,
+      "all_planned_records_and_process_complete": true,
+      "status_counts": {
+        "success": 420
+      },
+      "scenarios": {
+        "mcar": {
+          "datasets": 200,
+          "covered": 192,
+          "bias": {
+            "mean": -0.000687631262460997,
+            "mcse": 0.004678784177488992,
+            "interval": [
+              -0.00841954083098603,
+              0.007044278306064036
+            ]
+          },
+          "coverage": {
+            "mean": 0.96,
+            "mcse": 0.013856406460551024,
+            "interval": [
+              0.9289858313839802,
+              0.9799432404104906
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06685351639536763,
+            "mcse": 0.00043632572547931507,
+            "interval": [
+              0.06613246773745803,
+              0.06757456505327723
+            ]
+          },
+          "interval_width": {
+            "mean": 0.26504927446958865,
+            "mcse": 0.0019154482600133665,
+            "interval": [
+              0.2618839066800532,
+              0.2682146422591241
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": true,
+            "paired_estimate_difference": true,
+            "paired_coverage_difference": false,
+            "paired_se_ratio": true,
+            "paired_width_ratio": true
+          },
+          "paired_vs_reference": {
+            "estimate_difference": {
+              "mean": 0.0003650891908480969,
+              "mcse": 0.0012353645582115357,
+              "interval": [
+                -0.0016764084901538699,
+                0.0024065868718500636
+              ]
+            },
+            "coverage_difference": {
+              "mean": -0.015,
+              "mcse": 0.01115784421101074,
+              "interval": [
+                -0.05028702806202926,
+                0.02206633257764918
+              ],
+              "positive_discordances": 1,
+              "negative_discordances": 4
+            },
+            "geometric_se_ratio": {
+              "mean": 0.9897653400734329,
+              "log_mcse": 0.0059469590088020614,
+              "interval": [
+                0.9800859354394723,
+                0.999540339257504
+              ]
+            },
+            "geometric_width_ratio": {
+              "mean": 0.9879524572475995,
+              "log_mcse": 0.007036827913041362,
+              "interval": [
+                0.9765304077143057,
+                0.9995081055039954
+              ]
+            }
+          },
+          "status": "outside_prespecified_bounds"
+        },
+        "mar_y_observed": {
+          "datasets": 200,
+          "covered": 194,
+          "bias": {
+            "mean": 0.0029053204250588526,
+            "mcse": 0.004810223136577294,
+            "interval": [
+              -0.005043798167627074,
+              0.010854439017744778
+            ]
+          },
+          "coverage": {
+            "mean": 0.97,
+            "mcse": 0.012062338081814825,
+            "interval": [
+              0.9416502396240891,
+              0.9868560129128193
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06855587505052485,
+            "mcse": 0.00048064107432260473,
+            "interval": [
+              0.06776159320707903,
+              0.06935015689397067
+            ]
+          },
+          "interval_width": {
+            "mean": 0.2730809999813313,
+            "mcse": 0.0021475070910788874,
+            "interval": [
+              0.2695321441255992,
+              0.27662985583706334
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": true,
+            "paired_estimate_difference": true,
+            "paired_coverage_difference": true,
+            "paired_se_ratio": true,
+            "paired_width_ratio": true
+          },
+          "paired_vs_reference": {
+            "estimate_difference": {
+              "mean": 0.0010767465050317737,
+              "mcse": 0.0012204562415702286,
+              "interval": [
+                -0.0009401144858137804,
+                0.003093607495877328
+              ]
+            },
+            "coverage_difference": {
+              "mean": 0.015,
+              "mcse": 0.008616625276509296,
+              "interval": [
+                -0.01517123273358273,
+                0.0432082819177126
+              ],
+              "positive_discordances": 3,
+              "negative_discordances": 0
+            },
+            "geometric_se_ratio": {
+              "mean": 1.0080448197645484,
+              "log_mcse": 0.006455092794552707,
+              "interval": [
+                0.9973488107451436,
+                1.0188555375074313
+              ]
+            },
+            "geometric_width_ratio": {
+              "mean": 1.009100245642445,
+              "log_mcse": 0.007790919268657575,
+              "interval": [
+                0.9961915004294287,
+                1.0221762636166751
+              ]
+            }
+          },
+          "status": "passed"
+        }
+      },
+      "fit_diagnostics": {
+        "returned": 2100,
+        "converged": 2100,
+        "maximum_em_iterations": 24,
+        "datasets_with_warnings": 0,
+        "datasets_missing_internal_diagnostics": 0,
+        "pseudoinverse_uses": 0,
+        "datasets_with_positive_final_empri": 0
+      },
+      "stress": {
+        "attempted": 20,
+        "all_valid": true,
+        "coverage_gate_applied": false
+      }
+    },
+    "native-mps32": {
+      "records": 420,
+      "all_planned_records_and_process_complete": true,
+      "status_counts": {
+        "success": 420
+      },
+      "scenarios": {
+        "mcar": {
+          "datasets": 200,
+          "covered": 192,
+          "bias": {
+            "mean": -0.0006876200679847833,
+            "mcse": 0.004678783048472577,
+            "interval": [
+              -0.008419527770757414,
+              0.007044287634787847
+            ]
+          },
+          "coverage": {
+            "mean": 0.96,
+            "mcse": 0.013856406460551024,
+            "interval": [
+              0.9289858313839802,
+              0.9799432404104906
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.06685351774865346,
+            "mcse": 0.0004363261196050557,
+            "interval": [
+              0.06613246843943264,
+              0.06757456705787428
+            ]
+          },
+          "interval_width": {
+            "mean": 0.2650492835848016,
+            "mcse": 0.0019154504917536083,
+            "interval": [
+              0.26188391210721107,
+              0.26821465506239217
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": true,
+            "paired_estimate_difference": true,
+            "paired_coverage_difference": false,
+            "paired_se_ratio": true,
+            "paired_width_ratio": true
+          },
+          "paired_vs_reference": {
+            "estimate_difference": {
+              "mean": 0.00036510038532431064,
+              "mcse": 0.0012353640562799615,
+              "interval": [
+                -0.0016763964662122666,
+                0.002406597236860888
+              ]
+            },
+            "coverage_difference": {
+              "mean": -0.015,
+              "mcse": 0.01115784421101074,
+              "interval": [
+                -0.05028702806202926,
+                0.02206633257764918
+              ],
+              "positive_discordances": 1,
+              "negative_discordances": 4
+            },
+            "geometric_se_ratio": {
+              "mean": 0.9897653537375726,
+              "log_mcse": 0.005946960194661206,
+              "interval": [
+                0.9800859470493213,
+                0.9995403550153787
+              ]
+            },
+            "geometric_width_ratio": {
+              "mean": 0.9879524814187234,
+              "log_mcse": 0.007036829644742008,
+              "interval": [
+                0.976530428811426,
+                0.9995081328181471
+              ]
+            }
+          },
+          "status": "outside_prespecified_bounds"
+        },
+        "mar_y_observed": {
+          "datasets": 200,
+          "covered": 194,
+          "bias": {
+            "mean": 0.0029053206001050293,
+            "mcse": 0.0048102230326783416,
+            "interval": [
+              -0.0050437978208830204,
+              0.010854439021093079
+            ]
+          },
+          "coverage": {
+            "mean": 0.97,
+            "mcse": 0.012062338081814825,
+            "interval": [
+              0.9416502396240891,
+              0.9868560129128193
+            ]
+          },
+          "pooled_se": {
+            "mean": 0.0685558749480566,
+            "mcse": 0.0004806410936372805,
+            "interval": [
+              0.06776159307269237,
+              0.06935015682342081
+            ]
+          },
+          "interval_width": {
+            "mean": 0.27308100010008973,
+            "mcse": 0.0021475071703027917,
+            "interval": [
+              0.2695321441134365,
+              0.27662985608674295
+            ]
+          },
+          "checks": {
+            "absolute_bias": true,
+            "absolute_coverage": true,
+            "paired_estimate_difference": true,
+            "paired_coverage_difference": true,
+            "paired_se_ratio": true,
+            "paired_width_ratio": true
+          },
+          "paired_vs_reference": {
+            "estimate_difference": {
+              "mean": 0.00107674668007795,
+              "mcse": 0.0012204562312805136,
+              "interval": [
+                -0.0009401142937633688,
+                0.003093607653919269
+              ]
+            },
+            "coverage_difference": {
+              "mean": 0.015,
+              "mcse": 0.008616625276509296,
+              "interval": [
+                -0.01517123273358273,
+                0.0432082819177126
+              ],
+              "positive_discordances": 3,
+              "negative_discordances": 0
+            },
+            "geometric_se_ratio": {
+              "mean": 1.0080448180127233,
+              "log_mcse": 0.006455092681975502,
+              "interval": [
+                0.9973488091974525,
+                1.0188555355472722
+              ]
+            },
+            "geometric_width_ratio": {
+              "mean": 1.009100245872473,
+              "log_mcse": 0.007790919106986931,
+              "interval": [
+                0.9961915009226648,
+                1.0221762635765907
+              ]
+            }
+          },
+          "status": "passed"
+        }
+      },
+      "fit_diagnostics": {
+        "returned": 2100,
+        "converged": 2100,
+        "maximum_em_iterations": 24,
+        "datasets_with_warnings": 0,
+        "datasets_missing_internal_diagnostics": 0,
+        "pseudoinverse_uses": 0,
+        "datasets_with_positive_final_empri": 0
+      },
+      "stress": {
+        "attempted": 20,
+        "all_valid": true,
+        "coverage_gate_applied": false
+      }
+    }
+  },
+  "audit_errors": [],
+  "all_primary_criteria_passed": false,
+  "stress_requires_review": false,
+  "producer_formal_acceptance_passed": false,
+  "audit_passed": true,
+  "raw_report_sha256": "3ad4e3de9892e0a1e69512fc0330778ded622e45a70e9604cdf1390328ccb57c",
+  "raw_report_bytes": 16027250,
+  "audit_script_sha256": "2e077f53eab4e2770773d4270d4a62b7a1ec153b1cc268beb040d47ef8761bcd"
+}

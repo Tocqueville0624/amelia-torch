@@ -81,6 +81,8 @@ worker 测试，新增 Windows/Linux CI 尚未运行，不表示 hybrid 开放�
 
 [Mac 性能与 MPS 公共精度记录](validation/2026-09-23-development/README.md)保存全部成功/慢速结果及实际测量源码；低模式 block-MCAR 的有限性门槛不等于推断分布等价。新增 [G7 记录](validation/2026-09-26-g7/README.md)单列 Python 完整调用与独立 MCAR 未完整评分压力样本；峰值 RAM/VRAM 未测为 null。G3 类型/会话及明确错误的有限证据见 [G3 记录](validation/2026-09-26-g3/README.md)，Python frontend GUI 前门明确拒绝。
 
+[正式 Mac 五路线统计验证](validation/2026-09-26-g5-mps/README.md)已完成 10,500 次拟合，全部收敛，MAR 和有界压力检查通过；MCAR 的绝对/配对覆盖率区间略超冻结界限，原版 R 与 GPU/CPU 均有未通过项。因此统计验收尚未整体完成，不能从数值兼容或拟合成功推断全部质量标准已通过。
+
 Linux/macOS/Windows hosted CPU CI 在 `e2ff892` 已实际完成各 235 项 Python 与九个 R 测试文件，见 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)；Intel no-Torch reference 的独立记录见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)。该版本包含 G3/G4/autopri/G7；原版病态 autopri 在 Linux/Windows 未触发，不能把绿色任务当成该分支已覆盖。CUDA 完整验收和 RStudio 已安装包的真实会话测试仍待完成。已确定分发名 `amelia-torch`、许可证 `GPL-3.0-only`、维护者 Sheng Wan（`swan0624@uw.edu`）、小样本加完整下载脚本的数据方案及明确标注的 R 过渡路径；公开仓库账号 `Tocqueville0624`，当前保持开发快照标记。
 
 ## 验收与宣传规则

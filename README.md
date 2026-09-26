@@ -99,6 +99,8 @@ With matched R RNG settings and seeds, hybrid CPU64 matched all 105 paired imput
 
 A separate, specified joint-normal simulation completed 400 independent datasets / 2,000 EM fits. CPU64 Rubin-pooled 95% coverage was 96% under MCAR and 97% under MAR; Monte Carlo uncertainty and model limitations are reported. This does not establish validity for arbitrary data or full cross-language distributional equivalence.
 
+The later [five-route Mac inference validation](docs/validation/2026-09-26-g5-mps/README.md) completed all 10,500 fits and passed its MAR and bounded stress checks. Its prespecified MCAR criteria did **not** all pass: original R and hybrid coverage intervals slightly exceeded one absolute bound, and native paired coverage intervals slightly exceeded another. CPU and MPS reached the same conclusions. The original thresholds and failed classifications are retained; successful fitting alone is not statistical acceptance.
+
 ## Reproduce and contribute
 
 ```sh
