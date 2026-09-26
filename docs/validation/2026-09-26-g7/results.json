@@ -1,0 +1,2449 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-09-26T22:07:23.208962+00:00",
+  "plan_sha256": "cc53f806fbde462c1ccaddbf72f363a9f64875efae624c6de7d39c8f5b568e5c",
+  "plan": {
+    "schema_version": 1,
+    "created_utc": "2026-09-26T22:07:03.177896+00:00",
+    "purpose": "Bounded G7 product-call overhead and independent-MCAR behavior",
+    "settings": {
+      "m": 5,
+      "threads_requested": 4,
+      "r_rng_kind": "L'Ecuyer-CMRG",
+      "tolerance": 0.0001,
+      "emburn": [
+        0,
+        300
+      ],
+      "empri": null,
+      "autopri": 0.05,
+      "startvals": 0,
+      "boot.type": "ordinary",
+      "parallel": "no",
+      "ncpus": 1,
+      "timeout_per_r_call_seconds": 180
+    },
+    "inputs": {
+      "front_door": {
+        "path": "data/prepared/covertype-n100000-block_mcar-rate30-seed20260923.npz",
+        "sha256": "7023849c1f1cbef5765d1481e0ecafbbc5dfba1ed42fd9e08cfeefb47430f6f0",
+        "metadata_sha256": "cc785a4794ae82d2289acb4cba691d175ccb4a815200cc0e65a4c192c78106ca",
+        "shape": [
+          100000,
+          10
+        ],
+        "mechanism": "block_mcar",
+        "missing_patterns": 8,
+        "missing_rate": 0.3,
+        "heldout_cells": 300000,
+        "wholly_missing_rows": 0,
+        "heldout_cells_in_wholly_missing_rows": 0
+      },
+      "pattern_stress": {
+        "path": "data/prepared/household_power-n5000-mcar-rate30-seed20260923.npz",
+        "sha256": "3d504adfe5ef00aae50c30adbebd794bb762418093168afaf474875b5492640a",
+        "metadata_sha256": "772dd0698c0b3ccfdd7b6017f2e92dada77b31fc4fe9a078cc271a012c88a6f7",
+        "shape": [
+          5000,
+          7
+        ],
+        "mechanism": "mcar",
+        "missing_patterns": 125,
+        "missing_rate": 0.29705714285714285,
+        "heldout_cells": 10397,
+        "wholly_missing_rows": 2,
+        "heldout_cells_in_wholly_missing_rows": 14
+      }
+    },
+    "jobs": [
+      {
+        "case": "front_door",
+        "method": "reference",
+        "phase": "first_call",
+        "repetition": 0,
+        "seed": 20260926
+      },
+      {
+        "case": "front_door",
+        "method": "hybrid_cpu64",
+        "phase": "first_call",
+        "repetition": 0,
+        "seed": 20260926
+      },
+      {
+        "case": "front_door",
+        "method": "reference",
+        "phase": "subsequent_call",
+        "repetition": 1,
+        "seed": 20260926
+      },
+      {
+        "case": "front_door",
+        "method": "hybrid_cpu64",
+        "phase": "subsequent_call",
+        "repetition": 1,
+        "seed": 20260926
+      },
+      {
+        "case": "front_door",
+        "method": "reference",
+        "phase": "subsequent_call",
+        "repetition": 2,
+        "seed": 20260926
+      },
+      {
+        "case": "front_door",
+        "method": "hybrid_cpu64",
+        "phase": "subsequent_call",
+        "repetition": 2,
+        "seed": 20260926
+      },
+      {
+        "case": "pattern_stress",
+        "method": "reference",
+        "phase": "single_stress_call",
+        "repetition": 0,
+        "seed": 20260926
+      },
+      {
+        "case": "pattern_stress",
+        "method": "hybrid_cpu64",
+        "phase": "single_stress_call",
+        "repetition": 0,
+        "seed": 20260926
+      },
+      {
+        "case": "pattern_stress",
+        "method": "hybrid_mps32",
+        "phase": "single_stress_call",
+        "repetition": 0,
+        "seed": 20260926
+      }
+    ],
+    "source_sha256": {
+      "src/amelia_torch/__init__.py": "b268c56890218a31dca7f57894a852f51016b23d01ad2caca9755a78cf1a2734",
+      "src/amelia_torch/api.py": "29d5701a2ef107bba5dc14f1f836289e804f5fe19d1246e47c8b26973b3f0db2",
+      "src/amelia_torch/backends.py": "14ae3f26b081d26faa7e040a24910db1f3c310f85218202b3d4cc224bab52542",
+      "src/amelia_torch/diagnostics.py": "68f26f34edc6ecf1258518ea569248ef2ff9b2fb54bd82dc0fb1f8fb8aa90691",
+      "src/amelia_torch/em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d",
+      "src/amelia_torch/imputation.py": "723ad352a769f1fc0f73818f2b629f0b78088a9168119f852575ff38d6fb5cd2",
+      "src/amelia_torch/reference.py": "c426b318e595795f69fda83fc44cc78c3c4ba88bbcad933d5efddd83685a91f5",
+      "src/amelia_torch/_r/reference_bridge.R": "07d3f709b3840ef6513f8332807a69fa00e0e67836f5f918edb93f3fe937eebc",
+      "r-package/R/amelia.R": "c3fd8ff065e31113bab6ddcaf09457373061db335361bb4c83b1db32ead3b234",
+      "r-package/R/compatibility.R": "8771e41249fb2dd0802003091eb8c423f4e4d60956ca9a8ca206bb1cb577d4ec",
+      "r-package/R/environment.R": "7556c729dbd8fafc83503226f5b29dfa5703d6fb62b4591c39708b25c34b8c08",
+      "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+      "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+      "r-package/DESCRIPTION": "6b74f0fa21ac630806e2f5c6404e23a64e3f5c8f67904fabc52a9a03f0e69a34",
+      "r-package/NAMESPACE": "26261a11e094828bcb1cde6e93e090501469a618a39f4bb4d9fa41383396fc05",
+      "scripts/validate_product_costs.py": "cdb4a54d5a7c06418a121a311cf44497429f32c172ed1c97bf77da02dfe7b9ec"
+    },
+    "timing_contract": {
+      "included": "Public Python invocation, new Rscript startup, package/Python initialization in R, typed input/output files, full original R workflow and requested EM, materialized NumPy imputations and complete RDS bytes, subprocess exit and temporary-file cleanup",
+      "excluded": "Input NPZ reading, Python module import before calls, output scoring, digest/report creation, explicit final save_rds to user storage",
+      "first_subsequent": "First vs subsequent calls in this benchmark Python process; each call starts a NEW R process. Neither phase claims a cold OS cache or a persistent warmed R interpreter.",
+      "gpu_completion": "The R process must return CPU theta/draws, serialize results and exit before the Python API returns; the timer covers completed work rather than asynchronous GPU submission.",
+      "no_subtraction": "Historical R in-memory measurements are unpaired, different-version and different-time measurements; do not subtract them to estimate pure bridge overhead."
+    },
+    "quality_contract": {
+      "strict": "All requested imputations converged; observed cells unchanged; nonblank rows finite; blank rows remain NA; ALL heldout cells scored. Any unscored heldout makes full RMSE null and benchmark quality false.",
+      "stress": "Keep the supplied independent mask unchanged, including the 2 blank rows and 14 heldout cells expected to remain NA. Report semantic preservation separately from failed complete-heldout scoring.",
+      "memory": "Peak RAM/VRAM not measured and reported null. Returned array/RDS sizes are not peak memory."
+    },
+    "stopping": "Retain every exception, timeout, unscored cell and nonconvergence. Continue bounded remaining jobs; source/input changes abort the plan. No precision or algorithm retry, missingness-pattern changes, or selective success averaging."
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.3",
+    "torch_distribution": "2.14.0",
+    "os": "Darwin",
+    "architecture": "arm64",
+    "revision": "ad9bed2dfd33a7b0e0a6e4050eafc031b1726f3e",
+    "workspace_source_hashes_authoritative": true,
+    "thread_environment": {
+      "OMP_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4",
+      "VECLIB_MAXIMUM_THREADS": "4"
+    },
+    "thread_note": "Requested environment controls, not a measurement of every BLAS thread pool",
+    "mps_fallback": "0",
+    "peak_ram_bytes": null,
+    "peak_gpu_memory_bytes": null
+  },
+  "runs": [
+    {
+      "case": "front_door",
+      "method": "reference",
+      "phase": "first_call",
+      "repetition": 0,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 12.143546834005974,
+      "status": "ok",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": true,
+        "output_quality_passed": true,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.057854455572334
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0581860011224353
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0566852540393104
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0532402066449837
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0571757412040408
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-reference",
+        "compute_backend": "cpu",
+        "torch_used": false,
+        "gpu_used": false,
+        "operation": "fit",
+        "call_engine": "r-amelia-reference",
+        "call_compute_backend": "cpu",
+        "call_device": "cpu",
+        "call_dtype": "R double",
+        "call_torch_used": false,
+        "call_gpu_used": false,
+        "compatibility_package_version": null,
+        "hybrid_backend": null,
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-reference",
+          "device": "cpu",
+          "dtype": "R double",
+          "torch_used": false,
+          "gpu_used": false,
+          "r_backend_record": null
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          52,
+          41,
+          43,
+          72,
+          59
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 18627244,
+      "returned_rds_sha256": "2006794dc77298fcb517f14c738fe5d4ecbcf99354b1b9b32a1fdc4152694d6c",
+      "returned_numpy_bytes": 40000000,
+      "source_unchanged": true
+    },
+    {
+      "case": "front_door",
+      "method": "hybrid_cpu64",
+      "phase": "first_call",
+      "repetition": 0,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 11.96586058405228,
+      "status": "ok",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": true,
+        "output_quality_passed": true,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0578544555723333
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0581860011224353
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0566852540393175
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0532402066449809
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0571757412040415
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-torch-em",
+        "compute_backend": "mixed-r-cpu-and-torch",
+        "torch_used": true,
+        "gpu_used": false,
+        "operation": "fit",
+        "call_engine": "r-amelia-torch-em",
+        "call_compute_backend": "mixed-r-cpu-and-torch",
+        "call_device": "cpu",
+        "call_dtype": "float64",
+        "call_torch_used": true,
+        "call_gpu_used": false,
+        "compatibility_package_version": "0.0.0.9000",
+        "hybrid_backend": {
+          "engine": "r-amelia-torch-em",
+          "call_engine": "r-amelia-torch-em",
+          "reference_version": "1.8.3",
+          "device": "cpu",
+          "dtype": "float64",
+          "experimental": true,
+          "torch_used": true,
+          "gpu_used": false,
+          "current_call_torch_used": true,
+          "current_call_gpu_used": false,
+          "historical_m": 0,
+          "previous_backend": null,
+          "new_m": 5,
+          "total_m": 5,
+          "r_cpu_work": [
+            "preprocessing",
+            "bootstrap and RNG",
+            "conditional draws",
+            "postprocessing"
+          ],
+          "fits": [
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 52,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 41,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 43,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 72,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 59,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            }
+          ],
+          "converged": true
+        },
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-torch-em",
+          "device": "cpu",
+          "dtype": "float64",
+          "torch_used": true,
+          "gpu_used": false,
+          "r_backend_record": {
+            "engine": "r-amelia-torch-em",
+            "call_engine": "r-amelia-torch-em",
+            "reference_version": "1.8.3",
+            "device": "cpu",
+            "dtype": "float64",
+            "experimental": true,
+            "torch_used": true,
+            "gpu_used": false,
+            "current_call_torch_used": true,
+            "current_call_gpu_used": false,
+            "historical_m": 0,
+            "previous_backend": null,
+            "new_m": 5,
+            "total_m": 5,
+            "r_cpu_work": [
+              "preprocessing",
+              "bootstrap and RNG",
+              "conditional draws",
+              "postprocessing"
+            ],
+            "fits": [
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 52,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 41,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 43,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 72,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 59,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              }
+            ],
+            "converged": true
+          }
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          52,
+          41,
+          43,
+          72,
+          59
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 18628077,
+      "returned_rds_sha256": "fad58c9c49ba73a1037330a4ddc82232529aa06b064e952465fcb5d2d473b8e0",
+      "returned_numpy_bytes": 40000000,
+      "source_unchanged": true
+    },
+    {
+      "case": "front_door",
+      "method": "reference",
+      "phase": "subsequent_call",
+      "repetition": 1,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 12.113751250086352,
+      "status": "ok",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": true,
+        "output_quality_passed": true,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.057854455572334
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0581860011224353
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0566852540393104
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0532402066449837
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0571757412040408
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-reference",
+        "compute_backend": "cpu",
+        "torch_used": false,
+        "gpu_used": false,
+        "operation": "fit",
+        "call_engine": "r-amelia-reference",
+        "call_compute_backend": "cpu",
+        "call_device": "cpu",
+        "call_dtype": "R double",
+        "call_torch_used": false,
+        "call_gpu_used": false,
+        "compatibility_package_version": null,
+        "hybrid_backend": null,
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-reference",
+          "device": "cpu",
+          "dtype": "R double",
+          "torch_used": false,
+          "gpu_used": false,
+          "r_backend_record": null
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          52,
+          41,
+          43,
+          72,
+          59
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 18627244,
+      "returned_rds_sha256": "2006794dc77298fcb517f14c738fe5d4ecbcf99354b1b9b32a1fdc4152694d6c",
+      "returned_numpy_bytes": 40000000,
+      "source_unchanged": true
+    },
+    {
+      "case": "front_door",
+      "method": "hybrid_cpu64",
+      "phase": "subsequent_call",
+      "repetition": 1,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 12.047002041013911,
+      "status": "ok",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": true,
+        "output_quality_passed": true,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0578544555723333
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0581860011224353
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0566852540393175
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0532402066449809
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0571757412040415
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-torch-em",
+        "compute_backend": "mixed-r-cpu-and-torch",
+        "torch_used": true,
+        "gpu_used": false,
+        "operation": "fit",
+        "call_engine": "r-amelia-torch-em",
+        "call_compute_backend": "mixed-r-cpu-and-torch",
+        "call_device": "cpu",
+        "call_dtype": "float64",
+        "call_torch_used": true,
+        "call_gpu_used": false,
+        "compatibility_package_version": "0.0.0.9000",
+        "hybrid_backend": {
+          "engine": "r-amelia-torch-em",
+          "call_engine": "r-amelia-torch-em",
+          "reference_version": "1.8.3",
+          "device": "cpu",
+          "dtype": "float64",
+          "experimental": true,
+          "torch_used": true,
+          "gpu_used": false,
+          "current_call_torch_used": true,
+          "current_call_gpu_used": false,
+          "historical_m": 0,
+          "previous_backend": null,
+          "new_m": 5,
+          "total_m": 5,
+          "r_cpu_work": [
+            "preprocessing",
+            "bootstrap and RNG",
+            "conditional draws",
+            "postprocessing"
+          ],
+          "fits": [
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 52,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 41,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 43,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 72,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 59,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            }
+          ],
+          "converged": true
+        },
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-torch-em",
+          "device": "cpu",
+          "dtype": "float64",
+          "torch_used": true,
+          "gpu_used": false,
+          "r_backend_record": {
+            "engine": "r-amelia-torch-em",
+            "call_engine": "r-amelia-torch-em",
+            "reference_version": "1.8.3",
+            "device": "cpu",
+            "dtype": "float64",
+            "experimental": true,
+            "torch_used": true,
+            "gpu_used": false,
+            "current_call_torch_used": true,
+            "current_call_gpu_used": false,
+            "historical_m": 0,
+            "previous_backend": null,
+            "new_m": 5,
+            "total_m": 5,
+            "r_cpu_work": [
+              "preprocessing",
+              "bootstrap and RNG",
+              "conditional draws",
+              "postprocessing"
+            ],
+            "fits": [
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 52,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 41,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 43,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 72,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 59,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              }
+            ],
+            "converged": true
+          }
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          52,
+          41,
+          43,
+          72,
+          59
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 18628077,
+      "returned_rds_sha256": "fad58c9c49ba73a1037330a4ddc82232529aa06b064e952465fcb5d2d473b8e0",
+      "returned_numpy_bytes": 40000000,
+      "source_unchanged": true
+    },
+    {
+      "case": "front_door",
+      "method": "reference",
+      "phase": "subsequent_call",
+      "repetition": 2,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 11.80404237494804,
+      "status": "ok",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": true,
+        "output_quality_passed": true,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.057854455572334
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0581860011224353
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0566852540393104
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0532402066449837
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0571757412040408
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-reference",
+        "compute_backend": "cpu",
+        "torch_used": false,
+        "gpu_used": false,
+        "operation": "fit",
+        "call_engine": "r-amelia-reference",
+        "call_compute_backend": "cpu",
+        "call_device": "cpu",
+        "call_dtype": "R double",
+        "call_torch_used": false,
+        "call_gpu_used": false,
+        "compatibility_package_version": null,
+        "hybrid_backend": null,
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-reference",
+          "device": "cpu",
+          "dtype": "R double",
+          "torch_used": false,
+          "gpu_used": false,
+          "r_backend_record": null
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          52,
+          41,
+          43,
+          72,
+          59
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 18627244,
+      "returned_rds_sha256": "2006794dc77298fcb517f14c738fe5d4ecbcf99354b1b9b32a1fdc4152694d6c",
+      "returned_numpy_bytes": 40000000,
+      "source_unchanged": true
+    },
+    {
+      "case": "front_door",
+      "method": "hybrid_cpu64",
+      "phase": "subsequent_call",
+      "repetition": 2,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 12.209579166956246,
+      "status": "ok",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": true,
+        "output_quality_passed": true,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0578544555723333
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0581860011224353
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0566852540393175
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0532402066449809
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 0,
+            "heldout_cells": 300000,
+            "unscored_heldout_cells": 0,
+            "unscored_heldout_in_blank_rows": 0,
+            "normalized_rmse_all_heldout": 1.0571757412040415
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-torch-em",
+        "compute_backend": "mixed-r-cpu-and-torch",
+        "torch_used": true,
+        "gpu_used": false,
+        "operation": "fit",
+        "call_engine": "r-amelia-torch-em",
+        "call_compute_backend": "mixed-r-cpu-and-torch",
+        "call_device": "cpu",
+        "call_dtype": "float64",
+        "call_torch_used": true,
+        "call_gpu_used": false,
+        "compatibility_package_version": "0.0.0.9000",
+        "hybrid_backend": {
+          "engine": "r-amelia-torch-em",
+          "call_engine": "r-amelia-torch-em",
+          "reference_version": "1.8.3",
+          "device": "cpu",
+          "dtype": "float64",
+          "experimental": true,
+          "torch_used": true,
+          "gpu_used": false,
+          "current_call_torch_used": true,
+          "current_call_gpu_used": false,
+          "historical_m": 0,
+          "previous_backend": null,
+          "new_m": 5,
+          "total_m": 5,
+          "r_cpu_work": [
+            "preprocessing",
+            "bootstrap and RNG",
+            "conditional draws",
+            "postprocessing"
+          ],
+          "fits": [
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 52,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 41,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 43,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 72,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 59,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 8,
+              "empri_final": 0
+            }
+          ],
+          "converged": true
+        },
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-torch-em",
+          "device": "cpu",
+          "dtype": "float64",
+          "torch_used": true,
+          "gpu_used": false,
+          "r_backend_record": {
+            "engine": "r-amelia-torch-em",
+            "call_engine": "r-amelia-torch-em",
+            "reference_version": "1.8.3",
+            "device": "cpu",
+            "dtype": "float64",
+            "experimental": true,
+            "torch_used": true,
+            "gpu_used": false,
+            "current_call_torch_used": true,
+            "current_call_gpu_used": false,
+            "historical_m": 0,
+            "previous_backend": null,
+            "new_m": 5,
+            "total_m": 5,
+            "r_cpu_work": [
+              "preprocessing",
+              "bootstrap and RNG",
+              "conditional draws",
+              "postprocessing"
+            ],
+            "fits": [
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 52,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 41,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 43,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 72,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 59,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 8,
+                "empri_final": 0
+              }
+            ],
+            "converged": true
+          }
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          52,
+          41,
+          43,
+          72,
+          59
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 18628077,
+      "returned_rds_sha256": "fad58c9c49ba73a1037330a4ddc82232529aa06b064e952465fcb5d2d473b8e0",
+      "returned_numpy_bytes": 40000000,
+      "source_unchanged": true
+    },
+    {
+      "case": "pattern_stress",
+      "method": "reference",
+      "phase": "single_stress_call",
+      "repetition": 0,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 0.5608104579150677,
+      "status": "heldout_incomplete",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": false,
+        "output_quality_passed": false,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-reference",
+        "compute_backend": "cpu",
+        "torch_used": false,
+        "gpu_used": false,
+        "operation": "fit",
+        "call_engine": "r-amelia-reference",
+        "call_compute_backend": "cpu",
+        "call_device": "cpu",
+        "call_dtype": "R double",
+        "call_torch_used": false,
+        "call_gpu_used": false,
+        "compatibility_package_version": null,
+        "hybrid_backend": null,
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-reference",
+          "device": "cpu",
+          "dtype": "R double",
+          "torch_used": false,
+          "gpu_used": false,
+          "r_backend_record": null
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          18,
+          14,
+          15,
+          16,
+          12
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 620197,
+      "returned_rds_sha256": "698471dd1dd5cdcda8f524678a296aeb801b7d92e4a10734bbf6e00b309dc053",
+      "returned_numpy_bytes": 1400000,
+      "source_unchanged": true
+    },
+    {
+      "case": "pattern_stress",
+      "method": "hybrid_cpu64",
+      "phase": "single_stress_call",
+      "repetition": 0,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 2.81235799996648,
+      "status": "heldout_incomplete",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": false,
+        "output_quality_passed": false,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-torch-em",
+        "compute_backend": "mixed-r-cpu-and-torch",
+        "torch_used": true,
+        "gpu_used": false,
+        "operation": "fit",
+        "call_engine": "r-amelia-torch-em",
+        "call_compute_backend": "mixed-r-cpu-and-torch",
+        "call_device": "cpu",
+        "call_dtype": "float64",
+        "call_torch_used": true,
+        "call_gpu_used": false,
+        "compatibility_package_version": "0.0.0.9000",
+        "hybrid_backend": {
+          "engine": "r-amelia-torch-em",
+          "call_engine": "r-amelia-torch-em",
+          "reference_version": "1.8.3",
+          "device": "cpu",
+          "dtype": "float64",
+          "experimental": true,
+          "torch_used": true,
+          "gpu_used": false,
+          "current_call_torch_used": true,
+          "current_call_gpu_used": false,
+          "historical_m": 0,
+          "previous_backend": null,
+          "new_m": 5,
+          "total_m": 5,
+          "r_cpu_work": [
+            "preprocessing",
+            "bootstrap and RNG",
+            "conditional draws",
+            "postprocessing"
+          ],
+          "fits": [
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 18,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 124,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 14,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 124,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 15,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 122,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 16,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 124,
+              "empri_final": 0
+            },
+            {
+              "device": "cpu",
+              "dtype": "float64",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping"
+              ],
+              "iterations": 12,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 124,
+              "empri_final": 0
+            }
+          ],
+          "converged": true
+        },
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-torch-em",
+          "device": "cpu",
+          "dtype": "float64",
+          "torch_used": true,
+          "gpu_used": false,
+          "r_backend_record": {
+            "engine": "r-amelia-torch-em",
+            "call_engine": "r-amelia-torch-em",
+            "reference_version": "1.8.3",
+            "device": "cpu",
+            "dtype": "float64",
+            "experimental": true,
+            "torch_used": true,
+            "gpu_used": false,
+            "current_call_torch_used": true,
+            "current_call_gpu_used": false,
+            "historical_m": 0,
+            "previous_backend": null,
+            "new_m": 5,
+            "total_m": 5,
+            "r_cpu_work": [
+              "preprocessing",
+              "bootstrap and RNG",
+              "conditional draws",
+              "postprocessing"
+            ],
+            "fits": [
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 18,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 124,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 14,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 124,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 15,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 122,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 16,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 124,
+                "empri_final": 0
+              },
+              {
+                "device": "cpu",
+                "dtype": "float64",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping"
+                ],
+                "iterations": 12,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 124,
+                "empri_final": 0
+              }
+            ],
+            "converged": true
+          }
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          18,
+          14,
+          15,
+          16,
+          12
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 620554,
+      "returned_rds_sha256": "032a15744985d10936e0257064b26928ede6591cfb936bf9b94bb93a28ed7d67",
+      "returned_numpy_bytes": 1400000,
+      "source_unchanged": true
+    },
+    {
+      "case": "pattern_stress",
+      "method": "hybrid_mps32",
+      "phase": "single_stress_call",
+      "repetition": 0,
+      "seed": 20260926,
+      "peak_ram_bytes": null,
+      "peak_gpu_memory_bytes": null,
+      "wall_seconds": 24.270982958958484,
+      "status": "heldout_incomplete",
+      "quality": {
+        "semantic_output_checks_passed": true,
+        "complete_heldout_scoring": false,
+        "output_quality_passed": false,
+        "imputations": [
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          },
+          {
+            "observed_preserved": true,
+            "blank_rows_preserved": true,
+            "unexpected_nonfinite_cells": 0,
+            "remaining_missing_cells": 14,
+            "heldout_cells": 10397,
+            "unscored_heldout_cells": 14,
+            "unscored_heldout_in_blank_rows": 14,
+            "normalized_rmse_all_heldout": null
+          }
+        ]
+      },
+      "metadata": {
+        "engine": "r-amelia-torch-em",
+        "compute_backend": "mixed-r-cpu-and-torch",
+        "torch_used": true,
+        "gpu_used": true,
+        "operation": "fit",
+        "call_engine": "r-amelia-torch-em",
+        "call_compute_backend": "mixed-r-cpu-and-torch",
+        "call_device": "mps",
+        "call_dtype": "float32",
+        "call_torch_used": true,
+        "call_gpu_used": true,
+        "compatibility_package_version": "0.0.0.9000",
+        "hybrid_backend": {
+          "engine": "r-amelia-torch-em",
+          "call_engine": "r-amelia-torch-em",
+          "reference_version": "1.8.3",
+          "device": "mps",
+          "dtype": "float32",
+          "experimental": true,
+          "torch_used": true,
+          "gpu_used": true,
+          "current_call_torch_used": true,
+          "current_call_gpu_used": true,
+          "historical_m": 0,
+          "previous_backend": null,
+          "new_m": 5,
+          "total_m": 5,
+          "r_cpu_work": [
+            "preprocessing",
+            "bootstrap and RNG",
+            "conditional draws",
+            "postprocessing"
+          ],
+          "fits": [
+            {
+              "device": "mps",
+              "dtype": "float32",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping",
+                "eigenvalue_diagnostics"
+              ],
+              "iterations": 18,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 124,
+              "empri_final": 0
+            },
+            {
+              "device": "mps",
+              "dtype": "float32",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping",
+                "eigenvalue_diagnostics"
+              ],
+              "iterations": 14,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 124,
+              "empri_final": 0
+            },
+            {
+              "device": "mps",
+              "dtype": "float32",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping",
+                "eigenvalue_diagnostics"
+              ],
+              "iterations": 15,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 122,
+              "empri_final": 0
+            },
+            {
+              "device": "mps",
+              "dtype": "float32",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping",
+                "eigenvalue_diagnostics"
+              ],
+              "iterations": 16,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 124,
+              "empri_final": 0
+            },
+            {
+              "device": "mps",
+              "dtype": "float32",
+              "pseudoinverse_uses": 0,
+              "empri_initial": 0,
+              "eigenvalue_check_device": "cpu",
+              "explicit_cpu_work": [
+                "initialization",
+                "missingness_grouping",
+                "eigenvalue_diagnostics"
+              ],
+              "iterations": 12,
+              "converged": true,
+              "complete_sample": false,
+              "patterns": 124,
+              "empri_final": 0
+            }
+          ],
+          "converged": true
+        },
+        "provenance": {
+          "source": "executed_in_this_call",
+          "m": 5,
+          "engine": "r-amelia-torch-em",
+          "device": "mps",
+          "dtype": "float32",
+          "torch_used": true,
+          "gpu_used": true,
+          "r_backend_record": {
+            "engine": "r-amelia-torch-em",
+            "call_engine": "r-amelia-torch-em",
+            "reference_version": "1.8.3",
+            "device": "mps",
+            "dtype": "float32",
+            "experimental": true,
+            "torch_used": true,
+            "gpu_used": true,
+            "current_call_torch_used": true,
+            "current_call_gpu_used": true,
+            "historical_m": 0,
+            "previous_backend": null,
+            "new_m": 5,
+            "total_m": 5,
+            "r_cpu_work": [
+              "preprocessing",
+              "bootstrap and RNG",
+              "conditional draws",
+              "postprocessing"
+            ],
+            "fits": [
+              {
+                "device": "mps",
+                "dtype": "float32",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping",
+                  "eigenvalue_diagnostics"
+                ],
+                "iterations": 18,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 124,
+                "empri_final": 0
+              },
+              {
+                "device": "mps",
+                "dtype": "float32",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping",
+                  "eigenvalue_diagnostics"
+                ],
+                "iterations": 14,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 124,
+                "empri_final": 0
+              },
+              {
+                "device": "mps",
+                "dtype": "float32",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping",
+                  "eigenvalue_diagnostics"
+                ],
+                "iterations": 15,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 122,
+                "empri_final": 0
+              },
+              {
+                "device": "mps",
+                "dtype": "float32",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping",
+                  "eigenvalue_diagnostics"
+                ],
+                "iterations": 16,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 124,
+                "empri_final": 0
+              },
+              {
+                "device": "mps",
+                "dtype": "float32",
+                "pseudoinverse_uses": 0,
+                "empri_initial": 0,
+                "eigenvalue_check_device": "cpu",
+                "explicit_cpu_work": [
+                  "initialization",
+                  "missingness_grouping",
+                  "eigenvalue_diagnostics"
+                ],
+                "iterations": 12,
+                "converged": true,
+                "complete_sample": false,
+                "patterns": 124,
+                "empri_final": 0
+              }
+            ],
+            "converged": true
+          }
+        },
+        "reference_version": "1.8.3",
+        "reference_version_scope": "R package loaded by this call; not proof of an external RDS creation version",
+        "R_version": "4.5.3",
+        "call_rng_kind": [
+          "L'Ecuyer-CMRG",
+          "Inversion",
+          "Rejection"
+        ],
+        "transport": {
+          "schema_version": 2,
+          "numeric": "binary-column-v1",
+          "byte_order": "little",
+          "double_bytes": 8,
+          "integer_bytes": 4,
+          "factor_codes": "R 1-based int32",
+          "character": "JSON",
+          "integer_na": -2147483648,
+          "double_na": "IEEE754 NaN"
+        },
+        "code": 1,
+        "message": "Normal EM convergence.",
+        "m": 5,
+        "iterations": [
+          18,
+          14,
+          15,
+          16,
+          12
+        ],
+        "converged_by_tolerance": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "authoritative_result": "Amelia-class R object in RDS; provenance identifies its execution engine"
+      },
+      "warnings": [],
+      "returned_rds_bytes": 619952,
+      "returned_rds_sha256": "78a9843222ce93a22a1de779f7626f37f6e6b21d8a9bc852ec4f61438eeedfc0",
+      "returned_numpy_bytes": 1400000,
+      "source_unchanged": true
+    }
+  ],
+  "completed_utc": "2026-09-26T22:09:03.544217+00:00",
+  "all_requests_returned_results": true,
+  "source_unchanged": true,
+  "inputs_unchanged": {
+    "front_door": true,
+    "pattern_stress": true
+  },
+  "all_benchmark_quality_passed": false
+}

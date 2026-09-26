@@ -4,7 +4,8 @@
 - 用户为求职展示项目能力，要求全部功能完成后才算首版，完整复现 Amelia 1.8.3 流程/算法，在 Python 与 R/RStudio 跨 Mac、Windows、有/无 CUDA 使用，并以三组较大公开数据实测性能；不能随意改变统计语义。
 - 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权直接使用云端 CUDA 测试并留存记录，不再依赖本地 3080。免费 Colab T4 的 CUDA32/64 固定正确性案例已在旧会话通过；9/26 已恢复旧笔记本并重连免费 T4，正式性能与统计质量仍待完成；Andrew Wang 只预留未来协作位，尚非当前作者。
 - 2026-09-23：native 连续 EMB、Python/R 原版及混合兼容入口已实现；三个系统各 149 项 Python 测试与 5 个 R 测试文件通过，R 安装/build/check 零问题。Windows/macOS/Linux hosted CPU CI 已通过；尚未完整验收 Amelia 或完成 CUDA/Intel Mac实测。状态见 `docs/roadmap.zh-CN.md`、`docs/amelia-compatibility.md`。
-- 2026-09-26：本机新增下游/RDS 工作流与 33 个公共边界案例已通过；161 项 Python 测试、7 个 R 测试文件及 R build/check 零问题。修复显式 startvals 的原版原位更新语义；新增测试的 hosted CI 尚待运行。Mac 三组 100k 样本的 native/hybrid 正式基准均完成，MPS 未比同机 Torch CPU 更快；旧测量源码哈希不得随修复改写。详见 `docs/validation/2026-09-26-g1/`、`2026-09-26-g2/`。
+- 2026-09-26：fa08a52 的三平台 hosted CI 各 161 项 Python、7 个 R 测试文件及下游示例通过，本机 R build/check 零问题；ad9bed2 的 Intel Mac x86_64 隔离 wheel[reference]、无 Torch 原版/RDS 工作流亦实际通过。新 G3/G4 边界及后续测试不算入这些历史通过。修复显式 startvals 的原版原位更新语义；Mac 三组 100k 样本的 native/hybrid 正式基准均完成，MPS 未比同机 Torch CPU 更快；旧测量源码哈希不得随修复改写。详见 `docs/validation/2026-09-26-ci/`、`2026-09-26-g1/`、`2026-09-26-g2/`。
+- 新 T4 会话在 fa08a52 完成全部 15 步正确性验证；同机正式性能固定到 905cc79，正在运行。G5 统计门槛与各 200 次 MCAR/MAR、20 次压力方案已在 06b0fe8 固定，正式结果不得反向改变门槛；见 `docs/validation/g5-prespecified/`。仍不算完整首版验收。
 - 三组 UCI 全压缩数据已下载、校验，合计约 232 MiB。数据来源/许可/哈希见 `data/manifest.json`；原始全量文件不进 Git，小样本和复现脚本已入项目。
 
 ## 环境与命令
@@ -15,6 +16,7 @@
 - R 源码测试：`R_LIBS_USER="$PWD/.R-library" RETICULATE_PYTHON="$PWD/.venv/bin/python" AMELIATORCH_R_SOURCE=r-package Rscript r-package/tests/bridge.R`。
 - 设备探针：`.venv/bin/python -m amelia_torch.diagnostics --require-device mps`；Windows CUDA 改 `cuda`。GPU 不可见先检查执行权限；sandbox 也可能阻止 R snow localhost socket。
 - 数据、质量与基准复现入口见 `docs/reproduce.zh-CN.md`，验证产物放 `docs/validation/`；机器临时结果放忽略的 `results/local/`。
+- Colab 每阶段在计时外保存完整 JSON/log 报告备份，见 `scripts/cloud_checkpoint.py` 与 `scripts/recover_cloud_checkpoint.py`。下载失效时可从保存 notebook 的压缩输出恢复；必须核验哈希，不把截断 stdout 当成原始 JSON。云主机按实测 CPU 配额统一线程/worker 预算，9/26 T4 VM 为两核。
 
 ## 算法与兼容性约束
 - `docs/algorithm-contract.md` 是固定版本语义依据。每开放一项原版功能，都先建参考对照，再更新兼容表；不支持的选项明确拒绝，不能忽略后继续计算。

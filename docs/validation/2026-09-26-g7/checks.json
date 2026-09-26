@@ -1,0 +1,24 @@
+{
+  "scope": "No-fit G7 scoring/audit checks only",
+  "pytest": {
+    "command": ".venv/bin/python -m pytest -q tests/test_product_costs.py",
+    "passed": 3,
+    "failed": 0,
+    "seconds": 0.06
+  },
+  "ruff": {
+    "paths": [
+      "scripts/validate_product_costs.py",
+      "scripts/summarize_product_costs.py",
+      "tests/test_product_costs.py"
+    ],
+    "passed": true
+  },
+  "independent_audit_recomputed_identically": true,
+  "execution_exit_code": 1,
+  "execution_exit_explanation": "All nine calls returned, but independent-MCAR blank rows leave 14 unscored heldout cells per imputation; strict complete-heldout quality correctly fails.",
+  "validation_source_sha256": {
+    "scripts/summarize_product_costs.py": "f348d2ad75b1736df6505d5f7c2c09acaa76d63334230229971e14c31704a5ad",
+    "tests/test_product_costs.py": "9770a9f5c827c9ef23493abce79381faa57adb043d83c644bb1dd87905edc207"
+  }
+}

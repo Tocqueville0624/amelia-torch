@@ -28,7 +28,7 @@ Rscript scripts/setup_r.R
 R CMD INSTALL --library=.R-library r-package
 ```
 
-For development tests, install `'.[dev,reference]'`. Apple Silicon users can install `'.[torch,reference]'`; MPS requires explicit float32. Building the R package from source requires a C compiler (Xcode command-line tools on macOS, Rtools on Windows). The original Python-to-R reference path does not require this R package or PyTorch. Intel Mac and CUDA installations still need platform verification. Nothing has been published to PyPI or CRAN.
+For development tests, install `'.[dev,reference]'`. Apple Silicon users can install `'.[torch,reference]'`; MPS requires explicit float32. Building the R package from source requires a C compiler (Xcode command-line tools on macOS, Rtools on Windows). The original Python-to-R reference path does not require this R package or PyTorch. An isolated reference-only wheel installation has passed on Intel Mac; CUDA correctness has passed on a Linux Colab T4. Neither result establishes support for every platform configuration. Nothing has been published to PyPI or CRAN.
 
 The project-local R library is selected explicitly in the examples. See [setup instructions](docs/setup.zh-CN.md) for `uv`, Windows, dependency snapshots, and GPU probes.
 
@@ -71,7 +71,7 @@ summary(fit)
 Amelia::compare.density(fit, var = "b")
 ```
 
-Explicit accelerators use `device="cuda", dtype="float64"` or `device="mps", dtype="float32"` in either language. CUDA remains untested on the target RTX 3080. MPS eigenvalue checks run explicitly on CPU; original R workflow steps also remain on CPU in the hybrid path. There is no silent precision downgrade or automatic GPU-to-CPU fallback. [R interface guide](docs/r-interface.md).
+Explicit accelerators use `device="cuda", dtype="float64"` or `device="mps", dtype="float32"` in either language. CUDA is being validated on a free Linux Colab T4; Windows CUDA remains separately untested. MPS eigenvalue checks run explicitly on CPU; original R workflow steps also remain on CPU in the hybrid path. There is no silent precision downgrade or automatic GPU-to-CPU fallback. [R interface guide](docs/r-interface.md).
 
 ## Measured results
 
@@ -109,7 +109,9 @@ python scripts/download_datasets.py --datasets all --max-download-mib 300
 
 [Full reproduction commands](docs/reproduce.zh-CN.md) cover preparation, R reference fixtures, accelerator checks, timing and inference. The repository includes licensed small samples, data attribution, checksums and complete download scripts. Full raw archives (about 232 MiB) stay outside Git. [Dataset documentation](docs/datasets.zh-CN.md).
 
-Windows, macOS and Linux hosted CPU checks have passed for the development code, including Python and five R integration test files. They do not validate CUDA/MPS performance or every operating-system configuration. [CI evidence](docs/validation/2026-09-23-development/cross-platform-ci.md).
+Windows, macOS and Linux hosted CPU checks passed at `fa08a52`, including 161 Python tests, seven R test files and the downstream example. Intel Mac separately passed a reference-only wheel installation without Torch. Later boundary tests are not retroactively included in these historical results. [CI evidence](docs/validation/2026-09-26-ci/README.md).
+
+The new Linux T4 session passed all 15 correctness-validation steps, including native and hybrid CUDA64/CUDA32 fixed cases; full structured reports are retained in the [CUDA record](docs/validation/2026-09-26-cuda/README.md). Same-machine performance and the [prespecified inference validation](docs/validation/g5-prespecified/README.md) are in progress. These fixed examples alone do not establish distributional quality or complete release acceptance.
 
 Amelia's documented and observed semantics, including upstream edge cases, take precedence over convenient rewrites. Entirely missing analysis rows remain missing. A known Amelia 1.8.3 single-row-prior indexing defect is explicitly documented, rather than silently changed. Read the [contract](docs/algorithm-contract.md), [roadmap](docs/roadmap.zh-CN.md), [first-release gates](docs/release-gates.md), [contributor guide](CONTRIBUTING.md) and [agent instructions](AGENTS.md).
 

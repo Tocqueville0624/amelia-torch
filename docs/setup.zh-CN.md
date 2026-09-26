@@ -41,9 +41,9 @@ source("scripts/smoke_amelia.R")
 
 脚本自动添加项目 `.R-library`，显式绑定 `.venv`。如当前会话已绑定别的 Python，先重启 R 会话；reticulate 不能在已初始化的解释器之间任意切换。R 包已通过本机安装和 `R CMD check`（0 ERROR/0 WARNING/0 NOTE）；运行 `R CMD INSTALL --library=.R-library r-package` 后可 `library(ameliatorch)`。见 [R 接口说明](r-interface.md)。实际 RStudio GUI 会话及其他机器仍需独立核验。
 
-## Windows RTX 3080：到机后执行
+## Windows CUDA：可选到机复现
 
-前提：Windows 10/11 64 位、NVIDIA 驱动、Python 3.12、R、RStudio、uv；这些是待核验/准备清单，不是已在用户 Windows 电脑完成的状态。机器需要能联网安装依赖；支持具体版本以到机时官方信息为准。
+用户已授权用云端 CUDA 测试替代本地 RTX 3080；以下保留为其他研究者的可选 Windows CUDA 复现步骤。前提：Windows 10/11 64 位、NVIDIA 驱动、Python 3.12、R、RStudio、uv；这些是待核验/准备清单，不是已在用户 Windows 电脑完成的状态。机器需要能联网安装依赖；支持具体版本以到机时官方信息为准。
 
 1. 把项目源文件复制或通过 Git 同步过去，不复制 `.venv`、`.R-library`、`.cache`。
 2. 运行 `nvidia-smi`，记录 GPU 型号、显存、驱动；其显示的 CUDA 版本是驱动支持信息，不等于已安装的 PyTorch runtime。
@@ -76,4 +76,4 @@ PyTorch 官方已[停止为 2.3 及以后版本提供 macOS x86_64 二进制包]
 
 项目将 PyTorch 设为可选依赖：`pip install '.[reference]'` 安装 Python 的原版 R 兼容入口及数据框支持；其运行仍需 R、Amelia 1.8.3 和 jsonlite。`pip install '.[torch,reference]'` 适用于有受支持 PyTorch wheel 的环境。Windows CUDA/CPU wheel 仍按官方安装选择器先明确选择，不能通过安装选项名称推断驱动可用。
 
-Python 包的顶层导入不应加载 PyTorch；参考路径在没有 torch 的环境中必须单独测试。Intel Mac 的到机安装仍待验证，当前设计提供原版 R CPU 路径，不宣称已获得 Intel Mac 的 PyTorch/MPS 支持。
+Python 包的顶层导入不应加载 PyTorch；参考路径在没有 torch 的环境中必须单独测试。2026-09-26 已在实际 macOS x86_64 hosted runner 上构建并安装 wheel[reference]，核验未安装/加载 Torch，并完成插补与 Python/RDS/R 下游往返，见 [Intel Mac 实测](validation/2026-09-26-ci/intel-mac-reference.md)。该证据仅覆盖原版 R CPU 路线，不宣称 Intel Mac 的 PyTorch/MPS 支持或交互式 GUI 已测试。

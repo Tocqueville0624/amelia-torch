@@ -31,6 +31,9 @@
 - 核验驱动、显存、wheel 与实际 CUDA 算子；同机运行 R 串行/并行、PyTorch CPU 与 GPU。
 - CUDA float64/float32 分别验证；Windows 无CUDA安装和 Linux CPU 也需独立运行。三个操作系统的 hosted CPU CI 已实际通过，Windows包亦已用Rtools编译；不能替代 CUDA 或所有系统配置的到机测试。云端 Linux CUDA 与 Windows CPU 的证据分开报告，不冒称 Windows GPU 已测试。
 - 2026-09-26 已从保存的 Colab notebook 恢复旧会话输出：149 项 Python、五组 R 及 CUDA32/64 native/hybrid 固定案例通过；Ruff 二进制缺失阻止了后续性能实验，旧 VM 临时 JSON 未保存。现已修复环境恢复逻辑并重连 T4，下一轮须重新保存结构化记录。
+- 新 T4 会话已重新完成 15 步验证并保存完整 JSON/log：161 项 Python、七个 R 测试文件、下游示例与两个精度的 CUDA 固定案例均通过，见 [CUDA 记录](validation/2026-09-26-cuda/README.md)。同机两线程/两 worker 的三数据集性能套件正在运行，不能提前宣称速度结论。
+- `fa08a52` 三平台 CI 已完成新增 161 项/七个 R 文件；`ad9bed2` 的 Intel Mac x86_64 独立 wheel[reference] 安装及无 Torch 实际拟合、RDS 下游工作流通过，见 [CI 证据](validation/2026-09-26-ci/README.md)。该 Intel 结果不覆盖 native Torch 或 GUI。
+- G5 [统计验证方案](validation/g5-prespecified/README.md) 已在正式扩展模拟前固定并提交：每路线 MCAR/MAR 各 200 份、压力 20 份，明确偏差、覆盖率、配对差与 Monte Carlo 区间门槛；CPU 小规模流程检查通过，正式结果仍待完成。
 - 保存完整结果、配置与绘图脚本，做可重复的端到端演示。
 - 验收：明确是否加速、在哪些配置加速、超过哪个基线；负面结果也保留。
 
