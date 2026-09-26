@@ -1,0 +1,105 @@
+{
+  "status": "retrospective_explicit_audit_plan_not_a_missing_pre_run_file",
+  "revision": "905cc79ce20e65fe5b673039d4e411db73cd7544",
+  "expected_tasks": [
+    [
+      "covertype",
+      "r_serial"
+    ],
+    [
+      "covertype",
+      "r_snow2"
+    ],
+    [
+      "covertype",
+      "cpu64"
+    ],
+    [
+      "covertype",
+      "cpu32"
+    ],
+    [
+      "covertype",
+      "cuda64"
+    ],
+    [
+      "covertype",
+      "cuda32"
+    ],
+    [
+      "household_power",
+      "r_serial"
+    ],
+    [
+      "household_power",
+      "r_snow2"
+    ],
+    [
+      "household_power",
+      "cpu64"
+    ],
+    [
+      "household_power",
+      "cpu32"
+    ],
+    [
+      "household_power",
+      "cuda64"
+    ],
+    [
+      "household_power",
+      "cuda32"
+    ],
+    [
+      "year_prediction_msd",
+      "r_serial"
+    ],
+    [
+      "year_prediction_msd",
+      "r_snow2"
+    ],
+    [
+      "year_prediction_msd",
+      "cpu64"
+    ],
+    [
+      "year_prediction_msd",
+      "cpu32"
+    ],
+    [
+      "year_prediction_msd",
+      "cuda64"
+    ],
+    [
+      "year_prediction_msd",
+      "cuda32"
+    ]
+  ],
+  "recorded_seeded_order_matches_pinned_runner": true,
+  "settings": {
+    "rows": 100000,
+    "m": 5,
+    "warmups": 2,
+    "repeats": 5,
+    "gpu": "cuda",
+    "threads": 2,
+    "workers": 2,
+    "snow_worker_blas_threads": 1,
+    "tolerance": 0.0001,
+    "max_iterations": 300
+  },
+  "measured_seeds": [
+    20260923,
+    20260924,
+    20260925,
+    20260926,
+    20260927
+  ],
+  "warmup_seeds": [
+    20360923,
+    20360924
+  ],
+  "source_hashes_match_pinned_revision": true,
+  "per_process_source_unchanged_flag": "not recorded",
+  "expected_scope_basis": "Pinned scripts/run_benchmark_suite.py, suite execution, and per-report settings; no statistical runs performed by this audit."
+}

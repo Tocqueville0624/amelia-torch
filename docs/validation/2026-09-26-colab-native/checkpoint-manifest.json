@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "revision": "905cc79ce20e65fe5b673039d4e411db73cd7544",
+  "label": "20260926-native",
+  "created_utc": "2026-09-26T23:32:16.259039+00:00",
+  "scope": "JSON/log/text reports and prepared metadata only; project/home paths replaced; excludes credentials, RDS, installed libraries and raw data",
+  "files": [
+    {
+      "path": "data/manifest.json",
+      "original_sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2",
+      "portable_sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+    },
+    {
+      "path": "data/prepared/covertype-n100000-block_mcar-rate30-seed20260923.json",
+      "original_sha256": "cc785a4794ae82d2289acb4cba691d175ccb4a815200cc0e65a4c192c78106ca",
+      "portable_sha256": "cc785a4794ae82d2289acb4cba691d175ccb4a815200cc0e65a4c192c78106ca"
+    },
+    {
+      "path": "data/prepared/household_power-n100000-block_mcar-rate30-seed20260923.json",
+      "original_sha256": "abbb955e35e0163e56b65e161f3f39f1d05cbaf5da934319b599fc9919d8b293",
+      "portable_sha256": "abbb955e35e0163e56b65e161f3f39f1d05cbaf5da934319b599fc9919d8b293"
+    },
+    {
+      "path": "data/prepared/year_prediction_msd-n100000-block_mcar-rate30-seed20260923.json",
+      "original_sha256": "56fd7398dc7380b4b697ab25f1d81b0979450861a7c34ea2cd2837a669f7dcf2",
+      "portable_sha256": "56fd7398dc7380b4b697ab25f1d81b0979450861a7c34ea2cd2837a669f7dcf2"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/bootstrap.json",
+      "original_sha256": "2feaf8092f434a2fb1394da8724d7d2a8cd8100c5db05d252ee63c824e38bdd2",
+      "portable_sha256": "2feaf8092f434a2fb1394da8724d7d2a8cd8100c5db05d252ee63c824e38bdd2"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/python-packages.json",
+      "original_sha256": "8e3f8c0559fed10dfa16610d9b50b2c757b50520302b911aa9ea1ae8b33643f1",
+      "portable_sha256": "8e3f8c0559fed10dfa16610d9b50b2c757b50520302b911aa9ea1ae8b33643f1"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/python_install.log",
+      "original_sha256": "b23ac61d3caa037d7a2a7b036f96568e4dfd86af01d2e09133dafd351a954e9a",
+      "portable_sha256": "b23ac61d3caa037d7a2a7b036f96568e4dfd86af01d2e09133dafd351a954e9a"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/r_bridge_install.log",
+      "original_sha256": "f6f75c9e26535d7f8d92cb0b28c52664dd6a91eb54c618a890cac53ea773b9ea",
+      "portable_sha256": "f6f75c9e26535d7f8d92cb0b28c52664dd6a91eb54c618a890cac53ea773b9ea"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/r_reference_install.log",
+      "original_sha256": "7e573509165b1aef88b83cb6081c15be7fec8c8f153b70d9c5db69d812e81943",
+      "portable_sha256": "7e573509165b1aef88b83cb6081c15be7fec8c8f153b70d9c5db69d812e81943"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/r_setup_check.log",
+      "original_sha256": "5c07748b8cd763d686272c57495d3de0ff264c3c1223f6ab11d1426bdfd8cb0a",
+      "portable_sha256": "5c07748b8cd763d686272c57495d3de0ff264c3c1223f6ab11d1426bdfd8cb0a"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/ruff_probe.log",
+      "original_sha256": "40b590deb0215fc30c60582516c9a2d959d83cc2ea72ed543d07e6e355c07b72",
+      "portable_sha256": "40b590deb0215fc30c60582516c9a2d959d83cc2ea72ed543d07e6e355c07b72"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/ruff_venv_reinstall.log",
+      "original_sha256": "5746f091d9d7599be709a50b428bcc515ff52a3b5b64c164b6c1c647cb36264b",
+      "portable_sha256": "5746f091d9d7599be709a50b428bcc515ff52a3b5b64c164b6c1c647cb36264b"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/ruff_verify.log",
+      "original_sha256": "fb450f699de68876c6eeb656aed34a3cfa7fbe0157b8f5092990c83e511bf9e5",
+      "portable_sha256": "fb450f699de68876c6eeb656aed34a3cfa7fbe0157b8f5092990c83e511bf9e5"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/uv_fallback_install.log",
+      "original_sha256": "1f03e492d5e84a05c98eba8423ef7d8a992bb0b58b68e3c6180b9b508be46205",
+      "portable_sha256": "1f03e492d5e84a05c98eba8423ef7d8a992bb0b58b68e3c6180b9b508be46205"
+    },
+    {
+      "path": "results/local/cloud/bootstrap/uv_fallback_venv.log",
+      "original_sha256": "d57a5f39a125db9aa4941720de8aa9a387f8fc4755d694d38b5337288ec002a4",
+      "portable_sha256": "d57a5f39a125db9aa4941720de8aa9a387f8fc4755d694d38b5337288ec002a4"
+    },
+    {
+      "path": "results/local/cloud/cuda-probe.json",
+      "original_sha256": "9880a12f35d6098cf116c44c7056529eeb4dfd6a2fccee846733c7c4e9d60dad",
+      "portable_sha256": "9880a12f35d6098cf116c44c7056529eeb4dfd6a2fccee846733c7c4e9d60dad"
+    },
+    {
+      "path": "results/local/cloud/cuda-probe.log",
+      "original_sha256": "9880a12f35d6098cf116c44c7056529eeb4dfd6a2fccee846733c7c4e9d60dad",
+      "portable_sha256": "9880a12f35d6098cf116c44c7056529eeb4dfd6a2fccee846733c7c4e9d60dad"
+    },
+    {
+      "path": "results/local/cloud/downstream-example/roundtrip.json",
+      "original_sha256": "644663c026a4db4e53a1f6696e89d51b86fb8133f5f1747732f5d994c8230a61",
+      "portable_sha256": "644663c026a4db4e53a1f6696e89d51b86fb8133f5f1747732f5d994c8230a61"
+    },
+    {
+      "path": "results/local/cloud/downstream-example.log",
+      "original_sha256": "ebd5e2186b762e19ac836addc35631618b286f254f8f0c621e6cad2128badfd7",
+      "portable_sha256": "ebd5e2186b762e19ac836addc35631618b286f254f8f0c621e6cad2128badfd7"
+    },
+    {
+      "path": "results/local/cloud/native/covertype-cpu32.json",
+      "original_sha256": "ea91a065f464c93b0e1be52383edcdc3ea742e91c08adc75b6c3def06a299466",
+      "portable_sha256": "ea91a065f464c93b0e1be52383edcdc3ea742e91c08adc75b6c3def06a299466"
+    },
+    {
+      "path": "results/local/cloud/native/covertype-cpu64.json",
+      "original_sha256": "01c60e8b58c9908bce0017464b9bb46b851f99514585402db519013aa8b1ed6d",
+      "portable_sha256": "01c60e8b58c9908bce0017464b9bb46b851f99514585402db519013aa8b1ed6d"
+    },
+    {
+      "path": "results/local/cloud/native/covertype-cuda32.json",
+      "original_sha256": "c9bc46480b411304fbfc8de4da69d3208b963f0ab01ad6260a14939d0a329aef",
+      "portable_sha256": "c9bc46480b411304fbfc8de4da69d3208b963f0ab01ad6260a14939d0a329aef"
+    },
+    {
+      "path": "results/local/cloud/native/covertype-cuda64.json",
+      "original_sha256": "9ba3c49c036c8bb83c632c3b5a21e6b69a538033a396bddeb78757ed88f6f49c",
+      "portable_sha256": "9ba3c49c036c8bb83c632c3b5a21e6b69a538033a396bddeb78757ed88f6f49c"
+    },
+    {
+      "path": "results/local/cloud/native/covertype-r_serial.config.json",
+      "original_sha256": "3f2fd7a80a6bff7a71e2476488e595db51fac4fe03a7f6d6dca4c436d44b8b54",
+      "portable_sha256": "3f2fd7a80a6bff7a71e2476488e595db51fac4fe03a7f6d6dca4c436d44b8b54"
+    },
+    {
+      "path": "results/local/cloud/native/covertype-r_serial.json",
+      "original_sha256": "e8e872cceb64a837aaa5285e11348d8a552e721cbf026678085b0140a236968a",
+      "portable_sha256": "e8e872cceb64a837aaa5285e11348d8a552e721cbf026678085b0140a236968a"
+    },
+    {
+      "path": "results/local/cloud/native/covertype-r_snow2.config.json",
+      "original_sha256": "4eb84d77c63f6e8986f4b5a5f043d5903162eba6dbdf56c6f6f55ab396fb1b04",
+      "portable_sha256": "4eb84d77c63f6e8986f4b5a5f043d5903162eba6dbdf56c6f6f55ab396fb1b04"
+    },
+    {
+      "path": "results/local/cloud/native/covertype-r_snow2.json",
+      "original_sha256": "f529342948b3f0e3bfa6c8d78fa87cbd239c83e91d2f25a68580cb2154e511af",
+      "portable_sha256": "f529342948b3f0e3bfa6c8d78fa87cbd239c83e91d2f25a68580cb2154e511af"
+    },
+    {
+      "path": "results/local/cloud/native/household_power-cpu32.json",
+      "original_sha256": "2826109a8c3df11f65feb846bf3f16c08374f5c0fe1d979fdee652c0a0562314",
+      "portable_sha256": "2826109a8c3df11f65feb846bf3f16c08374f5c0fe1d979fdee652c0a0562314"
+    },
+    {
+      "path": "results/local/cloud/native/household_power-cpu64.json",
+      "original_sha256": "6e39337944f19d092091ae0efbf7b0729418ced9f65c5f60ad749c297a4de169",
+      "portable_sha256": "6e39337944f19d092091ae0efbf7b0729418ced9f65c5f60ad749c297a4de169"
+    },
+    {
+      "path": "results/local/cloud/native/household_power-cuda32.json",
+      "original_sha256": "9479df9db030b2c47b629ed166cf285b29813118c1bfd616ecd140f0030ed19f",
+      "portable_sha256": "9479df9db030b2c47b629ed166cf285b29813118c1bfd616ecd140f0030ed19f"
+    },
+    {
+      "path": "results/local/cloud/native/household_power-cuda64.json",
+      "original_sha256": "048d91709335ae6b67344f74f490abc32e99a638fc12458206bdfa1b2adff7a5",
+      "portable_sha256": "048d91709335ae6b67344f74f490abc32e99a638fc12458206bdfa1b2adff7a5"
+    },
+    {
+      "path": "results/local/cloud/native/household_power-r_serial.config.json",
+      "original_sha256": "9fccbe49865e0dcf35b58052a5cd21bab0bc7e37072e94aaf9bf57a2c0db5efd",
+      "portable_sha256": "9fccbe49865e0dcf35b58052a5cd21bab0bc7e37072e94aaf9bf57a2c0db5efd"
+    },
+    {
+      "path": "results/local/cloud/native/household_power-r_serial.json",
+      "original_sha256": "29388b6d961132d2c8c3ae5834c196ba2d72dbc727422436751382fc0cdb0c91",
+      "portable_sha256": "29388b6d961132d2c8c3ae5834c196ba2d72dbc727422436751382fc0cdb0c91"
+    },
+    {
+      "path": "results/local/cloud/native/household_power-r_snow2.config.json",
+      "original_sha256": "9efd5bfe0b6d1533efeafa16eb3df50bbe0b2b6856a37d389b9d24de25513387",
+      "portable_sha256": "9efd5bfe0b6d1533efeafa16eb3df50bbe0b2b6856a37d389b9d24de25513387"
+    },
+    {
+      "path": "results/local/cloud/native/household_power-r_snow2.json",
+      "original_sha256": "ecc639402de725cfbfcc2efdcea2373b36767c96218e0d6174703be136295f1a",
+      "portable_sha256": "ecc639402de725cfbfcc2efdcea2373b36767c96218e0d6174703be136295f1a"
+    },
+    {
+      "path": "results/local/cloud/native/suite.json",
+      "original_sha256": "27d7205ff988a76923fe535ca0d01846147c611e87fc965490825d6d6600869c",
+      "portable_sha256": "27d7205ff988a76923fe535ca0d01846147c611e87fc965490825d6d6600869c"
+    },
+    {
+      "path": "results/local/cloud/native/year_prediction_msd-cpu32.json",
+      "original_sha256": "46ad364a7fc4dc854898ce5d055e0914df688e059618e95ca3da36568b9d09f2",
+      "portable_sha256": "46ad364a7fc4dc854898ce5d055e0914df688e059618e95ca3da36568b9d09f2"
+    },
+    {
+      "path": "results/local/cloud/native/year_prediction_msd-cpu64.json",
+      "original_sha256": "fcf61fac37cc6e609fc01f1afbffcc5c2cae87e4cc0c607a282b5f2ea29ccabf",
+      "portable_sha256": "fcf61fac37cc6e609fc01f1afbffcc5c2cae87e4cc0c607a282b5f2ea29ccabf"
+    },
+    {
+      "path": "results/local/cloud/native/year_prediction_msd-cuda32.json",
+      "original_sha256": "9d28869e101b2586e550487642046a9826b3329911c07e250140d85cff54f014",
+      "portable_sha256": "9d28869e101b2586e550487642046a9826b3329911c07e250140d85cff54f014"
+    },
+    {
+      "path": "results/local/cloud/native/year_prediction_msd-cuda64.json",
+      "original_sha256": "d416590a92f321012198234f608cb11e34a83341686d06f364c2de525a466884",
+      "portable_sha256": "d416590a92f321012198234f608cb11e34a83341686d06f364c2de525a466884"
+    },
+    {
+      "path": "results/local/cloud/native/year_prediction_msd-r_serial.config.json",
+      "original_sha256": "c4d75f814878d6a366876cf50300b05f443c8308395c04b22595b41f71faac18",
+      "portable_sha256": "c4d75f814878d6a366876cf50300b05f443c8308395c04b22595b41f71faac18"
+    },
+    {
+      "path": "results/local/cloud/native/year_prediction_msd-r_serial.json",
+      "original_sha256": "ea56f3583d5ae9a516255ae7c2e7372f6b7f07fa97b82685ea7448d2057570a9",
+      "portable_sha256": "ea56f3583d5ae9a516255ae7c2e7372f6b7f07fa97b82685ea7448d2057570a9"
+    },
+    {
+      "path": "results/local/cloud/native/year_prediction_msd-r_snow2.config.json",
+      "original_sha256": "fd57af9f31095053c3af67455a865a1764222425c4b20ad414deafbf04b5eaa1",
+      "portable_sha256": "fd57af9f31095053c3af67455a865a1764222425c4b20ad414deafbf04b5eaa1"
+    },
+    {
+      "path": "results/local/cloud/native/year_prediction_msd-r_snow2.json",
+      "original_sha256": "84a06e52c2afaa622b70ce95bf0f3c6637baf2cb1026ae1be8cd40a46ef671ca",
+      "portable_sha256": "84a06e52c2afaa622b70ce95bf0f3c6637baf2cb1026ae1be8cd40a46ef671ca"
+    },
+    {
+      "path": "results/local/cloud/native-float32-validation.json",
+      "original_sha256": "7c6715b35af77797049f17b3a1a71646e81412d5d5a3ac2017160e06b65aca9d",
+      "portable_sha256": "7c6715b35af77797049f17b3a1a71646e81412d5d5a3ac2017160e06b65aca9d"
+    },
+    {
+      "path": "results/local/cloud/native-float32.log",
+      "original_sha256": "0692b9e4b7a36783202208c9f58df85c076784334904b7aec771653a47fab72b",
+      "portable_sha256": "0692b9e4b7a36783202208c9f58df85c076784334904b7aec771653a47fab72b"
+    },
+    {
+      "path": "results/local/cloud/native-float64-validation.json",
+      "original_sha256": "0281bdf97cb9102945aca9ee0863e7082c98406076146f2fb2d13afc1444ebe9",
+      "portable_sha256": "0281bdf97cb9102945aca9ee0863e7082c98406076146f2fb2d13afc1444ebe9"
+    },
+    {
+      "path": "results/local/cloud/native-float64.log",
+      "original_sha256": "0692b9e4b7a36783202208c9f58df85c076784334904b7aec771653a47fab72b",
+      "portable_sha256": "0692b9e4b7a36783202208c9f58df85c076784334904b7aec771653a47fab72b"
+    },
+    {
+      "path": "results/local/cloud/native-suite-exit.json",
+      "original_sha256": "97bba8d88a7e3c995db7f9b27be597aa453130ae9ec7727608a607178a0e870d",
+      "portable_sha256": "97bba8d88a7e3c995db7f9b27be597aa453130ae9ec7727608a607178a0e870d"
+    },
+    {
+      "path": "results/local/cloud/native-suite.log",
+      "original_sha256": "39e495e7e72b730c5abc534de0f99cec8b39fdd1c634e793367445bb732030cb",
+      "portable_sha256": "39e495e7e72b730c5abc534de0f99cec8b39fdd1c634e793367445bb732030cb"
+    },
+    {
+      "path": "results/local/cloud/pytest.log",
+      "original_sha256": "49f7a3bb258c15c9f3fbb1da2b6c9892c240480a4d7149946ab065321b158e93",
+      "portable_sha256": "49f7a3bb258c15c9f3fbb1da2b6c9892c240480a4d7149946ab065321b158e93"
+    },
+    {
+      "path": "results/local/cloud/r-float32-validation.json",
+      "original_sha256": "135b01a933eaaf16889984d41b2ceede7c78c5c54f2b85067e1d6eb15cf4a7c7",
+      "portable_sha256": "135b01a933eaaf16889984d41b2ceede7c78c5c54f2b85067e1d6eb15cf4a7c7"
+    },
+    {
+      "path": "results/local/cloud/r-float32.log",
+      "original_sha256": "f53ba98bd5ccd89786be77da6bac090980cf022a03eaab83a99051a3796a8fe7",
+      "portable_sha256": "f53ba98bd5ccd89786be77da6bac090980cf022a03eaab83a99051a3796a8fe7"
+    },
+    {
+      "path": "results/local/cloud/r-float64-validation.json",
+      "original_sha256": "bbbfd88f6a34e636f4818c2ae9c504bc9dcf428dc6114dfec7c1692246222a92",
+      "portable_sha256": "bbbfd88f6a34e636f4818c2ae9c504bc9dcf428dc6114dfec7c1692246222a92"
+    },
+    {
+      "path": "results/local/cloud/r-float64.log",
+      "original_sha256": "f2e3437f1d13e08994746a3d22ef2f18f903a11d7675f563bd22b0502ddabf0e",
+      "portable_sha256": "f2e3437f1d13e08994746a3d22ef2f18f903a11d7675f563bd22b0502ddabf0e"
+    },
+    {
+      "path": "results/local/cloud/r-test-bridge.log",
+      "original_sha256": "db5510227de5943c7acd65e0e7b25901c066e9843f0612a6cbeed5d8d356ec58",
+      "portable_sha256": "db5510227de5943c7acd65e0e7b25901c066e9843f0612a6cbeed5d8d356ec58"
+    },
+    {
+      "path": "results/local/cloud/r-test-compatibility.log",
+      "original_sha256": "d90e5c93b470eeb3d54df179d5df463e43357fc8d103563495e47f7a4a72c668",
+      "portable_sha256": "d90e5c93b470eeb3d54df179d5df463e43357fc8d103563495e47f7a4a72c668"
+    },
+    {
+      "path": "results/local/cloud/r-test-downstream.log",
+      "original_sha256": "2a14572d4b67d28bd72721bf963be792f011b971f774977248dfa7151e303d00",
+      "portable_sha256": "2a14572d4b67d28bd72721bf963be792f011b971f774977248dfa7151e303d00"
+    },
+    {
+      "path": "results/local/cloud/r-test-downstream_extended.log",
+      "original_sha256": "783e21019efdccc73170a92ec553f9031320177f5f26141f95a4471cc03e640a",
+      "portable_sha256": "783e21019efdccc73170a92ec553f9031320177f5f26141f95a4471cc03e640a"
+    },
+    {
+      "path": "results/local/cloud/r-test-public-edge-cases.log",
+      "original_sha256": "c952e460a708457261b4d1f68ac729d0737203c3b74856f51677ab1de6d93b02",
+      "portable_sha256": "c952e460a708457261b4d1f68ac729d0737203c3b74856f51677ab1de6d93b02"
+    },
+    {
+      "path": "results/local/cloud/r-test-reference_metadata.log",
+      "original_sha256": "7bbc91d3a3c37551ef6d14354b41d700c4ef303ec045c5a11f872528e0a6c83b",
+      "portable_sha256": "7bbc91d3a3c37551ef6d14354b41d700c4ef303ec045c5a11f872528e0a6c83b"
+    },
+    {
+      "path": "results/local/cloud/r-test-torch-compat.log",
+      "original_sha256": "d0a50270fd69e416ba6448054916d98b63cca464debb448c5f5e3faf4e9f6762",
+      "portable_sha256": "d0a50270fd69e416ba6448054916d98b63cca464debb448c5f5e3faf4e9f6762"
+    },
+    {
+      "path": "results/local/cloud/ruff.log",
+      "original_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "portable_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "results/local/cloud/source-transition.json",
+      "original_sha256": "c7159480b3d935e2ad7ce74b9ce1dc865c2ce06d8090abfc175386904e5801d7",
+      "portable_sha256": "c7159480b3d935e2ad7ce74b9ce1dc865c2ce06d8090abfc175386904e5801d7"
+    },
+    {
+      "path": "results/local/cloud/validation-steps.json",
+      "original_sha256": "430e470e012f0be61b62ec56b905f43d1e2c20eea7db93285568fcfe1bc59cba",
+      "portable_sha256": "430e470e012f0be61b62ec56b905f43d1e2c20eea7db93285568fcfe1bc59cba"
+    }
+  ]
+}

@@ -58,7 +58,7 @@
 | 云端 CUDA / Windows CUDA | 原版无CUDA内核 | 用户已授权云端替代不可接入的 RTX 3080；完整 CUDA 验收进行中，不以设备探针宣称通过 | 云端 CUDA 仍需同机完整质量/速度验收；Linux 云端不冒称 Windows CUDA 已测 |
 | macOS CPU float64 | 本机R参考实测 | CPU确定性参考测试通过 | 已安装包代表案例通过 |
 | macOS MPS float32 | 原版无MPS内核 | 3个 EM 样例和三组大数据已测；MPS 比同机 CPU32 慢 51%–70%，推断质量验收仍待完成 | 变换/类别/先验边界3公共案例及三组大数据通过有限性等门槛；MPS 比同机 hybrid CPU32 慢13%–33%，不是全部 GPU 质量验收 |
-| Linux CPU/CUDA | GitHub Ubuntu CPU runner已测 | CPU CI通过；Linux T4 native CUDA32/64固定正确性案例已通过；正式性能与CUDA G5仍未完成 | CPU CI通过；Linux T4 hybrid CUDA32/64固定正确性案例已通过；正式性能与CUDA G5仍未完成，不代表Windows CUDA已测 |
+| Linux CPU/CUDA | GitHub Ubuntu CPU runner已测 | CPU CI通过；T4 native CUDA32/64固定案例及三组100k的18配置native/reference基准已完成审计；CUDA G5未完成 | CPU CI通过；T4 hybrid CUDA32/64固定正确性案例已通过；完整R接口性能与CUDA G5仍未完成，不代表Windows CUDA已测 |
 | 安装包、RStudio分发、CRAN/PyPI | 官方包已有 | Python开发环境可调用；Mac R安装/build及包测试通过；**未发布正式包** | Mac R CMD check零错误/警告/NOTE；实际Mac RStudio reference/hybrid CPU64插补、保存/读回及可见诊断图通过；独立AmeliaView未测 |
 | 三个大公开数据集端到端比较 | 本机原版串行/snow4已测 | 3组各10万行native数值子集正式基准已完成并审计 | CPU64/CPU32/MPS32 共9配置63调用315插补已审计；完整 R 调用包含桥接，排除进程初始化；不宣称全量/全部缺失机制 |
 | Python → R 完整公开调用成本 | 官方 CPU 引擎，经 binary/RDS 传输 | 与 native 内存计时边界不同 | G7 100k Covertype m5 reference/hybrid CPU64 各首次+2次后续，均约12秒；每次新R进程，不能与旧R计时相减 |

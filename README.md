@@ -95,6 +95,18 @@ The separate native Python route had these medians; it omits the R/Python bridge
 
 MPS was also slower than native CPU on these tasks. Differences from R combine implementation, numerical-library and workflow costs; native timings cannot stand in for the R product interface. [Combined timing chart](docs/validation/2026-09-23-development/combined-timings.png) · [Validation report, IQRs and source snapshots](docs/validation/2026-09-23-development/README.md).
 
+A separate **Linux Colab T4** run at `905cc79`, with two CPU threads and two single-threaded R workers, completed all 18 native/reference configurations. Each used the same prepared 100,000-row input, five imputations, two warmups and five measured repetitions. Median seconds:
+
+| Dataset | R serial | R ×2 | Native CPU64 | Native CUDA64 | Native CPU32 | Native CUDA32 |
+|---|---:|---:|---:|---:|---:|---:|
+| Covertype | 23.016 | 20.827 | 9.870 | 6.172 | 9.296 | 5.650 |
+| Household power | 16.239 | 14.649 | 5.592 | 4.616 | 6.553 | 3.724 |
+| YearPredictionMSD | 206.580 | 175.359 | 80.326 | 42.049 | 65.550 | 37.364 |
+
+Native CUDA64 was **1.21–1.91× faster than same-machine native CPU64**; CUDA32 was 1.65–1.76× faster than CPU32. All 126 calls and 630 imputations passed the recorded convergence, observed-value and complete-heldout checks. These limited numerical checks are separate from statistical inference acceptance. The R hybrid suite is still running. The small shared-host CPU budget, block-MCAR tasks and selected numeric columns limit generalization; never compare this GPU's time with the Mac CPU time. [Full records and independent audit](docs/validation/2026-09-26-colab-native/README.md).
+
+An [offline comparison of saved Mac CPU32/MPS32 outputs](docs/validation/2026-09-26-native-parameter-comparison/README.md) found differences, including a maximum of 0.173 truth-column standard deviations in the Covertype sample. Original-unit differences, all five imputation summaries and observed-value checks are retained. Only the first measured call's first 1,000 rows were saved; this description introduces no new equivalence threshold and does not attribute the cause.
+
 With matched R RNG settings and seeds, hybrid CPU64 matched all 105 paired imputation iteration counts and closely matched the recorded numerical summaries. Float32 changed some iteration counts and summary values, including covariance entries. Full completed matrices were not retained, so this [paired summary comparison](docs/validation/2026-09-23-development/hybrid-reference-comparison.json) does not establish elementwise or bitwise equivalence. CPU64 remains the default.
 
 A separate, specified joint-normal simulation completed 400 independent datasets / 2,000 EM fits. CPU64 Rubin-pooled 95% coverage was 96% under MCAR and 97% under MAR; Monte Carlo uncertainty and model limitations are reported. This does not establish validity for arbitrary data or full cross-language distributional equivalence.
@@ -115,7 +127,7 @@ Windows, macOS and Linux hosted CPU checks passed at `8b5ede9`, each with 262 Py
 
 An installed-package workflow also passed in an actual Mac RStudio session: reference/hybrid CPU64 imputation, interpreter selection, RDS/CSV readback, Data Viewer and a visible diagnostic plot. [RStudio evidence](docs/validation/2026-09-26-g6-rstudio/README.md). The separate original AmeliaView GUI remains untested pending XQuartz installation. [Audited Mac performance figures](docs/validation/2026-09-26-performance-figures/README.md) compare both product routes without treating CPU implementation gains as GPU gains.
 
-The new Linux T4 session passed all 15 correctness-validation steps, including native and hybrid CUDA64/CUDA32 fixed cases; full structured reports are retained in the [CUDA record](docs/validation/2026-09-26-cuda/README.md). Same-machine CUDA performance and the CUDA runs of the [prespecified inference validation](docs/validation/g5-prespecified/README.md) remain in progress; the completed Mac five-route result is reported above. These fixed examples alone do not establish distributional quality or complete release acceptance.
+The new Linux T4 session passed all 15 correctness-validation steps, including native and hybrid CUDA64/CUDA32 fixed cases; full structured reports are retained in the [CUDA record](docs/validation/2026-09-26-cuda/README.md). The native/reference performance suite is complete as reported above. The full R hybrid suite and CUDA runs of the [prespecified inference validation](docs/validation/g5-prespecified/README.md) remain in progress; the completed Mac five-route result is reported above. These fixed examples alone do not establish distributional quality or complete release acceptance.
 
 Amelia's documented and observed semantics, including upstream edge cases, take precedence over convenient rewrites. Entirely missing analysis rows remain missing. A known Amelia 1.8.3 single-row-prior indexing defect is explicitly documented, rather than silently changed. Read the [contract](docs/algorithm-contract.md), [roadmap](docs/roadmap.zh-CN.md), [first-release gates](docs/release-gates.md), [contributor guide](CONTRIBUTING.md) and [agent instructions](AGENTS.md).
 

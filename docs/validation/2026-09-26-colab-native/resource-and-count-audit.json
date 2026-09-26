@@ -1,0 +1,621 @@
+{
+  "schema_version": 1,
+  "scope": "Independent offline resource/count supplement to immutable native benchmark summary; no new fitting.",
+  "revision": "905cc79ce20e65fe5b673039d4e411db73cd7544",
+  "counts": {
+    "calls": 126,
+    "warmup_calls": 36,
+    "r_fits": 210,
+    "fits": 630,
+    "warmup_fits": 180,
+    "measured_calls": 90,
+    "measured_fits": 450,
+    "native_fits": 420
+  },
+  "failed_calls": 0,
+  "nonconverged_fits": 0,
+  "unscored_heldout_cells": 0,
+  "unexpected_nonfinite_cells": 0,
+  "oom_recorded": 0,
+  "native_pseudoinverse_uses": 0,
+  "native_positive_empri_final_fits": 0,
+  "r_recorded_warning_count": 0,
+  "native_warning_telemetry": "No dedicated per-run warning list; native suite stdout/stderr log retained.",
+  "r_pseudoinverse_and_autopri_telemetry": "Not recorded; null rather than inferred zero.",
+  "native_explicit_cpu_work": [
+    "initialization",
+    "missingness_grouping"
+  ],
+  "peak_cuda_allocated_bytes_max": 319183360,
+  "peak_cuda_definition": "Maximum per-call torch.cuda.max_memory_allocated after reset, including warmups; live Torch tensor allocation only. Excludes CUDA context/reserved cache/non-Torch memory.",
+  "peak_ram_bytes": null,
+  "total_process_gpu_peak_bytes": null,
+  "prepared_inputs": [
+    {
+      "dataset": "covertype",
+      "shape": [
+        100000,
+        10
+      ],
+      "source_rows_verified": 581012,
+      "eligible_rows": 581012,
+      "excluded_source_rows": 0,
+      "mechanism": "block_mcar",
+      "artificial_missing_cells": 300000,
+      "artificial_rate_among_observed": 0.3,
+      "distinct_missingness_patterns": 8,
+      "npz_sha256": "7023849c1f1cbef5765d1481e0ecafbbc5dfba1ed42fd9e08cfeefb47430f6f0"
+    },
+    {
+      "dataset": "household_power",
+      "shape": [
+        100000,
+        7
+      ],
+      "source_rows_verified": 2075259,
+      "eligible_rows": 2049280,
+      "excluded_source_rows": 25979,
+      "mechanism": "block_mcar",
+      "artificial_missing_cells": 200000,
+      "artificial_rate_among_observed": 0.2857142857142857,
+      "distinct_missingness_patterns": 7,
+      "npz_sha256": "ac93b8b96d3605668ce486651e1ea9ec821bb28f01189cc82911dc6a131a7b0d"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "shape": [
+        100000,
+        90
+      ],
+      "source_rows_verified": 515345,
+      "eligible_rows": 515345,
+      "excluded_source_rows": 0,
+      "mechanism": "block_mcar",
+      "artificial_missing_cells": 2700000,
+      "artificial_rate_among_observed": 0.3,
+      "distinct_missingness_patterns": 8,
+      "npz_sha256": "ca9be928f129b2ce56388da495c0ef34c9ba6e50870f75a53d48445dcca98419"
+    }
+  ],
+  "configurations": [
+    {
+      "dataset": "covertype",
+      "method": "r_snow2",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 41,
+      "iteration_max": 88,
+      "native_pseudoinverse_uses": null,
+      "native_positive_empri_final_fits": null,
+      "r_warning_count": 0,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        21.129,
+        19.752,
+        21.519,
+        20.191,
+        21.657,
+        20.827,
+        20.173
+      ],
+      "median_seconds": 20.827,
+      "iqr_seconds": [
+        20.191,
+        21.519
+      ],
+      "mean_normalized_heldout_rmse": 1.0586085566018562
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu64",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 40,
+      "iteration_max": 82,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        10.072095735000175,
+        10.657344365999961,
+        10.296443702000033,
+        8.742446842999925,
+        10.27413466300004,
+        9.870337284000016,
+        9.355435208000017
+      ],
+      "median_seconds": 9.870337284000016,
+      "iqr_seconds": [
+        9.355435208000017,
+        10.27413466300004
+      ],
+      "mean_normalized_heldout_rmse": 1.058624713663547
+    },
+    {
+      "dataset": "covertype",
+      "method": "cuda32",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 40,
+      "iteration_max": 82,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": 26947584,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        5.569090061999987,
+        6.60522006500014,
+        5.411399002999815,
+        6.6599165369998445,
+        5.19089383000005,
+        6.457006276999891,
+        5.649794647000135
+      ],
+      "median_seconds": 5.649794647000135,
+      "iqr_seconds": [
+        5.411399002999815,
+        6.457006276999891
+      ],
+      "mean_normalized_heldout_rmse": 1.058630175041504
+    },
+    {
+      "dataset": "covertype",
+      "method": "cuda64",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 40,
+      "iteration_max": 82,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": 43655680,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        6.587055315000043,
+        7.450712296999882,
+        6.171578296000007,
+        7.249726338000073,
+        6.164973810000447,
+        7.094365484000264,
+        5.457241432000046
+      ],
+      "median_seconds": 6.171578296000007,
+      "iqr_seconds": [
+        6.164973810000447,
+        7.094365484000264
+      ],
+      "mean_normalized_heldout_rmse": 1.0586247136635414
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu32",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 40,
+      "iteration_max": 81,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        8.20767316599995,
+        10.312074080999992,
+        9.942266746999849,
+        9.040870708000057,
+        8.811222004999763,
+        9.990700321000077,
+        9.296483745999922
+      ],
+      "median_seconds": 9.296483745999922,
+      "iqr_seconds": [
+        9.040870708000057,
+        9.942266746999849
+      ],
+      "mean_normalized_heldout_rmse": 1.0586274327766767
+    },
+    {
+      "dataset": "covertype",
+      "method": "r_serial",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 39,
+      "iteration_max": 76,
+      "native_pseudoinverse_uses": null,
+      "native_positive_empri_final_fits": null,
+      "r_warning_count": 0,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        23.966,
+        21.884,
+        22.425,
+        23.016,
+        24.197,
+        23.151,
+        22.432
+      ],
+      "median_seconds": 23.016,
+      "iqr_seconds": [
+        22.432,
+        23.151
+      ],
+      "mean_normalized_heldout_rmse": 1.0579406294041753
+    },
+    {
+      "dataset": "household_power",
+      "method": "cuda32",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 37,
+      "iteration_max": 45,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": 21924864,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        4.066979820999677,
+        4.991815716000019,
+        3.8024918319997596,
+        3.7244571919995906,
+        5.007249050000155,
+        3.717542076999962,
+        3.6482585809999364
+      ],
+      "median_seconds": 3.7244571919995906,
+      "iqr_seconds": [
+        3.717542076999962,
+        3.8024918319997596
+      ],
+      "mean_normalized_heldout_rmse": 0.998839200105607
+    },
+    {
+      "dataset": "household_power",
+      "method": "r_serial",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 38,
+      "iteration_max": 47,
+      "native_pseudoinverse_uses": null,
+      "native_positive_empri_final_fits": null,
+      "r_warning_count": 0,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        17.522,
+        16.15,
+        15.639,
+        16.236,
+        16.267,
+        16.239,
+        16.248
+      ],
+      "median_seconds": 16.239,
+      "iqr_seconds": [
+        16.236,
+        16.248
+      ],
+      "mean_normalized_heldout_rmse": 0.9993958108343226
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu64",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 37,
+      "iteration_max": 45,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        5.611929606000103,
+        7.588796960000309,
+        5.592406594999829,
+        7.471879244999855,
+        5.518281960999957,
+        7.537258944999849,
+        5.498421941000288
+      ],
+      "median_seconds": 5.592406594999829,
+      "iqr_seconds": [
+        5.518281960999957,
+        7.471879244999855
+      ],
+      "mean_normalized_heldout_rmse": 0.9988139576715709
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu32",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 37,
+      "iteration_max": 45,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        7.486620184000003,
+        6.206797988999824,
+        6.553251826999713,
+        5.682323497999732,
+        7.0747402000001784,
+        5.963505875999999,
+        6.781106020000152
+      ],
+      "median_seconds": 6.553251826999713,
+      "iqr_seconds": [
+        5.963505875999999,
+        6.781106020000152
+      ],
+      "mean_normalized_heldout_rmse": 0.998823160601677
+    },
+    {
+      "dataset": "household_power",
+      "method": "cuda64",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 37,
+      "iteration_max": 45,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": 33933312,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        6.039550991999931,
+        4.465048561000003,
+        4.253107935000116,
+        5.645776615000159,
+        4.3188834030002,
+        5.33724988899985,
+        4.615707254999961
+      ],
+      "median_seconds": 4.615707254999961,
+      "iqr_seconds": [
+        4.3188834030002,
+        5.33724988899985
+      ],
+      "mean_normalized_heldout_rmse": 0.9988139576715792
+    },
+    {
+      "dataset": "household_power",
+      "method": "r_snow2",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 37,
+      "iteration_max": 46,
+      "native_pseudoinverse_uses": null,
+      "native_positive_empri_final_fits": null,
+      "r_warning_count": 0,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        14.697,
+        14.364,
+        14.878,
+        15.109,
+        14.628,
+        14.383,
+        14.649
+      ],
+      "median_seconds": 14.649,
+      "iqr_seconds": [
+        14.628,
+        14.878
+      ],
+      "mean_normalized_heldout_rmse": 0.9994339868430144
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "r_serial",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 43,
+      "iteration_max": 51,
+      "native_pseudoinverse_uses": null,
+      "native_positive_empri_final_fits": null,
+      "r_warning_count": 0,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        203.474,
+        198.511,
+        202.341,
+        206.58,
+        208.757,
+        200.184,
+        208.992
+      ],
+      "median_seconds": 206.58,
+      "iqr_seconds": [
+        202.341,
+        208.757
+      ],
+      "mean_normalized_heldout_rmse": 1.0848377377303613
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "r_snow2",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 43,
+      "iteration_max": 50,
+      "native_pseudoinverse_uses": null,
+      "native_positive_empri_final_fits": null,
+      "r_warning_count": 0,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        178.01,
+        181.11,
+        180.69,
+        179.329,
+        174.512,
+        175.359,
+        174.678
+      ],
+      "median_seconds": 175.359,
+      "iqr_seconds": [
+        174.678,
+        179.329
+      ],
+      "mean_normalized_heldout_rmse": 1.0852767042852685
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cuda64",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 44,
+      "iteration_max": 52,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": 319183360,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        42.329227709000406,
+        42.489892042000065,
+        42.049474376000035,
+        44.54052984200007,
+        42.05463407499974,
+        41.71053876099995,
+        41.790529963000154
+      ],
+      "median_seconds": 42.049474376000035,
+      "iqr_seconds": [
+        41.790529963000154,
+        42.05463407499974
+      ],
+      "mean_normalized_heldout_rmse": 1.085062440976827
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu64",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 44,
+      "iteration_max": 52,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        78.64423277499918,
+        80.3412749930003,
+        79.95535528599976,
+        80.32594695700027,
+        80.66985982599999,
+        78.94233875699956,
+        80.42700595899987
+      ],
+      "median_seconds": 80.32594695700027,
+      "iqr_seconds": [
+        79.95535528599976,
+        80.42700595899987
+      ],
+      "mean_normalized_heldout_rmse": 1.085062440976827
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu32",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 44,
+      "iteration_max": 52,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": null,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        67.34652850800012,
+        68.14797823299978,
+        66.30186580600002,
+        68.9691439040007,
+        65.55027262899966,
+        64.5485902319997,
+        64.76622904899978
+      ],
+      "median_seconds": 65.55027262899966,
+      "iqr_seconds": [
+        64.76622904899978,
+        66.30186580600002
+      ],
+      "mean_normalized_heldout_rmse": 1.0850624269150404
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cuda32",
+      "calls": 7,
+      "fits": 35,
+      "iteration_min": 44,
+      "iteration_max": 52,
+      "native_pseudoinverse_uses": 0,
+      "native_positive_empri_final_fits": 0,
+      "r_warning_count": null,
+      "peak_cuda_allocated_bytes_max_including_warmups": 165269504,
+      "peak_ram_bytes": null,
+      "total_process_gpu_peak_bytes": null,
+      "wall_seconds_all_runs": [
+        37.54434116199991,
+        37.117632505000074,
+        37.06617976000052,
+        37.49959933599985,
+        37.46290602699992,
+        37.309348717999455,
+        37.36394523600029
+      ],
+      "median_seconds": 37.36394523600029,
+      "iqr_seconds": [
+        37.309348717999455,
+        37.46290602699992
+      ],
+      "mean_normalized_heldout_rmse": 1.0850622846007396
+    }
+  ],
+  "same_dtype_ratios": [
+    {
+      "dataset": "covertype",
+      "cpu64_median_over_cuda64_median": 1.5993214070373685,
+      "cpu32_median_over_cuda32_median": 1.6454551584341326
+    },
+    {
+      "dataset": "household_power",
+      "cpu64_median_over_cuda64_median": 1.2116033981448584,
+      "cpu32_median_over_cuda32_median": 1.7595186329639074
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "cpu64_median_over_cuda64_median": 1.9102723196665388,
+      "cpu32_median_over_cuda32_median": 1.7543723558892745
+    }
+  ]
+}

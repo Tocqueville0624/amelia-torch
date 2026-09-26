@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "activity": "Offline evidence packaging and review; no UI or fitting.",
+  "independent_review": {
+    "reviewer": "separate fidelity audit agent",
+    "checks": [
+      "18 configurations, 126 calls, 630 fits and complete quality/seed records",
+      "65 payload hashes match checkpoint manifest",
+      "12 native reports at clean 905cc79; 9 suite source hashes match pinned Git blobs",
+      "Actual two-thread serial/native and snow2 with one BLAS thread each",
+      "Finite private-path, host-field and common credential-pattern scan"
+    ],
+    "result": "passed"
+  },
+  "archive_roundtrip": {
+    "member_count": 66,
+    "payload_bytes_unchanged": true,
+    "tar_owner_names_empty": true,
+    "uid_gid_mtime_zero": true,
+    "documented_offline_auditor_exit_status": 0,
+    "reproduced_summary_byte_identical": true,
+    "auditor_sha256_matches_recorded": true
+  },
+  "plot_review": {
+    "observations": 18,
+    "same_dtype_ratios": 6,
+    "png_visually_reviewed": true,
+    "title_and_labels_readable": true,
+    "values_match_source_summary": true,
+    "pdf_and_png_valid": true,
+    "svg_available": false,
+    "svg_note": "Cairo SVG unavailable; base-R vector PDF generated successfully."
+  },
+  "privacy_scope": "Public text/JSON/CSV and every archive payload inspected for private user paths, host identifiers and common credential patterns. Finite scan; no claim to detect every possible secret.",
+  "failures_and_limits": [
+    "No additional numerical validation; G5 remains separate.",
+    "Native parameter NPZ files were excluded from the text checkpoint.",
+    "Pre-run explicit plan/per-process source-unchanged flags were not recorded by this historical suite."
+  ]
+}

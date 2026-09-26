@@ -1,0 +1,20 @@
+{
+  "algorithm": "SHA-256",
+  "base": "this directory",
+  "files": {
+    "README.md": "242c7724d75c3ee8f1609ab9911716b86685d346b99939f357dbef3e664ffc64",
+    "archive-index.json": "b50bdca6fd1e755e288d4ea4947da745dcbf491a23381d9fc579ff6dd7ec3536",
+    "audit-plan.json": "ea3d9307d3bf2fb94c60c21db760f704c7a83c698f44fcd8f348652b01f2e165",
+    "benchmark-summary.json": "d2f3841fbd264f1d66114ca9b97e3aa52ea463d2d6e756611eb7efec58824501",
+    "checkpoint-manifest.json": "92e7881f813517d44d98f621553a75b5bdd032df7f4297a23d9ef414e2411dab",
+    "cloud-native-records.tar.gz": "b14f55dfb5e94e4121239de19bef96392cdd7cd4d12fd6b90c68184e75abb70e",
+    "environment-summary.json": "ca5843383eccc241f7978a1d1b3165923c6314a3b6be0b6ea0e82e7a50199ef5",
+    "native-timings-metadata.json": "7c8d69be9e0b33b26df953c8a73c83c33d5ca39cca78bfc4fc05f3c60a9305ca",
+    "native-timings-plotted-data.csv": "2722a08d8a10e3aa0c56030c71b21c3bb3ee58179440aa8910119f26d7e92625",
+    "native-timings.pdf": "37e1308495b1fc98f174466c86228546e0113a81c1096615972af07d94a52e5a",
+    "native-timings.png": "55c1a600bf588b16e99f87fed3fba810861f2abebf4e596e0a91236793a27eca",
+    "packaging-verification.json": "abbe53280743517aafe8aa9eeb6daf4f0d3999ae7b44464854b767fd21c41ada",
+    "resource-and-count-audit.json": "b6b5fb9a41b90e72f3a9e581edb007ff11eda90b24f43b483d0aa6aba04982d9",
+    "source-transition.json": "c7159480b3d935e2ad7ce74b9ce1dc865c2ce06d8090abfc175386904e5801d7"
+  }
+}

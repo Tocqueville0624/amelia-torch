@@ -1,0 +1,9 @@
+{
+  "correctness_revision": "fa08a5207d197a3f82ced7913a67bc448c8ecacc",
+  "benchmark_revision": "905cc79ce20e65fe5b673039d4e411db73cd7544",
+  "core_source_unchanged": true,
+  "reason": "Observed two logical CPU cores; set serial/host threads=2, snow workers=2, one BLAS thread per snow worker before any benchmark",
+  "serial_threads": 2,
+  "snow_workers": 2,
+  "snow_worker_blas_threads": 1
+}

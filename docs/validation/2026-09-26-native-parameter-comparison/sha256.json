@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "scope": "Exact original bytes of two offline comparison JSON reports; gzip mtime=0. No parameter NPZ or prepared data files are included.",
+  "files": {
+    "original": {
+      "file": "comparison-original.json.gz",
+      "gzip_sha256": "20ff049a85e5c2edcbf559be01e7f05b041fd4629ce897b36d27b107b1f0d175",
+      "gzip_bytes": 9085,
+      "original_json_sha256": "0d38b4ef871c759727efef2bac71316f1bb08f910222286fce410c73d45cafe6",
+      "original_json_bytes": 48736,
+      "original_filename": "mac-first-measured-final.json"
+    },
+    "standardized": {
+      "file": "comparison-standardized.json.gz",
+      "gzip_sha256": "0642def7a0307874cb443bab91a2311a29997d3b0e1dc2dffddb48035c96321e",
+      "gzip_bytes": 34403,
+      "original_json_sha256": "6f0014a18d3e34035fa1adce5db36f2b54b0521766dd77f0614ad5d20740857e",
+      "original_json_bytes": 250799,
+      "original_filename": "mac-first-measured-standardized.json"
+    }
+  },
+  "old_per_imputation_fields_unchanged": true,
+  "same_nine_parameter_file_hashes": true,
+  "same_original_measurement_report_hashes": true,
+  "no_new_fitting": true
+}

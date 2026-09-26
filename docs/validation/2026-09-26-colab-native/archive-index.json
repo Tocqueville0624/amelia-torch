@@ -1,0 +1,22 @@
+{
+  "archive": "cloud-native-records.tar.gz",
+  "sha256": "b14f55dfb5e94e4121239de19bef96392cdd7cd4d12fd6b90c68184e75abb70e",
+  "bytes": 1068401,
+  "payload_files": 65,
+  "manifest_files": 1,
+  "archive_members": 66,
+  "all_65_payload_hashes_match_original_and_portable_manifest": true,
+  "archive_policy": "All checkpoint text/JSON/log payloads preserved byte for byte. Tar owner/group names removed; uid/gid/mtime fixed to zero; gzip filename empty and mtime zero.",
+  "excluded_by_upstream_checkpoint": [
+    "raw data and prepared NPZ/CSV matrices",
+    "RDS objects",
+    "native parameter NPZ files",
+    "installed libraries",
+    "credentials"
+  ],
+  "notes": [
+    "Parameter filenames in native reports name cloud-side artifacts not included in this text checkpoint.",
+    "Earlier setup and correctness records are retained at fa08a52; benchmark reports are at 905cc79.",
+    "No additional content redaction performed while packaging this already portable checkpoint."
+  ]
+}

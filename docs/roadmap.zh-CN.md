@@ -31,7 +31,7 @@
 - 核验驱动、显存、wheel 与实际 CUDA 算子；同机运行 R 串行/并行、PyTorch CPU 与 GPU。
 - Linux T4 的 CUDA float64/float32 固定正确性案例已分别验证，正式性能与统计验收仍在进行。Windows 无 CUDA 与 Linux CPU 已由三平台 hosted CPU CI 实际执行，Windows 包亦已用 Rtools 编译；不能替代所有系统配置的到机测试。云端 Linux CUDA 与 Windows CPU 的证据分开报告，不冒称 Windows GPU 已测试。
 - 2026-09-26 已从保存的 Colab notebook 恢复旧会话输出：149 项 Python、五组 R 及 CUDA32/64 native/hybrid 固定案例通过；Ruff 二进制缺失阻止了后续性能实验，旧 VM 临时 JSON 未保存。随后新 T4 会话已重新保存完整结构化记录，见下一项；恢复的旧输出只保留为历史证据。
-- 新 T4 会话已重新完成 15 步验证并保存完整 JSON/log：161 项 Python、七个 R 测试文件、下游示例与两个精度的 CUDA 固定案例均通过，见 [CUDA 记录](validation/2026-09-26-cuda/README.md)。同机两线程/两 worker 的三数据集性能套件正在运行，不能提前宣称速度结论。
+- 新 T4 会话已重新完成 15 步验证并保存完整 JSON/log：161 项 Python、七个 R 测试文件、下游示例与两个精度的 CUDA 固定案例均通过，见 [CUDA 记录](validation/2026-09-26-cuda/README.md)。同机两线程/两 worker 的 native/reference 套件已完成 18 配置、126 调用、630 插补并通过独立完整性与数值质量审计，见 [云端性能记录](validation/2026-09-26-colab-native/README.md)；完整 R hybrid 与 CUDA G5 仍在执行队列。native 速度结论不能替代 R 产品入口或统计质量验收。
 - `e2ff892` 三平台各通过 235 项 Python 测试、九个 R 测试文件及下游示例，见该版本的 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)。`ad9bed2` 的 Intel Mac x86_64 独立 wheel[reference] 安装及无 Torch 实际拟合、RDS 下游工作流通过，见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)；该 Intel 结果不覆盖 native Torch 或 GUI。
 - G5 [统计验证方案](validation/g5-prespecified/README.md) 已在正式扩展模拟前固定并提交：每路线 MCAR/MAR 各 200 份、压力 20 份，明确偏差、覆盖率、配对差与 Monte Carlo 区间门槛；CPU 小规模流程检查与 Mac 五路线正式执行均已完成，Mac MCAR 冻结统计界限未全部通过，CUDA 正式验证仍待完成。
 - Mac 五路线正式 G5 已完成 10,500 次拟合且独立审计通过，但 MCAR 的冻结统计界限未全部达到；MAR 与有界压力检查通过，详见 [MPS 统计报告](validation/2026-09-26-g5-mps/README.md)。保留原版 R 也未通过的绝对覆盖率界限，不改规则让结果变绿；新独立补充提案待用户选择，CUDA 原计划仍在排队。
