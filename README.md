@@ -6,9 +6,21 @@ An **unofficial, experimental** Python/PyTorch implementation of Amelia's bootst
 
 [![CPU checks](https://github.com/Tocqueville0624/amelia-torch/actions/workflows/tests.yml/badge.svg)](https://github.com/Tocqueville0624/amelia-torch/actions/workflows/tests.yml)
 
-[中文研究与结果](docs/validation/2026-09-23-development/README.md) · [项目技术导读](docs/project-walkthrough.zh-CN.md) · [Installation](docs/setup.zh-CN.md) · [Compatibility matrix](docs/amelia-compatibility.md) · [Algorithm contract](docs/algorithm-contract.md)
+[Initial results (Chinese)](docs/validation/2026-09-23-development/README.md) · [Project walkthrough (Chinese)](docs/project-walkthrough.zh-CN.md) · [Installation](docs/setup.zh-CN.md) · [Compatibility matrix](docs/amelia-compatibility.md) · [Algorithm contract](docs/algorithm-contract.md)
 
-**Current evidence summary:** [中文阶段总结](docs/validation/2026-09-27-evidence-summary.zh-CN.md). Further testing is paused at the user's request after Colab GPU quota exhaustion. Completed, partial and failed evidence remains available; no full-release claim is made.
+**Current evidence summary:** [Evidence summary (Chinese)](docs/validation/2026-09-27-evidence-summary.zh-CN.md). Further testing is paused after Colab GPU quota exhaustion. Completed, partial and failed evidence remains available; no full-release claim is made.
+
+## Why this project matters
+
+Multiple imputation can become a bottleneck when an analysis needs many completed datasets or repeated runs under different modeling assumptions. amelia-torch explores whether tensor libraries and GPUs can reduce that cost while preserving Amelia 1.8.3's statistical workflow.
+
+For academic researchers, especially social scientists, the goal is to make existing Amelia analyses easier to use across Python and R and, where possible, faster to repeat. That could lower the cost of sensitivity analyses and simulation studies. Preserving imputation uncertainty and the quality of downstream estimates is part of this goal. Faster execution is useful only when the results remain suitable for the research question.
+
+For data practitioners in industry, the Python/R interfaces provide an experimental way to bring Amelia into analyses that span both languages. The public datasets, benchmark scripts and validation records also provide a starting point for evaluating whether a hardware change saves time in a team's own workflow. Small jobs may benefit little once setup and data transfers are included. [Amelia already supports CPU parallelism](https://search.r-project.org/CRAN/refmans/Amelia/html/amelia.html), so a useful accelerator needs to earn its place against that baseline.
+
+The native continuous-data path shows one measurable gain: CUDA64 was **1.21–1.91× faster than CPU64** on the same T4 host across three 100,000-row inputs. The complete R path still needs work: all five saved hybrid CUDA configurations were slower than original R with two parallel workers. MPS was slower than the corresponding CPU route at float32 on the tested Mac workloads. These findings identify where further optimization needs to prove its value; [full statistical acceptance is also still pending](docs/release-gates.md).
+
+Future GPU work should start by profiling complete imputation calls, then investigating avoidable data transfers and opportunities to batch matrix operations while preserving Amelia's statistical and random-number semantics. The practical target is less time spent waiting for a usable set of imputations, including the Python/R interface costs. Any improvement will need comparison with parallel Amelia on the same machine, along with checks on inference quality. Broader missingness patterns and real social-science workflows remain important areas for future validation. This is a research direction, and additional experiments are currently paused.
 
 ## Choose an execution path
 
