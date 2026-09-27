@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "scope": "All files in this directory except this hash manifest. Nested cache files are excluded and not publication artifacts.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 10447,
+      "sha256": "15246c0cc934338708530f7891a53137fa6cdd634231e0e46670c9a92b0fed3c"
+    },
+    {
+      "path": "archive-index.json",
+      "bytes": 2387,
+      "sha256": "d10f2cee48df988db4bd099ba5ecf44b774ce2120f34533b55e88f768c478ea7"
+    },
+    {
+      "path": "collection-manifest.json",
+      "bytes": 6678,
+      "sha256": "5fea4e6967218b67cf4b2920a983ea36e3237de6a372fd0d7feb447d5a612a2d"
+    },
+    {
+      "path": "historical-ten-report-review.json",
+      "bytes": 21075,
+      "sha256": "97d565484629b69319c8ae048d9a9919c80ace3dedc0de8d2e6aa77031184f0d"
+    },
+    {
+      "path": "historical-year-cpu64-review.json",
+      "bytes": 3030,
+      "sha256": "3d64a5dc3262962e48f1a716c3a17c45977a94d71ee31cde480d258f23a9ffc9"
+    },
+    {
+      "path": "hybrid-eleven-raw-reports.tar.gz",
+      "bytes": 1504792,
+      "sha256": "2f5f823929b476436452d52393c3025d13d5fb55e191388de2200ae146ebcbdc"
+    },
+    {
+      "path": "interruption-observation.json",
+      "bytes": 1368,
+      "sha256": "664533f26b5e087a6d828b4135d72127590dfd7dea7e983eccc6231a6f43e950"
+    },
+    {
+      "path": "original-ten-ui-copy-manifest.json",
+      "bytes": 2471,
+      "sha256": "580728589ff47e3c65cc66c91f25b115f7f7f490cbda3aa75d94f587e46e6125"
+    },
+    {
+      "path": "packaging-verification.json",
+      "bytes": 671,
+      "sha256": "b0cefa41d929e90264bd409886849817cfb9277c1c47c73ac24b79e6b79d05fe"
+    },
+    {
+      "path": "partial-evidence-summary.json",
+      "bytes": 15023,
+      "sha256": "9edbce6d20458bc2b709f925039bc0f079bedb6d5baed6554de7a55df5753558"
+    },
+    {
+      "path": "privacy-review.json",
+      "bytes": 815,
+      "sha256": "80dca866f27c8a322455277e28177e2dd0b2d3b971f92afbce5c3d727d775942"
+    },
+    {
+      "path": "verify_reports.py",
+      "bytes": 13187,
+      "sha256": "94f0a1fdcf267ecf3e392818a590d0979c4fe9ec0fce9e1fbbcdb972775ac5a4"
+    }
+  ]
+}

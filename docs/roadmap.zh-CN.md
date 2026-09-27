@@ -26,15 +26,18 @@
 - Mac 同机已完成 R 串行/并行、PyTorch CPU/MPS 以及完整 R 混合入口比较，包含标准化、传输、随机补值、输出恢复与混合入口的 R 桥接开销。下一步在同一 CUDA 云主机复现。Python直接调用耗时不能冒充 R 端调用耗时。
 - 验收：误差与统计质量门槛通过，解释优势和弱势场景、收敛差异与内存限制，再据真实瓶颈决定缓存、批量计算与设备驻留优化。
 
-## M3：云端 CUDA 及跨平台验证（进行中）
+## M3：云端 CUDA 及跨平台验证（部分完成，新增测试已暂停）
+
+2026-09-27 用户因 Colab GPU 配额耗尽暂停测试，当前仅总结旧数据；不自动重连、购买算力或启动新增模拟。[阶段总结](validation/2026-09-27-evidence-summary.zh-CN.md)区分完整、部分和失败证据。
 
 - 核验驱动、显存、wheel 与实际 CUDA 算子；同机运行 R 串行/并行、PyTorch CPU 与 GPU。
 - Linux T4 的 CUDA float64/float32 固定正确性案例已分别验证，正式性能与统计验收仍在进行。Windows 无 CUDA 与 Linux CPU 已由三平台 hosted CPU CI 实际执行，Windows 包亦已用 Rtools 编译；不能替代所有系统配置的到机测试。云端 Linux CUDA 与 Windows CPU 的证据分开报告，不冒称 Windows GPU 已测试。
 - 2026-09-26 已从保存的 Colab notebook 恢复旧会话输出：149 项 Python、五组 R 及 CUDA32/64 native/hybrid 固定案例通过；Ruff 二进制缺失阻止了后续性能实验，旧 VM 临时 JSON 未保存。随后新 T4 会话已重新保存完整结构化记录，见下一项；恢复的旧输出只保留为历史证据。
-- 新 T4 会话已重新完成 15 步验证并保存完整 JSON/log：161 项 Python、七个 R 测试文件、下游示例与两个精度的 CUDA 固定案例均通过，见 [CUDA 记录](validation/2026-09-26-cuda/README.md)。同机两线程/两 worker 的 native/reference 套件已完成 18 配置、126 调用、630 插补并通过独立完整性与数值质量审计，见 [云端性能记录](validation/2026-09-26-colab-native/README.md)；完整 R hybrid 与 CUDA G5 仍在执行队列。native 速度结论不能替代 R 产品入口或统计质量验收。
+- T4 会话已完成 15 步验证并保存完整 JSON/log：161 项 Python、七个 R 测试文件、下游示例与两个精度的 CUDA 固定案例均通过，见 [CUDA 记录](validation/2026-09-26-cuda/README.md)。同机两线程/两 worker 的 native/reference 套件已完成 18 配置、126 调用、630 插补并通过独立审计，见 [云端性能记录](validation/2026-09-26-colab-native/README.md)。该 VM 后来丢失，仅回收 hybrid 11/12 配置的 77 调用，Year CUDA32 结果未知；[部分记录](validation/2026-09-26-colab-hybrid-partial/README.md)明确五组 CUDA 均慢于原版 snow2，不称完整套件通过。替代 T4 未完成检查，现已暂停，不把两次 VM 拼成同机性能实验。native 速度结论不能替代 R 产品入口或统计质量验收。
 - `e2ff892` 三平台各通过 235 项 Python 测试、九个 R 测试文件及下游示例，见该版本的 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)。`ad9bed2` 的 Intel Mac x86_64 独立 wheel[reference] 安装及无 Torch 实际拟合、RDS 下游工作流通过，见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)；该 Intel 结果不覆盖 native Torch 或 GUI。
 - G5 [统计验证方案](validation/g5-prespecified/README.md) 已在正式扩展模拟前固定并提交：每路线 MCAR/MAR 各 200 份、压力 20 份，明确偏差、覆盖率、配对差与 Monte Carlo 区间门槛；CPU 小规模流程检查与 Mac 五路线正式执行均已完成，Mac MCAR 冻结统计界限未全部通过，CUDA 正式验证仍待完成。
-- Mac 五路线正式 G5 已完成 10,500 次拟合且独立审计通过，但 MCAR 的冻结统计界限未全部达到；MAR 与有界压力检查通过，详见 [MPS 统计报告](validation/2026-09-26-g5-mps/README.md)。保留原版 R 也未通过的绝对覆盖率界限，不改规则让结果变绿；新独立补充提案待用户选择，CUDA 原计划仍在排队。
+- Mac 五路线正式 G5 已完成 10,500 次拟合且独立审计通过，但 MCAR 的冻结统计界限未全部达到；MAR 与有界压力检查通过，详见 [MPS 统计报告](validation/2026-09-26-g5-mps/README.md)。保留原版 R 也未通过的绝对覆盖率界限，不改规则让结果变绿；新独立补充提案待用户选择，CUDA 原计划现已暂停。
+- 替代 VM 的安装重试通过，但验证止于临时 venv 无 NumPy：306 项通过、1项失败，后续九个 R 文件、新 CUDA 边界和 G5 没有执行。七个 checkpoint、54份文本和配额提示已保存，见[重启与暂停记录](validation/2026-09-27-colab-recovery/README.md)。安装器的自动 R 版本保护仍需修复验收。
 - 最新 `ef729c0` 三平台各 307 项 Python、九个 R 文件和下游示例通过，见 [新增 CI 证据](validation/2026-09-26-ci/cross-platform-ci-ef729c0.json)。中断记录保护未改拟合/随机种子/计时范围；已测版本与旧报告保持不变。
 - 保存完整结果、配置与绘图脚本，做可重复的端到端演示；[两种调用流程的 Mac 性能图](validation/2026-09-26-performance-figures/README.md)直接使用既有审计摘要，没有重测。
 - 验收：明确是否加速、在哪些配置加速、超过哪个基线；负面结果也保留。

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "scope": "Finite pattern review of public text files and all eleven raw JSON archive members before publication.",
+  "text_items_scanned": 20,
+  "raw_report_members_scanned": 11,
+  "pattern_classes": [
+    "private_user_paths",
+    "machine_identity_fields",
+    "common_credentials"
+  ],
+  "matches": [],
+  "raw_reports_redacted_or_rewritten": false,
+  "archive_container_metadata_normalized": true,
+  "source_attribution": "Public GitHub repository/source paths and benchmark dataset identifiers are intentionally retained. Root session observations are recorded without private account or host identifiers.",
+  "limits": "This finite scan does not certify absence of every possible secret or identifier. No RDS, installed libraries, full datasets, or lost raw UI logs are included."
+}

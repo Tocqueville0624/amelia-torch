@@ -12,7 +12,7 @@ sys.path.insert(0, str(SCRIPTS))
 SPEC = importlib.util.spec_from_file_location("inference_summary", SCRIPTS / "summarize_inference_suite.py")
 summary = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(summary)
-from validate_inference import pool_scalar
+pool_scalar = importlib.import_module("validate_inference").pool_scalar
 
 sys.path.remove(str(SCRIPTS))
 GATES = json.loads((SCRIPTS.parent / "docs/validation/g5-prespecified/protocol.json").read_text())["gates"]

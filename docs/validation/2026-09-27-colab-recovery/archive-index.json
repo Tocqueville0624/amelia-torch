@@ -1,0 +1,272 @@
+[
+  {
+    "path": "bootstrap-plan-20260927T015122Z-15e039/checkpoint-manifest.json",
+    "bytes": 1181,
+    "sha256": "f233b0103e5355ea9413b09a358850a8424be3528919624d15d5efeff086728a"
+  },
+  {
+    "path": "bootstrap-plan-20260927T015122Z-15e039/data/manifest.json",
+    "bytes": 8456,
+    "sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+  },
+  {
+    "path": "bootstrap-plan-20260927T015122Z-15e039/results/local/cloud/bootstrap-plan/00.log",
+    "bytes": 1007,
+    "sha256": "e778409c09123c96c0d1a7884534b64cb650a2b681ca8044020ca7d61327fd64"
+  },
+  {
+    "path": "bootstrap-plan-20260927T015122Z-15e039/results/local/cloud/bootstrap-plan/notebook-stage.json",
+    "bytes": 331,
+    "sha256": "b986922fcf6f3ff0b00ef08b376ff2460ced6a8081d957232211065c357d3ea0"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/checkpoint-manifest.json",
+    "bytes": 3930,
+    "sha256": "a8cb25fa96d563fa589a4ed97949cd78e6a8a27f9b8e35cb32ab23e7119e05a1"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/data/manifest.json",
+    "bytes": 8456,
+    "sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/00.log",
+    "bytes": 24978,
+    "sha256": "1cb6da0a0b6c40657a0071563fba93b015a41c0226db806617837437afaa3085"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/apt_install.log",
+    "bytes": 7761,
+    "sha256": "ff6bf3a924fa29a35b19c8e8ea6d32040e5d4a8dbaac9ad46866d59ee02ac2f9"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/apt_update.log",
+    "bytes": 772,
+    "sha256": "58d1b9634e17bd0ea1aa9b7bd83dc7dc1f6a2b0e293f0014298a971c26ef406e"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/bootstrap.json",
+    "bytes": 48079,
+    "sha256": "172d41db9922e8a4ca81cfe08fce5134db341d1afbff82d9ff3f04680b65c444"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/python_install.log",
+    "bytes": 2967,
+    "sha256": "5e93763446319f13c8ff1c0f83c5e4d5a060b408be9511a6ff11416ba6e8470a"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/r_reference_install.log",
+    "bytes": 11185,
+    "sha256": "1c91a30571c7eb3ec701c57586221b13d1f4b9380a428d9baeef2743dfdfcc88"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/ruff_probe.log",
+    "bytes": 696,
+    "sha256": "40b590deb0215fc30c60582516c9a2d959d83cc2ea72ed543d07e6e355c07b72"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/ruff_venv_reinstall.log",
+    "bytes": 441,
+    "sha256": "35465edadb0d6b044a048ebb834c538317cb3ad3645ea0d6e6236ee2d2f5485e"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/ruff_verify.log",
+    "bytes": 12,
+    "sha256": "fb450f699de68876c6eeb656aed34a3cfa7fbe0157b8f5092990c83e511bf9e5"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/uv_fallback_install.log",
+    "bytes": 437,
+    "sha256": "bb15679f264309e973d4afa671bd151b74472ee8ec666fd21f800a4ea90d5ff4"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/installation/uv_fallback_venv.log",
+    "bytes": 330,
+    "sha256": "d57a5f39a125db9aa4941720de8aa9a387f8fc4755d694d38b5337288ec002a4"
+  },
+  {
+    "path": "bootstrap-20260927T015331Z-2b5e5c/results/local/cloud/bootstrap/notebook-stage.json",
+    "bytes": 539,
+    "sha256": "8adf87c49d38258c6d4fadfdb44b103373072d5cbdf0ba775814a0f1a68f3b90"
+  },
+  {
+    "path": "r-baseline-repair-20260927T015707Z-e6b7dc/checkpoint-manifest.json",
+    "bytes": 1726,
+    "sha256": "e842fe6642f1afc6df42f4710bb5bed1202aefb32c7869741b73ff0fb01c0e29"
+  },
+  {
+    "path": "r-baseline-repair-20260927T015707Z-e6b7dc/data/manifest.json",
+    "bytes": 8456,
+    "sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+  },
+  {
+    "path": "r-baseline-repair-20260927T015707Z-e6b7dc/results/local/cloud/r-baseline-repair/apt-plan.log",
+    "bytes": 1132,
+    "sha256": "a15e53a12a82961d580ef4b5087f1fd2c2e1d5add2733e1a1cf2d71cdffc7c23"
+  },
+  {
+    "path": "r-baseline-repair-20260927T015707Z-e6b7dc/results/local/cloud/r-baseline-repair/execution.json",
+    "bytes": 349,
+    "sha256": "bc70074393790b055c055d0d608fe9ce21b31fa047543c9736d3d421ed31e438"
+  },
+  {
+    "path": "r-baseline-repair-20260927T015707Z-e6b7dc/results/local/cloud/r-baseline-repair/restore.log",
+    "bytes": 3035,
+    "sha256": "15ae1fbdb0a6cc6495ec7a7ed74eb3deca26527ef566d225c7937a511b9ca5eb"
+  },
+  {
+    "path": "r-baseline-repair-20260927T015707Z-e6b7dc/results/local/cloud/r-baseline-repair/restored.json",
+    "bytes": 174,
+    "sha256": "e8bf755a27fd625e00620b4f59e2ef2def0b8687fb408360feaa96c19b12a4c2"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/checkpoint-manifest.json",
+    "bytes": 3166,
+    "sha256": "15360d90350b86d0c9a98b2173a475d77468e2a6caa70e750ef05776fd9d8886"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/data/manifest.json",
+    "bytes": 8456,
+    "sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/00.log",
+    "bytes": 18633,
+    "sha256": "d432a169a374cc929f6df97901386185246295b732baad13680ed2f9f379c0df"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/installation/bootstrap.json",
+    "bytes": 51223,
+    "sha256": "4856bbb33357e92ff6a77ef1a7a728e155b1484088ea84a209ac3a23040d53c6"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/installation/python-packages.json",
+    "bytes": 33233,
+    "sha256": "8e3f8c0559fed10dfa16610d9b50b2c757b50520302b911aa9ea1ae8b33643f1"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/installation/python_install.log",
+    "bytes": 3155,
+    "sha256": "5d4d9303bd709b35c824a96c405f009edc20a476f70aa8090d649bcd51d382b0"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/installation/r_bridge_install.log",
+    "bytes": 1109,
+    "sha256": "f6f75c9e26535d7f8d92cb0b28c52664dd6a91eb54c618a890cac53ea773b9ea"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/installation/r_reference_install.log",
+    "bytes": 14108,
+    "sha256": "13675917a7cc4c51be2027efb4a10206a9dff6bd1517753ed6e48b4e800d881f"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/installation/r_setup_check.log",
+    "bytes": 49,
+    "sha256": "5c07748b8cd763d686272c57495d3de0ff264c3c1223f6ab11d1426bdfd8cb0a"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/installation/ruff_probe.log",
+    "bytes": 12,
+    "sha256": "fb450f699de68876c6eeb656aed34a3cfa7fbe0157b8f5092990c83e511bf9e5"
+  },
+  {
+    "path": "bootstrap-retry-20260927T015939Z-d0adf2/results/local/cloud/bootstrap-retry/notebook-stage.json",
+    "bytes": 447,
+    "sha256": "419ec41207080f9351f770768680cfe81cbc1a5679b8767098d087e4a354e7dd"
+  },
+  {
+    "path": "validation-20260927T020023Z-520aa7/checkpoint-manifest.json",
+    "bytes": 1933,
+    "sha256": "271529014512784a35032210f38b484784c18f297da9b94551ecd6e61a0008b0"
+  },
+  {
+    "path": "validation-20260927T020023Z-520aa7/data/manifest.json",
+    "bytes": 8456,
+    "sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+  },
+  {
+    "path": "validation-20260927T020023Z-520aa7/results/local/cloud/validation/00.log",
+    "bytes": 4254,
+    "sha256": "a41ea4c0f293b157397a977add39043dd7ce6b4212225d98cf70a3768dd9d106"
+  },
+  {
+    "path": "validation-20260927T020023Z-520aa7/results/local/cloud/validation/01.log",
+    "bytes": 12,
+    "sha256": "fb450f699de68876c6eeb656aed34a3cfa7fbe0157b8f5092990c83e511bf9e5"
+  },
+  {
+    "path": "validation-20260927T020023Z-520aa7/results/local/cloud/validation/02.log",
+    "bytes": 340,
+    "sha256": "dcb13b4b9410a8f5d64a380f197529bcb43da06a976d4239632c5cd019e8d983"
+  },
+  {
+    "path": "validation-20260927T020023Z-520aa7/results/local/cloud/validation/cuda-probe.json",
+    "bytes": 4254,
+    "sha256": "a41ea4c0f293b157397a977add39043dd7ce6b4212225d98cf70a3768dd9d106"
+  },
+  {
+    "path": "validation-20260927T020023Z-520aa7/results/local/cloud/validation/notebook-stage.json",
+    "bytes": 934,
+    "sha256": "b4e88e858cb3fbe1c9a5797703f5b6655b0ba22e211e52b9936589298709d176"
+  },
+  {
+    "path": "ruff-alignment-20260927T020246Z-bec300/checkpoint-manifest.json",
+    "bytes": 1183,
+    "sha256": "f7595d6a52452aef48dbc05c42e05068ab526660301f18d1d3ac543b655af287"
+  },
+  {
+    "path": "ruff-alignment-20260927T020246Z-bec300/data/manifest.json",
+    "bytes": 8456,
+    "sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+  },
+  {
+    "path": "ruff-alignment-20260927T020246Z-bec300/results/local/cloud/ruff-alignment/installation.log",
+    "bytes": 440,
+    "sha256": "4b208461ae7627884793ab5d7d7ede852960f860ea27cdc309df54793783d895"
+  },
+  {
+    "path": "ruff-alignment-20260927T020246Z-bec300/results/local/cloud/ruff-alignment/record.json",
+    "bytes": 210,
+    "sha256": "a5fe838603d9f7349a93946569fb78083d7775be444892b56fdf32e702b9bbc6"
+  },
+  {
+    "path": "validation-retry-20260927T020449Z-796515/checkpoint-manifest.json",
+    "bytes": 2234,
+    "sha256": "6452cf93cb2e627573b1b91a285343e44d9710197b66d956d66c6e4c49c35c31"
+  },
+  {
+    "path": "validation-retry-20260927T020449Z-796515/data/manifest.json",
+    "bytes": 8456,
+    "sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+  },
+  {
+    "path": "validation-retry-20260927T020449Z-796515/results/local/cloud/validation-retry/00.log",
+    "bytes": 4254,
+    "sha256": "86ed9bae86a3bbe4e06bf449bd8764d2660e63ade03d464c054c9b18903c17ea"
+  },
+  {
+    "path": "validation-retry-20260927T020449Z-796515/results/local/cloud/validation-retry/01.log",
+    "bytes": 12,
+    "sha256": "4d620c5f88d2afe67c2e2fad91b73fa95dd793ad830b5da5377036107fee6507"
+  },
+  {
+    "path": "validation-retry-20260927T020449Z-796515/results/local/cloud/validation-retry/02.log",
+    "bytes": 19,
+    "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  {
+    "path": "validation-retry-20260927T020449Z-796515/results/local/cloud/validation-retry/03.log",
+    "bytes": 7782,
+    "sha256": "32585115c81a716ba8af219ebe3a52e21f5b07743a0ecde579737352469ee42e"
+  },
+  {
+    "path": "validation-retry-20260927T020449Z-796515/results/local/cloud/validation-retry/cuda-probe.json",
+    "bytes": 4254,
+    "sha256": "86ed9bae86a3bbe4e06bf449bd8764d2660e63ade03d464c054c9b18903c17ea"
+  },
+  {
+    "path": "validation-retry-20260927T020449Z-796515/results/local/cloud/validation-retry/notebook-stage.json",
+    "bytes": 1141,
+    "sha256": "e2f05634cf6a6ff8bb85f3df0d99b6051e19b849c427df463df210e1fb86fbdf"
+  }
+]

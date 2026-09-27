@@ -51,8 +51,18 @@ installation, the Python suite and nine R test files, CUDA correctness checks, t
 native and R hybrid benchmarks, frozen G5 smoke/formal inference checks,
 independent audits, and checkpoint/download recovery. **The template has only
 received static JSON/structure, Python syntax and Ruff checks, plus a local subprocess
-interruption check using a sleeping child; it has not been run end-to-end in
-Colab.** Its code cells have no saved outputs or execution counts.
+interruption check using a sleeping child; it has not completed an end-to-end
+Colab run.** Its code cells have no saved outputs or execution counts.
+
+A later attempt executed selected installation/validation cells and exposed
+environment problems: system package installation upgraded preinstalled R while
+shared R extensions remained incompatible, and a nested test venv could not find
+shared NumPy. The repaired environment stopped with 306 Python tests passing and
+one failing; later R/CUDA/G5 stages did not run. Read the
+[actual failure and recovery record](../docs/validation/2026-09-27-colab-recovery/README.md)
+before reuse. Further testing is currently paused at the user's request. The
+automatic system-package guard is not yet a validated fix; do not treat this
+template as a fully verified installer or rerun its installation stage blindly.
 
 The checkout is pinned to `ef729c093e162f4d6ebd797c95a9da8072ac968a`, which differs
 from the historical `905cc79` cloud timing version. Use free GPU access with

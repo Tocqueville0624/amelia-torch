@@ -1,0 +1,77 @@
+{
+  "scope": "Provisional read-only Colab standalone JSON previews, ten completed configurations. Not a full suite checkpoint or full suite audit. File reads occurred while Year CPU64 was running; background load not fully isolated.",
+  "bundle_sha256": "d2c880aaf2fd3e92cf60858431ee7858cecd8d5a4314fe63e04d3d630b671475",
+  "bundle_bytes": 2694468,
+  "files": [
+    {
+      "name": "year_prediction_msd-cpu32.json",
+      "bytes": 1131136,
+      "sha256": "9c20931c55ca14e2174bd067410641b0d0323e4bfb8208903611bf4f79689d0b",
+      "runs": 7,
+      "median_seconds": 231.786
+    },
+    {
+      "name": "year_prediction_msd-cuda64.json",
+      "bytes": 1131013,
+      "sha256": "e6830ecab59d88843e3d28d1508ed035ad2984346a386c1c8cb2af42911aa508",
+      "runs": 7,
+      "median_seconds": 178.274
+    },
+    {
+      "name": "covertype-cpu64.json",
+      "bytes": 53458,
+      "sha256": "ba0fa83c98d7d78b3b7e2d58d5f252259d8b098734a3d469aff2c016b56ebd79",
+      "runs": 7,
+      "median_seconds": 32.198
+    },
+    {
+      "name": "covertype-cuda32.json",
+      "bytes": 53543,
+      "sha256": "90b3796ca70338ad68845633b6010b988c12c8d66227f8b71de074d78388aac7",
+      "runs": 7,
+      "median_seconds": 23.366
+    },
+    {
+      "name": "covertype-cuda64.json",
+      "bytes": 53549,
+      "sha256": "cd8ebf4ddb2d8d224cd54292c9ffe9ab43718d19ee8945e7406969fb8040f2e4",
+      "runs": 7,
+      "median_seconds": 24.776
+    },
+    {
+      "name": "household_power-cpu32.json",
+      "bytes": 45654,
+      "sha256": "de0b47b38ef1a77ba3f55b0daa62ece7ace0b04650956d236196a1e17bef20fb",
+      "runs": 7,
+      "median_seconds": 19.63
+    },
+    {
+      "name": "household_power-cpu64.json",
+      "bytes": 45637,
+      "sha256": "79153d6ed9a58ee108e068aab942b862b83765fba7b446c2973e0c6976d559ed",
+      "runs": 7,
+      "median_seconds": 21.808
+    },
+    {
+      "name": "household_power-cuda32.json",
+      "bytes": 45749,
+      "sha256": "ac2130505e4756e2941bd94e5acb5c9f8eee86b4b6072467132dd6ad9725c124",
+      "runs": 7,
+      "median_seconds": 15.323
+    },
+    {
+      "name": "household_power-cuda64.json",
+      "bytes": 45730,
+      "sha256": "07cad719afb357dd8a63217acc4e21ac77c283cd4957e15baa8a624a9b342da5",
+      "runs": 7,
+      "median_seconds": 16.782
+    },
+    {
+      "name": "covertype-cpu32.json",
+      "bytes": 53467,
+      "sha256": "83e046a61a2c8b4ac19f50419d3d7183cd9f28eca232b0fc8b68123b3b93d883",
+      "runs": 7,
+      "median_seconds": 31.744
+    }
+  ]
+}

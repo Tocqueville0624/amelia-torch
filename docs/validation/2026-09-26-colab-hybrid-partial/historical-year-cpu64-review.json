@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "status": "provisional_single_report_checked_11th_configuration_not_full_suite_audit",
+  "source_file": "year_prediction_msd-cpu64.json",
+  "raw_recovery_file": "cloud-hybrid-year-cpu64-live-20260926.txt",
+  "bytes": 1130863,
+  "sha256": "69f6433169c5bdac1aae206c86513ff9a1f8333f08536ddf35c97813e954ac90",
+  "copied_file_byte_identical_to_raw_recovery": true,
+  "covered_by_previous_ten_config_bundle": false,
+  "benchmark_revision": "905cc79ce20e65fe5b673039d4e411db73cd7544",
+  "completed_utc_recorded": "2026-09-27 01:20:21 UTC",
+  "checks": {
+    "source_hashes_matching_pinned_git": 16,
+    "same_provenance_as_CUDA64_and_input_npz_matches_prepared_metadata": true,
+    "installed_R_bridge_fingerprints_equal_CUDA64": true,
+    "valid_calls": 7,
+    "warmup_calls": 2,
+    "measured_calls": 5,
+    "converged_fits": 35,
+    "same_seed_iterations_matching_R_serial": 35,
+    "same_seed_iterations_matching_hybrid_CUDA64": 35,
+    "iteration_range": [
+      43,
+      51
+    ],
+    "patterns_per_fit": 8,
+    "pseudoinverse_uses": 0,
+    "positive_empri_final_fits": 0,
+    "warnings": 0,
+    "errors": 0,
+    "observed_values_preserved": true,
+    "missing_nonfinite_unscored_cells": 0,
+    "torch_threads": 2,
+    "requested_venv_confirmed": true,
+    "backend": "cpu/float64",
+    "gpu_used": false
+  },
+  "RNG": {
+    "kind": [
+      "L'Ecuyer-CMRG",
+      "Inversion",
+      "Rejection"
+    ],
+    "phase_seed_sequences_match_R_and_CUDA64": true,
+    "full_C_internal_and_visible_seed_state": "Not captured by this report; no new RNG-state-equivalence claim."
+  },
+  "timing": {
+    "median_seconds": 250.898,
+    "iqr_seconds": [
+      247.378,
+      251.015
+    ],
+    "sum_seven_calls_seconds": 1758.566,
+    "sum_seven_calls_minutes": 29.309433333333335,
+    "CUDA64_median_seconds": 178.274,
+    "hybrid_CPU64_median_divided_by_hybrid_CUDA64_median": 1.4073729203361118,
+    "ratio_scope": "Same host and full R hybrid product route, same dtype; ratio of medians, not a confidence interval. Read-only previews occurred during CPU64 timing; background load not isolated.",
+    "R_serial_median_seconds": 206.58
+  },
+  "memory": {
+    "peak_cuda_allocated_bytes": null,
+    "peak_ram_bytes": null,
+    "note": "CPU method: no CUDA allocation value; host peak RAM not measured. Null is not zero."
+  },
+  "descriptive_paired_numeric_checks": {
+    "max_abs_normalized_RMSE_difference_vs_R_serial": 0.0,
+    "max_abs_normalized_RMSE_difference_vs_hybrid_CUDA64": 9.992007221626409e-15,
+    "statistical_equivalence_claim": false
+  },
+  "pending": [
+    "12th Year hybridCUDA32 report",
+    "Full checkpoint/suite plan, order, per-process exit status and source-before/after audit",
+    "Separate G5 quality gate"
+  ],
+  "publication_state": "Ignored local provisional check only; no change to ten-config bundle or public evidence.",
+  "load_caveat": "Read-only Colab file previews during Year CPU64; no concurrent fitting or source edits by review agents; background load not fully isolated."
+}

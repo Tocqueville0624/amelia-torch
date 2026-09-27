@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "kind": "retrospective_local_collection_not_cloud_checkpoint",
+  "scope": "Eleven recovered complete report files; one planned Year CUDA32 configuration unavailable. No suite, process-exit or source-before/after records synthesized.",
+  "measurement_revision": "905cc79ce20e65fe5b673039d4e411db73cd7544",
+  "report_count": 11,
+  "missing_configuration": {
+    "dataset": "year_prediction_msd",
+    "method": "cuda32",
+    "outcome": "unknown"
+  },
+  "archive": {
+    "filename": "hybrid-eleven-raw-reports.tar.gz",
+    "bytes": 1504792,
+    "sha256": "2f5f823929b476436452d52393c3025d13d5fb55e191388de2200ae146ebcbdc"
+  },
+  "files": [
+    {
+      "archive_path": "reports/covertype-cpu32.json",
+      "bytes": 53467,
+      "sha256": "83e046a61a2c8b4ac19f50419d3d7183cd9f28eca232b0fc8b68123b3b93d883",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/covertype-cpu64.json",
+      "bytes": 53458,
+      "sha256": "ba0fa83c98d7d78b3b7e2d58d5f252259d8b098734a3d469aff2c016b56ebd79",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/covertype-cuda32.json",
+      "bytes": 53543,
+      "sha256": "90b3796ca70338ad68845633b6010b988c12c8d66227f8b71de074d78388aac7",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/covertype-cuda64.json",
+      "bytes": 53549,
+      "sha256": "cd8ebf4ddb2d8d224cd54292c9ffe9ab43718d19ee8945e7406969fb8040f2e4",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/household_power-cpu32.json",
+      "bytes": 45654,
+      "sha256": "de0b47b38ef1a77ba3f55b0daa62ece7ace0b04650956d236196a1e17bef20fb",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/household_power-cpu64.json",
+      "bytes": 45637,
+      "sha256": "79153d6ed9a58ee108e068aab942b862b83765fba7b446c2973e0c6976d559ed",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/household_power-cuda32.json",
+      "bytes": 45749,
+      "sha256": "ac2130505e4756e2941bd94e5acb5c9f8eee86b4b6072467132dd6ad9725c124",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/household_power-cuda64.json",
+      "bytes": 45730,
+      "sha256": "07cad719afb357dd8a63217acc4e21ac77c283cd4957e15baa8a624a9b342da5",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/year_prediction_msd-cpu32.json",
+      "bytes": 1131136,
+      "sha256": "9c20931c55ca14e2174bd067410641b0d0323e4bfb8208903611bf4f79689d0b",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/year_prediction_msd-cpu64.json",
+      "bytes": 1130863,
+      "sha256": "69f6433169c5bdac1aae206c86513ff9a1f8333f08536ddf35c97813e954ac90",
+      "collection_batch": "separate_year_cpu64_ui_copy",
+      "original_bytes_preserved": true
+    },
+    {
+      "archive_path": "reports/year_prediction_msd-cuda64.json",
+      "bytes": 1131013,
+      "sha256": "e6830ecab59d88843e3d28d1508ed035ad2984346a386c1c8cb2af42911aa508",
+      "collection_batch": "ten_config_ui_bundle",
+      "original_bytes_preserved": true
+    }
+  ],
+  "collection_sources": {
+    "ten_config_ui_bundle": {
+      "source": "root read-only standalone Colab report previews",
+      "filename": "partial-hybrid-ten-configs-20260926.txt",
+      "bytes": 2694468,
+      "sha256": "d2c880aaf2fd3e92cf60858431ee7858cecd8d5a4314fe63e04d3d630b671475",
+      "covers_separate_year_cpu64": false
+    },
+    "separate_year_cpu64_ui_copy": {
+      "source": "root read-only standalone Colab report preview",
+      "filename": "cloud-hybrid-year-cpu64-live-20260926.txt",
+      "bytes": 1130863,
+      "sha256": "69f6433169c5bdac1aae206c86513ff9a1f8333f08536ddf35c97813e954ac90"
+    }
+  },
+  "source_sha256_matching_pinned_git": {
+    "src/amelia_torch/__init__.py": "b268c56890218a31dca7f57894a852f51016b23d01ad2caca9755a78cf1a2734",
+    "src/amelia_torch/api.py": "29d5701a2ef107bba5dc14f1f836289e804f5fe19d1246e47c8b26973b3f0db2",
+    "src/amelia_torch/backends.py": "14ae3f26b081d26faa7e040a24910db1f3c310f85218202b3d4cc224bab52542",
+    "src/amelia_torch/diagnostics.py": "68f26f34edc6ecf1258518ea569248ef2ff9b2fb54bd82dc0fb1f8fb8aa90691",
+    "src/amelia_torch/em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d",
+    "src/amelia_torch/imputation.py": "723ad352a769f1fc0f73818f2b629f0b78088a9168119f852575ff38d6fb5cd2",
+    "src/amelia_torch/reference.py": "5e8107909eaf366189a171624703fb70557f53ef5d117b618d4d52dc12278070",
+    "r-package/R/amelia.R": "c3fd8ff065e31113bab6ddcaf09457373061db335361bb4c83b1db32ead3b234",
+    "r-package/R/compatibility.R": "8771e41249fb2dd0802003091eb8c423f4e4d60956ca9a8ca206bb1cb577d4ec",
+    "r-package/R/environment.R": "7556c729dbd8fafc83503226f5b29dfa5703d6fb62b4591c39708b25c34b8c08",
+    "r-package/R/torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+    "r-package/src/rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+    "r-package/DESCRIPTION": "6b74f0fa21ac630806e2f5c6404e23a64e3f5c8f67904fabc52a9a03f0e69a34",
+    "r-package/NAMESPACE": "26261a11e094828bcb1cde6e93e090501469a618a39f4bb4d9fa41383396fc05",
+    "scripts/benchmark_hybrid.R": "988d4068f51c4d122fc0463737be88f45f8d8960d8d005d0020a8a9eba8f5b03",
+    "scripts/run_hybrid_suite.py": "774c6f17faa8fabd8b9981ac47359dfd404c4ddf9650f5ec92f1db205f491953"
+  },
+  "source_check": "All 16 fingerprints matched pinned Git blobs locally; this does not replace lost per-process before/after checks.",
+  "native_baseline_archive": {
+    "path": "../2026-09-26-colab-native/cloud-native-records.tar.gz",
+    "bytes": 1068401,
+    "sha256": "b14f55dfb5e94e4121239de19bef96392cdd7cd4d12fd6b90c68184e75abb70e"
+  },
+  "same_host_evidence": "Root attests the native and hybrid measurements ran in the same original Colab runtime, with separately recorded environment metadata; no private host identifier is published.",
+  "files_not_recovered": [
+    "hybrid suite.json",
+    "last Year CUDA32 report",
+    "hybrid config and process log files",
+    "prepared CSV inputs and full completed matrices"
+  ],
+  "no_full_suite_claim": true
+}

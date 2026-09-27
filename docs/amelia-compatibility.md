@@ -2,6 +2,8 @@
 
 最后审计：2026-09-26；G1–G4 有界功能、G7 产品计时与历史 Mac 基准已更新。以下将**官方参考**、**正在开发的 native PyTorch 路径**、**开发中的 R 过渡兼容路径**分开。固定算法契约见 [algorithm-contract.md](algorithm-contract.md)。用户已明确：**完整兼容验收后才算首版**。本项目暂不是 Amelia 全 API 的替代品；“已有 fixture”“代码已写”和“验证通过”不能混用。
 
+2026-09-27 状态补充：用户因云端配额暂停新增测试；部分性能和重启失败均已归档，见[现有证据总结](validation/2026-09-27-evidence-summary.zh-CN.md)。下表尚缺的 CUDA/统计验收继续保持未完成。
+
 目前可调用 `amelia_torch.amelia()` 完成连续数值数据的标准化、bootstrap、EM、随机补值及原始尺度恢复；Mac CPU float64 的 R 参考样例对照和 R 源码接口测试已通过。MPS float32 已通过三个小型 EM 参考样例及三个 R 公共组合案例，三组 10 万行数值子集的 native/hybrid 性能也已实测；本机结果均未显示 MPS 相对同精度 CPU 的加速。这些证据不足以证明完整统计推断等价。开发验证记录汇总至 [2026-09-23 development](validation/2026-09-23-development/README.md)。
 
 用户已允许明确标注依赖与CPU工作的 R 过渡路径。当前已有三个 R 入口：已通过已安装包CPU测试的 native `amelia_torch()`；原封调用官方 Amelia 1.8.3、已通过逐值输出及R RNG对照的 `amelia_compat(engine="reference")`；保留原版流程、在私有环境替换 EM 的实验性 `amelia_torch_compat()`。后者已通过下表所列代表性CPU组合案例，完整边界尚未验收。下表最后一列指实验性 Torch 兼容路径，**不把官方CPU委托当作GPU实现**。Python到R参考桥另行验证。详见 [R interface](r-interface.md)。
@@ -58,7 +60,7 @@
 | 云端 CUDA / Windows CUDA | 原版无CUDA内核 | 用户已授权云端替代不可接入的 RTX 3080；完整 CUDA 验收进行中，不以设备探针宣称通过 | 云端 CUDA 仍需同机完整质量/速度验收；Linux 云端不冒称 Windows CUDA 已测 |
 | macOS CPU float64 | 本机R参考实测 | CPU确定性参考测试通过 | 已安装包代表案例通过 |
 | macOS MPS float32 | 原版无MPS内核 | 3个 EM 样例和三组大数据已测；MPS 比同机 CPU32 慢 51%–70%，推断质量验收仍待完成 | 变换/类别/先验边界3公共案例及三组大数据通过有限性等门槛；MPS 比同机 hybrid CPU32 慢13%–33%，不是全部 GPU 质量验收 |
-| Linux CPU/CUDA | GitHub Ubuntu CPU runner已测 | CPU CI通过；T4 native CUDA32/64固定案例及三组100k的18配置native/reference基准已完成审计；CUDA G5未完成 | CPU CI通过；T4 hybrid CUDA32/64固定正确性案例已通过；完整R接口性能与CUDA G5仍未完成，不代表Windows CUDA已测 |
+| Linux CPU/CUDA | GitHub Ubuntu CPU runner已测 | CPU CI通过；T4 native CUDA32/64固定案例及三组100k的18配置native/reference基准已完成审计；CUDA G5未完成 | CPU CI通过；T4 hybrid CUDA32/64固定正确性案例已通过；VM丢失后仅回收11/12性能配置，见[部分记录](validation/2026-09-26-colab-hybrid-partial/README.md)，不称完整套件通过；CUDA G5未完成，不代表Windows CUDA已测 |
 | 安装包、RStudio分发、CRAN/PyPI | 官方包已有 | Python开发环境可调用；Mac R安装/build及包测试通过；**未发布正式包** | Mac R CMD check零错误/警告/NOTE；实际Mac RStudio reference/hybrid CPU64插补、保存/读回及可见诊断图通过；独立AmeliaView未测 |
 | 三个大公开数据集端到端比较 | 本机原版串行/snow4已测 | 3组各10万行native数值子集正式基准已完成并审计 | CPU64/CPU32/MPS32 共9配置63调用315插补已审计；完整 R 调用包含桥接，排除进程初始化；不宣称全量/全部缺失机制 |
 | Python → R 完整公开调用成本 | 官方 CPU 引擎，经 binary/RDS 传输 | 与 native 内存计时边界不同 | G7 100k Covertype m5 reference/hybrid CPU64 各首次+2次后续，均约12秒；每次新R进程，不能与旧R计时相减 |

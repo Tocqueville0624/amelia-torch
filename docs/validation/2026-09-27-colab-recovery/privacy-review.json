@@ -1,0 +1,14 @@
+{
+  "kind": "limited_text_pattern_scan",
+  "files_scanned": 54,
+  "patterns": [
+    "private_user_path",
+    "github_token",
+    "openai_key",
+    "private_notebook",
+    "google_token"
+  ],
+  "findings": [],
+  "screenshot": "Quota dialog crop reviewed, no account identity visible",
+  "not_a_complete_secret_detection_guarantee": true
+}

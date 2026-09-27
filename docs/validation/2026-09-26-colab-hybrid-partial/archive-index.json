@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "archive": {
+    "filename": "hybrid-eleven-raw-reports.tar.gz",
+    "bytes": 1504792,
+    "sha256": "2f5f823929b476436452d52393c3025d13d5fb55e191388de2200ae146ebcbdc"
+  },
+  "scope": "Eleven raw report JSON members only, not a cloud checkpoint.",
+  "members": [
+    {
+      "name": "reports/covertype-cpu32.json",
+      "bytes": 53467,
+      "sha256": "83e046a61a2c8b4ac19f50419d3d7183cd9f28eca232b0fc8b68123b3b93d883"
+    },
+    {
+      "name": "reports/covertype-cpu64.json",
+      "bytes": 53458,
+      "sha256": "ba0fa83c98d7d78b3b7e2d58d5f252259d8b098734a3d469aff2c016b56ebd79"
+    },
+    {
+      "name": "reports/covertype-cuda32.json",
+      "bytes": 53543,
+      "sha256": "90b3796ca70338ad68845633b6010b988c12c8d66227f8b71de074d78388aac7"
+    },
+    {
+      "name": "reports/covertype-cuda64.json",
+      "bytes": 53549,
+      "sha256": "cd8ebf4ddb2d8d224cd54292c9ffe9ab43718d19ee8945e7406969fb8040f2e4"
+    },
+    {
+      "name": "reports/household_power-cpu32.json",
+      "bytes": 45654,
+      "sha256": "de0b47b38ef1a77ba3f55b0daa62ece7ace0b04650956d236196a1e17bef20fb"
+    },
+    {
+      "name": "reports/household_power-cpu64.json",
+      "bytes": 45637,
+      "sha256": "79153d6ed9a58ee108e068aab942b862b83765fba7b446c2973e0c6976d559ed"
+    },
+    {
+      "name": "reports/household_power-cuda32.json",
+      "bytes": 45749,
+      "sha256": "ac2130505e4756e2941bd94e5acb5c9f8eee86b4b6072467132dd6ad9725c124"
+    },
+    {
+      "name": "reports/household_power-cuda64.json",
+      "bytes": 45730,
+      "sha256": "07cad719afb357dd8a63217acc4e21ac77c283cd4957e15baa8a624a9b342da5"
+    },
+    {
+      "name": "reports/year_prediction_msd-cpu32.json",
+      "bytes": 1131136,
+      "sha256": "9c20931c55ca14e2174bd067410641b0d0323e4bfb8208903611bf4f79689d0b"
+    },
+    {
+      "name": "reports/year_prediction_msd-cpu64.json",
+      "bytes": 1130863,
+      "sha256": "69f6433169c5bdac1aae206c86513ff9a1f8333f08536ddf35c97813e954ac90"
+    },
+    {
+      "name": "reports/year_prediction_msd-cuda64.json",
+      "bytes": 1131013,
+      "sha256": "e6830ecab59d88843e3d28d1508ed035ad2984346a386c1c8cb2af42911aa508"
+    }
+  ],
+  "uncompressed_report_bytes": 3789799,
+  "tar_metadata": {
+    "uid": 0,
+    "gid": 0,
+    "uname": "",
+    "gname": "",
+    "mtime": 0,
+    "mode": "0644"
+  },
+  "gzip_metadata": {
+    "filename": "",
+    "mtime": 0
+  }
+}

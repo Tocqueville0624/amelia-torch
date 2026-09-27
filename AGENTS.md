@@ -1,11 +1,13 @@
 # Amelia Project：后续 Agent 指南
 
 ## 用户目标与当前阶段
+- 2026-09-27 用户明确因 Colab GPU 配额耗尽暂停新增测试，当前只整理已有证据；在用户恢复测试前不再启动拟合、模拟或测试任务，不申请付费资源。阶段结论见 `docs/validation/2026-09-27-evidence-summary.zh-CN.md`；暂停与全部重启失败记录见 `2026-09-27-colab-recovery/`。
 - 用户为求职展示项目能力，要求全部功能完成后才算首版，完整复现 Amelia 1.8.3 流程/算法，在 Python 与 R/RStudio 跨 Mac、Windows、有/无 CUDA 使用，并以三组较大公开数据实测性能；不能随意改变统计语义。
-- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权直接使用云端 CUDA 测试并留存记录，不再依赖本地 3080。新 Colab T4 会话的 15 步固定正确性验证已保存；固定到 905cc79 的正式性能与 CUDA 统计质量验收仍在进行；Andrew Wang 只预留未来协作位，尚非当前作者。
+- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权使用云端 CUDA 替代本地 3080，但新增测试现已暂停。Colab T4 的 15 步固定正确性验证已保存；905cc79 的 native 性能完整、hybrid 部分保存，CUDA 统计验收未完成；Andrew Wang 只预留未来协作位，尚非当前作者。
 - 当前为公开开发快照：native 连续 EMB、Python/R 原版及混合兼容入口已实现；仍须完成 GPU 统计质量与云端正式性能验收。状态见 `docs/roadmap.zh-CN.md`、`docs/amelia-compatibility.md`。
 - 2026-09-26：e2ff892 的三平台 hosted CI 各 235 项 Python、9 个 R 测试文件及下游示例通过，本机 R build/check 九文件零问题；ad9bed2 的 Intel Mac x86_64 隔离 wheel[reference]、无 Torch 原版/RDS 工作流亦实际通过。该 CI 已覆盖 G3/G4；Linux/Windows 的原版病态 autopri 分支未触发需如实保留，Windows 使用 snow 并明确跳过 Unix fork。修复显式 startvals 的原版原位更新语义；Mac 三组 100k 样本的 native/hybrid 正式基准均完成，MPS 未比同机 Torch CPU 更快；旧测量源码哈希不得随修复改写。详见 `docs/validation/2026-09-26-ci/`、`2026-09-26-g1/`、`2026-09-26-g2/`。
-- 新 T4 会话在 fa08a52 完成全部 15 步正确性验证；905cc79 的同机 native/reference 正式性能 18 配置、126 调用、630 插补已完成并独立审计，CUDA64 比同机 CPU64 快 1.21–1.91 倍，不能外推 R 接口；完整 hybrid 与 CUDA G5 仍在执行队列。G5 各 200 次 MCAR/MAR、20 次压力及门槛已在 06b0fe8 固定，不得按结果反向修改；见 `docs/validation/2026-09-26-colab-native/`、`g5-prespecified/`。仍不算完整首版验收。
+- T4 会话在 fa08a52 完成全部 15 步正确性验证；905cc79 的同机 native/reference 正式性能 18 配置、126 调用、630 插补已完成并独立审计，CUDA64 比同机 CPU64 快 1.21–1.91 倍，不能外推 R 接口。该 VM 于 9/27 约 01:47 UTC 断线后无法恢复：hybrid 只备份 11/12 配置、77 调用/385 插补，第12项 Year CUDA32 结果未知、suite 未取回；有限逐报告审计和五组同精度比值见 `docs/validation/2026-09-26-colab-hybrid-partial/`。五个已存 CUDA 配置均慢于原版 snow2；不把部分记录称完整套件通过。替代 VM 的 20 步验证停在第4步：306 项 Python 通过、1项临时 venv 缺 NumPy 失败；后续 R/GPU 边界/G5 未执行。不拼接跨 VM 耗时。
+- G5 各 200 次 MCAR/MAR、20 次压力及门槛已在 06b0fe8 固定，不得按结果反向修改；见 `docs/validation/2026-09-26-colab-native/`、`g5-prespecified/`。仍不算完整首版验收。
 - G5 Mac 五路线 10,500 次拟合均成功，MAR/压力通过，但 MCAR 绝对/配对覆盖率区间略超冻结界限，原版 R 自身亦未过绝对界限；见 `docs/validation/2026-09-26-g5-mps/`。保留整体未通过，不归因于 GPU 独有错误。新独立 1,000 次 MCAR 方案只是待用户答复的提案，尚未执行。
 - 最新 `ef729c0` 三平台 CI 各 307 项 Python、9 个 R 文件和下游示例通过；新增中断记录保护不改变拟合/计时，旧测量版本不改写。实际 Mac RStudio 的已安装 reference/hybrid CPU64、保存读回、Data Viewer 和诊断图已通过；原版 AmeliaView 仍缺 XQuartz，管理员安装未完成。详见 `docs/validation/2026-09-26-ci/cross-platform-ci-ef729c0.json` 与 `2026-09-26-g6-rstudio/`。
 - 三组 UCI 全压缩数据已下载、校验，合计约 232 MiB。数据来源/许可/哈希见 `data/manifest.json`；原始全量文件不进 Git，小样本和复现脚本已入项目。
@@ -20,6 +22,7 @@
 - 数据、质量与基准复现入口见 `docs/reproduce.zh-CN.md`，验证产物放 `docs/validation/`；机器临时结果放忽略的 `results/local/`。
 - Colab 每阶段在计时外保存完整 JSON/log 报告备份，见 `scripts/cloud_checkpoint.py` 与 `scripts/recover_cloud_checkpoint.py`。下载失效时可从保存 notebook 的压缩输出恢复；必须核验哈希，不把截断 stdout 当成原始 JSON。云主机按实测 CPU 配额统一线程/worker 预算，9/26 T4 VM 为两核。
 - 中断后可先读本地忽略目录 `results/local/cloud-recovery-*/resume-state.json`，再实际核验 notebook 状态；文件只是恢复提示，不证明排队项已执行。不要把私有 notebook 链接或账号元数据提交到公开仓库。
+- 云端安装器无条件 apt install 已实际把预装 R4.5.3 升为4.6.1，并与旧扩展冲突。已在替代 VM 恢复4.5.3、保留失败库、空库重装成功；自动保护补丁尚未验收，原跟踪源码未改。本地 `results/local/cloud-recovery-20260926/unfinished-cloud-bootstrap-guard.patch` 仅是待审草稿，恢复开发时先审查，不能视作已修复。
 
 ## 算法与兼容性约束
 - `docs/algorithm-contract.md` 是固定版本语义依据。每开放一项原版功能，都先建参考对照，再更新兼容表；不支持的选项明确拒绝，不能忽略后继续计算。

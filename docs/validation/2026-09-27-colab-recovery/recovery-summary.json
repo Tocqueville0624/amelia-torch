@@ -1,0 +1,68 @@
+{
+  "scope": "Preserved installation and validation failures after replacement Colab session; no new fits during this offline packaging",
+  "algorithm_revision": "ef729c093e162f4d6ebd797c95a9da8072ac968a",
+  "template_revision": "b4f0b14683e4e92cfb43ccd91a40cf95746fecba",
+  "template_sha256": "aa10c6c58db14c0cc851e1ce36f19791057665b1b2498cef767098cef6e83ae3",
+  "checkpoints": [
+    {
+      "label": "bootstrap-plan-20260927T015122Z-15e039",
+      "bytes": 3466,
+      "sha256": "9aead607e84d807ee7f880b994237891ee1b47b4657c4a845f888fe00cfcda1f"
+    },
+    {
+      "label": "bootstrap-20260927T015331Z-2b5e5c",
+      "bytes": 32107,
+      "sha256": "f47e651e7c10196fe3a671b2d5cff20159ff9aa7f38ab37cdf2c0dfcab657b58"
+    },
+    {
+      "label": "r-baseline-repair-20260927T015707Z-e6b7dc",
+      "bytes": 4177,
+      "sha256": "142b233bc4b7b256de92431b2dc0846f170689b1ed5ec7a7ceea25079f288b00"
+    },
+    {
+      "label": "bootstrap-retry-20260927T015939Z-d0adf2",
+      "bytes": 36235,
+      "sha256": "a16ff0f679aa5d421ac339b96c6689db8f61cccd857f5a3e9300ee63ede86d1b"
+    },
+    {
+      "label": "validation-20260927T020023Z-520aa7",
+      "bytes": 4126,
+      "sha256": "ff883155c2d002e985ffd89aac35005fbf3b06ec6a80dfc7e2164d35a8522e69"
+    },
+    {
+      "label": "ruff-alignment-20260927T020246Z-bec300",
+      "bytes": 3209,
+      "sha256": "35e8e4b712e7745fc197cc642d76058bb5c06976058eadcf8b06784059126cb5"
+    },
+    {
+      "label": "validation-retry-20260927T020449Z-796515",
+      "bytes": 6702,
+      "sha256": "1c687d956b6be2ca10f9145f5c884d40f85a18a87109bd37b707af02a8b234a1"
+    }
+  ],
+  "latest_validation": {
+    "completed_commands": 4,
+    "planned_commands": 20,
+    "successful_commands": 3,
+    "pytest_passed": 306,
+    "pytest_failed": 1,
+    "failed_test": "test_unicode_space_python_and_r_library_paths_execute_actual_hybrid",
+    "failure": "ModuleNotFoundError: No module named numpy in temporary nested Python virtual environment",
+    "R_test_files_executed_in_this_stage": 0,
+    "CUDA_edge_cases_executed_in_this_stage": 0,
+    "G5_smoke_or_formal_executed": false
+  },
+  "pause": {
+    "user_requested": true,
+    "visible_Colab_GPU_quota_reached": true,
+    "additional_GPU_allocation_after_pause": false,
+    "no_paid_resources": true,
+    "old_VM_loss_cause_not_established": true
+  },
+  "limits": [
+    "Replacement VM records do not complete or replace the old hybrid benchmark suite.",
+    "Device probe success is not complete CUDA or statistical acceptance.",
+    "The nested-venv failure occurred before that one test called imputation; other tests did run.",
+    "Unreviewed bootstrap guard changes are retained locally and not published as a validated fix."
+  ]
+}

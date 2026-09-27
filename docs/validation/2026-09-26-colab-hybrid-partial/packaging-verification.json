@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scope": "Eleven recovered report archive round trip and limited report audit only; not a complete suite audit.",
+  "extracted_report_count": 11,
+  "all_extracted_report_sizes_and_sha256_match_manifest": true,
+  "limited_auditor_exit_status": 0,
+  "auditor_stdout": "11 recovered reports verified; complete suite NOT verified; 77 calls / 385 fits.",
+  "reproduced_summary_byte_identical": true,
+  "summary_sha256": "9edbce6d20458bc2b709f925039bc0f079bedb6d5baed6554de7a55df5753558",
+  "archive_sha256": "2f5f823929b476436452d52393c3025d13d5fb55e191388de2200ae146ebcbdc",
+  "no_fitting_or_UI": true,
+  "temporary_directory_path_omitted": true
+}

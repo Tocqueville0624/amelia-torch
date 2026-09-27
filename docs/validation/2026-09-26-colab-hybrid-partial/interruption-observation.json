@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "parent_agent_observation_not_runtime_telemetry",
+  "source": "Root agent direct UI observations and new-session read-only probe, relayed through task messages. This packaging agent did not operate the UI.",
+  "disconnect_observed_utc_approx": "2026-09-27T01:47:00Z",
+  "disconnect_text_reported": "Colab disconnected; reconnecting indicated a new runtime using a past Python version.",
+  "new_runtime_probe_utc_approx": "2026-09-27T01:51:00Z",
+  "new_runtime_probe": {
+    "repo_exists": false,
+    "REPO_present_in_globals": false,
+    "content_directory_entries": [
+      ".config",
+      "sample_data"
+    ],
+    "experiment_processes_found": false
+  },
+  "root_conclusion": "Original VM files are no longer available in the replacement session; recovery from that session failed.",
+  "latest_observed_old_runtime_stdout": "Year CUDA32 starting",
+  "year_cuda32_outcome": "unknown",
+  "suite_completion": "not_verified",
+  "missing_process_exit_status": null,
+  "missing_per_process_source_unchanged": null,
+  "limitation": "New-session absence does not establish the exact termination time or the final outcome of the last old-runtime process.",
+  "load_caveat": "Read-only Colab file previews occurred during Year CPU64 timing; review agents ran no concurrent fit or source edit, but background load was not fully isolated."
+}
