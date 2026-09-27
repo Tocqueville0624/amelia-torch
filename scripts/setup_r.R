@@ -3,11 +3,29 @@ lib <- file.path(getwd(), ".R-library")
 dir.create(lib, recursive = TRUE, showWarnings = FALSE)
 .libPaths(c(lib, .libPaths()))
 packages <- c("Amelia", "reticulate", "jsonlite")
-missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
+# Match r-package/DESCRIPTION; inspect installed versions before loading namespaces.
+minimum_versions <- c(reticulate = "1.41")
+dependency_satisfied <- function(package) {
+  version <- tryCatch(utils::packageVersion(package, lib.loc = .libPaths()),
+                      error = function(error) NULL)
+  if (is.null(version)) return(FALSE)
+  if (!package %in% names(minimum_versions)) return(TRUE)
+  version >= package_version(minimum_versions[[package]])
+}
+missing <- packages[!vapply(packages, dependency_satisfied, logical(1))]
+loaded <- loadedNamespaces()
+outdated_loaded <- names(minimum_versions)[vapply(names(minimum_versions), function(package) {
+  package %in% loaded &&
+    getNamespaceVersion(package) < package_version(minimum_versions[[package]])
+}, logical(1))]
+if (any(missing %in% loaded) || length(outdated_loaded)) {
+  stop("A loaded dependency does not meet the setup requirements. Restart R, then run scripts/setup_r.R before loading packages.")
+}
 if (length(missing)) {
   type <- if (Sys.info()[["sysname"]] == "Darwin" || .Platform$OS.type == "windows") "binary" else "source"
   install.packages(missing, repos = "https://cloud.r-project.org", lib = lib, type = type)
 }
+stopifnot(all(vapply(packages, dependency_satisfied, logical(1))))
 stopifnot(all(vapply(packages, requireNamespace, logical(1), quietly = TRUE)))
 if (as.character(packageVersion("Amelia")) != "1.8.3") {
   stop("The reference contract requires Amelia 1.8.3. Install that archived version into .R-library before continuing.")

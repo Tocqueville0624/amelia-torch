@@ -2,9 +2,9 @@
 
 以下命令从项目根目录执行。Python 环境和新增 R 包安装在项目内；不修改系统 Python 或全局 R 库。源码安装 R 包现需要 C 编译器，用于保护原版 R 随机数状态的注册 helper：macOS 用 Xcode Command Line Tools，Windows 用匹配 R 版本的 Rtools，Linux 用系统 R 开发工具链。依赖快照只复现本次 Mac 环境；版本未来可能变化，调整后重新验证并记录。
 
-## Mac：当前环境
+## Apple Silicon Mac：当前 Torch 环境
 
-已使用原有 Python 3.12.13 和 R 4.5.3，安装的 Python 包见 `requirements-macos-arm64.lock`。该文件是精确版本快照，不含分发文件哈希；不是 Windows CUDA 安装清单。
+已使用原有 Python 3.12.13 和 R 4.5.3，安装的 Python 包见 `requirements-macos-arm64.lock`。该文件是精确版本快照，不含分发文件哈希；不是 Windows CUDA 或 Intel Mac 安装清单。Intel Mac 和无 Torch 用户直接使用下方“无 PyTorch 的兼容安装”路线。
 
 首次安装/重建：
 
@@ -16,7 +16,7 @@ Rscript scripts/setup_r.R
 R CMD INSTALL --library=.R-library r-package
 ```
 
-R 安装脚本使用当前 CRAN 二进制包并检查安装成功，不自动覆盖已满足的依赖；本次实际版本写入验证快照。未来正式 R 实验需进一步锁定 R、Amelia、reticulate、依赖与 BLAS，不能把这个初始化脚本当完整 R 锁文件。
+R 安装脚本在 Mac/Windows 使用当前 CRAN 二进制包并检查安装成功；缺失依赖和低于 R 包要求的 `reticulate 1.41` 只安装或升级到项目 `.R-library`，不改全局库，也不覆盖已满足要求的版本。若待升级的包已在当前会话加载，先重启 R，再运行安装脚本。本次实际版本写入验证快照。未来正式 R 实验需进一步锁定 R、Amelia、reticulate、依赖与 BLAS，不能把这个初始化脚本当完整 R 锁文件。
 
 若 CRAN 的当前 Amelia 版本已经变化，初始化脚本会明确停止。可在项目根目录下载固定的官方 1.8.3 源码包，校验后安装到项目库；这一步需要上述 C/C++/Fortran 编译工具链。下载器只尝试 CRAN 当前目录和 Archive，并要求 SHA-256 `7699455ca3e9dabd60ad0ec69185ece3f24a597ef8da18033ea0b7a32356967f`，不会换到不同版本：
 
@@ -42,7 +42,15 @@ Rscript scripts/smoke_r_bridge.R
 
 ## RStudio
 
-打开 `Amelia_Project.Rproj`，在新的 R 会话运行：
+打开 `Amelia_Project.Rproj`。仅使用原版 R 参考路线（包括无 Torch 的 Intel Mac）时，在新的 R 会话运行：
+
+```r
+source("scripts/smoke_amelia.R")
+```
+
+这只检查原版 Amelia，不初始化 Python。安装本项目 R 包后可使用 `ameliatorch::amelia_compat()`；纯 Python→原版 R 的 `amelia_reference()` 不要求安装本项目 R 包。不要在无 Torch 环境运行下面的桥接探针。
+
+已安装 Torch、准备使用 native 或 hybrid 路线时，在新的 R 会话运行：
 
 ```r
 source("scripts/smoke_r_bridge.R")
@@ -84,6 +92,17 @@ Windows 初始化成功后再按[基准计划](benchmark-plan.zh-CN.md)运行真
 
 PyTorch 官方已[停止为 2.3 及以后版本提供 macOS x86_64 二进制包](https://dev-discuss.pytorch.org/t/pytorch-macos-x86-builds-deprecation-starting-january-2024/1690)。因此不能把“所有 Mac 都安装最新 torch”作为产品前提。
 
-项目将 PyTorch 设为可选依赖：`pip install '.[reference]'` 安装 Python 的原版 R 兼容入口及数据框支持；其运行仍需 R、Amelia 1.8.3 和 jsonlite。`pip install '.[torch,reference]'` 适用于有受支持 PyTorch wheel 的环境。Windows CUDA/CPU wheel 仍按官方安装选择器先明确选择，不能通过安装选项名称推断驱动可用。
+项目将 PyTorch 设为可选依赖。Intel Mac 可在项目根目录安装 Python 的原版 R 兼容入口及数据框支持：
+
+```sh
+uv venv --python 3.12 .venv
+uv pip install --python .venv/bin/python -e '.[reference]'
+Rscript scripts/setup_r.R
+Rscript scripts/smoke_amelia.R
+```
+
+其运行仍需 R、Amelia 1.8.3 和 jsonlite；此路线不安装 Torch，也不运行整个依赖 Torch 的 pytest 套件或设备探针。Python 使用 `amelia_reference()`，例子见 [Python 参考桥接说明](python-reference-bridge.md)。若还需要 R 中的 `ameliatorch::amelia_compat()`，再运行 `R CMD INSTALL --library=.R-library r-package`；直接使用 `Amelia::amelia()` 不要求本项目 R 包。Windows 无 Torch 用户将解释器路径替换为 `.venv\Scripts\python.exe`。
+
+`pip install '.[torch,reference]'` 适用于有受支持 PyTorch wheel 的环境。Windows CUDA/CPU wheel 仍按官方安装选择器先明确选择，不能通过安装选项名称推断驱动可用。
 
 Python 包的顶层导入不应加载 PyTorch；参考路径在没有 torch 的环境中必须单独测试。2026-09-26 已在实际 macOS x86_64 hosted runner 上构建并安装 wheel[reference]，核验未安装/加载 Torch，并完成插补与 Python/RDS/R 下游往返，见 [Intel Mac 实测](validation/2026-09-26-ci/intel-mac-reference.md)。该证据仅覆盖原版 R CPU 路线，不宣称 Intel Mac 的 PyTorch/MPS 支持或交互式 GUI 已测试。

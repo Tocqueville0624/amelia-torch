@@ -29,7 +29,14 @@ PYTORCH_ENABLE_MPS_FALLBACK=0 .venv/bin/python scripts/run_benchmark_suite.py --
 .venv/bin/python scripts/summarize_benchmarks.py --output-dir results/local/native-audit
 ```
 
-CPU-only 机器使用 `--gpu none`，汇总时显式指定 `--methods cpu64 cpu32 r_serial r_snow4`；审计器不会把漏跑的 GPU 项目默认为成功。Windows PowerShell 上用 `.venv\Scripts\python.exe`，确认 `Rscript` 在 PATH、CUDA 探针通过后运行：
+已安装 CPU Torch 的 CPU-only 机器使用以下命令；这是 Torch CPU 基准，不适用于无 Torch 的 Intel Mac/reference-only 安装。审计器不会把漏跑的 GPU 项目默认为成功：
+
+```sh
+.venv/bin/python scripts/run_benchmark_suite.py --gpu none
+.venv/bin/python scripts/summarize_benchmarks.py --methods cpu64 cpu32 r_serial r_snow4 --output-dir results/local/native-audit
+```
+
+Windows CPU-only 在 PowerShell 使用 `.venv\Scripts\python.exe` 替换上述解释器路径。Windows CUDA 则确认 `Rscript` 在 PATH、CUDA 探针通过后运行：
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_benchmark_suite.py --gpu cuda
@@ -56,16 +63,39 @@ CPU-only 机器使用 `--gpu none`，汇总时显式指定 `--methods cpu64 cpu3
 
 ## R 用户混合路线
 
-先安装 `ameliatorch` 并通过兼容测试。已有主基准 CSV 时复用相同输入；尚未生成时加 `--generate-inputs`，从相同准备 NPZ 另写 CSV：
+先安装 `ameliatorch` 和所选设备的 Torch，并通过兼容测试。已有主基准 CSV 时复用相同输入；尚未生成时加 `--generate-inputs`，从相同准备 NPZ 另写 CSV。以下三条路线选择与前一节主基准相同的一条，不依次全跑到同一输出目录。
+
+Apple Silicon MPS：
 
 ```sh
 PYTORCH_ENABLE_MPS_FALLBACK=0 .venv/bin/python scripts/run_hybrid_suite.py --methods cpu64 cpu32 mps32
 .venv/bin/python scripts/summarize_hybrid.py --input-dir results/local/benchmarks/hybrid --output-dir results/local/hybrid-audit
 .venv/bin/python scripts/compare_hybrid_reference.py --output results/local/hybrid-audit/hybrid-reference-comparison.json
+```
+
+CPU-only（仍需 Torch；Windows PowerShell 将 `.venv/bin/python` 替换为 `.venv\Scripts\python.exe`）：
+
+```sh
+.venv/bin/python scripts/run_hybrid_suite.py --methods cpu64 cpu32
+.venv/bin/python scripts/summarize_hybrid.py --input-dir results/local/benchmarks/hybrid --output-dir results/local/hybrid-audit
+.venv/bin/python scripts/compare_hybrid_reference.py --reference-methods cpu64 cpu32 r_serial r_snow4 --output results/local/hybrid-audit/hybrid-reference-comparison.json
+```
+
+Windows CUDA / PowerShell：
+
+```powershell
+.venv\Scripts\python.exe scripts/run_hybrid_suite.py --methods cpu64 cpu32 cuda64 cuda32
+.venv\Scripts\python.exe scripts/summarize_hybrid.py --input-dir results/local/benchmarks/hybrid --output-dir results/local/hybrid-audit
+.venv\Scripts\python.exe scripts/compare_hybrid_reference.py --reference-methods cpu64 cpu32 cuda64 cuda32 r_serial r_snow4 --output results/local/hybrid-audit/hybrid-reference-comparison.json
+```
+
+所选路线的两份审计报告生成后再绘图，各平台均可使用下面的 Rscript 命令；native 审计目录由前一节生成：
+
+```sh
 Rscript scripts/plot_benchmarks.R --native results/local/native-audit/benchmark-summary.json --hybrid results/local/hybrid-audit/hybrid-summary.json --output-prefix results/local/figures/timings
 ```
 
-其中 native 审计目录由前一节生成。Windows CUDA 将 hybrid methods 改为 `cpu64 cpu32 cuda64 cuda32`，配对比较器另加 `--reference-methods cpu64 cpu32 cuda64 cuda32 r_serial r_snow4`；Python 路径使用 `.venv\Scripts\python.exe`。混合路线固定保留 R 预处理、抽样与后处理，只替换 EM，计时包括 R/reticulate 转换；初次 Python 导入和文件读取在计时外。运行期间不要改动被指纹记录的 Python/R 源码，也不要同时做 CPU/GPU 拟合。
+混合路线固定保留 R 预处理、抽样与后处理，只替换 EM，计时包括 R/reticulate 转换；初次 Python 导入和文件读取在计时外。运行期间不要改动被指纹记录的 Python/R 源码，也不要同时做 CPU/GPU 拟合。
 
 配对比较必须等两套实验完整结束且通过独立审计后运行。它按 `phase + seed` 对齐全部预热和正式调用，要求匹配的 R RNG、参数与输入来源，比较已保存的均值、协方差、迭代数和 RMSE；这些汇总不能证明完整插补矩阵逐格等价。新实验使用不同目录时同时指定 `--reference-dir` 和 `--hybrid-dir`。默认要求复用主基准 CSV；`--generate-inputs` 的新 CSV 不自动获得相同历史输入的配对证据。
 
