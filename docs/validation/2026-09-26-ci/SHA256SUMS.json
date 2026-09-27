@@ -1,6 +1,8 @@
 {
-  "README.md": "aad4253de07a985070243cd914b8ad3ccbc54de09eaf4605932722049c2033c1",
+  "README.md": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
   "cross-platform-ci.json": "9058d7c5dea71d21b91912774c7ead90dd00ca8af4e6ba5a50aa90d93034b4ba",
   "intel-mac-reference.json": "9a8a370a4a1802d4f8fc108b385b0120e7372d0944dd0958587041fa4f08648e",
-  "intel-mac-reference.md": "fb840c3a72c7e92bc3e4e90ceb34a0df8cf460d2d46ed98eb3097b9a7253f7b1"
+  "intel-mac-reference.md": "8b0fb3297f1865a171bf44846a60ff496c4ac8d974837bc56fc573632b8a1308",
+  "README.zh-CN.md": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac",
+  "intel-mac-reference.zh-CN.md": "453dd3c19e818e3a6c9e5cf31a0da35928b04ad5a7e8932771b901cc80436182"
 }

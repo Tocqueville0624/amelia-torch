@@ -1,6 +1,8 @@
-# G1 packaging checks, 2026-09-26
+# G1 packaging
 
-The added downstream test and Python/R example are now configured in the
+[简体中文](packaging.zh-CN.md) · [Documentation](../../README.md)
+
+The added downstream test and Python/R example were configured at this stage in the
 three-platform CPU workflow. The workflow explicitly installs and requires broom
 and foreign, so the optional pooling branch cannot silently skip on CI.
 `DESCRIPTION` lists both as Suggests. Configuration is not evidence that a new
@@ -15,7 +17,7 @@ metadata declares NumPy/SciPy normally, pandas under `[reference]` and Torch und
 
 A separate temporary Python 3.12.13 virtual environment then installed only
 the wheel's `[reference]` extra: NumPy 2.5.3, SciPy 1.18.1, pandas 3.0.6,
-python-dateutil 2.9.0.post0 and six 1.17.0. The environment had **no Torch module**.
+python-dateutil 2.9.0.post 0 and six 1.17.0. The environment had **no Torch module**.
 The repository's [`python_r_downstream.py`](../../../examples/python_r_downstream.py)
 ran successfully there using the existing installed R packages: official
 imputation, saved RDS, R transformation/reference append, PDF/CSV/pooling, and
@@ -44,6 +46,12 @@ was not changed to resolve this harness failure.
 
 Remote CRAN/Bioconductor package indexes were inaccessible during the check;
 installed dependency checks still passed. This result does not verify remote
-repository availability or replace the pending new hosted CI run.
+repository availability or replace a later hosted CI run.
 
 Machine-independent hashes and outcomes are in [packaging.json](packaging.json).
+
+## Records
+
+This report describes the dated run and measured source below. Later project status is recorded in the [evidence summary](../2026-09-27-evidence-summary.md).
+
+[python_r_downstream.py](../../../examples/python_r_downstream.py) · [r-package-check.log](r-package-check.log) · [r-package-source-hashes.json](r-package-source-hashes.json) · [packaging.json](packaging.json)

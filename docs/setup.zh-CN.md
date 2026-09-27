@@ -1,8 +1,10 @@
-# 环境与复现
+# 安装
+
+[English](setup.md) · [文档目录](README.zh-CN.md)
 
 以下命令从项目根目录执行。Python 环境和新增 R 包安装在项目内；不修改系统 Python 或全局 R 库。源码安装 R 包现需要 C 编译器，用于保护原版 R 随机数状态的注册 helper：macOS 用 Xcode Command Line Tools，Windows 用匹配 R 版本的 Rtools，Linux 用系统 R 开发工具链。依赖快照只复现本次 Mac 环境；版本未来可能变化，调整后重新验证并记录。
 
-## Apple Silicon Mac：当前 Torch 环境
+## Apple Silicon Mac
 
 已使用原有 Python 3.12.13 和 R 4.5.3，安装的 Python 包见 `requirements-macos-arm64.lock`。该文件是精确版本快照，不含分发文件哈希；不是 Windows CUDA 或 Intel Mac 安装清单。Intel Mac 和无 Torch 用户直接使用下方“无 PyTorch 的兼容安装”路线。
 
@@ -28,7 +30,7 @@ Rscript scripts/setup_r.R
 
 这里的 `python` 应为已激活的项目虚拟环境解释器；也可以使用 `.venv/bin/python` 或 Windows 的 `.venv\Scripts\python.exe`。这是固定 Amelia 本体的方法，不能代替其余 R 依赖版本的完整锁定。
 
-验证：
+以下检查用于另行安排的验证运行：
 
 ```sh
 PYTORCH_ENABLE_MPS_FALLBACK=0 .venv/bin/python -m amelia_torch.diagnostics --require-device mps --output results/local/mac_probe.json
@@ -57,11 +59,11 @@ source("scripts/smoke_r_bridge.R")
 source("scripts/smoke_amelia.R")
 ```
 
-脚本自动添加项目 `.R-library`，显式绑定 `.venv`。如当前会话已绑定别的 Python，先重启 R 会话；reticulate 不能在已初始化的解释器之间任意切换。R 包已通过本机安装和 `R CMD check`（0 ERROR/0 WARNING/0 NOTE）；运行 `R CMD INSTALL --library=.R-library r-package` 后可 `library(ameliatorch)`。见 [R 接口说明](r-interface.md)。2026-09-26 已完成实际 Mac RStudio 的已安装包插补、保存/读回和可见诊断图，复现步骤及截图见 [G6 记录](validation/2026-09-26-g6-rstudio/README.md)；其他系统 GUI 与原版独立 AmeliaView 不由此推定通过。正常 RStudio Data Viewer 不要求 XQuartz；原版 AmeliaView 的 Tcl/Tk 依赖单独处理。
+脚本自动添加项目 `.R-library`，显式绑定 `.venv`。如当前会话已绑定别的 Python，先重启 R 会话；reticulate 不能在已初始化的解释器之间任意切换。R 包已通过本机安装和 `R CMD check`（0 ERROR/0 WARNING/0 NOTE）；运行 `R CMD INSTALL --library=.R-library r-package` 后可 `library(ameliatorch)`。见 [R 接口说明](r-interface.zh-CN.md)。2026-09-26 已完成实际 Mac RStudio 的已安装包插补、保存/读回和可见诊断图，复现步骤及截图见 [G6 记录](validation/2026-09-26-g6-rstudio/README.zh-CN.md)；其他系统 GUI 与原版独立 AmeliaView 不由此推定通过。正常 RStudio Data Viewer 不要求 XQuartz；原版 AmeliaView 的 Tcl/Tk 依赖单独处理。
 
-## Windows CUDA：可选到机复现
+## Windows CUDA
 
-2026-09-27 已在用户的 Windows 11 / RTX 3080 上完成安装、固定 CUDA 案例及全部30配置性能基准，见[本地测试报告](validation/2026-09-27-windows-rtx3080/README.md)。实际环境为 Python 3.12.14、PyTorch 2.14.0+cu132、R 4.5.3、Amelia 1.8.3，R 包使用 Rtools45 编译；此记录不包含 Windows RStudio GUI 验收。以下为其他机器的复现步骤；需要 NVIDIA 驱动、Python 3.12、R、匹配版本的 Rtools，示例使用 uv。机器需要能联网安装依赖；支持具体版本以到机时官方信息为准。
+2026-09-27 已在 Windows 11 / RTX 3080 上完成安装、固定 CUDA 案例及全部 30 配置性能基准，见[本地测试报告](validation/2026-09-27-windows-rtx3080/README.zh-CN.md)。实际环境为 Python 3.12.14、PyTorch 2.14.0+cu132、R 4.5.3、Amelia 1.8.3，R 包使用 Rtools 45 编译；此记录不包含 Windows RStudio GUI 验收。以下为其他机器的复现步骤；需要 NVIDIA 驱动、Python 3.12、R、匹配版本的 Rtools，示例使用 uv。机器需要能联网安装依赖；支持具体版本以到机时官方信息为准。
 
 1. 把项目源文件复制或通过 Git 同步过去，不复制 `.venv`、`.R-library`、`.cache`。
 2. 运行 `nvidia-smi`，记录 GPU 型号、显存、驱动；其显示的 CUDA 版本是驱动支持信息，不等于已安装的 PyTorch runtime。
@@ -72,7 +74,7 @@ uv venv --python 3.12 .venv
 ```
 
 4. 在 [PyTorch 官方安装选择器](https://pytorch.org/get-started/locally/)选择 Windows / Pip / CUDA，选择兼容 RTX 3080 与驱动的稳定 wheel。将其命令的 `pip install` 替换为 `uv pip install --python .venv\Scripts\python.exe`。本项目只需要 `torch`；保留官方 CUDA index 参数。尽量匹配 Mac 的 torch 2.14.0；不能匹配时记录差异，不能把差异隐去。预编译 wheel 为首选；只有后续编译自定义扩展时再核验 CUDA Toolkit/编译器需求。
-5. 安装其余项目依赖并验证：
+5. 安装其余项目依赖并以下检查用于另行安排的验证运行：
 
 ```powershell
 uv pip install --python .venv\Scripts\python.exe -e ".[dev,reference]"
@@ -101,8 +103,8 @@ Rscript scripts/setup_r.R
 Rscript scripts/smoke_amelia.R
 ```
 
-其运行仍需 R、Amelia 1.8.3 和 jsonlite；此路线不安装 Torch，也不运行整个依赖 Torch 的 pytest 套件或设备探针。Python 使用 `amelia_reference()`，例子见 [Python 参考桥接说明](python-reference-bridge.md)。若还需要 R 中的 `ameliatorch::amelia_compat()`，再运行 `R CMD INSTALL --library=.R-library r-package`；直接使用 `Amelia::amelia()` 不要求本项目 R 包。Windows 无 Torch 用户将解释器路径替换为 `.venv\Scripts\python.exe`。
+其运行仍需 R、Amelia 1.8.3 和 jsonlite；此路线不安装 Torch，也不运行整个依赖 Torch 的 pytest 套件或设备探针。Python 使用 `amelia_reference()`，例子见 [Python 参考桥接说明](python-reference-bridge.zh-CN.md)。若还需要 R 中的 `ameliatorch::amelia_compat()`，再运行 `R CMD INSTALL --library=.R-library r-package`；直接使用 `Amelia::amelia()` 不要求本项目 R 包。Windows 无 Torch 用户将解释器路径替换为 `.venv\Scripts\python.exe`。
 
 `pip install '.[torch,reference]'` 适用于有受支持 PyTorch wheel 的环境。Windows CUDA/CPU wheel 仍按官方安装选择器先明确选择，不能通过安装选项名称推断驱动可用。
 
-Python 包的顶层导入不应加载 PyTorch；参考路径在没有 torch 的环境中必须单独测试。2026-09-26 已在实际 macOS x86_64 hosted runner 上构建并安装 wheel[reference]，核验未安装/加载 Torch，并完成插补与 Python/RDS/R 下游往返，见 [Intel Mac 实测](validation/2026-09-26-ci/intel-mac-reference.md)。该证据仅覆盖原版 R CPU 路线，不宣称 Intel Mac 的 PyTorch/MPS 支持或交互式 GUI 已测试。
+Python 包的顶层导入不应加载 PyTorch；参考路径在没有 torch 的环境中必须单独测试。2026-09-26 已在实际 macOS x86_64 hosted runner 上构建并安装 wheel[reference]，核验未安装/加载 Torch，并完成插补与 Python/RDS/R 下游往返，见 [Intel Mac 实测](validation/2026-09-26-ci/intel-mac-reference.zh-CN.md)。该证据仅覆盖原版 R CPU 路线，不宣称 Intel Mac 的 PyTorch/MPS 支持或交互式 GUI 已测试。

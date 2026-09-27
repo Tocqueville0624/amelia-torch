@@ -1,13 +1,15 @@
-# 测试中断与报告保存回归
+# Interruption and report persistence
 
-2026-09-26：修复测试记录层，不更改 EMB、拟合参数、随机种子、设备同步或计时起止点。当前 Colab 实验继续使用固定的 `905cc79`；本次改动不追溯改写旧实验。
+[简体中文](2026-09-26-interruption-records.zh-CN.md) · [Documentation](../README.md)
 
-- native 每次重复采用完整临时 JSON 替换，写入失败保留前一份报告；明确记录可捕获中断。非有限或不可序列化质量描述转换成带 seed、原状态及错误原因的失败记录，不隐藏该次失败。
-- main/hybrid 在子进程启动前保存计划与运行状态；中断时保留已完成任务，未知退出码为 `null`。重跑必须使用新目录；没有自动续跑。
-- native 的“全部请求成功”同时检查预热与正式重复，不能只凭正式计时成功掩盖预热失败。
+The 2026-09-26 change affects recording only, preserving EMB, parameters, seeds, synchronization and timing boundaries. Historical Colab measurements remain pinned to 905cc79.
 
-新增 17 项以模拟拟合/子进程注入中断、写入失败、坏 JSON、非有限输出和预热失败的回归。相关 75 项测试及 Ruff 经实现者、独立审阅者分别运行通过；独立审阅发现的非有限 JSON 保存缺陷已修复后复验。
+Native reports use complete temporary-JSON replacement after each repeat; write failures retain the previous report. Catchable interruptions and nonserializable/nonfinite summaries become explicit records with seed, original status and cause. Main/hybrid suites save plans before child execution, retain completed tasks and use null for unknown exit codes. Warmups count in “all requested calls succeeded.” New directories are required; no automatic resume is implemented.
 
-root 最终运行完整 Python 套件：沙箱内 260 passed、2 failed（R snow 无法创建 localhost socket）；只在正常执行权限下重跑这两个测试，2 passed。共 262 项通过对应检查，Ruff 全部通过。这不是一次无失败的单进程运行，也不是新的三平台 CI 结果。
+Seventeen new injection checks covered interruptions, write failures, bad JSON, nonfinite output and failed warmups. Related 75 checks and Ruff passed implementation/review runs. Final full-suite execution had 260 passing and two sandbox socket failures; those two passed when rerun with localhost sockets permitted. This is 262 checked cases across runs, not one failure-free run or new hosted CI.
 
-保障仅限同一文件系统的完整 JSON 替换及可捕获中断。SIGKILL、断电、磁盘故障、云虚拟机丢失不保证写出终态或保留虚拟机外副本；未引入 fsync、后台压缩、参数 NPZ 原子保存或自动恢复。云端仍需阶段检查点和本地哈希验证。
+Complete same-filesystem replacement and catchable interruptions do not guarantee preservation after SIGKILL, power/disk failure or VM loss. There is no added fsync, background compression, atomic parameter-NPZ saving or automatic recovery. External checkpoints and hash checks remain necessary.
+
+## Records
+
+This report describes the dated run and measured source below. Later project status is recorded in the [evidence summary](2026-09-27-evidence-summary.md).

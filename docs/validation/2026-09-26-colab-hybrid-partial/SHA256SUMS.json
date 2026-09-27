@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 10447,
-      "sha256": "15246c0cc934338708530f7891a53137fa6cdd634231e0e46670c9a92b0fed3c"
+      "bytes": 8387,
+      "sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652"
     },
     {
       "path": "archive-index.json",
@@ -61,6 +61,11 @@
       "path": "verify_reports.py",
       "bytes": 13187,
       "sha256": "94f0a1fdcf267ecf3e392818a590d0979c4fe9ec0fce9e1fbbcdb972775ac5a4"
+    },
+    {
+      "path": "README.zh-CN.md",
+      "bytes": 7682,
+      "sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac"
     }
   ]
 }

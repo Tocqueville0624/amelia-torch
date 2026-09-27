@@ -1,158 +1,113 @@
-# Amelia 1.8.3 算法契约与参考证据
+# Amelia 1.8.3 algorithm contract
 
-审计日期：2026-09-23。兼容目标固定为 **CRAN Amelia 1.8.3 的实际行为**；数学公式、实现行为和未验证功能分开记录。本项目不是官方 Amelia。此文不代表已经完成全功能移植，也不代表 GPU 更快。
+[简体中文](algorithm-contract.zh-CN.md) · [Documentation](README.md)
 
-## 1. 固定参考与来源
+The compatibility target is the **observed behavior of CRAN Amelia 1.8.3**. Mathematical definitions, implementation behavior and unverified features are distinguished. This contract does not establish a complete port or a speed advantage. Initial source audit: 2026-09-23; later edge findings are dated below.
 
-- 官方源码：[Amelia_1.8.3.tar.gz](https://cran.r-project.org/src/contrib/Amelia_1.8.3.tar.gz)。本地审计缓存 `.cache/upstream/Amelia/`，不提交缓存。
-- 下载压缩包 SHA-256：`7699455ca3e9dabd60ad0ec69185ece3f24a597ef8da18033ea0b7a32356967f`。
-- 官方包许可：GPL (>= 2)。算法移植与任何源码派生必须保留来源及适用许可，不能默认宣布 MIT；最终项目许可证按用户确认落实。
-- [官方参考手册](https://cran.r-project.org/web/packages/Amelia/Amelia.pdf)。手册的概括性描述不能覆盖版本源码的实际行为。
-- 主要入口：`R/prep.r::{amelia_prep,amtransform,amsubset,scalecenter,amstack,unsubset,untransform}`；`R/emb.r::{bootx,startval,emarch,amelia_impute,amelia.default}`；`src/em.cpp::{emcore,sweep,ameliaImpute,resampler}`；`R/amcheck.r::amcheck`。
-- 可重建证据：`Rscript scripts/export_reference_fixtures.R`。脚本调用本机未改动的 Amelia 1.8.3，导出 `tests/fixtures/reference_amelia/`。输入均为本仓库生成的合成数据。
+## Reference and provenance
 
-本文“已验证”指 R 参考输出被实际执行核实；是否已被新实现复现，另见兼容矩阵和测试记录。
+The [official archive](https://cran.r-project.org/src/contrib/Amelia_1.8.3.tar.gz) has SHA-256 `7699455ca3e9dabd60ad0ec69185ece3f24a597ef8da18033ea0b7a32356967f`. Upstream is GPL (>= 2); this port is GPL-3.0-only. The [manual](https://cran.r-project.org/web/packages/Amelia/Amelia.pdf) does not override version-specific source behavior.
 
-## 2. 不可改变的执行顺序
+Audited entry points are `R/prep.r::{amelia_prep,amtransform,amsubset,scalecenter,amstack,unsubset,untransform}`, `R/emb.r::{bootx,startval,emarch,amelia_impute,amelia.default}`, `src/em.cpp::{emcore,sweep,ameliaImpute,resampler}` and `R/amcheck.r::amcheck`. `scripts/export_reference_fixtures.R` exports synthetic inputs processed by unmodified Amelia to `tests/fixtures/reference_amelia/`. “Verified” here refers to executed reference evidence; port coverage is recorded in the [matrix](amelia-compatibility.md).
 
-1. 校验输入及选项、解析列名和索引、展开 observation priors。
-2. 在原始完整输入上执行指定变量变换；准备 `idvars`、名义变量虚拟列、时间结构以及 overimputation。
-3. 移除分析变量全缺失的行；保留其原始位置用于最终恢复。
-4. 使用每列**观察值均值和样本标准差**标准化。标准差分母为 `n_observed - 1`。这是对原始分析数据做一次，**不是每个 bootstrap 样本分别标准化**。
-5. 初次列排序按缺失数从少到多；行排序按**倒序列顺序的缺失掩码**作词典序排序，观察值排在缺失值前面。相同模式形成连续块，完整行在前。
-6. 每份插补独立从该预处理输入抽取 bootstrap 行；同步重映射 cell priors。bootstrap 后只重新分组排序行，不改变列顺序。
-7. 在 bootstrap 样本上构造初值，运行 EM，取得参数估计。
-8. 使用该参数对**原始预处理输入**抽取缺失值，而不是对 bootstrap 样本输出插补。
-9. 逆转行列排列、标准化、subset/类别重构和变量变换，恢复原始格式。最终 `impfill` 一般仅写入应插补单元格，普通观察值保留；单行公共 priors 有已核验的上游索引特例，见第 8 节。
+## Execution order
 
-更换 EM 为均值填充、MICE、神经网络；省略条件协方差；省略 bootstrap；在 bootstrap 数据上返回输出；随意改变预处理顺序，都不是等价加速。
+1. Validate inputs/options, resolve names and indices, and expand observation priors.
+2. Transform the original input; prepare IDs, nominal dummies, time structure and overimputation.
+3. Remove entirely missing analysis rows, retaining their locations for restoration.
+4. Standardize once using each original column's observed mean and sample SD, with denominator `n_observed-1`. Do not restandardize each bootstrap sample.
+5. Order columns by increasing missing count. Lexicographically order rows by the missingness mask in reverse column order, observed before missing. Complete rows precede contiguous pattern groups.
+6. For each imputation, resample rows and remap cell priors. Regroup rows after bootstrap; keep column order fixed.
+7. Construct initial values and fit EM on the bootstrap sample.
+8. Draw missing values for the **original prepared input**, using the fitted parameters.
+9. Reverse ordering, scaling, subsetting/category reconstruction and transformations. `impfill` ordinarily restores observed values; the single-row-prior exception below is retained.
 
-## 3. 输入坐标与初值
+Mean filling, MICE or neural imputation; omission of conditional covariance or bootstrap; returning the resampled data; or changing preparation order is not an equivalent acceleration.
 
-低层接口接受已变换、标准化的数值矩阵。`NaN/NA` 表示缺失，不能将零当成缺失。参数矩阵采用
+## Coordinates and initialization
 
-\[
-\Theta=\begin{bmatrix}-1&\mu^T\\\mu&\Sigma\end{bmatrix}.
-\]
+The low-level input is transformed, standardized numeric data, with NA/NaN indicating missingness. Zero is an observed value. Parameters use
 
-`startval`（`R/emb.r:161`）的实际规则：
+$$\Theta=\begin{bmatrix}-1&\mu^T\\\mu&\Sigma\end{bmatrix}.$$
 
-- 给定维度正确且左上角为 -1 的矩阵时，直接采用该矩阵。
-- `startvals=1`：均值零，协方差单位矩阵。
-- `startvals=0`：先在初值专用副本中以 prior 均值替换对应单元格，然后提取完整行。仅当完整行数 **严格大于 p**，且完整行样本协方差所有特征值 **严格大于 `10 * .Machine$double.eps`** 时，使用完整行均值及 `cov()`；否则使用零均值、单位协方差。
-- 完整行初值的 `cov()` 分母是 `n_complete-1`，不能误用 EM 的 `n`。
-- PyTorch 的 CPU float64 是数值参考。MPS float32 和 CUDA float32 均须独立通过质量验证，不可把 float32 偷换成 float64 等价声明。
+`startval` (`R/emb.r:161`) accepts a correctly sized matrix with top-left entry −1. `startvals=1` uses zero mean and identity covariance. For `startvals=0`, a temporary initialization copy first replaces prior cells by prior means, then selects complete rows. Their means and sample covariance are used only when their count is **strictly greater than p** and every covariance eigenvalue is **greater than `10*.Machine$double.eps`**; otherwise initialization is zero/identity. Complete-row covariance divides by `n_complete-1`.
 
-上游 `emcore` 将 `thetaold` 作为无复制 Armadillo view 并原地写回。**参考导出脚本必须深复制每次传入的 theta**；R 普通赋值不足以防止别名污染。脚本使用 `unserialize(serialize(..., NULL))`，使单步调用、完整调用和保存的初值互不干扰。
+CPU float64 is the numerical reference; float32 requires separate quality validation. Upstream `emcore` writes through a non-copying Armadillo view of `thetaold`. Fixture generation must deep-copy each theta with `unserialize(serialize(..., NULL))`; ordinary R assignment does not prevent alias contamination.
 
-公共 R 混合入口须保留这项副作用：显式 **double** `startvals` 的调用者对象、`arguments$startvals` 归档与下一份插补都会看到最终 theta。注册 C helper 在保存 `allthetas` 初列后原位回写；**integer** 初值经原版 Rcpp 转换，不回写原整数对象；完整 bootstrap 样本跳过 EM，也不回写。native Python 的输入不变契约仍保留。多份插补、arglist/追加与 RNG 对照见 [2026-09-26 公共边界证据](validation/2026-09-26-g2/README.md)。
+The public R hybrid preserves this side effect: explicit **double** `startvals` changes in the caller, archived arguments and subsequent imputations. The C helper writes back after storing the initial `allthetas` column. Integer matrices undergo upstream coercion without changing the original integer object. A complete bootstrap sample skips EM and does not write back. Native Python retains its non-mutating input contract. [Public-boundary evidence](validation/2026-09-26-g2/README.md).
 
-## 4. E 步及 cell priors
+## E step and cell priors
 
-每个缺失模式有观察集合 O、缺失集合 M。令当前参数为 μ、Σ，条件矩为
+For observed indices O and missing indices M,
 
-\[
-a_i=\mu_M+\Sigma_{MO}\Sigma_{OO}^{-1}(x_{iO}-\mu_O),\qquad
-V=\Sigma_{MM}-\Sigma_{MO}\Sigma_{OO}^{-1}\Sigma_{OM}.
-\]
+$$a_i=\mu_M+\Sigma_{MO}\Sigma_{OO}^{-1}(x_{i O}-\mu_O),\qquad V=\Sigma_{MM}-\Sigma_{MO}\Sigma_{OO}^{-1}\Sigma_{OM}.$$
 
-先以 `a_i` 补齐第一矩，再把 V 嵌入缺失×缺失块，加入二阶矩。完整行无条件方差修正。
+Fill the first moment with $a_i$ and add V in the missing-by-missing block of the second moment. Complete rows need no conditional-variance correction.
 
-原版通过 `sweep` 得到条件矩。`src/em.cpp:293` 的求解先尝试 `inv_sympd`，失败时使用绝对阈值 `sqrt(double epsilon)` 的伪逆；不得增加未声明的 jitter/ridge、特征值裁剪或默认降精度。新的稳定求解形式可以不同，但需在相同输入上验证其数值结果，并记录伪逆使用情况。
+Upstream `sweep` first attempts `inv_sympd`, then a pseudoinverse using absolute threshold `sqrt(double epsilon)` (`src/em.cpp:293`). Do not silently add jitter/ridge, clip eigenvalues or lower precision. Alternative solves require numerical comparison on shared inputs and pseudoinverse telemetry.
 
-公共 priors 的四列为 `[row, column, mean, standard_deviation]`；进入 `scalecenter` 后第四列变成**标准化方差**。低层 `emarch`/`amelia_impute` 因而接收 `[row, column, standardized_mean, standardized_variance]`，行列为 R 的 **1-based** 索引。进入 C++ 前又转换为 precision 和 precision-weighted mean。不能把三个坐标层混用。
+Public four-column priors are `[row,column,mean,standard_deviation]`. After `scalecenter`, the last two columns are standardized mean and **variance**; low-level `emarch`/`amelia_impute` use those coordinates and **1-based R indices**. C++ receives precision and precision-weighted mean. With diagonal prior precision Λ and weighted mean b,
 
-有 prior 的缺失单元格形成对角精度矩阵 Λ 与精度加权均值 b，无 prior 的位置精度为 0，则
+$$W_i=(V^{-1}+\Lambda_i)^{-1},\qquad a_i^*=W_i(V^{-1}a_i+b_i).$$
 
-\[
-W_i=(V^{-1}+\Lambda_i)^{-1},\qquad
-a_i^*=W_i(V^{-1}a_i+b_i).
-\]
+Use both posterior moments in sufficient statistics. Adjusting only the mean is incorrect. Public five-column priors `[row,column,lower,upper,confidence]` become mean `(lower+upper)/2` and SD `(upper-lower)/(2*qnorm((1+confidence)/2))`. Row 0 applies to every missing cell in a variable; cell-specific priors take precedence. Low-level tests do not establish support for this public preprocessing.
 
-该行同时使用 `a_i*` 和 `W_i` 更新充分统计量。不能只调整均值却仍保留 V。
+## M step and empirical prior
 
-公共五列 priors `[row,column,lower,upper,confidence]` 先变成均值 `(lower+upper)/2`、标准差 `(upper-lower)/(2*qnorm((1+confidence)/2))`。row=0 表示该变量所有缺失单元格；逐单元格 prior 优先于变量级 prior。这些公共预处理尚不能从低层 priors 已通过测试推断为已实现。
+For first-moment-completed rows $y_i$ and embedded conditional covariance $C_i$,
 
-## 5. M 步与经验先验
+$$s=\sum_i y_i,\quad Q=\sum_i(y_i y_i^T+C_i),\quad \mu'=s/n,\quad \Sigma'=Q/n-\mu'\mu'^T.$$
 
-令 y_i 为第一矩补齐行，C_i 为其条件协方差嵌入矩阵；`n` 是当前 bootstrap 样本行数，`p` 是展开后的分析变量数。
+The ordinary EM denominator is **n**, not n−1. Upstream casts `empri` to integer e and fixes $H=e_{initial}I$ before iteration. If current e>0,
 
-\[
-s=\sum_i y_i,\quad Q=\sum_i(y_i y_i^T+C_i),\quad\mu'=s/n.
-\]
+$$\Sigma'=\frac{Q-ss^T/n+H}{n+e+p+2}.$$
 
-无经验先验时
+Retain `p+2`, integer truncation (`3.75` becomes `3` in the fixture) and the fixed initial H. This is not an additive ridge update.
 
-\[
-\Sigma'=Q/n-\mu'\mu'^T.
-\]
+If an internal bootstrap input has no missing cells, `emarch` skips EM and returns column means, sample covariance (n−1 denominator), and `iter.hist=NA`, ignoring `empri` and the supplied theta. Public Amelia normally rejects a fully observed original input, but bootstrap can still produce this internal case.
 
-**一般 EM 分母是 n，不是 n−1。**
+## Stopping and autopri
 
-上游 C++ 把 `empri` 转为整数 e，并在迭代开始前固定 `H=e_initial I`。当当前 e>0 时
+- Count upper-triangle entries of Θ with `abs(new-old)>tolerance`, strictly greater, to obtain `cvalue`.
+- Continue while `(cvalue>0 OR count<emburn[1]) AND (count<emburn[2] OR emburn[2]<1)`.
+- Default `emburn=c(0,0)` has no maximum; experiments may set a shared explicit limit.
+- `iter.hist` stores cvalue, nonmonotone flag and singularity flag. “Nonmonotone” means iteration>20 and cvalue increased, not decreasing log likelihood. Singularity means a covariance eigenvalue≤0.
+- If nonmonotone, `autopri>0`, the previous 20 singularity flags sum to>3, and `e<autopri*n`, update `e=int(e+0.01*n)`. No extra cap-clamp is applied; truncation can prevent growth when n<100. H remains its initial value.
 
-\[
-\Sigma'=\frac{Q-ss^T/n+H}{n+e+p+2}.
-\]
+Report reaching the maximum separately from convergence. The original outer layer rejects covariance with minimum eigenvalue below double epsilon using code 2.
 
-这是该版本实际实现；不能改成 `Σ + ridge I`，不能省略 `p+2`，也不能只保留非对角缩减来迎合手册的概括描述。`empri=3.75` 在 fixture 中实际使用 3。
+Internal `allthetas=TRUE` is a matrix of upper-triangle Θ vectors in column-major order, excluding the top-left entry. Its **first column is initialization**, followed by one column per iteration. It is not a public `amelia.default` argument. Native matrix-history diagnostics are a different format.
 
-### 完整 bootstrap 特例
+## Bootstrap, draws and RNG
 
-如果内部 `emarch` 输入完全无缺失，就跳过 EM，返回 `mean(x)` 和样本 `cov(x)`（分母 n−1）、`iter.hist=NA`。**它忽略 empri 和提供的 theta**。尽管公共 `amelia()` 默认拒绝完全没有缺失的原始输入，bootstrap 仍可能恰好抽到完整样本，所以这个内部特例不可省略。
+Ordinary bootstrap takes n equally weighted draws with replacement; `boot.type="none"` uses the prepared original matrix. If a sampled column is wholly missing and lacks a prior, reject the whole sample and retry. Upstream has no retry limit. Preserve the version's remapping of priors across retries; an improved retry rule is a separate method.
 
-## 6. 停止、迭代记录和 autopri
+For each incomplete group, upstream draws `n_group×p` standard normals in **column-major** order; complete groups consume none. With upper-triangular Cholesky $R^TR=V$, row noise is $z R$. Prior cells use posterior moments. Draws impute the original prepared input.
 
-- 每步对整个 Θ 的**上三角**计数：`cvalue = count(abs(new-old) > tolerance)`，比较是严格大于。
-- 继续条件为 `(cvalue>0 OR count<emburn[1]) AND (count<emburn[2] OR emburn[2]<1)`。
-- 默认 `emburn=c(0,0)` 无最大迭代数；不是默认 100、500 或 1000。研究实验可显式设预算，但各实现要一致。
-- `iter.hist` 三列依次为 cvalue、nonmonotone flag、singularity flag。
-- nonmonotone flag 是迭代数>20 且本轮 cvalue 比上轮大。**它不是对 log-likelihood 的检验**。
-- singularity flag 是本轮协方差存在特征值≤0。
-- 满足 nonmonotone、autopri>0、此前20轮 singularity flags 总和>3、当前 e<autopri*n 时，执行 `e=int(e+0.01*n)`。没有额外 cap-clamp；整数截断使 n<100 时可能无法增长。
-- H 仍保持初始 `e_initial I`，不因 autopri 的 e 增长而更新。这是版本实际语义，不可未经声明“修正”。
+Amelia 1.8.3 C++ draws can advance R's internal RNG without refreshing `.Random.seed`. Entering reticulate between no-bootstrap replicates can reload the stale vector and repeat draws. Registered helpers in `r-package/src/rng_state.c` save the visible vector and export internal state before deterministic Python initialization/EM; on return they restore internal state and then the original visible vector separately. Saving `.Random.seed` alone, or consuming an extra `runif()` to refresh it, changes behavior. Tests cover `boot.type="none", m=2`, Inversion/Box–Muller with odd normal counts, final visible seed and subsequent `runif/rnorm`.
 
-新实现应额外报告是否因显式最大迭代数而停止；不能把仍有 cvalue 的 fit 宣称收敛。原版外层随后检查协方差最小特征值：小于 double epsilon 时返回 code=2，不输出有效插补。
+Bounds act at imputation, not by fitting a truncated-normal EM model. Original row-wise joint rejection runs at most `max.resample` times, then clamps violating cells to the nearest bound. Unbounded missing dimensions still follow the joint draw. Bounds must match transformed and reordered coordinates.
 
-`allthetas=TRUE` 的上游低层返回不是普通矩阵列表：它是按列优先顺序取 Θ 上三角、删除左上角元素后的参数向量矩阵，**第一列包含初始值**，后续每列一轮。R 兼容桥必须适配此格式；native Python 的诊断格式可以另行命名，不能伪称原版输出。
+Equal R, NumPy or device seeds do not guarantee shared random inputs. Deterministic checks require explicit bootstrap indices and normal arrays; distributional checks require repeated inference and coverage studies. RMSE alone is insufficient.
 
-## 7. Bootstrap 与随机补值
+## Preprocessing and output
 
-`bootx`（`R/emb.r:71`）ordinary bootstrap 对 n 行作 n 次等概率有放回抽样。`boot.type="none"` 直接使用原始预处理矩阵。抽到任一全缺失列且该列没有 prior 时，丢弃整个 bootstrap 样本并重抽；上游没有重试上限。上游 prior 在重试循环中被重映射的版本行为应单独覆盖，不能将改良重试算法混入兼容路径。
+IDs are excluded from modeling and ordinarily retain values/types. `ts`/`cs` become identifying columns with additional model columns generated as requested. Lags/leads use adjacent observations after cs/ts sorting, with missing group boundaries; they do not interpolate calendar gaps. Preserve upstream polynomial/spline bases, interactions and redundant-column removal order.
 
-`ameliaImpute` 用同一条件正态分布，在原始预处理输入上随机补值。对缺失组抽 n_group×p 个标准正态数，按 R/Armadillo 的**列优先**顺序排列，完整组不消耗随机数。上三角 Cholesky R 满足 `R^T R=V`，行向量噪声为 `z R`。有 cell priors 的行改用后验条件矩。
+Nominal variables use k−1 dummies in first-observed category order. Reconstruction clips probabilities to [0,1], normalizes when needed, supplies the baseline probability and samples a category; argmax is not equivalent. Ordinal reconstruction rescales/clips to [0,1] over the observed integer range and draws a binomial integer; rounding is not equivalent.
 
-R/PyTorch 混合路径还必须保护 R RNG 的两个状态层：原版 1.8.3 的 C++ 补值调用 `Rcpp::rnorm`，却未用 RNGScope 同步 `.Random.seed`；C 内部状态可能已前进而 R 可见向量仍旧。若在无 bootstrap 的两份插补间直接进入 reticulate，其 RNGScope 会重载旧向量而重复抽样。`r-package/src/rng_state.c` 的两只注册 helper 在确定性 Python 初始化/EM 前保存可见向量并导出 C 状态；返回时先恢复 C 状态，再分别恢复原可见向量。不能仅保存 `.Random.seed`，也不能用额外 `runif()` 来“刷新”。已对照 `boot.type="none", m=2`、Inversion/Box-Muller 奇数正态数场景、结束 `.Random.seed` 和随后的 `runif/rnorm`；既保持独立补值，也保留原版外部随机调用语义。
+Entirely missing analysis rows are removed and remain missing in the final output. Public checks reject non-ID columns with≤1 observation (code 4), constant columns (43), and fully observed original inputs without overimputation (39). Low-level permissive behavior does not replace public validation. Types, masks, names and ordering are API requirements.
 
-`bounds` 作用于补值阶段；不是改变 EM 为截断正态模型。原版逐行联合拒绝抽样，最多 `max.resample` 次，之后对仍违规单元格夹到最近边界；未设边界的缺失维度仍按联合抽样更新。边界并非无穷次精确截断正态抽样。输入边界也需与分析坐标及列重排对齐。
+### Version-specific exceptions
 
-跨 R、NumPy、PyTorch、CPU/CUDA/MPS 相同 seed 不代表相同随机输入。确定性对照必须共享明确的 bootstrap 索引和标准正态数组；统计质量对照则检验分布、Rubin pooling 和覆盖率。只看 RMSE 不能验证多重插补。
+The forward log transform is `log(x-xmin+1)`, where `xmin=min(0,min(observed_x))`; inverse transformation is `exp(z)+xmin`. The 2026-09-23 roundtrip on `[-2,0,2,4,7,10]` produced original values+1 (`edge_contract.json`). No preparation correction was found. Final observed values are restored by `impfill`; missing values follow this upstream behavior. Subtracting 1 would require a separately identified corrected mode or upstream version change.
 
-## 8. 预处理和输出边界
+An independent public call on that date confirmed that single-row `priors=matrix(c(1,3,0.5,0.05),nrow=1)` with string IDs changes first-column rows 1 and 3. `impfill` uses `is.na(x.orig)[priors[,c(1,2)]] <- TRUE` without `drop=FALSE`; coordinates collapse to a vector and become linear indices. Reference behavior is retained with a warning. This exception must not suppress ordinary observed-value checks for multi-row priors. Regression: `tests/test_reference.py::test_single_row_prior_preserves_documented_original_indexing_quirk`.
 
-- `idvars` 不进入模型，原值和类型保留。`ts` 与 `cs` 被移到识别列，按选项生成额外时间/组别列。
-- lag/lead 在 cs、ts 排序后按相邻观测构造，组边界置缺失；不是基于任意日历间隔自动插值。时间多项式、分段三次样条和与 cs 交互使用该版本的 basis 构造和冗余列删除顺序。
-- nominal 使用观察类别首次出现顺序构造 k−1 个 dummy，恢复时把预测概率限制在 [0,1]，必要时归一化并补上基准类别概率，再随机抽类别。不能用 argmax 代替。
-- ordinal 在观察到的最小/最大整数范围内，将连续预测缩放、限制到 [0,1]，再使用二项分布抽取整数；**不是简单四舍五入**。
-- 全缺失分析行被移除，最后仍保持缺失；并非从无条件正态额外补齐。`edge_contract.json` 已实测确认。
-- 公共默认检查拒绝非 id 列观察数≤1（code=4）、常量列（code=43）、无缺失原始输入且未设 overimp（code=39）。不能以内部 `emarch` 更宽松的输入域代替公共语义。
-- 输入缺失数、数据类型、类别映射、列名、行名和顺序属于 API 契约；只有内核矩阵相同不足以声称 drop-in replacement。
+On 2026-09-26, independent R calls confirmed an entirely NA integer ID becomes double. An entirely NA character ID stays missing in a numeric case but becomes the string `"1"` throughout a fixed 90-row `noms` case. Reference/hybrid CPU64 matched those outputs. This bounded case is not a rule for every ID combination. Regression: `tests/test_reference_boundaries.py::test_nullable_empty_ids_unicode_and_duplicate_index_actual_rds_roundtrip`; [G3](validation/2026-09-26-g3/README.md).
 
-### 明确记录的版本特例
+## Verification
 
-`logs` 的上游正向变换是 `log(x-xmin+1)`，其中 `xmin=min(0,min(observed_x))`；逆变换实际为 `exp(z)+xmin`。2026-09-23 运行 `amtransform`→`untransform` 对 `[-2,0,2,4,7,10]` 的结果是原值+1，见 `edge_contract.json`。源码没有在 `amelia_prep` 对 xmin 另作修正。最终观察值仍通过 impfill 保留，但缺失值遵循上游这个版本行为。实现兼容模式时不能无说明地减去1；任何修正应成为用户明确知情的独立模式或上游版本变更。
+The exporter requires exact Amelia 1.8.3 and saves inputs and random arrays as JSON (`null` means missing). Compare conditional moments, one M step, final Θ and histories on identical input and initial values. Fixtures cover priors, fractional empri, no complete rows, min/max iterations and the complete-input shortcut. Inject saved standard normals into imputation; compare preparation means, sample SD, order and initial values separately.
 
-同日以独立 `Amelia::amelia()` 公共调用核验：单行 `priors=matrix(c(1,3,0.5,0.05),nrow=1)` 加字符串 `idvars` 会改动第一列的第 1、3 行。原因是 `R/emb.R::impfill` 的 `is.na(x.orig)[priors[,c(1,2)]] <- TRUE` 没有 `drop=FALSE`，单行 prior 的坐标矩阵掉维成向量，变成线性索引而非 row/column 索引。因此“所有公共选项组合都不改观察值”不是 1.8.3 的事实。reference 路径保留原版结果并警告；测试单独固定此边界行为，不把它修成另一个算法版本，也不让普通多行 priors 的观察值检查绕过失败。回归入口是 `tests/test_reference.py::test_single_row_prior_preserves_documented_original_indexing_quirk`。
-
-2026-09-26 以独立原版 R 公共调用核验全缺失 ID：被排除的全 NA integer ID 在返回数据框中提升为 double；全 NA character ID 在纯数值案例中保持 NA，但同时含 `noms` 的固定 90 行案例中返回整列字符串 `"1"`。Python reference 与 CPU64 hybrid 对应输出均与原版一致。这个特定组合保留为版本行为，不静默改成缺失值，也不推广成所有 idvars 的规则。回归入口为 `tests/test_reference_boundaries.py::test_nullable_empty_ids_unicode_and_duplicate_index_actual_rds_roundtrip`；该测试重新构造原始 R 输入、运行未改动的 Amelia 并比对，详见 [G3 记录](validation/2026-09-26-g3/README.md)。
-
-## 9. 可复現的校验路径
-
-1. 导出脚本要求 Amelia 恰为1.8.3，所有数据和随机输入写入 JSON，JSON 中 null 表示缺失。
-2. 同一 input、同一 initial theta：逐步比较条件均值/协方差、一次 M 步、最终 Θ、迭代历史。例子包括无 prior、fractional empri、cell prior、无完整行、最少和最多迭代、完整样本特例。
-3. 对同一 final theta 注入 fixture 中明确的 `standard_normals`，比较 `amelia_impute` 完整输出；不使用跨库 seed 猜测。
-4. 对 preprocess fixture 比较观察值均值、样本 SD、行列位置以及 startvals；这些确定性检查不代表公共变换已移植。
-5. `adaptive_stress.json` 记录恰好共线数据在 autocorrection 附近的行为。特征值接近零的符号依赖 BLAS/舍入，**该文件是诊断案例，不是跨平台精确 history 的硬门槛**。正常条件的 fixtures 才用于严格数值一致性检查。
-6. CUDA、MPS 仍须独立执行相同检验，随后执行统计等价和端到端性能方案。没有在该设备上执行就不写“已通过”。
-
-日期固定的审计结果不能替代后续提交验证；新增功能须扩展 fixtures 和兼容矩阵，错误结果、nonconvergence 与慢于基线的结果必须保留。
+`adaptive_stress.json` records exact-collinear behavior near correction thresholds. Near-zero eigenvalue signs depend on BLAS/rounding; it is diagnostic evidence, not a cross-platform exact-history gate. Well-conditioned fixtures support strict comparisons. Accelerator checks, distributional studies and full-call benchmarks remain separate. Dated evidence cannot certify later revisions; retain errors, nonconvergence and slower-than-baseline results.

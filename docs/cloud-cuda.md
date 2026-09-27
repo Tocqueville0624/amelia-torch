@@ -1,109 +1,32 @@
-# 免费 Colab CUDA 验证与记录
+# Colab CUDA procedure
 
-这里提供云端执行步骤，不代表以下测试已经通过。报告必须使用实际 GPU 名称；Colab 的 Linux/T4 结果不能称作 Windows 或 RTX 3080 结果。Windows 安装和 RStudio 的验收仍分别保留。
+[简体中文](cloud-cuda.zh-CN.md) · [Documentation](README.md)
 
-**2026-09-27：用户因 GPU 配额耗尽暂停新增测试。** [现有证据总结](validation/2026-09-27-evidence-summary.zh-CN.md)已区分 native 完整基准、hybrid 11/12 部分记录和统计缺口；不要自动执行下方重跑步骤。替代 VM 暴露了已确认的安装问题：`--install-system-packages` 会升级预装 R，可能与旧共享扩展冲突；已有工具齐全时不应加该选项。自动版本保护尚未验收，恢复测试后须先处理，详见[失败及修复记录](validation/2026-09-27-colab-recovery/README.md)。
+Colab experiments are paused after quota exhaustion. This is a procedure for a future scheduled run, not evidence that its stages passed. Do not launch new work during the current documentation phase. Linux/T4, Windows/RTX 3080 and interactive RStudio records are distinct. [Current evidence](validation/2026-09-27-evidence-summary.md).
 
-可使用[分阶段 Colab 笔记本](../examples/colab_cuda_validation.ipynb)与[模板说明](../examples/README.md#free-colab-cuda-validation-template)。该模板固定到 `ef729c0`，包含九个 R 测试、进程组中断清理、独立审计和备份；已做静态及轻量中断检查，尚未完整云端执行。已完成的 `905cc79` 三数据集 native/reference 实测见[独立报告](validation/2026-09-26-colab-native/README.md)，不能把历史结果当作新模板的执行结果。
+## Template and known failures
 
-2026-09-26 已从旧保存 notebook [恢复历史输出](validation/2026-09-23-colab-recovered/README.md)：旧 Linux/T4 环境中的 149 项 Python 测试、5 个 R 测试文件及 CUDA float64/float32 小型 native/hybrid 对照记录为成功，Ruff 因可执行文件缺失失败，最终验证断言也失败。原 VM 的 JSON/完整日志已失，此记录不是新运行，不包含 CUDA 性能基准。下面的重跑清单已扩展到 7 个 R 测试文件和下游示例，旧记录不能替代这些新增检查。
+Use [the staged notebook](../examples/colab_cuda_validation.ipynb), with its [scope notes](../examples/README.md). It pins `ef729c093e162f4d6ebd797c95a9da8072ac968a`, includes nine R files and separate correctness, performance, G5, audit and backup stages. Static/syntax/lint and lightweight process-interruption checks passed; the template has **not** completed an end-to-end Colab run. Historical `905cc79` timings are not template execution results.
 
-官方 Colab [过去运行时说明](https://research.google.com/colaboratory/runtime-version-faq.html)列有 Python 3.12 镜像，但默认镜像会改变。2026-09-23 实际首次分配的免费 T4 环境为 Python 3.13.15、Torch 2.11.0+cu128、R 4.6.1。该项目当前要求 Python 3.12，因此先在 Runtime → Change runtime type 选择可用的 Python 3.12 过去镜像，再实际检查。不能仅根据文档推断当前 VM 的版本。
+A replacement run stopped at stage 4/20:306 Python checks passed and one nested venv lacked NumPy; later R/CUDA-edge/G5 work did not run. Earlier system installation upgraded R 4.5.3 to 4.6.1 and broke existing shared extensions. R 4.5.3 restoration and a fresh project R library repaired installation, not the whole validation. The automatic installer guard remains unvalidated. Avoid `--install-system-packages` when tools already exist; review [recovery evidence](validation/2026-09-27-colab-recovery/README.md) before reuse.
 
-免费资源没有供应或完整运行时长保证。失败、额度不足、断线都保留记录；不自动购买积分，不用其他账户或非官方代理绕开限制。当前运行期间不要更换 runtime；CPU 和 CUDA 必须在同一个 GPU VM 中测试。[官方资源说明](https://research.google.com/colaboratory/faq.html)
+## Environment
 
-## 1. 固定源码与检查 Python
+The project requires Python 3.12. The first recorded free runtime instead supplied Python 3.13.15/Torch 2.11.0+cu128/R 4.6.1. Select a suitable past runtime if available and inspect actual versions; [runtime availability](https://research.google.com/colaboratory/runtime-version-faq.html) changes. Free GPU availability/duration is not guaranteed. Do not automatically purchase resources, bypass quotas or change runtime during a CPU/CUDA comparison. [Colab resource policy](https://research.google.com/colaboratory/faq.html).
 
-在 GPU notebook 里执行以下 Python cell。把 `REVISION` 替换为要验证的完整 Git commit；应包含本文与 bootstrap 脚本。使用一个新目录，不覆盖现有实验。
+Use a fresh checkout pinned to a full 40-character commit. `cloud_bootstrap.py --expected-commit <sha>` plans only; add `--execute` for installation when scheduled. It requires the runtime's CUDA Torch>=2.10,<3, reuses its files through a system-site-packages Python 3.12 venv, and installs project/test/pandas dependencies. This is not a fully isolated lock. The Mac lockfile must not install CUDA dependencies.
 
-```python
-import os, pathlib, re, subprocess, sys
+The installer checks Ruff through the venv interpreter, with a recorded same-version local reinstall if metadata exists but the binary is missing. If ensurepip is absent, the uv fallback uses the same interpreter/system-site-packages setting and records its version. Torch/global packages are not intentionally replaced. R dependencies, broom/foreign and exact Amelia 1.8.3 go into `.R-library`; C helpers require compilation. Missing R/build tools produce an explicit failure. Any apt-based retry needs a fresh output directory and prior review of R-version effects; it is a Linux-VM procedure, not a Mac command.
 
-assert sys.version_info[:2] == (3, 12), sys.version
-REVISION = "REPLACE_WITH_THE_40_CHARACTER_GIT_COMMIT"
-assert re.fullmatch(r"[0-9a-f]{40}", REVISION)
-REPO = pathlib.Path("/content/amelia-torch")
-assert not REPO.exists(), "Use a new checkout directory; retain earlier results"
-subprocess.run(["git", "clone", "--filter=blob:none",
-                "https://github.com/Tocqueville0624/amelia-torch.git", str(REPO)], check=True)
-subprocess.run(["git", "checkout", "--detach", REVISION], cwd=REPO, check=True)
-os.chdir(REPO)
-os.environ.update({
-    "R_LIBS_USER": str(REPO / ".R-library"),
-    "RETICULATE_PYTHON": str(REPO / ".venv/bin/python"),
-    "OMP_NUM_THREADS": "4", "OPENBLAS_NUM_THREADS": "4", "MKL_NUM_THREADS": "4",
-    "VECLIB_MAXIMUM_THREADS": "4", "NVIDIA_TF32_OVERRIDE": "0",
-    "PYTORCH_ENABLE_MPS_FALLBACK": "0", "CUDA_VISIBLE_DEVICES": "0",
-})
-subprocess.run([sys.executable, "scripts/cloud_bootstrap.py",
-                "--expected-commit", REVISION], check=True)  # Plan only.
-```
+Fixed Amelia archive SHA-256: `7699455ca3e9dabd60ad0ec69185ece3f24a597ef8da18033ea0b7a32356967f`; fallback is only the same version in CRAN Archive. Bootstrap records tracked-source hashes, commit, hardware/runtime, CPU quota, memory, versions, commands and failures, excluding serial numbers, hostnames and whole environment dumps. Existing output directories are rejected.
 
-## 2. 建立隔离环境
+## Execution and timing
 
-```python
-subprocess.run([sys.executable, "scripts/cloud_bootstrap.py",
-                "--expected-commit", REVISION, "--execute"], check=True)
-PYTHON = str(REPO / ".venv/bin/python")
-```
+Run device probes, Python checks, the nine R files, downstream example and fixed CUDA64/32 comparisons before dependent workloads. Disable TF32 explicitly. Save failures and do not widen thresholds after seeing results. The older recovered notebook's 149 Python/five R results do not cover later additions.
 
-脚本不进行拟合，也不下载或替换 Torch。它要求当前运行时的 CUDA Torch 为 `>=2.10,<3`，创建带 `--system-site-packages` 的 `.venv`，复用相同 Torch 文件，并安装项目、测试和 pandas 依赖。这是与 Colab 基础环境共享已装包的项目环境，不是完全隔离的依赖锁；具体 Python/R 包版本写入报告，后续复现应保留相同镜像和这些记录。不要拿 Mac 的 lock 文件安装 CUDA。
+Prepare shared 100k complete-row block-MCAR inputs for Covertype/Household/Year. Downloads total about 232 MiB and use manifest hashes/CRC with 5 GiB disk reserve. Household masking is 2/7; these are not full datasets or independent-cell-MCAR tasks. See [data](datasets.md) and [reproduction](reproduce.md).
 
-共享环境可能让 pip 看见 Ruff 的全局包元数据，却没有可用的 Ruff binary。脚本在安装后实际执行虚拟环境的 `python -m ruff --version`；失败时读取已装版本，仅用该解释器的 pip `--isolated --ignore-installed --no-deps --prefix <venv>` 重装同版本 Ruff，再验证 CLI 版本和包位置。不会重装 Torch 或修改全局包。初次失败日志和退出码保留，`bootstrap.json` 的 `ruff` 字段单独记录恢复及最终状态；恢复失败仍终止 bootstrap。
-
-若该镜像缺少 `ensurepip`，脚本仅为这一失败启用 [uv 官方工具](https://docs.astral.sh/uv/getting-started/installation/)的项目缓存安装，再以同一个 Python 解释器、相同 system-site-packages 设置建立并 seed venv；记录 uv 的实际版本。不会用另一套 Python 或自动改变 CUDA wheel。
-
-原版 Amelia 使用下列源码与 SHA-256，当前地址不可用时仅回退到 CRAN 官方 Archive 同版本，校验不符即停止：
-
-- `https://cran.r-project.org/src/contrib/Amelia_1.8.3.tar.gz`
-- `https://cran.r-project.org/src/contrib/Archive/Amelia/Amelia_1.8.3.tar.gz`
-- SHA-256：`7699455ca3e9dabd60ad0ec69185ece3f24a597ef8da18033ea0b7a32356967f`
-
-R 依赖和固定 Amelia 装入 `.R-library`，包括新增下游检查需要的 `broom` 和 `foreign`，然后执行现有 `setup_r.R` 和 `R CMD INSTALL --clean r-package`。若环境缺少 R/编译器，脚本明确失败；可保留失败目录后，用新的输出目录追加 `--install-system-packages --output-dir results/local/cloud/bootstrap-2` 重试。这会通过 `apt-get` 安装系统依赖，仅适用于用户已授权的云端 VM。不要在 Mac 上执行。
-
-`results/local/cloud/bootstrap/bootstrap.json` 记录 Git commit、所有已跟踪文件的哈希、CUDA/驱动/GPU、CPU 型号/可见核心/affinity/cgroup 配额、内存、版本、安装步骤及失败；同目录含安装日志和 Python 包版本列表。不读取机器序列号、主机名或全量环境变量。输出目录存在时拒绝覆盖。
-
-## 3. 先过正确性检查
-
-```python
-def run(*args):
-    subprocess.run(list(args), cwd=REPO, check=True)
-
-run(PYTHON, "-m", "amelia_torch.diagnostics", "--require-device", "cuda",
-    "--output", "results/local/cloud/cuda-probe.json")
-run(PYTHON, "-m", "ruff", "--version")
-run(PYTHON, "-m", "ruff", "check", "src", "tests", "scripts", "examples")
-run(PYTHON, "-m", "pytest", "-q")
-for case in ("bridge", "compatibility", "torch-compat", "public-edge-cases",
-             "reference_metadata", "downstream", "downstream_extended"):
-    run("Rscript", f"r-package/tests/{case}.R")
-run(PYTHON, "examples/python_r_downstream.py",
-    "--output", "results/local/cloud/downstream-example")
-for dtype in ("float64", "float32"):
-    run(PYTHON, "scripts/validate_accelerator.py", "--device", "cuda", "--dtype", dtype,
-        "--output", f"results/local/cloud/native-{dtype}-validation.json")
-    run("Rscript", "scripts/validate_r_accelerator.R", "cuda", dtype,
-        f"results/local/cloud/r-{dtype}-validation.json")
-```
-
-`NVIDIA_TF32_OVERRIDE=0` 显式禁用 TF32；所有拟合在新子进程里执行，不复用 notebook 已初始化的 Torch/R 状态。探针包含 CUDA float64/float32 基础算子；小型参考对照还检查 EM 和补值。任何失败都保留，不能调宽阈值后把原失败记为成功。通过这些检查不等于所有算法功能或推断质量已验收。
-
-7 个 R 文件及 Python→RDS→原版 R 下游示例是独立检查；Ruff 对 `examples` 的静态检查不能代替运行示例。新增 G1 下游和公开边界回归不包含在旧 notebook 的 5 个 R 测试结果中。命令失败时应先保存输出与失败状态，不能以旧结果补算新检查通过。
-
-## 4. 三组公共数据与同机计时
-
-```python
-run(PYTHON, "scripts/download_datasets.py", "--datasets", "all", "--max-download-mib", "300")
-for dataset in ("covertype", "household_power", "year_prediction_msd"):
-    target = f"data/prepared/{dataset}-n100000-block_mcar-rate30-seed20260923.npz"
-    run(PYTHON, "scripts/prepare_benchmark_data.py", "--dataset", dataset,
-        "--rows", "100000", "--mechanism", "block_mcar", "--missing-rate", "0.3",
-        "--seed", "20260923", "--output", target)
-```
-
-三个原始压缩包共约 232 MiB，下载器按 `data/manifest.json` 检查大小、哈希及 ZIP CRC，保留至少 5 GiB 磁盘余量。每组抽样 100k 完整行，采用约 30% 块状 MCAR；Household 实际为 2/7。它不是全量数据或逐格独立 MCAR。统计语境、来源和 CC BY 4.0 归属见 [datasets.zh-CN.md](datasets.zh-CN.md)。已有输入不能覆盖，重复实验复用同一组 NPZ。
-
-下面两格分别执行并保存，勿与其他拟合并发，也不要在计时期间编辑项目源文件。在测量前按实际 CPU 配额固定全部方案的预算。2026-09-26 的新 T4 VM 只有两个逻辑 CPU，因此这一轮主套件选择 `--threads 2 --workers 2`，混合套件同为 `--threads 2`；snow 的每个 worker 只使用一个 BLAS 线程。原 Mac 四线程/四 worker 报告保持不变。下面命令针对该双核云主机；其他机器应先记录预算，再统一调整，不能只给某个方法增加资源。
+Fix CPU budgets from actual host quota. The recorded T4 VM had two logical CPUs: native/reference used threads 2/workers 2; hybrid used threads 2; snow workers each used one BLAS thread. Other hosts need a documented common budget. Run suites sequentially without source edits or concurrent fits. For that two-core host:
 
 ```python
 NATIVE = "results/local/cloud/native"
@@ -121,13 +44,9 @@ run(PYTHON, "scripts/run_hybrid_suite.py", "--methods", "cpu64", "cpu32", "cuda6
     "--rows", "100000", "--m", "5", "--warmups", "2", "--repeats", "5", "--threads", "2")
 ```
 
-主套件比较原版 R 串行、snow2、native Torch CPU64/32 与 CUDA64/32。混合套件保留 R 全流程，只替换 EM，复用主套件同一 CSV。每配置两次预热、五次正式运行、每次五份插补；CUDA 计时同步由已有实现处理。两个套件的墙钟时间不同，应保留顺序与共享云主机负载局限。
+These snippets use PYTHON, REPO and `run()` initialized by the staged notebook. Each configuration uses m=5, two warmups and five timed repetitions. Native/reference compares R serial/snow2 and Torch CPU/CUDA64/32; hybrid reuses the main CSV. Full-call timing includes preparation, EM, draws, transfers and CPU output. File reads, installation, process startup and scoring are excluded. R-side hybrid includes reticulate conversion but not Python→Rscript process/binary exchange. CPU controls still consume the allocated GPU session's quota.
 
-计时包含各入口的预处理、EM、随机补值及 CPU 输出；文件读取、安装、进程启动和评分在计时外。混合计时包含 R/reticulate 的转换，不包括 Python→Rscript 的启动/二进制传输开销。免费 GPU 已分配期间运行 CPU 对照也消耗这次会话配额。
-
-## 5. 审计、保存与释放资源
-
-报告逐配置写盘。套件途中断线时，保留现有目录和失败日志；不要直接在原目录重跑。首先单独审计已完成报告，明确整套实验是否完整。主汇总器默认为 Mac 方法，CUDA 必须显式选择：
+## Audit and backup
 
 ```python
 run(PYTHON, "scripts/summarize_benchmarks.py", "--input-dir", NATIVE,
@@ -137,34 +56,11 @@ run(PYTHON, "scripts/summarize_hybrid.py", "--input-dir", HYBRID,
     "--output-dir", "results/local/cloud/hybrid-audit")
 ```
 
-不能只凭进程 exit 0 宣称速度结果有效：检查所有请求配置齐全、收敛、观察值保留、应补值有限、heldout 无漏计及审计退出码。报告包含全部重复，不能只挑成功或最快子集。随后使用同机 CPU/CUDA 比值；Mac 耗时仅作另一台机器的独立结果。三组吞吐测试仍不能替代 Rubin pooling/覆盖率等推断质量门槛。
+Audit planned configuration completeness, all repeats, convergence, observed values, finite outputs and complete heldout scoring. Exit 0 alone is insufficient. Ratios use same-host baselines; inference criteria remain separate. Preserve partial directories and logs after interruption; do not resume by overwriting them or merge different VMs into one suite.
 
-每完成一个主要 cell，或任何异常后，执行保存格。它只打包本次结果、准备数据及其元数据和公开来源清单，不包括 `.venv`、`.R-library`、Google 凭据或 Drive 内容。包可能几百 MiB，下载完成前不要删除 runtime。Google Drive 挂载是可选且另需用户授权，不是运行前提。
+After each major stage and failures, outside timing, export a full download archive and save the notebook. Confirm local hashes before releasing the VM. Review raw logs/config paths before publication. Optional Drive mounting requires separate authorization and is not needed for execution.
 
-```python
-import hashlib, tarfile, time
-from google.colab import files
-
-archive = pathlib.Path(f"/content/amelia-cuda-records-{int(time.time())}.tar.gz")
-with tarfile.open(archive, "w:gz") as bundle:
-    for item in ("results/local/cloud", "data/prepared", "data/manifest.json",
-                 "THIRD_PARTY.md", "LICENSE", "docs/cloud-cuda.md"):
-        path = REPO / item
-        if path.exists():
-            bundle.add(path, arcname=item)
-digest = hashlib.sha256()
-with archive.open("rb") as stream:
-    for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-        digest.update(chunk)
-print({"artifact": archive.name, "bytes": archive.stat().st_size, "sha256": digest.hexdigest()})
-files.download(str(archive))
-```
-
-将 notebook 通过 File → Download → `.ipynb` 另存，收到本机后核验下载文件哈希，再断开并删除 Colab runtime。公开 GitHub 前使用已清理的审计报告；原始 `.config.json` 和 R 日志可能含 VM 绝对路径，保留作本地记录，不直接发布。未测的内容、失败与平台范围一并写入验证说明。
-
-### 可从保存的 notebook 恢复的报告备份
-
-2026-09-26 实际遇到浏览器下载命令未产生可取回文件。为避免运行时释放后只剩截断日志，每个主要阶段完成后，另在 notebook 输出完整报告的压缩备份。以下代码在计时阶段之外运行：
+A portable checkpoint can be printed into notebook output:
 
 ```python
 checkpoint_text = subprocess.check_output(
@@ -173,15 +69,13 @@ checkpoint_text = subprocess.check_output(
 print(checkpoint_text, flush=True)
 ```
 
-此工具仅收集 `results/local/cloud` 内的 JSON/log/text、准备数据的 JSON 元数据和公共来源清单，记录原始/便携文本哈希，将项目和 home 路径替换为占位符；不读取 Google 认证目录、原始数据包、RDS 或依赖库。压缩结果应保存在 notebook 输出或报告目录以外，避免递归打包旧备份。发布前仍须检查日志内容。
+`cloud_checkpoint.py` includes JSON/log/text reports, prepared-data JSON and public manifests; it records raw/portable hashes and replaces project/home paths. It excludes credentials, raw data, RDS, dependencies and binary parameters. Keep checkpoint output outside the collected directory. Use `--phase g5-formal`, native or hybrid for a single existing direct phase directory; decompression is limited to 64 MiB. This does not recover unwritten results.
 
-保存的 notebook 即使离线也能恢复这些文件。如果下载受阻，可用 Colab 的“查看笔记本 JSON”复制完整内容，按 UTF-8 保存为 `.ipynb`；或复制单条 `amelia_checkpoint` JSON 保存。之后在本地使用：
-
-正式推断会保留较多逐份诊断，可为上面的命令加 `--phase g5-formal`，仅备份 `results/local/cloud/g5-formal/` 和公共数据元信息；`native`、`hybrid` 等阶段也分别备份。这样避免不断重复累计报告，仍保留每个文件原始/可公开哈希；单批解压上限为 64 MiB。阶段名必须是一个已存在的直接子目录，不允许路径穿越。
+Recover a saved notebook or complete checkpoint JSON locally:
 
 ```sh
 .venv/bin/python scripts/recover_cloud_checkpoint.py saved-notebook.ipynb \
   --label validation-20260926 --output-dir results/local/recovered-validation
 ```
 
-恢复工具不执行 notebook 代码；先检查 gzip、文件哈希与受限路径，拒绝覆盖已有目录。这补充常规下载，不声称能恢复未完成计算或未写入的结果。9/26 的实际执行使用 notebook 内同格式的独立函数；其代码和完整输出仍保存在该次 notebook，本仓库脚本提供后续可重复入口。
+Recovery does not execute notebook code. It validates gzip, paths and hashes and refuses overwrite. The staged notebook separately stores 12 native parameter NPZ files as hash-checked raw-byte envelopes and offers an input/parameter download archive. Checkpoints cannot guarantee recovery when a VM disappears before backup; truncated stdout is not the original JSON.

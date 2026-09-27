@@ -1,5 +1,7 @@
 # Amelia 1.8.3 reference fixtures
 
+[简体中文](README.zh-CN.md) · [Documentation](../../../docs/README.md)
+
 These are small synthetic inputs and outputs from the unmodified official R
 package. Rebuild from the repository root with:
 

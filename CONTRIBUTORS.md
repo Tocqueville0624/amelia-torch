@@ -1,7 +1,9 @@
 # Contributors
 
+[简体中文](CONTRIBUTORS.zh-CN.md) · [Documentation](docs/README.md)
+
 Maintainer: **Sheng Wan** — <swan0624@uw.edu>.
 
-A future collaborator slot is reserved for **Andrew Wang**. This records the owner's plan, not current authorship, an accepted invitation, or completed contributions. Add responsibilities and attribution after participation is confirmed; do not invent an email address or GitHub identity.
+Confirmed contributions are recorded in Git history. Contributor entries are added after participation is established; prospective collaborators are not listed as current authors.
 
-The Amelia algorithm and reference implementation are credited separately in [THIRD_PARTY.md](THIRD_PARTY.md). Code and documentation in this project are licensed under GPL-3.0-only; the public datasets retain their separate CC BY 4.0 terms.
+The original Amelia method and implementation are credited in [Third-party attribution](THIRD_PARTY.md). Project code and documentation use GPL-3.0-only; datasets retain their separate CC BY 4.0 licenses.

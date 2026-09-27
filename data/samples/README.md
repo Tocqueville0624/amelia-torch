@@ -1,10 +1,12 @@
 # Small attributed data samples
 
+[简体中文](README.zh-CN.md) · [Documentation](../../docs/README.md)
+
 Each `.npz` contains 256 uniformly sampled complete numeric rows from one pinned
 UCI archive, with an additional artificial block-MCAR mask. Each matching `.json`
 records the source citation, CC BY 4.0 license URL, exact source/output SHA-256,
 source row IDs convention, columns, seeds, and transformations. Data licenses
-are independent of the software license. See [dataset documentation](../../docs/datasets.zh-CN.md).
+are independent of the software license. See [dataset documentation](../../docs/datasets.md).
 
 These are interface examples, not evidence of large-dataset throughput or valid
 coverage. The `data` array is the imputation input. The `truth` array is withheld

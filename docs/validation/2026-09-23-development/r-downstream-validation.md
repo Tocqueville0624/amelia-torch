@@ -1,4 +1,6 @@
-# Bounded R downstream compatibility checks
+# R downstream checks
+
+[简体中文](r-downstream-validation.zh-CN.md) · [Documentation](../../README.md)
 
 `r-package/tests/downstream.R` uses small synthetic data on CPU float64 and
 Amelia 1.8.3. These are API/format/numerical regression checks, not performance
@@ -46,3 +48,7 @@ The local-scope `moPrep` test also exposed a wrapper frame issue. The reference
 wrapper now evaluates the original public call in its caller's frame, while the
 hybrid wrapper resolves the saved data expression there. Both then passed the
 original small `moPrep` comparison without changing the upstream algorithm.
+
+## Records
+
+This report describes the dated run and measured source below. Later project status is recorded in the [evidence summary](../2026-09-27-evidence-summary.md).

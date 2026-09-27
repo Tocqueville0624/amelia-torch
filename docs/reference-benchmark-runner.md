@@ -1,5 +1,7 @@
 # R Amelia benchmark runner
 
+[简体中文](reference-benchmark-runner.zh-CN.md) · [Documentation](README.md)
+
 Run from the repository root:
 
 ```sh

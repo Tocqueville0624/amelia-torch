@@ -1,4 +1,6 @@
-# 合成回归推断验证：CPU float64 初筛
+# CPU64推断初筛
+
+[English](inference-validation.md) · [文档目录](../../README.zh-CN.md)
 
 本次完成 **MCAR、MAR 各 200 个独立模拟数据集**，每份 `n=300`、`m=5`，共 400 次多重插补、2,000 次 bootstrap EM 拟合。所有拟合收敛，零失败、零警告、零自适应先验启用、零伪逆调用。这里检查特定合成设定下的统计推断，不是 GPU 性能实验，也不是所有数据或原版 Amelia 统计等价性的证明。
 
@@ -41,7 +43,7 @@ T = Ubar + (1 + 1/m) B
 95% CI = Qbar ± t_(ν,0.975) sqrt(T)
 ```
 
-当 `B=0` 时取 `ν=∞` 的正态极限。本轮**没有采用 Barnard–Rubin 的有限完整样本自由度修正**，因此不要将它与默认采用该修正的 pooling 软件输出逐项等同。公式来源及差异可核对 [mice 标量 pooling 文档](https://amices.org/mice/reference/pool.scalar.html)和 [Vink 与 van Buuren 的 pooling 论文](https://stefvanbuuren.name/publications/2014_MI_sample_population.pdf)。
+当 `B=0` 时取 `ν=∞` 的正态极限。本研究**没有采用 Barnard–Rubin 的有限完整样本自由度修正**，因此不要将它与默认采用该修正的 pooling 软件输出逐项等同。公式来源及差异可核对 [mice 标量 pooling 文档](https://amices.org/mice/reference/pool.scalar.html)和 [Vink 与 van Buuren 的 pooling 论文](https://stefvanbuuren.name/publications/2014_MI_sample_population.pdf)。
 
 偏差 MCSE 为独立模拟系数估计的样本标准差除以成功次数的平方根；覆盖率 MCSE 为 `sqrt(p*(1−p)/N_success)`，另报告精确二项区间。主覆盖率以成功且全部拟合收敛的数据集为分母，失败和不收敛次数另列，同时提供失败一律按未覆盖计的结果。本次无失败，两种分母得到相同覆盖率。
 
@@ -62,3 +64,9 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
 11 项离线测试覆盖手算 Rubin 示例、零 between variance 的正态极限、无效输入拒绝、解析 OLS 示例、掩码可复现与响应始终观测，以及失败不能从质量结果中消失。运行后独立从 400 条逐次记录重新计算了偏差、MCSE、覆盖次数并核验源文件哈希。
 
 公开 JSON 的 SHA-256：`f3c8d9206ce141d7614dd753b5bca8b39565fba3c42832f27f54f00d75b9d514`。
+
+## 记录
+
+本报告仅描述上述日期和测量源码对应的运行。后续项目状态见[证据摘要](../2026-09-27-evidence-summary.zh-CN.md)。
+
+[inference-validation.json](inference-validation.json)

@@ -1,6 +1,8 @@
 # 复现实验入口
 
-这些命令从项目根目录运行，先按 [setup.zh-CN.md](setup.zh-CN.md) 建立环境。源码开发版仍有未完成功能；不要用它替换未经兼容性验证的现有研究流程。
+[English](reproduce.md) · [文档目录](README.zh-CN.md)
+
+以下为可执行流程，不代表所有列出实验均已完成。当前整理既有证据，不新增拟合、模拟或测试任务；实际结果见[证据摘要](validation/2026-09-27-evidence-summary.zh-CN.md)。这些命令从项目根目录运行，先按 [setup.zh-CN.md](setup.zh-CN.md) 建立环境。源码开发版仍有未完成功能；不要用它替换未经兼容性验证的现有研究流程。
 
 ## 数据与确定性参考
 
@@ -43,7 +45,7 @@ Windows CPU-only 在 PowerShell 使用 `.venv\Scripts\python.exe` 替换上述�
 .venv\Scripts\python.exe scripts/summarize_benchmarks.py --methods cpu64 cpu32 cuda64 cuda32 r_serial r_snow4 --output-dir results/local/native-audit
 ```
 
-每个数据集按固定随机顺序依次执行原版 R 串行、R snow 4 进程、PyTorch CPU float64/float32，以及选定 GPU；CUDA 额外测 float64。每种配置 2 次预热、5 次正式计时，每次生成 5 份插补。GPU 必须同步；默认最多 300 EM 轮，超过上限是未收敛而非成功。原版 R 使用 1.8.3。
+每个数据集按固定随机顺序依次执行原版 R 串行、R snow4 进程、PyTorch CPU float64/float32，以及选定 GPU；CUDA 额外测 float64。每种配置 2 次预热、5 次正式计时，每次生成 5 份插补。GPU 必须同步；默认最多 300 EM 轮，超过上限是未收敛而非成功。原版 R 使用 1.8.3。
 
 原始报告位于 `results/local/benchmarks/main/`。汇总器逐条检查质量与收敛，并把不含私人路径的报告复制到验证文档目录。不要只根据进程正常退出判断全部成功；不要发布含本地绝对路径的 `.config.json`。重复实验请用新 `--output-dir` 保存，避免覆盖旧证据；汇总器指定对应 `--input-dir` 和 `--output-dir`。
 
@@ -59,7 +61,7 @@ Windows CPU-only 在 PowerShell 使用 `.venv\Scripts\python.exe` 替换上述�
 
 默认每种缺失机制生成 200 个独立的 300 行合成数据集，每次 5 份插补。检查 MCAR 与依赖已观测 y 的 MAR 下，OLS 系数的偏差、蒙特卡洛误差与 Rubin pooled 95% 区间覆盖率。该实验仅覆盖指定联合正态模型；不是所有数据的有效性证明，也不是 R/Python 分布等价检验。
 
-完整功能兼容、真实 Windows/Linux 安装、CUDA 及 RTX 3080 的测试仍须后续补齐。
+后续正式验收依据[冻结 G5 方案](validation/g5-prespecified/README.zh-CN.md)及其记录。Windows 固定 CUDA 和性能基准已经完成，CUDA G5 尚未完成；完整功能验收仍有缺口。
 
 ## R 用户混合路线
 

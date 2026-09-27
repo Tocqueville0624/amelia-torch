@@ -1,82 +1,66 @@
-# Colab T4：R hybrid 部分基准记录（11/12 配置）
+# Linux T4: partial R hybrid benchmarks
 
-**本次原 Colab 运行时已丢失；已备份 11 个配置，最后一个 YearPredictionMSD CUDA32 的结果未知。这里不是完整套件通过记录。** 已保存的 77 次调用、385 份插补通过了有限的逐报告收敛、设备和输出完整性核对。五组已有同精度 CPU/CUDA 配对的中位数速度比为 1.281–1.407 倍，但五个已保存 GPU 配置全部比同机原版 R snow2 慢，不能据此宣称普遍优于 Amelia。
+[简体中文](README.zh-CN.md) · [Documentation](../../README.md)
 
-主任务 Agent 于约 **2026-09-27 01:47 UTC** 直接观察到 Colab 断线，重新连接提示启动新运行时；约 01:51 UTC 的新会话只读探针发现项目不存在、全局变量中没有 `REPO`、`/content` 仅有 `.config` 与 `sample_data`，没有实验进程。原实验文件无法从该替代会话找回。最后看到的旧 stdout 为 Year CUDA32 starting；新会话的文件缺失**不能确定最后一个旧进程的结果或准确终止时刻**。这些会话事实来自主任务的观察，整理本包的 Agent 未操作 UI，见 [interruption-observation.json](interruption-observation.json)。
+**Eleven of twelve configurations were recovered.** The final Year Prediction MSD CUDA32 result is unknown. The 77 recorded calls and 385 imputations passed limited checks of convergence, devices and output completeness; this is not a verified complete suite. All five retained CUDA configurations were slower than original R snow2.
 
-## 已取得的耗时
+The Colab connection was lost around 01:47 UTC on 2026-09-27. A replacement session at approximately 01:51 UTC contained neither the project nor its variables or processes. The final visible output from the old session was Year CUDA32 starting. These observations establish neither the last result nor its exact termination time. See [interruption observations](interruption-observation.json).
 
-单位为秒；每格是 5 次正式 `m=5` 调用的中位数，每个已有配置另保留 2 次预热。所有原始重复和 IQR 均在归档及 [部分审计摘要](partial-evidence-summary.json)。IQR 描述重复间离散程度，不是置信区间。表中原版 R 两列来自同一原运行时此前完整完成的 [native 主基准](../2026-09-26-colab-native/README.md)，不是在断线后重跑所得。
+## Timings
 
-| 数据 | R 原版串行 | R 原版 snow2 | R hybrid CPU64 | R hybrid CPU32 | R hybrid CUDA64 | R hybrid CUDA32 |
+Seconds are medians of five measured calls, each producing five imputations, after two warmups. Raw repetitions and IQRs are retained in the archive and [partial summary](partial-evidence-summary.json). IQRs are not confidence intervals. R baselines come from the earlier complete [native suite](../2026-09-26-colab-native/README.md) on the same original VM.
+
+| Dataset | R serial | R snow2 | Hybrid CPU64 | Hybrid CPU32 | Hybrid CUDA64 | Hybrid CUDA32 |
 |---|---:|---:|---:|---:|---:|---:|
 | Covertype | 23.016 | 20.827 | 32.198 | 31.744 | 24.776 | 23.366 |
-| Household power | 16.239 | 14.649 | 21.808 | 19.630 | 16.782 | 15.323 |
-| YearPredictionMSD | 206.580 | 175.359 | 250.898 | 231.786 | 178.274 | **未取得，结果未知** |
+| Household Power | 16.239 | 14.649 | 21.808 | 19.630 | 16.782 | 15.323 |
+| Year Prediction MSD | 206.580 | 175.359 | 250.898 | 231.786 | 178.274 | Unknown |
 
-下表只在 R hybrid 路线内比较同 dtype 的 `CPU 中位数 / CUDA 中位数`；大于 1 表示这组已记录 CUDA 调用更快。它不是置信区间，也不是把实现、系统负载等差异全部归因于 GPU 的因果估计。
+Same-precision CPU/CUDA median ratios were 1.300 and 1.359 for Covertype, 1.299 and 1.281 for Household, and 1.407 for Year float64. No Year float32 ratio can be calculated. Compared with serial R, Household CUDA32 and Year CUDA64 took 5.64074% and 13.70220% less time; the other three CUDA configurations took longer. All five were slower than R snow2. These comparisons include implementation and workflow differences, not an isolated hardware effect.
 
-| 数据 | 精度 | CPU 中位数（秒） | CUDA 中位数（秒） | 速度比 |
-|---|---|---:|---:|---:|
-| Covertype | float64 | 32.198 | 24.776 | 1.300× |
-| Covertype | float32 | 31.744 | 23.366 | 1.359× |
-| Household power | float64 | 21.808 | 16.782 | 1.299× |
-| Household power | float32 | 19.630 | 15.323 | 1.281× |
-| YearPredictionMSD | float64 | 250.898 | 178.274 | 1.407× |
+## Inputs and timing
 
-Year float32 没有可计算的 GPU 比值，不从 native 路线或 float64 借值补齐。R 原版与 hybrid 的时间同时包含不同实现、桥接和数据布局成本，不能把相对原版的全部差值归因于 GPU。五个已取得 CUDA 配置均比 R snow2 慢；与 R 串行相比，Household CUDA32 耗时短 5.64074%，Year CUDA64 耗时短 13.70220%，其余三个 CUDA 配置耗时更长。因此本批记录支持的较窄结论是：**已保存的五组同精度 hybrid CPU/GPU 配对中，CUDA 更快；它没有一致超过原版 Amelia。**
+The hybrid retains original R preparation, bootstrap, conditional draws and postprocessing; reticulate delegates EM to PyTorch. Timing includes these steps, transfer and return of the complete R result. Initial Python binding/imports, process startup, CSV reads, scoring and report writes are excluded. Continuous-session observations and recorded environments support the same-host comparison; baseline and hybrid batches ran at different times.
 
-## 计时与数据边界
+A read-only Colab file preview was used during Year CPU64 timing to preserve results. No concurrent fitting or source editing was recorded, but background load was not fully isolated. The lost suite prevents complete reconstruction of scheduling and per-process source checks.
 
-这条路线保留原版 R 的预处理、bootstrap、随机补值与后处理，通过 reticulate 将 EM 交给 PyTorch。计时包含这些步骤、桥接和数据传输，以及返回完整 R 结果；初始 Python 导入/绑定、进程启动、CSV 读入、事后质量评分和写 JSON 不在单次计时内。原版与 hybrid 在不同时间批次运行，同机身份由主任务根据连续会话观察确认，并有各报告的环境信息支持；本包不公开私人主机标识。
+Inputs were 100,000 × 10/7/90, sampled from complete source rows before block-MCAR masking. Heldout counts were 300,000/200,000/2,700,000, with 8/7/8 patterns and 30%/28.57%/30% missingness. They are subsets with few missingness patterns, not full-source, independent-cell MCAR or MAR experiments. Attribution and preparation metadata are in the native report and archived data manifest.
 
-Year CPU64 的计时期间打开过只读 Colab 文件预览以备份结果；审查 Agent 没有并发拟合或编辑运行源码，但**背景负载并未完全隔离**。原始顺序及逐进程前后源码状态需要 suite 才能完整核验；该文件未取回，不根据零散报告重造。
+Each configuration used m=5, ordinary bootstrap, tolerance 1e-4, emburn=[0,300], autopri=0.05 and no initial empirical prior. Measured R seeds were 20260923–20260927; warmup seeds were 20360923–20360924. R used L'Ecuyer-CMRG / Inversion / Rejection. The host/Torch budget was two threads; hybrid used parallel=no, ncpus=1. R serial used two BLAS threads; snow used two workers with one BLAS thread each.
 
-三组数据分别是 100,000×10、100,000×7、100,000×90；均从完整来源行抽样后加入块状 MCAR。人工 heldout 为 300,000、200,000、2,700,000 个单元格，模式数为 8、7、8，实际缺失率为 30%、28.57%、30%。这是 **100k 样本、低模式块状 MCAR**，不是全部数据或逐格独立 MCAR/MAR。原始来源、完整行筛选、归属与 CC BY 4.0 信息保留于 [native 数据说明](../2026-09-26-colab-native/README.md#输入和计时边界) 及其归档中的 `data/manifest.json`。
+The original VM ran Linux x86_64, Tesla T4, Python 3.12.13, Torch 2.10.0+cu128, R 4.5.3, Amelia 1.8.3 and reticulate 1.47.0. Reports identify the actual device, precision, interpreter and thread counts; CUDA TF32 was disabled. CPU work remains part of the workflow. See the [environment record](../2026-09-26-colab-native/environment-summary.json).
 
-每个已有配置均为 `m=5`、ordinary bootstrap、tolerance `1e-4`、`emburn=[0,300]`、`autopri=0.05`、无初始经验先验。正式 R seeds 为 20260923–20260927，预热为 20360923–20360924，RNGkind 为 L'Ecuyer-CMRG / Inversion / Rejection。host/Torch 预算为 2 线程，R hybrid `parallel=no,ncpus=1`；原版 serial BLAS cap 为 2，snow 为 2 worker、每 worker BLAS cap 为 1。native setup 中早期的 4 线程建议不是正式计时配置。
+## Quality and memory
 
-原运行时是 Colab Linux x86_64 / Tesla T4，Python 3.12.13、Torch 2.10.0+cu128、R 4.5.3、Amelia 1.8.3、reticulate 1.47.0。每份报告核对了实际 device/dtype、解释器和线程；CUDA 报告均 TF32=false。CPU 工作仍明确存在，不称整个 R 流程为纯 GPU。完整环境来源见 [原运行时环境记录](../2026-09-26-colab-native/environment-summary.json)；新替代运行时不是本表的测量主机。
+The eleven reports contain 22 warmups and 55 measured calls: 110 and 275 imputations. Recorded checks found convergence, unchanged observations, finite required outputs and complete heldout scoring. Warning/error, pseudoinverse and positive final empirical-prior counts were zero. These findings say nothing about the unknown twelfth result. Report status=ok does not establish a subprocess exit code of zero.
 
-## 有限质量、数值和资源核对
+Paired by R seed and phase with serial R, all 210 imputations in the six retained float64 configurations had matching iteration counts. Of 175 float32 imputations, 18 differed: Covertype CPU32/CUDA32 had 3/1 differences, Household had 7/7, and Year CPU32 had none. All retained fits still reported convergence.
 
-11 个报告共记录 **22 次预热 + 55 次正式调用**，即 **110 + 275 份插补**。它们全部记录收敛、观察值保留、应补值有限且无漏计 heldout，warning/error、伪逆使用与正的最终经验先验计数均为 0。这些只描述已保存报告，不能说明未知第 12 项成功、失败或没有异常。报告 `status=ok` 不是整个子进程 exit 0 的替代证据。
+The largest absolute paired difference in normalized heldout RMSE was about 7.0e-14 for float64 and 3.81e-5 for float32. These are descriptive JSON-summary comparisons. Complete random arrays, RNG states and imputed matrices were not retained, so they do not establish elementwise equality, statistical equivalence, unbiasedness or adequate Rubin coverage. G5 inference, new GPU edge cases and Windows validation require separate evidence.
 
-按 R seed 和 phase 与原版串行配对，所有 6 个已保存 float64 配置的 210 份迭代次数相同。float32 的 175 份中有 18 份迭代次数不同，均仍记录收敛：Covertype CPU32/CUDA32 分别 3/1 份不同，Household CPU32/CUDA32 各 7 份，Year CPU32 为 0。逐份差异保留；不能把 float32 收敛说成轨迹完全一致。
-
-已保存 float64 的配对 normalized heldout RMSE 最大绝对差约 `7.0e-14`，float32 约 `3.81e-5`。这仅是**JSON 摘要的描述性对照**；没有保存全部随机数、R RNG 状态或完整插补矩阵，因此不证明逐格/逐比特相同，更不证明统计等价、无偏或 Rubin 覆盖率合格。独立 G5 推断质量、GPU 边界例、Windows/RTX 3080 和完整发布门槛均不由本包代替。
-
-以下 CUDA allocated 值取各已有配置全部 7 次调用的最大值：
-
-| 数据 | CUDA64 最大 allocated bytes | CUDA32 最大 allocated bytes |
+| Dataset | CUDA64 peak allocated bytes | CUDA32 peak allocated bytes |
 |---|---:|---:|
 | Covertype | 41,645,056 | 25,941,504 |
-| Household power | 31,939,584 | 20,637,696 |
-| YearPredictionMSD | 300,372,992 | 未取得 |
+| Household Power | 31,939,584 | 20,637,696 |
+| Year Prediction MSD | 300,372,992 | Unknown |
 
-这是 `torch.cuda.max_memory_allocated` 的活跃张量峰分配，不是总进程 VRAM、缓存保留量或宿主 RAM。未测 RAM/总显存与 CPU 路线的 CUDA 字段保持 `null`，不填 0。已保存报告未记录 OOM；最后一项结果未知，不能声明整套没有 OOM。
+Values are maxima of torch.cuda.max_memory_allocated across each configuration's seven calls. They exclude total process VRAM, reserved cache and host RAM. Unmeasured fields remain null. No retained report records OOM; the final unknown result prevents a suite-wide claim.
 
-## 来源、归档与离线复核
+## Provenance and audit
 
-测量固定源码为 [`905cc79ce20e65fe5b673039d4e411db73cd7544`](https://github.com/Tocqueville0624/amelia-torch/tree/905cc79ce20e65fe5b673039d4e411db73cd7544)。11 个报告中的 16 个源文件指纹一致，逐个匹配该 Git blob；安装 R bridge 指纹一致，NPZ/archive 指纹匹配已保存的 native 准备元数据，同一数据集的 CSV provenance 一致。未取回实际 CSV，原 native suite 也未保存同时点 CSV 哈希；不由这些摘要证明历史文件内容的每个环节。更不能把源文件哈希匹配说成已取得丢失的逐进程 before/after 证据。
+Measured source: `905cc79ce20e65fe5b673039d4e411db73cd7544`. Sixteen source fingerprints agree across the reports and with the corresponding Git blobs. Installed R bridge fingerprints agree; NPZ/archive fingerprints match native preparation metadata, and CSV provenance is consistent within datasets. Actual CSVs were not recovered, and the original native suite did not record contemporaneous CSV hashes. These records do not replace missing per-process before/after evidence.
 
-[hybrid-eleven-raw-reports.tar.gz](hybrid-eleven-raw-reports.tar.gz) 保存 **11 个原始 JSON**，未压缩报告共 3,789,799 bytes，归档 1,504,792 bytes，SHA-256：
+The [raw archive](hybrid-eleven-raw-reports.tar.gz) contains eleven unchanged JSON payloads: 3,789,799 uncompressed bytes, 1,504,792 archive bytes. SHA-256: `2f5f823929b476436452d52393c3025d13d5fb55e191388de2200ae146ebcbdc`. Only container metadata were normalized. The first ten reports came from a read-only preview bundle; Year CPU64 was backed up separately. The [collection manifest](collection-manifest.json) was assembled locally afterward, not captured as a cloud checkpoint. The [ten-report review](historical-ten-report-review.json), [Year CPU64 review](historical-year-cpu64-review.json) and [original manifest](original-ten-ui-copy-manifest.json) retain their historical provisional labels and original bytes.
 
-```text
-2f5f823929b476436452d52393c3025d13d5fb55e191388de2200ae146ebcbdc
-```
+The full suite, per-process exit codes, before/after source checks, configuration logs and final report remain missing. The complete-suite auditor was not bypassed. [verify_reports.py](verify_reports.py) instead produces a limited_recovered_report_audit_not_suite_audit covering the retained reports, hashes, backend/quality metadata, paired summaries and five ratios.
 
-报告 payload 字节未经改写，只规范化 tar/gzip 容器元数据。前十份来自只读文件预览的十配置 bundle，第十一份 Year CPU64 单独备份；[collection-manifest.json](collection-manifest.json) 是**后来在本地制作的收集清单，不是云端 checkpoint**。其中明确原十配置 bundle 不包含第十一份。历史 [十份审计](historical-ten-report-review.json)、[第十一份审计](historical-year-cpu64-review.json) 与 [原十份采集清单](original-ten-ui-copy-manifest.json) 保留原字节；其“pending / local provisional”文字反映当时状态，以本说明及中断记录为最新状态。
-
-缺失的完整 suite、每进程退出码、源码前后检查、配置/日志和第十二份报告均不补造。现有完整套件审计/绘图器要求完整 suite，本包没有绕过其门槛，也没有制造成功总图。独立 [verify_reports.py](verify_reports.py) 只核验这 11 份报告、逐份 backend/质量、采集哈希、输入元数据、原版配对摘要及五个同精度比值，输出种类明确为 `limited_recovered_report_audit_not_suite_audit`。
-
-在仓库根目录离线复核，不运行插补：
+From the repository root, audit existing records without fitting:
 
 ```sh
 .venv/bin/python docs/validation/2026-09-26-colab-hybrid-partial/verify_reports.py \
   --output results/local/hybrid-partial-recheck.json
 ```
 
-输出路径必须不存在；脚本读取本包和已有 native 公开压缩档，使用仓库的逐报告检查函数。它不调用要求完整 suite 的汇总入口。成功提示仍明确写 **complete suite NOT verified**。也可先把本包解压到新目录，再传 `--reports-dir 解压目录/reports` 核对归档往返。该流程已实际执行，解压后的摘要与 [partial-evidence-summary.json](partial-evidence-summary.json) 逐字节一致；见 [packaging-verification.json](packaging-verification.json)。
+The output path must be new. The script reads this package and the native archive; it explicitly reports complete suite NOT verified. An extracted archive can also be checked using --reports-dir. This round-trip check previously reproduced [partial-evidence-summary.json](partial-evidence-summary.json) byte-for-byte; see [packaging verification](packaging-verification.json).
 
-有限私人路径、主机标识和常见凭据模式检查见 [privacy-review.json](privacy-review.json)；它不声称覆盖任意可能的秘密模式。完整文件校验见 [SHA256SUMS.json](SHA256SUMS.json)。整理本包没有重新拟合或操作 UI；若今后恢复/重跑缺失项，需要另存运行时、版本、全部重复和来源，不能悄悄将新的会话拼成这次完整套件。
+[Privacy review](privacy-review.json) covers a limited set of path, host and credential patterns. [Checksums](SHA256SUMS.json) identify the published files. New measurements must retain their own runtime and provenance; they cannot complete this historical suite retroactively.

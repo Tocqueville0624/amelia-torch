@@ -1,6 +1,8 @@
 # 三组公开数据及可复现准备
 
-核验日期：2026-09-23（America/Los_Angeles）。这三组原始压缩包已实际下载，完成 SHA-256 固定、全部 ZIP 成员 CRC 检验及数据流逐行读取；字段数、数值列、行数、天然缺失数均已核对。这里只报告数据准备完成，**不表示已完成三组大规模插补或证明 GPU 加速**。
+[English](datasets.md) · [文档目录](README.zh-CN.md)
+
+核验日期：2026-09-23（America/Los_Angeles）。这三组原始压缩包已实际下载，完成 SHA-256 固定、全部 ZIP 成员 CRC 检验及数据流逐行读取；字段数、数值列、行数、天然缺失数均已核对。本页记录数据准备和限制；后续 Mac/T4/Windows 性能结果见[证据摘要](validation/2026-09-27-evidence-summary.zh-CN.md)。
 
 ## 选择及规模
 
@@ -10,7 +12,7 @@
 | Household Power | 2,075,259 | 7 | 20,640,916 | 132,960,755 | 110.8 MiB |
 | Year Prediction MSD | 515,345 | 90 | 211,011,981 | 448,576,698 | 353.9 MiB |
 
-压缩包合计 **242,904,103 字节，约 231.7 MiB**。下载前本机可用磁盘约 21.9 GiB，足以保存这三组；脚本默认保留 5 GiB 空闲。上表矩阵内存不含 bootstrap、多个插补副本、掩码、分组、R/Python 转换及临时计算空间，不应拿它作为算法峰值内存。以 Year Prediction 为例，单独保存 5 份 float64 输出就约需 1.73 GiB。
+压缩包合计 **242,904,103 字节，约 231.7 MiB**。脚本默认保留 5 GiB 空闲。上表矩阵内存不含 bootstrap、多个插补副本、掩码、分组、R/Python 转换及临时计算空间，不应拿它作为算法峰值内存。以 Year Prediction 为例，单独保存 5 份 float64 输出就约需 1.73 GiB。
 
 来源、原始地址、精确字节、压缩与解压数据 SHA-256、逐行核验结果、列选择和引用都在 [`data/manifest.json`](../data/manifest.json)。哈希为本项目下载后计算的固定版本指纹，并非 UCI 提供的数字签名。
 
@@ -48,7 +50,7 @@
 
 三组 UCI 官方页都明确标注 **CC BY 4.0**，允许再分发与改编。数据许可独立于软件许可；发布原包或派生样本时保留作者、标题、DOI、[CC BY 4.0 链接](https://creativecommons.org/licenses/by/4.0/)，并说明列选择、行抽样和人工缺失等修改，不暗示原作者背书。
 
-当前仓库包含清单、下载及准备脚本和小样本；完整原包放 `data/raw/`，准备文件放 `data/prepared/`，两者均被忽略，避免意外进入 Git 历史。公开完整数据的具体托管策略待最终确认。[GitHub 官方限制](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)阻止普通 Git 中超过 100 MiB 的文件，Year Prediction 压缩包已超出。可选择固定哈希的官方下载方案，或附署名说明的 GitHub Release 数据附件；[Release 单附件上限为 2 GiB](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)，三份原包均在此范围内。此处是可行方案，尚未创建 Release 或上传数据。
+当前仓库包含清单、下载及准备脚本和小样本；完整原包放 `data/raw/`，准备文件放 `data/prepared/`，两者均被忽略，避免意外进入 Git 历史。当前完整数据通过固定哈希的官方下载脚本提供，未上传 Release 附件。[GitHub 官方限制](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)阻止普通 Git 中超过 100 MiB 的文件，Year Prediction 压缩包已超出。可选择固定哈希的官方下载方案，或附署名说明的 GitHub Release 数据附件；[Release 单附件上限为 2 GiB](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)，三份原包均在此范围内。此处是可行方案，尚未创建 Release 或上传数据。
 
 ## 下载与校验
 
@@ -108,10 +110,10 @@
 
 固定种子在当前 NumPy 环境下确定抽行和掩码；跨版本长期复现依赖保存的具体数组、行 ID、哈希和版本信息，而不是只记一个 seed。真实数据掩码下 RMSE/MAE 不能验证 Rubin pooling 的覆盖率，也不能替代模拟中的偏差/区间覆盖率检查。最终性能口径遵循 [`benchmark-plan.zh-CN.md`](benchmark-plan.zh-CN.md)。
 
-## 验证记录与下一步
+## 验证记录与限制
 
 - 已完成：三包下载、固定哈希、ZIP CRC、gzip 内层读至结束、全部原始行列及数值读取；零无限值。
 - 已完成：三份 10,000 行初测输入、三份 100,000 行块状缺失评估输入、三份 5,000 行独立缺失压力输入；三份每组 256 行的带引用小样本用于接口演示。
 - 已完成：12 项离线测试覆盖损坏/未固定哈希拒绝、已有包离线校验、Range 被忽略时保留部分文件、行来源追踪、天然/人工缺失隔离、MAR 锚、块状模式及三个小样本的来源与真值隔离。
-- 已完成：三组各 100,000 行块状 MCAR 的原版 R 串行/并行、native Torch CPU/MPS 端到端基准及独立质量审计，见[开发验证记录](validation/2026-09-23-development/README.md)。
-- 待执行：逐格独立缺失压力、规模递增、真实设备 RAM/VRAM 记录、CUDA 实测。当前结果不构成其他任务的速度承诺。
+- 已完成：三组各 100,000 行块状 MCAR 的原版 R 串行/并行、native Torch CPU/MPS 端到端基准及独立质量审计，见[开发验证记录](validation/2026-09-23-development/README.zh-CN.md)。
+- 待执行：逐格独立缺失压力、规模递增、真实设备总 RAM/VRAM 记录。CUDA 固定案例及性能结果已另行公开。当前结果不构成其他任务的速度承诺。

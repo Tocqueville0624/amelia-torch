@@ -1,31 +1,15 @@
-# Hosted CPU CI verification
+# Hosted CPU CI: 620213e
 
-All three jobs in [GitHub Actions run 35953184726](https://github.com/Tocqueville0624/amelia-torch/actions/runs/35953184726)
-passed at commit [`620213e`](https://github.com/Tocqueville0624/amelia-torch/commit/620213e56866bf83c9f16207a1b8e79654ede03c).
-The configured versions were Python 3.12, R 4.5.3, and Amelia 1.8.3.
-The run completed on September 24 UTC / September 23 Pacific time, 2026.
+[简体中文](cross-platform-ci.zh-CN.md) · [Documentation](../../README.md)
 
-| Hosted runner | Python tests | Python lint | R source package installation | Five R test files |
-|---|---|---|---|---|
-| Windows | 149 passed | Passed | Passed | Passed |
-| macOS | 149 passed | Passed | Passed | Passed |
-| Ubuntu Linux | 149 passed | Passed | Passed | Passed |
+[Run35953184726](https://github.com/Tocqueville0624/amelia-torch/actions/runs/35953184726) passed on Windows, macOS and Ubuntu at `620213e56866bf83c9f16207a1b8e79654ede03c`, completing 2026-09-24 UTC/September 23 Pacific. Each ran 149 Python tests, lint, R source installation and five R files, with Python 3.12/R 4.5.3/Amelia 1.8.3.
 
-The R tests cover the native Python bridge, official CPU reference delegation,
-hybrid CPU EM, backend provenance, and downstream workflows/random-stream
-regressions. The complete portable status, exact commit, job links, and checked
-test filenames are recorded in [cross-platform-ci.json](cross-platform-ci.json).
+R scope: native bridge, reference delegation, hybrid CPUEM, provenance and downstream/RNG checks. This is CPU regression evidence, not performance, CUDA/MPS, physical RTX 3080 or full compatibility acceptance.
 
-This is actual hosted CPU execution evidence. It does not validate CUDA, MPS,
-the user's physical RTX 3080 machine, every operating-system version, or full
-Amelia compatibility. These CI runs are not performance benchmarks.
+The first run passed Mac/Ubuntu but Windows had 132 passing checks and one path-resolution failure: the placeholder executable lacked a Windows suffix. The fixture now uses `.exe` on Windows and is looked up, never executed. The first correction passed 133 tests on each platform; the later 149-test run is recorded separately. No statistical algorithm, tolerance or reference version changed.
 
-The [first run](https://github.com/Tocqueville0624/amelia-torch/actions/runs/35952331765)
-passed on macOS and Ubuntu. Windows passed 132 Python tests and failed one
-path-resolution test because its placeholder executable lacked a Windows
-executable suffix. The fixture now uses `.exe` on Windows and is only looked up,
-never executed. No statistical algorithm, numerical tolerance, or reference
-version changed. The first [corrected run](https://github.com/Tocqueville0624/amelia-torch/actions/runs/35952792428)
-passed 133 Python tests on each platform and completed the five Windows R tests
-that the initial failed run had not reached. The latest run above includes the
-expanded 149-test suite and retains all five passing R test files per platform.
+## Records
+
+This report describes the dated run and measured source below. Later project status is recorded in the [evidence summary](../2026-09-27-evidence-summary.md).
+
+[cross-platform-ci.json](cross-platform-ci.json)

@@ -1,4 +1,6 @@
-# R package verification, 2026-09-23
+# R package check: 2026-09-23
+
+[简体中文](r-package-check.zh-CN.md) · [Documentation](../../README.md)
 
 The development R package `ameliatorch` version `0.0.0.9000` was installed and
 tested on macOS 26.6.2, Apple Silicon, R 4.5.3, Amelia 1.8.3, and reticulate 1.47.0.
@@ -65,3 +67,9 @@ Both direct official and wrapped calls showed the same result. The ordinary
 combined-case fixture now uses two prior rows. The wrapper was not changed to
 alter upstream behavior; the dedicated single-prior compatibility boundary is
 documented in the [algorithm contract](../../algorithm-contract.md).
+
+## Records
+
+This report describes the dated run and measured source below. Later project status is recorded in the [evidence summary](../2026-09-27-evidence-summary.md).
+
+[r-package-check.log](r-package-check.log) · [r-package-check-sources.json](r-package-check-sources.json)

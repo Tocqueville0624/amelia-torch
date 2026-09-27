@@ -1,21 +1,21 @@
-# Hosted CPU CI: 2026-09-26
+# Hosted CPU CI: fa08a52
 
-[Run 36274202726](https://github.com/Tocqueville0624/amelia-torch/actions/runs/36274202726) completed successfully at commit **`fa08a5207d197a3f82ced7913a67bc448c8ecacc`**. The report was checked against both the run/job API and complete job logs. Raw logs and runner paths are not published here.
+[简体中文](README.zh-CN.md) · [Documentation](../../README.md)
 
-| Actual runner | Python | Pytest result | R test files | Downstream example |
+[Run36274202726](https://github.com/Tocqueville0624/amelia-torch/actions/runs/36274202726) passed at `fa08a5207d197a3f82ced7913a67bc448c8ecacc` on 2026-09-26. Run/job APIs and full logs verified checkout, installs and actual commands.
+
+| Runner | Python | Python checks | R files | Downstream |
 |---|---|---:|---:|---|
-| macOS 26.6.2, arm64 | 3.12.10 | 161 passed, 24.12 s | 7 passed | passed |
-| Windows Server 2025, x64 | 3.12.10 | 161 passed, 38.48 s | 7 passed | passed |
-| Ubuntu 24.04.5, x64 | 3.12.14 | 161 passed, 22.25 s | 7 passed | passed |
+| macOS 26.6.2 arm64 |3.12.10|161 passed, 24.12 s|7|passed|
+| Windows Server 2025 x64 |3.12.10|161 passed, 38.48 s|7|passed|
+| Ubuntu 24.04.5 x64 |3.12.14|161 passed, 22.25 s|7|passed|
 
-All jobs used R 4.5.3 and exact Amelia 1.8.3. PyTorch was 2.14.0 on macOS and 2.14.0+cpu on Windows/Linux. The architecture is taken from the actual interpreter setup logs (and the macOS arm64 image), not inferred from `*-latest` labels.
+R 4.5.3/Amelia 1.8.3 were fixed. Torch was 2.14.0 on Mac and 2.14.0+cpu elsewhere. Lint, C-helper source installation and Python→RDS→R transform/append/PDF/export/readback passed; no Python tests skipped. The conditional Mac skip concerned only the Windows/Linux wheel-install step.
 
-The seven R files were `bridge.R`, `compatibility.R`, `torch-compat.R`, `public-edge-cases.R`, `reference_metadata.R`, `downstream.R`, and `downstream_extended.R`. Source-package installation and the compiled C helpers succeeded. Each platform ran the Python→R downstream example, including RDS transfer, transformation/append, headless PDF, and export/readback. Python lint also passed.
+This commit covers bounded G1 and early G2 tests, not later G3/G4/autopri work. CPU tests are not benchmarks, GPU/GUI acceptance, an isolated wheel matrix or an Intel Mac result. Intel reference-only installation has its own versioned report.
 
-The macOS-only skip of the “Install CPU PyTorch on Windows and Linux” step is its intended platform condition; macOS installed PyTorch in the normal package step. There were no skipped Python tests.
+## Records
 
-These results include the bounded G1 downstream and G2 start-value tests present in this commit. They **do not include later G3 frontend/type-boundary tests, G4 parallel regressions, or later autopri probes**. No CUDA/MPS, Intel Mac, interactive GUI, or complete first-release claim follows from this CPU workflow. A source install is not an independent wheel-install matrix.
+This report describes the dated run and measured source below. Later project status is recorded in the [evidence summary](../2026-09-27-evidence-summary.md).
 
-[Portable JSON with job links and step outcomes](cross-platform-ci.json)
-
-A separate subsequent commit completed an actual Intel Mac installed-wheel reference workflow without Torch: [Intel Mac evidence](intel-mac-reference.md). Its result is independent of the three-platform matrix above.
+[cross-platform-ci.json](cross-platform-ci.json)
