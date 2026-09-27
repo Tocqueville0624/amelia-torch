@@ -42,4 +42,6 @@ Cloud recovery records in ignored `results/local/cloud-recovery-*/resume-state.j
 
 ## Commit attribution
 
-AI-assisted commits use the executing model's actual name and a valid `Co-Authored-By:` trailer. Do not fabricate identities, authorship or email addresses.
+For project commits authorized by Sheng Wan, use the repository-local Git identity `Sheng Wan <swan0624@uw.edu>`. Do not automatically add Codex or other AI tools as `Co-Authored-By`. Preserve real human contributors, upstream authors, licenses and source attribution. This metadata policy does not assert that all work was written manually. Do not change global Git configuration.
+
+Historical measured revision IDs and source hashes remain immutable evidence. Resolve old IDs through [the history migration map](docs/history/README.md); the mapped commits have identical file trees. Keep documentation or reproduction-entry changes in separate commits from metadata-only history rewrites.

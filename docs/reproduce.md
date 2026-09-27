@@ -2,6 +2,8 @@
 
 [简体中文](reproduce.zh-CN.md) · [Documentation](README.md)
 
+For a revision recorded in an older report, use the [history map](history/README.md) to find its content-identical checkout. Original report IDs and source checksums remain unchanged.
+
 Use the [installation guide](setup.md) first and run from the repository root. These are runnable procedures, not a claim that every listed experiment has been completed. Current work reviews existing evidence; new fitting/simulation/test jobs remain paused. [Current outcomes](validation/2026-09-27-evidence-summary.md) identify completed runs.
 
 ## Data and reference fixtures

@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "base_original_commit": "ee973a63a3124ce730ec5c0fb4be8b3abb816060",
+  "base_migrated_commit": "8a2d5c131ce7ff5748a1cebe31ecb37006137039",
+  "scope": "Separate documentation and revision-entry update; no scientific code or raw measurement changes.",
+  "history_commit_pairs_verified": 26,
+  "all_history_trees_identical": true,
+  "all_nontrailer_message_bytes_preserved": true,
+  "author_committer_dates_preserved": true,
+  "prior_human_identity_fields_preserved": true,
+  "original_measurement_payload_files_unchanged": 202,
+  "notebook_code_cells": 17,
+  "notebook_code_cells_changed": 1,
+  "only_executable_change_is_mapped_revision_constant": true,
+  "notebook_ast_parse_passed": true,
+  "notebook_cells_executed": 0,
+  "markdown_pairs": 60,
+  "relative_links_checked": 1007,
+  "missing_relative_link_targets": 0,
+  "code_data_tests_workflows_licenses_and_contributor_files_unchanged": true,
+  "tests_fits_simulations_started": false,
+  "readme_review": {
+    "audience": "English-speaking researchers and external hiring reviewers",
+    "changes": [
+      "Explain multiple imputation and EM before interface details.",
+      "Describe concrete implementation and evaluation contributions.",
+      "Present same-host performance with scope and statistical limits.",
+      "Remove repeated status summaries and generic significance language."
+    ],
+    "second_pass": "No promotional claims, assistant-to-owner narration or manual-authorship claim; numeric table and usage code preserved."
+  },
+  "mutable_document_checksum_updates": [
+    {
+      "manifest": "docs/validation/2026-09-26-ci/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-26-ci/README.md",
+      "before_sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
+      "after_sha256": "85db1e322f435374457a511313e120cd2b2f13e30ee2c4f0eec3b715567d3c6c",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-ci/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-26-ci/README.zh-CN.md",
+      "before_sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac",
+      "after_sha256": "bb33a4e9814eed19787e8d52c68559772a8a1e1f25aabe676d4a78b6fc7b45e7",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-colab-hybrid-partial/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-26-colab-hybrid-partial/README.md",
+      "before_sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
+      "after_sha256": "1aa1d93ab64bc01b9ec211e9811f92e3673f9f60a4fed83b6440525e1294cf73",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-colab-hybrid-partial/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-26-colab-hybrid-partial/README.zh-CN.md",
+      "before_sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac",
+      "after_sha256": "124c1451da5c23b0c4e9dc01be010ad0e9890e9ccead4251b7295e91b6d5d2e7",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-colab-native/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-26-colab-native/README.md",
+      "before_sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
+      "after_sha256": "c66d8369c7096159858ee1277ad3dec14d4bb0be71f98f43eb843225316593e5",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-colab-native/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-26-colab-native/README.zh-CN.md",
+      "before_sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac",
+      "after_sha256": "0cf0aff9f82e862a96522237abeead6be7bc6ce3891999718af54eef0f41a49b",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-g3/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-26-g3/README.md",
+      "before_sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
+      "after_sha256": "4019beaa6d9bfe663428bddec4685a62b85837f8aa9c31e4ac90a6a65e183bab",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-g3/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-26-g3/README.zh-CN.md",
+      "before_sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac",
+      "after_sha256": "8e63b13765ab983521b0e29dce65132327ec557dd9090ff2783ca1db358dd0e7",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-g7/SHA256SUMS",
+      "path": "docs/validation/2026-09-26-g7/README.md",
+      "before_sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
+      "after_sha256": "f7fe2311496846b69c6b6ac33b2343d7e8951ab48e12c4bd80fd8d2db4ff2ca9",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-26-g7/SHA256SUMS",
+      "path": "docs/validation/2026-09-26-g7/README.zh-CN.md",
+      "before_sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac",
+      "after_sha256": "a317ceb689a386b80066693011362a6a9e54cdd8708188a58f69a9a995ea86f4",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-27-colab-recovery/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-27-colab-recovery/README.md",
+      "before_sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
+      "after_sha256": "edd6234b049b3d1cd8524203f79db4394db27251b7f4c29a5e53ca64546415f0",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    },
+    {
+      "manifest": "docs/validation/2026-09-27-colab-recovery/SHA256SUMS.json",
+      "path": "docs/validation/2026-09-27-colab-recovery/README.zh-CN.md",
+      "before_sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac",
+      "after_sha256": "f00a0e1234e336de802d6f202b5cfc4567ffd1edc72dd3240f86eaa612c60465",
+      "reason": "Resolve the document within its manifest directory or declared repository-root base; include current editorial edits."
+    }
+  ],
+  "changed_existing_files": [
+    {
+      "path": "AGENTS.md",
+      "previous_sha256": "44d4d753b091788950e171eabeabb4daeb96e3d16df6f35eb6d47ea37766a2ab",
+      "current_sha256": "6b3097685a1dd2065a96332e9fdcde507f7fc6285f3d889790ecd77a39e64324",
+      "bytes": 7967
+    },
+    {
+      "path": "AGENTS.zh-CN.md",
+      "previous_sha256": "e9db340a79a79767c1b9714aad95ac5491d9df7311eb199749071c04c2a33b0f",
+      "current_sha256": "984403c3aff9276d3954dae9f4d3f8f6ac11dc6bdba4d549dcdb385007335874",
+      "bytes": 6488
+    },
+    {
+      "path": "README.md",
+      "previous_sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
+      "current_sha256": "ec6e2bfc72b92f7d00a0b3e30b2a7fc741e44ae156be49828c211cc1f3ec4baf",
+      "bytes": 6837
+    },
+    {
+      "path": "README.zh-CN.md",
+      "previous_sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac",
+      "current_sha256": "c8b4900aa4dc1b2f5c934ec0416d8ac69b516a648fe9fc57582a956e4d045b84",
+      "bytes": 6144
+    },
+    {
+      "path": "docs/README.md",
+      "previous_sha256": "3a431bf707f9e52de5113079c60a54cdac699d7f96e6477ccf9d3e4c1a385d51",
+      "current_sha256": "6773849dcf4022a322f608bc2b52ca7813dca84dbd387c3328f21be7d5fce3cd",
+      "bytes": 4927
+    },
+    {
+      "path": "docs/README.zh-CN.md",
+      "previous_sha256": "a87063d1453cb5746edb557c4d05ee5edb929bf5e5019b79462059e8d1eefdf0",
+      "current_sha256": "97382ce648f7989dc338f5b18cf9f1c7363d3f1ada6e3397dda385670cfa55d0",
+      "bytes": 4922
+    },
+    {
+      "path": "docs/cloud-cuda.md",
+      "previous_sha256": "884d14915b404ee61b7f4e0e1ca266b3fdd1df3b6983f47d1e4017155d109cca",
+      "current_sha256": "5259d4b7d1a7186b7626dffd91ca1512f7bdb639e21f7185ac7c9630b25c54ec",
+      "bytes": 8021
+    },
+    {
+      "path": "docs/cloud-cuda.zh-CN.md",
+      "previous_sha256": "110c30a118bb89bf7be96743c73b1c22982db4606fb4a53d5731064756f609ec",
+      "current_sha256": "46ed778402a7fae4ab4c92fce49990ff73bb7a9e3348bea8f039be26a78c7ae1",
+      "bytes": 6767
+    },
+    {
+      "path": "docs/reproduce.md",
+      "previous_sha256": "469049511543fe8bd02b46783172434e0f19b52e810411601c85439b9e26db3a",
+      "current_sha256": "30c2a49cdf96b89e71cf07f10bcb49e453e2ffd860b740f2666814ba7fc2f17d",
+      "bytes": 7600
+    },
+    {
+      "path": "docs/reproduce.zh-CN.md",
+      "previous_sha256": "d4d34bceb0b29a4c11ccd0b7e09764a6d0c070e78f28befbf859e6b580fd921b",
+      "current_sha256": "2b98f2d47c6c837ab3359704689025eee368b097fd44c93e5a8527d44e2dfd72",
+      "bytes": 8810
+    },
+    {
+      "path": "docs/validation/2026-09-26-ci/SHA256SUMS.json",
+      "previous_sha256": "ecb90c77f06105004713e525eb8a9f780ac4307d08f6e8e5c15166f1d2bed847",
+      "current_sha256": "b0ec496414536d69753fcdc744d655500ae3098b357a6746f3522d436402f15a",
+      "bytes": 567
+    },
+    {
+      "path": "docs/validation/2026-09-26-colab-hybrid-partial/README.zh-CN.md",
+      "previous_sha256": "4e8dbfbf7c2b4bfbbe0537f5c20d1955b740bc09f5033a15c351f2418df3c592",
+      "current_sha256": "124c1451da5c23b0c4e9dc01be010ad0e9890e9ccead4251b7295e91b6d5d2e7",
+      "bytes": 10262
+    },
+    {
+      "path": "docs/validation/2026-09-26-colab-hybrid-partial/SHA256SUMS.json",
+      "previous_sha256": "5407717d4c6a3c6550aee92a982ce2b84367772f6d12b0e1fd252e980fb24928",
+      "current_sha256": "29f14afb1d2aa4386394c90a7f0e41fbb8c20ad08e3b61e722ebaaff82bee5e4",
+      "bytes": 2254
+    },
+    {
+      "path": "docs/validation/2026-09-26-colab-native/SHA256SUMS.json",
+      "previous_sha256": "b1a0c77488f58502036e6e3c8423e75e5005c7d803489897b4b3ca6ca086fb44",
+      "current_sha256": "2562c0c49f6177552c3800fd00482e3e678ea2249cc2a3488c97e3f8719dfece",
+      "bytes": 1541
+    },
+    {
+      "path": "docs/validation/2026-09-26-g3/SHA256SUMS.json",
+      "previous_sha256": "0a46467e47fc6dcfc5a730626cc3e7355b1f272ad8c7c5f6dc43094daa66b78a",
+      "current_sha256": "360dc7cde95b778b32d8151b702051641a828149e1bf67a9c734420aa0af3334",
+      "bytes": 345
+    },
+    {
+      "path": "docs/validation/2026-09-26-g7/SHA256SUMS",
+      "previous_sha256": "37f98721833862b0c59ac64dc9d9b00df1696cf99e7302f9a19d0cef7001d141",
+      "current_sha256": "18b65e514ecad922e416929f92776bbb8fe20a2fe54e41eebf04f8a263b2589c",
+      "bytes": 641
+    },
+    {
+      "path": "docs/validation/2026-09-27-colab-recovery/SHA256SUMS.json",
+      "previous_sha256": "25d01578ca42fba0b8a78f4c01adf7a79b82794055198aa69ba2e270abda29a8",
+      "current_sha256": "d706d86fd7af4ae30e818cd67f28ab86b92a7aa44151c652b1975423b193658a",
+      "bytes": 923
+    },
+    {
+      "path": "docs/validation/2026-09-27-windows-rtx3080/README.md",
+      "previous_sha256": "e49889b11a14e2dbe9ce54aaac238f32dc6c33cb55f6848102d32fad12ccbd3d",
+      "current_sha256": "76beea1e2eda6a4514a0440be7e43f73280b3dcb821857e45002c7930fce8ac5",
+      "bytes": 10434
+    },
+    {
+      "path": "docs/validation/2026-09-27-windows-rtx3080/README.zh-CN.md",
+      "previous_sha256": "7288d36858d4fe25e94da8197d0c8ceabbbba1d00147dcec96b2073bb16e5ebb",
+      "current_sha256": "0f0b61962b0384e3c82e01dd90fbc4484fb96e612b2cb8001d3d4b53cefaf288",
+      "bytes": 10705
+    },
+    {
+      "path": "examples/colab_cuda_validation.ipynb",
+      "previous_sha256": "aa10c6c58db14c0cc851e1ce36f19791057665b1b2498cef767098cef6e83ae3",
+      "current_sha256": "03c81ae60e7705f7506d2b0539739acb1ff0f27b5a55d397e679b72c0fef405b",
+      "bytes": 59649
+    }
+  ],
+  "prior_editorial_manifest_preserved": true,
+  "github_render": {
+    "en": {
+      "headings": [
+        "amelia-torch",
+        "Contributions",
+        "Results",
+        "Interfaces",
+        "Installation and usage",
+        "Validation and limitations",
+        "Reproduction and attribution"
+      ],
+      "tables": 2,
+      "code_blocks": 4
+    },
+    "zh": {
+      "headings": [
+        "amelia-torch",
+        "项目贡献",
+        "结果",
+        "接口",
+        "安装与使用",
+        "验证与限制",
+        "复现与归属"
+      ],
+      "tables": 2,
+      "code_blocks": 4
+    },
+    "history": {
+      "headings": [
+        "Git history migration",
+        "Scope",
+        "Revision mapping",
+        "Reproduction entries and CI",
+        "Windows synchronization",
+        "Retained historical traces"
+      ],
+      "tables": 1,
+      "code_blocks": 2
+    }
+  }
+}

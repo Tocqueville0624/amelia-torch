@@ -6,7 +6,7 @@ Colab 实验因配额耗尽处于暂停状态。本文是后续安排运行的�
 
 ## 模板与已知失败
 
-使用[分阶段notebook](../examples/colab_cuda_validation.ipynb)及[范围说明](../examples/README.zh-CN.md)。模板固定 `ef729c093e162f4d6ebd797c95a9da8072ac968a`，含九个 R 文件和独立正确性、性能、G5、审计、备份阶段。静态/语法/lint 及轻量进程中断检查通过，但**未完成一次端到端 Colab 运行**。历史 `905cc79` 耗时不是新模板执行结果。
+使用[分阶段notebook](../examples/colab_cuda_validation.ipynb)及[范围说明](../examples/README.zh-CN.md)。模板检出 `90699b898a55a9c29f61e01181b8d688ab08b702`，对应文件树完全相同的原始 `ef729c093e162f4d6ebd797c95a9da8072ac968a`，含九个 R 文件和独立正确性、性能、G5、审计、备份阶段。静态/语法/lint 及轻量进程中断检查通过，但**未完成一次端到端 Colab 运行**。历史 `905cc79` 耗时不是新模板执行结果。
 
 替代运行止于第 4/20 步：306 项Python通过，一项嵌套 venv 缺NumPy；后续 R/CUDA边界/G5 未执行。此前系统安装将 R 4.5.3 升级为 4.6.1 并破坏共享扩展；恢复 4.5.3 和新项目 R 库修复了安装，不代表整套验证通过。自动安装保护尚未验证；工具齐全时不加 `--install-system-packages`，重用前查看[恢复证据](validation/2026-09-27-colab-recovery/README.zh-CN.md)。
 

@@ -1,0 +1,29 @@
+{
+  "source_link_updates": [
+    {
+      "path": "docs/validation/2026-09-27-windows-rtx3080/README.md",
+      "old": "810591e6a77956a49dfef5de1d4a2274fefe9e07",
+      "new": "6476292d998185e6433e62dd2dff9a4c35afd837"
+    },
+    {
+      "path": "docs/validation/2026-09-27-windows-rtx3080/README.zh-CN.md",
+      "old": "810591e6a77956a49dfef5de1d4a2274fefe9e07",
+      "new": "6476292d998185e6433e62dd2dff9a4c35afd837"
+    },
+    {
+      "path": "docs/validation/2026-09-26-colab-hybrid-partial/README.zh-CN.md",
+      "old": "905cc79ce20e65fe5b673039d4e411db73cd7544",
+      "new": "a4c74cd9ce141d1291437ba602f5f330442d9241"
+    }
+  ],
+  "notebook": {
+    "path": "examples/colab_cuda_validation.ipynb",
+    "old_pin": "ef729c093e162f4d6ebd797c95a9da8072ac968a",
+    "new_pin": "90699b898a55a9c29f61e01181b8d688ab08b702",
+    "code_cells_changed": 1,
+    "other_code_cells_unchanged": true
+  },
+  "ci_workflow_files_changed": false,
+  "original_measurement_json_logs_archives_changed": false,
+  "new_runtime_execution": false
+}

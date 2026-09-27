@@ -2,11 +2,13 @@
 
 [简体中文](README.zh-CN.md) · [Documentation](../../README.md)
 
+Original measurement IDs are retained; source links now resolve to migrated commits with identical file trees. See the [revision map](../../history/README.md).
+
 On the 100,000-row, 90-column task, native CUDA64 took **22.115 seconds**, compared with **230.560 seconds for serial R** and **32.979 seconds for native CPU64**. The same-implementation GPU gain was 1.49×; the 10.43× difference from R also includes implementation and workflow differences. Full R hybrid CUDA64 took 101.640 seconds, a 1.09× gain over hybrid CPU64. Narrower tasks mostly showed little GPU benefit or a slowdown.
 
 The Windows 11 / RTX 3080 experiment on 2026-09-27 UTC completed all 18 native/reference and 12 hybrid configurations. Independent convergence, observed-value and complete-heldout checks passed for all **210 calls and 1,050 imputations**: 150 measured calls and 60 warmups. All results are retained.
 
-Measured source: [`810591e6a77956a49dfef5de1d4a2274fefe9e07`](https://github.com/Tocqueville0624/amelia-torch/tree/810591e6a77956a49dfef5de1d4a2274fefe9e07). These Windows measurements are independent of the incomplete Colab records and do not complete G5 inference acceptance.
+Measured source: [`810591e6a77956a49dfef5de1d4a2274fefe9e07`](https://github.com/Tocqueville0624/amelia-torch/tree/6476292d998185e6433e62dd2dff9a4c35afd837). These Windows measurements are independent of the incomplete Colab records and do not complete G5 inference acceptance.
 
 ## Performance comparison
 

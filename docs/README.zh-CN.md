@@ -66,6 +66,7 @@
 
 ## 贡献与数据归属
 
+- [Git 历史迁移与编号映射](history/README.zh-CN.md)
 - [贡献者](../CONTRIBUTORS.zh-CN.md)
 - [贡献指南](../CONTRIBUTING.zh-CN.md)
 - [来源、归属与许可证状态](../THIRD_PARTY.zh-CN.md)
@@ -77,3 +78,5 @@
 ## 文档版本与原始记录
 
 本次文档整理以提交 `939409a` 为基线。译文、导航和说明文字的调整不产生新实验。JSON、日志、图表、压缩归档和测量源码指纹保留原始记录；历史归档中的文件仍按归档时版本保存。文档校验值的调整单独记录在[文档审查清单](documentation-review.json)，不更改实验结果。
+
+此处的 documentation-review.json 保留上次文档审查时的哈希；本次改动见[迁移文档审查](history/editorial-audit.json)。

@@ -2,6 +2,8 @@
 
 [English](README.md) · [文档目录](../../README.zh-CN.md)
 
+原始测量编号保持不变；源码链接现指向文件树相同的迁移提交。见[历史映射](../../history/README.zh-CN.md)。
+
 **本次原 Colab 运行时已丢失；已备份 11 个配置，最后一个 YearPredictionMSD CUDA32 的结果未知。这里不是完整套件通过记录。** 已保存的 77 次调用、385 份插补通过了有限的逐报告收敛、设备和输出完整性核对。五组已有同精度 CPU/CUDA 配对的中位数速度比为 1.281–1.407 倍，但五个已保存 GPU 配置全部比同机原版 R snow2 慢，不能据此宣称普遍优于 Amelia。
 
 2026-09-27 约 01:47 UTC 观察到 Colab 断线；约 01:51 UTC 的替代会话中，项目目录、实验变量和进程均不存在。旧会话最后可见的输出是 Year CUDA32 starting，无法据此确定最后一项的结果或终止时刻。会话观察记录见 [interruption-observation.json](interruption-observation.json)。
@@ -60,7 +62,7 @@ Year CPU64 的计时期间打开过只读 Colab 文件预览以备份结果；�
 
 ## 来源、归档与离线复核
 
-测量固定源码为 [`905cc79ce20e65fe5b673039d4e411db73cd7544`](https://github.com/Tocqueville0624/amelia-torch/tree/905cc79ce20e65fe5b673039d4e411db73cd7544)。11 个报告中的 16 个源文件指纹一致，逐个匹配该 Git blob；安装 R bridge 指纹一致，NPZ/archive 指纹匹配已保存的 native 准备元数据，同一数据集的 CSV provenance 一致。未取回实际 CSV，原 native suite 也未保存同时点 CSV 哈希；不由这些摘要证明历史文件内容的每个环节。更不能把源文件哈希匹配说成已取得丢失的逐进程 before/after 证据。
+测量固定源码为 [`905cc79ce20e65fe5b673039d4e411db73cd7544`](https://github.com/Tocqueville0624/amelia-torch/tree/a4c74cd9ce141d1291437ba602f5f330442d9241)。11 个报告中的 16 个源文件指纹一致，逐个匹配该 Git blob；安装 R bridge 指纹一致，NPZ/archive 指纹匹配已保存的 native 准备元数据，同一数据集的 CSV provenance 一致。未取回实际 CSV，原 native suite 也未保存同时点 CSV 哈希；不由这些摘要证明历史文件内容的每个环节。更不能把源文件哈希匹配说成已取得丢失的逐进程 before/after 证据。
 
 [hybrid-eleven-raw-reports.tar.gz](hybrid-eleven-raw-reports.tar.gz) 保存 **11 个原始 JSON**，未压缩报告共 3,789,799 bytes，归档 1,504,792 bytes，SHA-256：
 

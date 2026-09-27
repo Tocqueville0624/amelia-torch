@@ -2,11 +2,13 @@
 
 [English](README.md) · [文档目录](../../README.zh-CN.md)
 
+原始测量编号保持不变；源码链接现指向文件树相同的迁移提交。见[历史映射](../../history/README.zh-CN.md)。
+
 **90 列、10 万行任务：原生 CUDA64 用时 22.115 秒，原版 R 串行为 230.560 秒，整体快 10.43 倍；相对同机原生 PyTorch CPU64，GPU 收益为 1.49 倍。** 完整 R 混合 CUDA64 用时 101.640 秒，GPU 收益为 1.09 倍。低维任务多数无 GPU 收益。上述 10.43 倍包含实现和工作流差异；现有跨主机记录不足以确定 3080 与 T4 显卡本身的速度比。
 
 2026-09-27 UTC，本地 Windows 11 / RTX 3080 完成三组各 100,000 行公开数据的同机比较。原生/R 套件 **18/18 配置**、R 混合套件 **12/12 配置**完成并通过独立的收敛、观察值保留及完整 heldout 评分检查。合计 **210 次调用、1,050 份插补**，其中正式计时 150 次、预热 60 次。所有结果均保留。
 
-测量源码为 [`810591e6a77956a49dfef5de1d4a2274fefe9e07`](https://github.com/Tocqueville0624/amelia-torch/tree/810591e6a77956a49dfef5de1d4a2274fefe9e07)。本次 Windows 测量与 Colab 历史记录独立；后者的缺失结果、暂停记录及 G5 未完成状态保持原样。
+测量源码为 [`810591e6a77956a49dfef5de1d4a2274fefe9e07`](https://github.com/Tocqueville0624/amelia-torch/tree/6476292d998185e6433e62dd2dff9a4c35afd837)。本次 Windows 测量与 Colab 历史记录独立；后者的缺失结果、暂停记录及 G5 未完成状态保持原样。
 
 ## 性能比较
 

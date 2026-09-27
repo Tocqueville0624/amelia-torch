@@ -6,7 +6,7 @@ Colab experiments are paused after quota exhaustion. This is a procedure for a f
 
 ## Template and known failures
 
-Use [the staged notebook](../examples/colab_cuda_validation.ipynb), with its [scope notes](../examples/README.md). It pins `ef729c093e162f4d6ebd797c95a9da8072ac968a`, includes nine R files and separate correctness, performance, G5, audit and backup stages. Static/syntax/lint and lightweight process-interruption checks passed; the template has **not** completed an end-to-end Colab run. Historical `905cc79` timings are not template execution results.
+Use [the staged notebook](../examples/colab_cuda_validation.ipynb), with its [scope notes](../examples/README.md). It checks out `90699b898a55a9c29f61e01181b8d688ab08b702`, the tree-identical migration of original `ef729c093e162f4d6ebd797c95a9da8072ac968a`, includes nine R files and separate correctness, performance, G5, audit and backup stages. Static/syntax/lint and lightweight process-interruption checks passed; the template has **not** completed an end-to-end Colab run. Historical `905cc79` timings are not template execution results.
 
 A replacement run stopped at stage 4/20:306 Python checks passed and one nested venv lacked NumPy; later R/CUDA-edge/G5 work did not run. Earlier system installation upgraded R 4.5.3 to 4.6.1 and broke existing shared extensions. R 4.5.3 restoration and a fresh project R library repaired installation, not the whole validation. The automatic installer guard remains unvalidated. Avoid `--install-system-packages` when tools already exist; review [recovery evidence](validation/2026-09-27-colab-recovery/README.md) before reuse.
 

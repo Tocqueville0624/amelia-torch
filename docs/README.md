@@ -66,6 +66,7 @@ The project provides Python/R multiple-imputation interfaces and records of comp
 
 ## Contributing and attribution
 
+- [Git history migration and revision map](history/README.md)
 - [Contributors](../CONTRIBUTORS.md)
 - [Contributing](../CONTRIBUTING.md)
 - [Third-party attribution and licenses](../THIRD_PARTY.md)
@@ -77,3 +78,5 @@ The project provides Python/R multiple-imputation interfaces and records of comp
 ## Document revisions and original records
 
 This documentation revision starts from commit `939409a`. Translation, navigation and prose changes add no experiments. Raw JSON, logs, figures, archives and measured-source fingerprints retain their recorded contents; embedded files in historical archives remain at their archived versions. Documentation checksum changes are recorded separately in the [editorial review manifest](documentation-review.json), without altering experimental results.
+
+documentation-review.json retains hashes from the previous editorial review; subsequent changes are recorded in the [migration editorial audit](history/editorial-audit.json).

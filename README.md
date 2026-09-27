@@ -1,43 +1,46 @@
 # amelia-torch
 
-[简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
+[简体中文](README.zh-CN.md) · [Installation](docs/setup.md) · [Documentation](docs/README.md)
 
-Multiple imputation with Amelia's bootstrap–EM method, available from Python and R, with an experimental PyTorch CPU/GPU backend.
+Multiple imputation for Python and R using Amelia 1.8.3's bootstrap expectation–maximization (EM) method, with a PyTorch backend for CPU and GPU computation. Multiple imputation creates several completed datasets so an analysis can account for uncertainty from missing values.
 
-**Development snapshot.** This unofficial project targets the complete workflow of **Amelia 1.8.3**. The native implementation currently supports continuous numeric data; advanced options use an explicitly identified R compatibility route. Full statistical acceptance is pending. It is not published on PyPI or CRAN.
-
-[![CPU checks](https://github.com/Tocqueville0624/amelia-torch/actions/workflows/tests.yml/badge.svg)](https://github.com/Tocqueville0624/amelia-torch/actions/workflows/tests.yml)
-
-## Documentation
-
-| Need | Guide |
-|---|---|
-| Install on Mac, Windows or Linux | [Installation](docs/setup.md) |
-| Impute data and return results to R | [R interface](docs/r-interface.md) · [Python bridge](docs/python-reference-bridge.md) |
-| Choose a supported workflow | [Compatibility](docs/amelia-compatibility.md) · [Examples](examples/README.md) |
-| Understand the method and project contribution | [Walkthrough](docs/project-walkthrough.md) · [Architecture](docs/architecture.md) |
-| Assess the evidence | [Results summary](docs/validation/2026-09-27-evidence-summary.md) · [Release criteria](docs/release-gates.md) |
-| Reproduce or contribute | [Reproduction](docs/reproduce.md) · [Contributing](CONTRIBUTING.md) · [All documents](docs/README.md) |
+**Development version.** The native backend supports continuous numeric data. Advanced options use the original R Amelia workflow with either its original EM routine or the PyTorch replacement. Statistical validation is incomplete; the package is available from source, not PyPI or CRAN.
 
 ## Contributions
 
-Multiple imputation produces several completed datasets so downstream analyses can account for missing-data uncertainty. This project examines whether the same statistical workflow can run faster with tensor libraries and GPUs, while remaining usable across Python and R.
+- A PyTorch implementation of Amelia's EM calculations, with comparisons against the fixed R reference version.
+- Python and R interfaces that preserve data types and R result objects on compatibility routes.
+- Reproducible CPU, NVIDIA CUDA and Apple MPS benchmarks on three public datasets, including slower configurations and incomplete validation results.
 
-The contribution is an implementation and evaluation of an existing method: a PyTorch EM backend, typed Python/R exchange, reference comparisons, and reproducible experiments on three public datasets. It does not introduce a new imputation estimator. The benchmark datasets are computational workloads, not representative social-science samples.
+The project implements and evaluates an existing statistical method. The datasets measure computational performance; they are not representative social-science samples.
+
+## Results
+
+Windows 11, RTX 3080: each dataset used 100,000 rows and five imputations per call. Times are median seconds over five repetitions after two warmups. CPU methods used a four-thread budget; parallel R used four workers with one BLAS thread each. “64” denotes double precision.
+
+| Dataset | R serial | R ×4 | Native CPU64 | Native CUDA64 | Hybrid CPU64 | Hybrid CUDA64 |
+|---|---:|---:|---:|---:|---:|---:|
+| Covertype, 10 columns | 15.280 s | 8.340 s | 5.484 s | 4.955 s | 16.670 s | 17.790 s |
+| Household Power, 7 columns | 10.200 s | 5.540 s | 3.452 s | 3.592 s | 11.680 s | 12.420 s |
+| Year Prediction MSD, 90 columns | 230.560 s | 121.730 s | 32.979 s | 22.115 s | 110.620 s | 101.640 s |
+
+On the 90-column task, native CUDA64 was **1.49× faster than native CPU64** and 10.43× faster than serial R. The comparison with R also includes implementation and workflow differences: the native route supports fewer features. The R hybrid gained 1.09× over its CPU version. Several narrower tasks gained little or ran slower on GPU. [Windows methods and raw results](docs/validation/2026-09-27-windows-rtx3080/README.md).
+
+Separate Linux T4 runs showed native CUDA64 gains of 1.21–1.91× over same-host CPU64. Its hybrid suite is incomplete, and every retained CUDA configuration was slower than parallel R. Apple MPS was slower than the matching CPU route on the tested M4. [Results across platforms](docs/validation/2026-09-27-evidence-summary.md).
 
 ## Interfaces
 
 | Route | Python | R | Scope |
 |---|---|---|---|
-| Original reference | `amelia_reference()` | `amelia_compat()` | Unmodified R Amelia 1.8.3 on CPU; no PyTorch required |
-| Hybrid compatibility | `amelia_torch_compat()` | `amelia_torch_compat()` | Original R preparation, bootstrap, draws and output; PyTorch replaces EM |
-| Native continuous | `amelia()` | `amelia_torch()` | Continuous numeric EMB; unsupported advanced options raise errors |
+| Reference | `amelia_reference()` | `amelia_compat()` | Original R Amelia 1.8.3 on CPU; no PyTorch required |
+| Hybrid | `amelia_torch_compat()` | `amelia_torch_compat()` | Original R preparation, bootstrap, draws and output; PyTorch replaces EM |
+| Native | `amelia()` | `amelia_torch()` | Continuous numeric data; unsupported advanced options raise errors |
 
-CPU float64 is the default. CUDA float64/float32 and MPS float32 require explicit selection. Hybrid replicates are scheduled serially; the reference route retains original R parallel execution. Compatibility routes retain official R result objects; native results use a separate structure. Review the [compatibility matrix](docs/amelia-compatibility.md) before selecting a route.
+CPU float64 is the default. CUDA float64/float32 and MPS float32 must be selected explicitly. Hybrid imputations run sequentially; the reference route retains R's parallel options. Check the [compatibility matrix](docs/amelia-compatibility.md) for the variables and model options required by an analysis.
 
 ## Installation and usage
 
-Clone the repository and create a Python 3.12 virtual environment:
+With Python 3.12 installed, clone the repository and create a virtual environment:
 
 ```sh
 git clone https://github.com/Tocqueville0624/amelia-torch.git
@@ -46,7 +49,9 @@ python3.12 -m venv .venv
 source .venv/bin/activate
 ```
 
-On Windows, replace the last two commands with `py -3.12 -m venv .venv` and `.venv\Scripts\Activate.ps1` in PowerShell. Native and hybrid routes also require a compatible PyTorch installation; choose its CPU/CUDA wheel using the [official installation selector](https://pytorch.org/get-started/locally/). The reference route can run without Torch. For R-backed routes:
+In Windows PowerShell, replace the final two commands with `py -3.12 -m venv .venv` and `.venv\Scripts\Activate.ps1`.
+
+Native and hybrid routes require PyTorch; select a compatible CPU/CUDA installation using the [official selector](https://pytorch.org/get-started/locally/). R-backed routes also require R and Amelia 1.8.3. Install their project dependencies with:
 
 ```sh
 python -m pip install -e '.[reference]'
@@ -54,9 +59,9 @@ Rscript scripts/setup_r.R
 R CMD INSTALL --library=.R-library r-package
 ```
 
-The last command builds the R interface and requires a C toolchain. The Python reference route does not require that interface package. Platform-specific setup, including a reference-only Intel Mac route, is in the [installation guide](docs/setup.md).
+The final command builds the R interface and requires a C toolchain. Platform details, including reference-only installation without Torch, are in the [installation guide](docs/setup.md).
 
-Python, after installing the hybrid dependencies:
+Python hybrid example, after installing these dependencies:
 
 ```python
 import numpy as np
@@ -69,7 +74,7 @@ completed = fit.imputations[0]
 fit.save_rds("fit.rds")
 ```
 
-R/RStudio, in a fresh session at the repository root:
+R/RStudio example, in a fresh session at the repository root:
 
 ```r
 .libPaths(c(file.path(getwd(), ".R-library"), .libPaths()))
@@ -83,31 +88,16 @@ summary(fit)
 Amelia::compare.density(fit, var = "b")
 ```
 
-Both examples use CPU float64. An explicit accelerator uses `device="cuda", dtype="float64"` or `device="mps", dtype="float32"`. Retain **all** imputations for downstream pooling. A [copyable R workflow prompt](docs/r-user-agent-prompt.md) helps specify data, model, privacy and output requirements before using a coding assistant.
-
-## Results
-
-On Windows 11 with an RTX 3080, each of three datasets used 100,000 rows and five imputations per call. Medians below use five measured repetitions after two warmups, with a four-thread CPU budget and four single-threaded R workers.
-
-| Dataset | R serial | R ×4 | Native CPU64 | Native CUDA64 | Hybrid CPU64 | Hybrid CUDA64 |
-|---|---:|---:|---:|---:|---:|---:|
-| Covertype, 10 columns | 15.280 s | 8.340 s | 5.484 s | 4.955 s | 16.670 s | 17.790 s |
-| Household Power, 7 columns | 10.200 s | 5.540 s | 3.452 s | 3.592 s | 11.680 s | 12.420 s |
-| Year Prediction MSD, 90 columns | 230.560 s | 121.730 s | 32.979 s | 22.115 s | 110.620 s | 101.640 s |
-
-For the 90-column task, native CUDA64 was **1.49× faster than native CPU64**, and **10.43× faster than serial R**. The latter includes implementation and workflow differences; native supports fewer features. The complete R hybrid route gained **1.09×** over hybrid CPU64. Narrower tasks showed little GPU benefit or a slowdown. These results do not establish that Python or GPUs are always faster. [Windows report: float32 results, all repetitions, quality checks and source hashes](docs/validation/2026-09-27-windows-rtx3080/README.md).
-
-Separate Linux T4 measurements found native CUDA64 gains of 1.21–1.91× over same-host CPU64. The recovered T4 hybrid records cover only 11/12 configurations, and all five retained CUDA configurations were slower than original R snow2. On the tested M4 Mac, MPS was slower than same-precision CPU. Cross-host timings are not controlled GPU comparisons. [Evidence summary](docs/validation/2026-09-27-evidence-summary.md).
+Both examples use CPU float64. Select an accelerator with `device="cuda", dtype="float64"` or `device="mps", dtype="float32"`. Keep all imputed datasets for pooled inference. See [R usage](docs/r-interface.md), [Python/R exchange](docs/python-reference-bridge.md) and [examples](examples/README.md).
 
 ## Validation and limitations
 
-- Windows recorded 210 calls and 1,050 imputations with convergence, observed-value preservation and complete-heldout checks passing. Fixed CUDA cases passed on Windows RTX 3080 and Linux T4. These checks do not establish full distributional equivalence.
-- Hosted CPU checks at `ef729c0` passed on Windows, macOS and Linux: 307 Python tests, nine R test files and a downstream example per platform. Intel Mac separately passed a reference-only installation without Torch. A Mac RStudio workflow was also exercised.
-- The prespecified Mac inference study completed 10,500 fits. MAR and bounded stress checks passed; **MCAR statistical criteria did not all pass**, including one criterion for original R. CUDA inference acceptance remains unfinished. Thresholds and negative results are retained.
-- Native advanced features, broader missingness patterns, full-source-data workloads, memory limits and some GUI/platform combinations remain outside the validated scope. The [release criteria](docs/release-gates.md) distinguish these gaps from completed checks.
+Recorded checks cover Windows, macOS and Linux CPU installations, fixed CUDA cases, observed-value preservation and convergence. They do not establish full statistical equivalence.
 
-The repository supplies attributed samples, checksums, download scripts and raw benchmark records. Full UCI archives total about 232 MiB and remain outside Git. [Data and licenses](docs/datasets.md). Colab experiments are paused; CUDA statistical acceptance remains pending.
+The prespecified Mac inference study completed 10,500 fits. Missing-at-random (MAR) and bounded stress criteria passed; **missing-completely-at-random (MCAR) criteria did not all pass**, including a criterion for original R. CUDA inference validation remains incomplete. Broader missingness patterns, full-source workloads, memory limits and some platform combinations remain unverified. See the [validation summary](docs/validation/2026-09-27-evidence-summary.md) and [release criteria](docs/release-gates.md).
 
-## License and attribution
+## Reproduction and attribution
 
-GPL-3.0-only. Maintainer: **Sheng Wan**. Amelia's method and original implementation are credited to **James Honaker, Gary King and Matthew Blackwell**. Dataset licenses remain separate. See [third-party attribution](THIRD_PARTY.md), [contributors](CONTRIBUTORS.md) and [citation metadata](CITATION.cff). This project is not affiliated with or endorsed by the Amelia authors.
+The repository includes licensed samples, download scripts, checksums and raw benchmark records. Full UCI source archives total about 232 MiB and are downloaded separately. [Data](docs/datasets.md) · [Reproduction](docs/reproduce.md) · [History migration and revision map](docs/history/README.md) · [Contributing](CONTRIBUTING.md).
+
+GPL-3.0-only. Maintainer: Sheng Wan. Amelia's method and original implementation are by James Honaker, Gary King and Matthew Blackwell. Dataset licenses apply separately. See [third-party attribution](THIRD_PARTY.md), [contributors](CONTRIBUTORS.md) and [citation metadata](CITATION.cff). This project is not affiliated with the Amelia authors.

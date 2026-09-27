@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 8387,
-      "sha256": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652"
+      "bytes": 8074,
+      "sha256": "1aa1d93ab64bc01b9ec211e9811f92e3673f9f60a4fed83b6440525e1294cf73"
     },
     {
       "path": "archive-index.json",
@@ -64,8 +64,8 @@
     },
     {
       "path": "README.zh-CN.md",
-      "bytes": 7682,
-      "sha256": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac"
+      "bytes": 10262,
+      "sha256": "124c1451da5c23b0c4e9dc01be010ad0e9890e9ccead4251b7295e91b6d5d2e7"
     }
   ]
 }

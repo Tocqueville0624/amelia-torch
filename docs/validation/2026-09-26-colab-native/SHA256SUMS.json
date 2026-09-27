@@ -2,7 +2,7 @@
   "algorithm": "SHA-256",
   "base": "this directory",
   "files": {
-    "README.md": "db587ba9ea601cdcae5817b36b3c77f4868f306eea17d2d0d0d4940f7d7cf652",
+    "README.md": "c66d8369c7096159858ee1277ad3dec14d4bb0be71f98f43eb843225316593e5",
     "archive-index.json": "b50bdca6fd1e755e288d4ea4947da745dcbf491a23381d9fc579ff6dd7ec3536",
     "audit-plan.json": "ea3d9307d3bf2fb94c60c21db760f704c7a83c698f44fcd8f348652b01f2e165",
     "benchmark-summary.json": "d2f3841fbd264f1d66114ca9b97e3aa52ea463d2d6e756611eb7efec58824501",
@@ -16,6 +16,6 @@
     "packaging-verification.json": "abbe53280743517aafe8aa9eeb6daf4f0d3999ae7b44464854b767fd21c41ada",
     "resource-and-count-audit.json": "b6b5fb9a41b90e72f3a9e581edb007ff11eda90b24f43b483d0aa6aba04982d9",
     "source-transition.json": "c7159480b3d935e2ad7ce74b9ce1dc865c2ce06d8090abfc175386904e5801d7",
-    "README.zh-CN.md": "9846aced5912f291a47a1041658c2a1a12b39732e2570388ae8051814d11fcac"
+    "README.zh-CN.md": "0cf0aff9f82e862a96522237abeead6be7bc6ce3891999718af54eef0f41a49b"
   }
 }
