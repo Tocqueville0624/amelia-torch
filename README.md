@@ -6,7 +6,7 @@ An **unofficial, experimental** Python/PyTorch implementation of Amelia's bootst
 
 [![CPU checks](https://github.com/Tocqueville0624/amelia-torch/actions/workflows/tests.yml/badge.svg)](https://github.com/Tocqueville0624/amelia-torch/actions/workflows/tests.yml)
 
-[中文研究与结果](docs/validation/2026-09-23-development/README.md) · [Installation](docs/setup.zh-CN.md) · [Compatibility matrix](docs/amelia-compatibility.md) · [Algorithm contract](docs/algorithm-contract.md)
+[中文研究与结果](docs/validation/2026-09-23-development/README.md) · [项目技术导读](docs/project-walkthrough.zh-CN.md) · [Installation](docs/setup.zh-CN.md) · [Compatibility matrix](docs/amelia-compatibility.md) · [Algorithm contract](docs/algorithm-contract.md)
 
 ## Choose an execution path
 
