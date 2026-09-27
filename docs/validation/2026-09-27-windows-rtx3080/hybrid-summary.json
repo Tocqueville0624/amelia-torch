@@ -1,0 +1,411 @@
+{
+  "schema_version": 1,
+  "kind": "independent_R_pipeline_PyTorch_EM_audit",
+  "scope": {
+    "rows_per_dataset": 100000,
+    "planned_order": [
+      {
+        "dataset": "covertype",
+        "method": "cuda32",
+        "device": "cuda",
+        "dtype": "float32"
+      },
+      {
+        "dataset": "covertype",
+        "method": "cpu32",
+        "device": "cpu",
+        "dtype": "float32"
+      },
+      {
+        "dataset": "covertype",
+        "method": "cpu64",
+        "device": "cpu",
+        "dtype": "float64"
+      },
+      {
+        "dataset": "covertype",
+        "method": "cuda64",
+        "device": "cuda",
+        "dtype": "float64"
+      },
+      {
+        "dataset": "household_power",
+        "method": "cuda32",
+        "device": "cuda",
+        "dtype": "float32"
+      },
+      {
+        "dataset": "household_power",
+        "method": "cpu32",
+        "device": "cpu",
+        "dtype": "float32"
+      },
+      {
+        "dataset": "household_power",
+        "method": "cpu64",
+        "device": "cpu",
+        "dtype": "float64"
+      },
+      {
+        "dataset": "household_power",
+        "method": "cuda64",
+        "device": "cuda",
+        "dtype": "float64"
+      },
+      {
+        "dataset": "year_prediction_msd",
+        "method": "cpu32",
+        "device": "cpu",
+        "dtype": "float32"
+      },
+      {
+        "dataset": "year_prediction_msd",
+        "method": "cuda64",
+        "device": "cuda",
+        "dtype": "float64"
+      },
+      {
+        "dataset": "year_prediction_msd",
+        "method": "cpu64",
+        "device": "cpu",
+        "dtype": "float64"
+      },
+      {
+        "dataset": "year_prediction_msd",
+        "method": "cuda32",
+        "device": "cuda",
+        "dtype": "float32"
+      }
+    ],
+    "settings": {
+      "rows": 100000,
+      "m": 5,
+      "warmups": 2,
+      "repeats": 5,
+      "threads": 4,
+      "tolerance": 0.0001,
+      "emburn": [
+        0,
+        300
+      ],
+      "empri": null,
+      "autopri": 0.05,
+      "startvals": 0,
+      "boot.type": "ordinary",
+      "parallel": "no",
+      "ncpus": 1,
+      "RNGkind": "L'Ecuyer-CMRG",
+      "order_seed": 20260923
+    }
+  },
+  "quality_gate": "Complete planned task/order; process exit 0; unchanged source; original report hash; exact requested phases/seeds and counts; finite positive times; all m fits converged on requested backend; every output preserves observations and scores every heldout cell without nonfinite values.",
+  "all_passed": true,
+  "audit_errors": [],
+  "measurements": [
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 17.86,
+      "iqr_seconds": [
+        17.53,
+        18.03
+      ],
+      "mean_normalized_heldout_rmse": 1.0579387887468648,
+      "audit_errors": [],
+      "dataset": "covertype",
+      "method": "cuda32",
+      "device": "cuda",
+      "dtype": "float32",
+      "result": "covertype-cuda32.json",
+      "result_sha256": "98223825c1f33a941945f8480383e3f98f3ec0ed709faa0ea64b62f991e04bba",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 17.17,
+      "iqr_seconds": [
+        17.03,
+        17.25
+      ],
+      "mean_normalized_heldout_rmse": 1.0579343569858999,
+      "audit_errors": [],
+      "dataset": "covertype",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32",
+      "result": "covertype-cpu32.json",
+      "result_sha256": "74446673dd042f0b2cfbed0a2934aadfee3fcbb4183d1e0c119f6820852be88e",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 16.67,
+      "iqr_seconds": [
+        16.64,
+        16.94
+      ],
+      "mean_normalized_heldout_rmse": 1.057940629404172,
+      "audit_errors": [],
+      "dataset": "covertype",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64",
+      "result": "covertype-cpu64.json",
+      "result_sha256": "3311ee1b4ba8a0a7ea985c3f1a2957705ae4fb916ec568f413ebf5678e357ecd",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 17.79,
+      "iqr_seconds": [
+        17.14,
+        17.84
+      ],
+      "mean_normalized_heldout_rmse": 1.0579406294041616,
+      "audit_errors": [],
+      "dataset": "covertype",
+      "method": "cuda64",
+      "device": "cuda",
+      "dtype": "float64",
+      "result": "covertype-cuda64.json",
+      "result_sha256": "da8e99c1826aa4764abb64835551216f6440aede04f5c95e2b3671e9760f1d9e",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 11.95,
+      "iqr_seconds": [
+        11.5,
+        12.71
+      ],
+      "mean_normalized_heldout_rmse": 0.9993915968985457,
+      "audit_errors": [],
+      "dataset": "household_power",
+      "method": "cuda32",
+      "device": "cuda",
+      "dtype": "float32",
+      "result": "household_power-cuda32.json",
+      "result_sha256": "a807e4362fff8512c4da893e2323be884b84cd5a7c381ee487fa68befec65a27",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 11.39,
+      "iqr_seconds": [
+        11.32,
+        12.14
+      ],
+      "mean_normalized_heldout_rmse": 0.9994633687696832,
+      "audit_errors": [],
+      "dataset": "household_power",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32",
+      "result": "household_power-cpu32.json",
+      "result_sha256": "db7655ada9e0358f8fb80587ae7291d52f35c933dcc097e279a01eb635fe8c1c",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 11.68,
+      "iqr_seconds": [
+        11.29,
+        11.97
+      ],
+      "mean_normalized_heldout_rmse": 0.9993958108342885,
+      "audit_errors": [],
+      "dataset": "household_power",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64",
+      "result": "household_power-cpu64.json",
+      "result_sha256": "6ee20822327a7ae493a9c525f6ccb3474edca171da40abeae748ed1ff4cd9fe8",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 12.42,
+      "iqr_seconds": [
+        12.23,
+        12.79
+      ],
+      "mean_normalized_heldout_rmse": 0.9993958108343722,
+      "audit_errors": [],
+      "dataset": "household_power",
+      "method": "cuda64",
+      "device": "cuda",
+      "dtype": "float64",
+      "result": "household_power-cuda64.json",
+      "result_sha256": "69ce4c112e326e799bdfc88c191cf62ffc6b3ac94962b7627c9bacde7786a5e8",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 104.92,
+      "iqr_seconds": [
+        103.98,
+        104.99
+      ],
+      "mean_normalized_heldout_rmse": 1.0848377299247314,
+      "audit_errors": [],
+      "dataset": "year_prediction_msd",
+      "method": "cpu32",
+      "device": "cpu",
+      "dtype": "float32",
+      "result": "year_prediction_msd-cpu32.json",
+      "result_sha256": "1706ceb47074e20b21b3a593c972dc1d6b2163ceb792f3a6b5a09fe9868270c7",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 101.64,
+      "iqr_seconds": [
+        101.64,
+        103.39
+      ],
+      "mean_normalized_heldout_rmse": 1.0848377377303615,
+      "audit_errors": [],
+      "dataset": "year_prediction_msd",
+      "method": "cuda64",
+      "device": "cuda",
+      "dtype": "float64",
+      "result": "year_prediction_msd-cuda64.json",
+      "result_sha256": "66d89ae8bc27b31a29cb66ddce670120a10feb78097fd296f7d41e93fdd316af",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 110.62,
+      "iqr_seconds": [
+        110.39,
+        112.28
+      ],
+      "mean_normalized_heldout_rmse": 1.0848377377303604,
+      "audit_errors": [],
+      "dataset": "year_prediction_msd",
+      "method": "cpu64",
+      "device": "cpu",
+      "dtype": "float64",
+      "result": "year_prediction_msd-cpu64.json",
+      "result_sha256": "5338bb62ad0167ff22e292f327b076cf90fc340db67e2fe9a4070ce90dd6f091",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    },
+    {
+      "independent_quality_audit_passed": true,
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 100.34,
+      "iqr_seconds": [
+        99.61,
+        101.92
+      ],
+      "mean_normalized_heldout_rmse": 1.0848377136683347,
+      "audit_errors": [],
+      "dataset": "year_prediction_msd",
+      "method": "cuda32",
+      "device": "cuda",
+      "dtype": "float32",
+      "result": "year_prediction_msd-cuda32.json",
+      "result_sha256": "0e67bc4921fa1e6b63d4452dbd8b7aa71532eb2f0d4e66035a9781e25f0288c4",
+      "exit_status": 0,
+      "source_unchanged_during_process": true
+    }
+  ],
+  "source_sha256": {
+    "src\\amelia_torch\\__init__.py": "b268c56890218a31dca7f57894a852f51016b23d01ad2caca9755a78cf1a2734",
+    "src\\amelia_torch\\api.py": "29d5701a2ef107bba5dc14f1f836289e804f5fe19d1246e47c8b26973b3f0db2",
+    "src\\amelia_torch\\backends.py": "14ae3f26b081d26faa7e040a24910db1f3c310f85218202b3d4cc224bab52542",
+    "src\\amelia_torch\\diagnostics.py": "68f26f34edc6ecf1258518ea569248ef2ff9b2fb54bd82dc0fb1f8fb8aa90691",
+    "src\\amelia_torch\\em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d",
+    "src\\amelia_torch\\imputation.py": "723ad352a769f1fc0f73818f2b629f0b78088a9168119f852575ff38d6fb5cd2",
+    "src\\amelia_torch\\reference.py": "c426b318e595795f69fda83fc44cc78c3c4ba88bbcad933d5efddd83685a91f5",
+    "r-package\\R\\amelia.R": "c3fd8ff065e31113bab6ddcaf09457373061db335361bb4c83b1db32ead3b234",
+    "r-package\\R\\compatibility.R": "8771e41249fb2dd0802003091eb8c423f4e4d60956ca9a8ca206bb1cb577d4ec",
+    "r-package\\R\\environment.R": "7556c729dbd8fafc83503226f5b29dfa5703d6fb62b4591c39708b25c34b8c08",
+    "r-package\\R\\torch_compat.R": "1ec93e86b8449534448ff403ee63ab021b3896ea4dd3d3919f09d66cd40c0d7d",
+    "r-package\\src\\rng_state.c": "477897d047f89569bcc72e0034e9c914e69782f6432b541d9f73ad6cf6f90a47",
+    "r-package\\DESCRIPTION": "6b74f0fa21ac630806e2f5c6404e23a64e3f5c8f67904fabc52a9a03f0e69a34",
+    "r-package\\NAMESPACE": "26261a11e094828bcb1cde6e93e090501469a618a39f4bb4d9fa41383396fc05",
+    "scripts\\benchmark_hybrid.R": "988d4068f51c4d122fc0463737be88f45f8d8960d8d005d0020a8a9eba8f5b03",
+    "scripts\\run_hybrid_suite.py": "b24c03ae4221d3a0a7a7cac216f1717b30643b6e3dda9480a57c8b8add4555f7"
+  },
+  "suite_sha256": "af7690f04b958f050b982fa1b52db68a1669f8c246eea03843866f7de53344ad",
+  "auditor_source_sha256": {
+    "summarize_hybrid.py": "d33eb9b2925b265e963de86f7693f0f9bf3bca8c8626868f2d318296262bab31",
+    "summarize_benchmarks.py": "0b81e37558e7548d11c3cd385b043c2d938bd3519c89cd436d9a4f436a11701c"
+  },
+  "limitations": [
+    "Audit checks the recorded scientific invariants independently of success labels; it does not rerun fits or recreate unsaved full imputation matrices.",
+    "R CPU preprocessing/bootstrap/draws/postprocessing and bridge/transfers are included; only initial import/binding and post-run scoring are outside timing.",
+    "Hybrid and native suites run at different wall-clock times; this is a same-machine comparison, with potential load/thermal variation.",
+    "Only the recorded complete-truth, low-pattern block-MCAR tasks are covered. CPU float64 remains the numerical reference; no CUDA result is implied by MPS results."
+  ]
+}

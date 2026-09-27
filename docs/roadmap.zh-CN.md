@@ -2,7 +2,7 @@
 
 用户目标：为求职展示完成项目的能力，在忠实复现 Amelia 1.8.3 流程与算法的前提下实现 Python/PyTorch 包，研究 GPU 是否真实加速，并让不同平台研究者从 Python 和 R/RStudio 调用。2026-09-23 已进入实现阶段；**native 连续数值子集及原版 R 过渡兼容接口可用，完整验收仍是目标**。逐项状态以 [兼容表](amelia-compatibility.md) 和 [开发验证记录](validation/2026-09-23-development/README.md) 为准。
 
-已确认产品决策：完整兼容验收后才算首版；允许明确标注的 R 过渡依赖；项目分发名为 `amelia-torch`，许可证为 `GPL-3.0-only`；维护者为 Sheng Wan（`swan0624@uw.edu`）；仓库包含可分享小样本及完整数据下载脚本；GitHub 用户名为 `Tocqueville0624`。[公开开发仓库](https://github.com/Tocqueville0624/amelia-torch)已建立。用户后来授权直接在云端 CUDA 机器测试并留存记录，不再依赖本地 RTX 3080；正在使用免费 Colab T4。其他已确认决定不再作为阻塞项。
+已确认产品决策：完整兼容验收后才算首版；允许明确标注的 R 过渡依赖；项目分发名为 `amelia-torch`，许可证为 `GPL-3.0-only`；维护者为 Sheng Wan（`swan0624@uw.edu`）；仓库包含可分享小样本及完整数据下载脚本；GitHub 用户名为 `Tocqueville0624`。[公开开发仓库](https://github.com/Tocqueville0624/amelia-torch)已建立。用户先授权云端 Colab T4 测试，随后恢复本地 RTX 3080；本地全部30配置性能测试已完成，Colab仍因配额暂停。其他已确认决定不再作为阻塞项。
 
 ## M0：调研与初始化（已完成）
 
@@ -23,15 +23,15 @@
 
 - 已有显式 device/dtype 和 MPS 计算路径；CPU float64 为参考，MPS float32 为实验。三个小型 EM 参考样例已在本机 MPS 上通过，不能据此宣布完整质量或性能成功。
 - 三组公开数据的下载、来源与处理流程已建立，见 [数据说明](datasets.zh-CN.md)。数据交付采用小样本加完整下载脚本。各10万行数值子集的 native 与完整 R 混合正式基准已完成并独立审计；性能结果以验证记录为准，本路线文档不重复速度数字。
-- Mac 同机已完成 R 串行/并行、PyTorch CPU/MPS 以及完整 R 混合入口比较，包含标准化、传输、随机补值、输出恢复与混合入口的 R 桥接开销。下一步在同一 CUDA 云主机复现。Python直接调用耗时不能冒充 R 端调用耗时。
+- Mac 同机已完成 R 串行/并行、PyTorch CPU/MPS 以及完整 R 混合入口比较，包含标准化、传输、随机补值、输出恢复与混合入口的 R 桥接开销。T4 的 native/reference 已完成、hybrid 仅部分回收；Windows RTX 3080 的两套完整基准现已另行完成。Python直接调用耗时不能冒充 R 端调用耗时。
 - 验收：误差与统计质量门槛通过，解释优势和弱势场景、收敛差异与内存限制，再据真实瓶颈决定缓存、批量计算与设备驻留优化。
 
-## M3：云端 CUDA 及跨平台验证（部分完成，新增测试已暂停）
+## M3：CUDA 及跨平台验证（本地性能完成，完整统计验收未完成）
 
-2026-09-27 用户因 Colab GPU 配额耗尽暂停测试，当前仅总结旧数据；不自动重连、购买算力或启动新增模拟。[阶段总结](validation/2026-09-27-evidence-summary.zh-CN.md)区分完整、部分和失败证据。
+2026-09-27 用户先暂停 Colab，随后授权本地 RTX 3080 测试并要求发布结果。本地 native/reference 18/18 与 hybrid 12/12 配置、210调用/1,050插补全部完成并通过有限收敛及完整评分审计；native/hybrid两个精度的固定CUDA案例亦通过。见[Windows报告](validation/2026-09-27-windows-rtx3080/README.md)。这些结果不补齐旧T4会话，也不完成CUDA G5；Colab保持暂停，本轮不新增模拟。
 
 - 核验驱动、显存、wheel 与实际 CUDA 算子；同机运行 R 串行/并行、PyTorch CPU 与 GPU。
-- Linux T4 的 CUDA float64/float32 固定正确性案例已分别验证，正式性能与统计验收仍在进行。Windows 无 CUDA 与 Linux CPU 已由三平台 hosted CPU CI 实际执行，Windows 包亦已用 Rtools 编译；不能替代所有系统配置的到机测试。云端 Linux CUDA 与 Windows CPU 的证据分开报告，不冒称 Windows GPU 已测试。
+- Linux T4 的 CUDA float64/float32 固定正确性案例已分别验证，正式性能与统计验收仍在进行。Windows 无 CUDA 与 Linux CPU 已由三平台 hosted CPU CI 实际执行，Windows 包亦已用 Rtools 编译；不能替代所有系统配置的到机测试。Linux T4、hosted Windows CPU及本地Windows RTX 3080证据分开记录；本地固定案例和性能完成不等于所有CUDA边界或G5完成。
 - 2026-09-26 已从保存的 Colab notebook 恢复旧会话输出：149 项 Python、五组 R 及 CUDA32/64 native/hybrid 固定案例通过；Ruff 二进制缺失阻止了后续性能实验，旧 VM 临时 JSON 未保存。随后新 T4 会话已重新保存完整结构化记录，见下一项；恢复的旧输出只保留为历史证据。
 - T4 会话已完成 15 步验证并保存完整 JSON/log：161 项 Python、七个 R 测试文件、下游示例与两个精度的 CUDA 固定案例均通过，见 [CUDA 记录](validation/2026-09-26-cuda/README.md)。同机两线程/两 worker 的 native/reference 套件已完成 18 配置、126 调用、630 插补并通过独立审计，见 [云端性能记录](validation/2026-09-26-colab-native/README.md)。该 VM 后来丢失，仅回收 hybrid 11/12 配置的 77 调用，Year CUDA32 结果未知；[部分记录](validation/2026-09-26-colab-hybrid-partial/README.md)明确五组 CUDA 均慢于原版 snow2，不称完整套件通过。替代 T4 未完成检查，现已暂停，不把两次 VM 拼成同机性能实验。native 速度结论不能替代 R 产品入口或统计质量验收。
 - `e2ff892` 三平台各通过 235 项 Python 测试、九个 R 测试文件及下游示例，见该版本的 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)。`ad9bed2` 的 Intel Mac x86_64 独立 wheel[reference] 安装及无 Torch 实际拟合、RDS 下游工作流通过，见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)；该 Intel 结果不覆盖 native Torch 或 GUI。

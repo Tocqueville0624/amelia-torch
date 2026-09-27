@@ -2,7 +2,7 @@
 
 初次审计日期：2026-09-23，正式 hybrid 性能实验开始后，初审仅做源码与接口盘点。2026-09-26 补充 G1 小型 CPU64 实测及独立 Python/R 示例，具体范围见下方证据。下列未勾选项是可执行的剩余验收任务，不是已发现算法均错误，也不是要求遍历任意参数组合。
 
-2026-09-27：用户因 Colab GPU 配额耗尽暂停新增测试。已有结论见[阶段总结](validation/2026-09-27-evidence-summary.zh-CN.md)；缺项保持未完成，不因暂停改成通过。旧 T4 hybrid 仅回收11/12配置，新会话环境检查未全通过，CUDA G5没有执行。
+2026-09-27：用户暂停 Colab 后，另行授权本地 RTX 3080 测试。Windows 的固定 CUDA 案例与全部30配置性能基准已完成，见[本地报告](validation/2026-09-27-windows-rtx3080/README.md)。旧 T4 hybrid 仍仅回收11/12配置，替代云端会话环境检查未全通过，CUDA G5没有执行；新增性能证据不改变未通过或未完成的统计门槛。
 
 用户已同意明确标注的原版 R 过渡依赖，因此首版可以由原版 reference、R/PyTorch hybrid 和 native 子集共同提供能力。**无需先把每个 R 图形函数改写为 Python 才能交付，但不能把委托给原版 CPU 的功能标成原生 GPU 实现。** 用户要求完整功能完成才算首版；当前开发快照、成功打包和局部速度结果不等于首版验收。
 
@@ -94,12 +94,13 @@ Hybrid 已明确拒绝多 worker 调度。用户允许有说明的 CPU 过渡路
 ### G6：关闭用户要求的平台实测缺口
 
 - [x] Linux x64/macOS arm64/Windows x64 hosted CPU CI 在 `ef729c0` 已实际通过：开发代码安装、R 源码包/C helper 编译、各 307 项 Python 与九个 R 测试文件及下游示例，见[CI证据](validation/2026-09-26-ci/cross-platform-ci-ef729c0.json)。Linux/Windows 原版病态 autopri 未触发，分支覆盖须单列；单独 wheel 安装仍需与源码安装分开记录。
-- [ ] 云端 CUDA 核验（用户已授权替代本地 3080）：记录实际系统/驱动/runtime/显存，执行 CUDA64/CUDA32 正确性与质量检查；在**同一云端 GPU 机器**完成原版 R 串行/合理 snow、Torch CPU64/CPU32 与 CUDA 对照。Mac 与 Windows 的耗时不能拼成 GPU 加速比。
+- [ ] CUDA 核验尚未整体完成：T4固定案例及native/reference性能完成、hybrid部分回收；用户后续授权的Windows RTX 3080已完成两个精度的native/R固定案例和同机原版R串行/snow4、Torch CPU/CUDA、完整R混合对照。实际环境与全部逐次记录已公开，但新增CUDA边界及G5质量验收仍未完成。跨主机耗时不能拼成GPU硬件加速比。
 - [x] 无 CUDA 的 Windows hosted runner已验证 reference 与 CPU 路线；Intel Mac 在 `ad9bed2` 的独立任务实际核验 x86_64、隔离 wheel[reference]、Torch 未安装、原版拟合与 Python/R 下游往返，见[Intel 证据](validation/2026-09-26-ci/intel-mac-reference.md)。这不代表 Intel hybrid/Torch、交互式 GUI 或任何 CUDA 路线已测；GPU 仍由上一项单独验收。
 - [x] 已安装包在 Mac RStudio 实际会话完成 reference/hybrid CPU64 数据框插补、解释器选择、RDS/CSV 保存读回、Data Viewer 及可见诊断图；[报告与真实截图](validation/2026-09-26-g6-rstudio/README.md)。这是一个有限 Mac 用户流程，不外推其他平台 GUI；原版独立 AmeliaView 尚待 XQuartz 安装后单独启动/载入/关闭验证。脚本执行后的清理顺序调整仅语法检查，精确已执行副本另存。
 
 ### G7：收尾三组大数据与产品耗时证据（本机有界范围已完成）
 
+- [x] Windows RTX 3080新增同机native/reference 18配置及完整R hybrid 12配置，合计210调用/1,050插补，全部通过有限收敛、观察值与完整heldout审计。保留低维GPU慢于CPU的结果，区分相对原版R的整体收益与同精度CPU/CUDA比值；[报告及原始记录](validation/2026-09-27-windows-rtx3080/README.md)。
 - [x] 三组各 10 万行的 hybrid 主套件已完成并独立审计：9 配置、63 次调用、315 份插补，完整计划、每份收敛/有限 heldout/观察值、seed/m、2 次预热和 5 次正式重复、源码与后端记录均通过；见[原始记录与审计](validation/2026-09-23-development/README.md)。MPS32 比同机 hybrid CPU32 慢约 13%–33%，保留负面结果。
 - [x] 另测 100000×10 Covertype Python reference/hybrid CPU64 完整公开调用，包含新 Rscript 启动、typed transport 和 RDS 字节回传；各 1 次首次及 2 次后续调用、m=5。首次约 12.144/11.966 秒，后续中位数 11.959/12.128 秒。每次均新 R 进程，未清空 OS 缓存；旧 R 内存计时不能硬相减为桥接开销，也不把首次称为冷 OS 测量。
 - [x] 5000×7 独立 MCAR 输入的 125 种模式已原样实测 reference/CPU64/MPS32 各一次 m=5。所有拟合收敛且保留观察值，但原版规定的两条全空行令每份 14 个 heldout 未评分；完整 RMSE=null、质量状态 heldout_incomplete、执行器 exit1，全部保留为压力结果，不算质量成功加速样本。峰值内存未测为 null。

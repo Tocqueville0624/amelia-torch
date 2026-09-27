@@ -61,7 +61,7 @@ source("scripts/smoke_amelia.R")
 
 ## Windows CUDA：可选到机复现
 
-用户已授权用云端 CUDA 测试替代本地 RTX 3080；以下保留为其他研究者的可选 Windows CUDA 复现步骤。前提：Windows 10/11 64 位、NVIDIA 驱动、Python 3.12、R、RStudio、uv；这些是待核验/准备清单，不是已在用户 Windows 电脑完成的状态。机器需要能联网安装依赖；支持具体版本以到机时官方信息为准。
+2026-09-27 已在用户的 Windows 11 / RTX 3080 上完成安装、固定 CUDA 案例及全部30配置性能基准，见[本地测试报告](validation/2026-09-27-windows-rtx3080/README.md)。实际环境为 Python 3.12.14、PyTorch 2.14.0+cu132、R 4.5.3、Amelia 1.8.3，R 包使用 Rtools45 编译；此记录不包含 Windows RStudio GUI 验收。以下为其他机器的复现步骤；需要 NVIDIA 驱动、Python 3.12、R、匹配版本的 Rtools，示例使用 uv。机器需要能联网安装依赖；支持具体版本以到机时官方信息为准。
 
 1. 把项目源文件复制或通过 Git 同步过去，不复制 `.venv`、`.R-library`、`.cache`。
 2. 运行 `nvidia-smi`，记录 GPU 型号、显存、驱动；其显示的 CUDA 版本是驱动支持信息，不等于已安装的 PyTorch runtime。
@@ -86,7 +86,7 @@ Rscript scripts/smoke_r_bridge.R
 
 如果 `Rscript` 不在 PATH，可在 RStudio 项目中 `source()` 对应脚本。探针必须显示 CUDA 可用、正确 GPU、实际显存和算子检查成功；仅 `nvidia-smi` 成功不足以证明 PyTorch 能调用 GPU。安装后核对 torch 版本与 CUDA 信息，防止依赖解析替换了刚安装的 wheel。
 
-Windows 初始化成功后再按[基准计划](benchmark-plan.zh-CN.md)运行真正插补实验。本次没有访问或更改 Windows 机器。
+Windows 初始化成功后再按[基准计划](benchmark-plan.zh-CN.md)运行插补实验，并为新结果设置独立目录。已公开的 RTX 3080 结果来自本机实际执行，不能外推为任意 Windows 环境均通过。
 
 ## 无 PyTorch 的兼容安装与 Intel Mac
 

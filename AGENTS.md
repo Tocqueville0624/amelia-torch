@@ -1,9 +1,9 @@
 # Amelia Project：后续 Agent 指南
 
 ## 用户目标与当前阶段
-- 2026-09-27 用户明确因 Colab GPU 配额耗尽暂停新增测试，当前只整理已有证据；在用户恢复测试前不再启动拟合、模拟或测试任务，不申请付费资源。阶段结论见 `docs/validation/2026-09-27-evidence-summary.zh-CN.md`；暂停与全部重启失败记录见 `2026-09-27-colab-recovery/`。
+- 2026-09-27 用户恢复本地 Windows RTX 3080 测试，并随后明确要求将报告、正确的性能解释及 R 用户 Coding Agent 提示词更新到 GitHub。`810591e` 的 native/reference 18 配置与 hybrid 12 配置共 210 调用/1,050 插补均完成并通过有限质量审计；见 `docs/validation/2026-09-27-windows-rtx3080/`。当前整理和发布已有结果，不扩大拟合/模拟预算；Colab 配额暂停、CUDA G5 未完成及历史失败仍保留。
 - 用户为求职展示项目能力，要求全部功能完成后才算首版，完整复现 Amelia 1.8.3 流程/算法，在 Python 与 R/RStudio 跨 Mac、Windows、有/无 CUDA 使用，并以三组较大公开数据实测性能；不能随意改变统计语义。
-- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，用户确认 Windows 暂不能接入，已公开开发快照；后续授权使用云端 CUDA 替代本地 3080，但新增测试现已暂停。Colab T4 的 15 步固定正确性验证已保存；905cc79 的 native 性能完整、hybrid 部分保存，CUDA 统计验收未完成；Andrew Wang 只预留未来协作位，尚非当前作者。
+- 已授权安装必要程序、收集公开数据，并允许成果公开到用户 GitHub。已确认 GPL-3.0-only、名称 amelia-torch、维护者 Sheng Wan <swan0624@uw.edu>，允许原版 R 过渡兼容、小样本+全量下载脚本的数据方案。公开仓库账号已确认为 Tocqueville0624，早期 Windows 无法接入时已公开开发快照并使用云端 CUDA；现已完成单独的本地 RTX 3080 基准，云端仍暂停。Colab T4 的 15 步固定正确性验证已保存；905cc79 的 native 性能完整、hybrid 部分保存，CUDA 统计验收未完成；Andrew Wang 只预留未来协作位，尚非当前作者。
 - 当前为公开开发快照：native 连续 EMB、Python/R 原版及混合兼容入口已实现；仍须完成 GPU 统计质量与云端正式性能验收。状态见 `docs/roadmap.zh-CN.md`、`docs/amelia-compatibility.md`。
 - 2026-09-26：e2ff892 的三平台 hosted CI 各 235 项 Python、9 个 R 测试文件及下游示例通过，本机 R build/check 九文件零问题；ad9bed2 的 Intel Mac x86_64 隔离 wheel[reference]、无 Torch 原版/RDS 工作流亦实际通过。该 CI 已覆盖 G3/G4；Linux/Windows 的原版病态 autopri 分支未触发需如实保留，Windows 使用 snow 并明确跳过 Unix fork。修复显式 startvals 的原版原位更新语义；Mac 三组 100k 样本的 native/hybrid 正式基准均完成，MPS 未比同机 Torch CPU 更快；旧测量源码哈希不得随修复改写。详见 `docs/validation/2026-09-26-ci/`、`2026-09-26-g1/`、`2026-09-26-g2/`。
 - T4 会话在 fa08a52 完成全部 15 步正确性验证；905cc79 的同机 native/reference 正式性能 18 配置、126 调用、630 插补已完成并独立审计，CUDA64 比同机 CPU64 快 1.21–1.91 倍，不能外推 R 接口。该 VM 于 9/27 约 01:47 UTC 断线后无法恢复：hybrid 只备份 11/12 配置、77 调用/385 插补，第12项 Year CUDA32 结果未知、suite 未取回；有限逐报告审计和五组同精度比值见 `docs/validation/2026-09-26-colab-hybrid-partial/`。五个已存 CUDA 配置均慢于原版 snow2；不把部分记录称完整套件通过。替代 VM 的 20 步验证停在第4步：306 项 Python 通过、1项临时 venv 缺 NumPy 失败；后续 R/GPU 边界/G5 未执行。不拼接跨 VM 耗时。
@@ -14,7 +14,7 @@
 
 ## 环境与命令
 - 使用 Python 3.12、uv、`.venv`；新增 R 包放 `.R-library`。Mac 快照 `requirements-macos-arm64.lock` 不用于 Windows CUDA；详见 `docs/setup.zh-CN.md`。
-- R 基线固定 Amelia 1.8.3；本机 R 4.5.3、reticulate 1.47.0、torch 2.14.0。设备是 M4/16 GB；MPS 不支持 float64。
+- R 基线固定 Amelia 1.8.3。Windows 测量环境为 R 4.5.3、reticulate 1.47.0、PyTorch 2.14.0+cu132、RTX 3080 10 GiB / Ryzen 5 5600X，预算 4 CPU 线程、原版 R snow4 各 worker 单 BLAS 线程。旧 Mac 环境为 M4/16 GB；MPS 不支持 float64。
 - Python：`.venv/bin/python -m pytest -q`；`.venv/bin/ruff check src tests scripts`。Windows Python 入口为 `.venv\Scripts\python.exe`。
 - 参考 fixture：`Rscript scripts/export_reference_fixtures.R`；从未修改的 Amelia 生成。上游会原位修改 theta 参数，导出脚本须 deep copy。
 - R 源码测试：`R_LIBS_USER="$PWD/.R-library" RETICULATE_PYTHON="$PWD/.venv/bin/python" AMELIATORCH_R_SOURCE=r-package Rscript r-package/tests/bridge.R`。
@@ -39,7 +39,7 @@
 - 不假冒官方 `amelia` 返回类；导入名 `amelia_torch`、分发名 `amelia-torch`、R包名 `ameliatorch`。原R兼容路径实际使用官方产物时保留原类并标记引擎。
 
 ## 性能、质量与发布
-- 按 `docs/benchmark-plan.zh-CN.md` 公平对照同机原版串行/并行、Python CPU、GPU。Mac CPU 对 Windows GPU 不能称 GPU 加速比；区分移植/BLAS收益与GPU自身收益。
+- 按 `docs/benchmark-plan.zh-CN.md` 公平对照同机原版串行/并行、Python CPU、GPU。区分移植/BLAS收益与GPU自身收益：Windows 90列 native CUDA64/32 相对串行R为10.43/11.44倍，相对同精度native CPU仅1.49/1.31倍。跨3080/T4主机耗时不能称显卡本身速度比；三份同为100k行的不同数据集不构成受控规模实验。未做profiling，不能断言差值就是通信时间。
 - GPU 计时前后同步，包含传输与输出；R 用户产品结论还须测 R 桥接成本。保存预热、全部重复、版本/源码哈希、失败及未收敛；不能仅取成功子集宣称加速。
 - 不只看 RMSE：检验观察值不变、所有应补值有限、无漏计 heldout、偏差、Rubin pooling 覆盖率与蒙特卡洛误差。全空行例外与人工 heldout 区分。
 - 块状 MCAR 和逐格独立 MCAR 分开报告，记录 n/p/m/模式数/缺失率。100k 行样本不等于全量数据，未跑的压力/跨平台测试不能标完成。

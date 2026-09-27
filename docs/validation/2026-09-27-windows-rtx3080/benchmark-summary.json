@@ -1,0 +1,537 @@
+{
+  "schema_version": 2,
+  "scope": {
+    "rows_per_dataset": 100000,
+    "expected_tasks": [
+      [
+        "covertype",
+        "cpu64"
+      ],
+      [
+        "covertype",
+        "cpu32"
+      ],
+      [
+        "covertype",
+        "cuda64"
+      ],
+      [
+        "covertype",
+        "cuda32"
+      ],
+      [
+        "covertype",
+        "r_serial"
+      ],
+      [
+        "covertype",
+        "r_snow4"
+      ],
+      [
+        "household_power",
+        "cpu64"
+      ],
+      [
+        "household_power",
+        "cpu32"
+      ],
+      [
+        "household_power",
+        "cuda64"
+      ],
+      [
+        "household_power",
+        "cuda32"
+      ],
+      [
+        "household_power",
+        "r_serial"
+      ],
+      [
+        "household_power",
+        "r_snow4"
+      ],
+      [
+        "year_prediction_msd",
+        "cpu64"
+      ],
+      [
+        "year_prediction_msd",
+        "cpu32"
+      ],
+      [
+        "year_prediction_msd",
+        "cuda64"
+      ],
+      [
+        "year_prediction_msd",
+        "cuda32"
+      ],
+      [
+        "year_prediction_msd",
+        "r_serial"
+      ],
+      [
+        "year_prediction_msd",
+        "r_snow4"
+      ]
+    ]
+  },
+  "quality_gate": "Complete expected task grid; process success; exact requested warmup/measured phase+seed sequence; positive finite timing; m individual fits converged; observed cells preserved and all heldout cells scored on complete-truth tasks.",
+  "all_passed": true,
+  "audit_errors": [],
+  "measurements": [
+    {
+      "dataset": "covertype",
+      "method": "r_snow4",
+      "input_sha256": "f6d7a7d8198e0708fd70014fc0c4f8d82806ccd7359ab0d77abf7f3cc3464184",
+      "result": "covertype-r_snow4.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:52:20.609023+00:00",
+      "finished_utc": "2026-09-27T06:53:23.489945+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 8.34,
+      "iqr_seconds": [
+        8.29,
+        8.5
+      ],
+      "mean_normalized_heldout_rmse": 1.0581818663088514,
+      "result_sha256": "5e0fbeefff2ee7b463b1ac7bdcc385c473b9ce2b214d4ce7d03676917e37b702"
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu64",
+      "input_sha256": "f6d7a7d8198e0708fd70014fc0c4f8d82806ccd7359ab0d77abf7f3cc3464184",
+      "result": "covertype-cpu64.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:53:23.489945+00:00",
+      "finished_utc": "2026-09-27T06:54:06.608317+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 5.4841597000004185,
+      "iqr_seconds": [
+        5.420924699999887,
+        5.585104100000535
+      ],
+      "mean_normalized_heldout_rmse": 1.0586247136635172,
+      "result_sha256": "aa6c0e9bace16951b334c44ce095c377ffb8a708564de9c0856f56fa1f23c96c"
+    },
+    {
+      "dataset": "covertype",
+      "method": "cuda32",
+      "input_sha256": "f6d7a7d8198e0708fd70014fc0c4f8d82806ccd7359ab0d77abf7f3cc3464184",
+      "result": "covertype-cuda32.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:54:06.611316+00:00",
+      "finished_utc": "2026-09-27T06:54:48.888121+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 4.900186699999722,
+      "iqr_seconds": [
+        4.844617099999596,
+        5.561456500000531
+      ],
+      "mean_normalized_heldout_rmse": 1.0586241154051972,
+      "result_sha256": "d695bd07946f8ac6961ebed752150343cc371da060a43668140950b04e4b2f52"
+    },
+    {
+      "dataset": "covertype",
+      "method": "cuda64",
+      "input_sha256": "f6d7a7d8198e0708fd70014fc0c4f8d82806ccd7359ab0d77abf7f3cc3464184",
+      "result": "covertype-cuda64.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:54:48.888121+00:00",
+      "finished_utc": "2026-09-27T06:55:27.205616+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 4.95488160000059,
+      "iqr_seconds": [
+        4.7656152999998085,
+        4.962600400000156
+      ],
+      "mean_normalized_heldout_rmse": 1.0586247136635367,
+      "result_sha256": "8914d5074fc5183a6d87b3e70573b06e86c0144ac0a411872b6114b233d08df1"
+    },
+    {
+      "dataset": "covertype",
+      "method": "cpu32",
+      "input_sha256": "f6d7a7d8198e0708fd70014fc0c4f8d82806ccd7359ab0d77abf7f3cc3464184",
+      "result": "covertype-cpu32.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:55:27.209616+00:00",
+      "finished_utc": "2026-09-27T06:56:04.420440+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 4.7147211000001334,
+      "iqr_seconds": [
+        4.661436700000195,
+        4.819879600000604
+      ],
+      "mean_normalized_heldout_rmse": 1.0585840035641079,
+      "result_sha256": "032ae90e3c56cdef6af819d442a45b3f72dde4a73e098d0dc311f122e84384be"
+    },
+    {
+      "dataset": "covertype",
+      "method": "r_serial",
+      "input_sha256": "f6d7a7d8198e0708fd70014fc0c4f8d82806ccd7359ab0d77abf7f3cc3464184",
+      "result": "covertype-r_serial.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:56:04.436118+00:00",
+      "finished_utc": "2026-09-27T06:57:49.674484+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 15.28,
+      "iqr_seconds": [
+        14.75,
+        15.3
+      ],
+      "mean_normalized_heldout_rmse": 1.0579406294040403,
+      "result_sha256": "e79558ee2ea3438ba3dfe364a025b2063cf077495e84d84bbbe6dd45e8fd314e"
+    },
+    {
+      "dataset": "household_power",
+      "method": "cuda32",
+      "input_sha256": "111a42463fce39da43d1cb09023017a3e99f7e3679d0f9422112cd9586f96ce7",
+      "result": "household_power-cuda32.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:57:50.787563+00:00",
+      "finished_utc": "2026-09-27T06:58:21.900401+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 3.87143130000004,
+      "iqr_seconds": [
+        3.8051841999995304,
+        3.8803074000006745
+      ],
+      "mean_normalized_heldout_rmse": 0.9988086061576363,
+      "result_sha256": "5bc4f204190f23d189f7f24175045582de2ee9091205a40f5b115e8e557149a3"
+    },
+    {
+      "dataset": "household_power",
+      "method": "r_serial",
+      "input_sha256": "111a42463fce39da43d1cb09023017a3e99f7e3679d0f9422112cd9586f96ce7",
+      "result": "household_power-r_serial.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:58:21.917217+00:00",
+      "finished_utc": "2026-09-27T06:59:39.098972+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 10.2,
+      "iqr_seconds": [
+        10.14,
+        10.59
+      ],
+      "mean_normalized_heldout_rmse": 0.9993958108507102,
+      "result_sha256": "606098fbb5675cf7f6604e31538c19ae8ed63f589318838f53c949f921985949"
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu64",
+      "input_sha256": "111a42463fce39da43d1cb09023017a3e99f7e3679d0f9422112cd9586f96ce7",
+      "result": "household_power-cpu64.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T06:59:39.103458+00:00",
+      "finished_utc": "2026-09-27T07:00:06.940511+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 3.4516765999997006,
+      "iqr_seconds": [
+        3.4450575999999273,
+        3.532159600000341
+      ],
+      "mean_normalized_heldout_rmse": 0.998813957669648,
+      "result_sha256": "2d25e157aab23a1646006eff4c0454e14f4e48d179bc4eee7c536e7cfed1a4eb"
+    },
+    {
+      "dataset": "household_power",
+      "method": "cpu32",
+      "input_sha256": "111a42463fce39da43d1cb09023017a3e99f7e3679d0f9422112cd9586f96ce7",
+      "result": "household_power-cpu32.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:00:06.943512+00:00",
+      "finished_utc": "2026-09-27T07:00:33.547861+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 3.3399466000000757,
+      "iqr_seconds": [
+        3.277717400000256,
+        3.3903387999998813
+      ],
+      "mean_normalized_heldout_rmse": 1.0004070812196522,
+      "result_sha256": "92140a6e4ee043ea0ff25f6a701413b5dc5d5eeb0e0990bf89aa50abc3e284f7"
+    },
+    {
+      "dataset": "household_power",
+      "method": "cuda64",
+      "input_sha256": "111a42463fce39da43d1cb09023017a3e99f7e3679d0f9422112cd9586f96ce7",
+      "result": "household_power-cuda64.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:00:33.547861+00:00",
+      "finished_utc": "2026-09-27T07:01:03.330443+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 3.5920673000000534,
+      "iqr_seconds": [
+        3.5789669999994658,
+        3.7291457999999693
+      ],
+      "mean_normalized_heldout_rmse": 0.9988139576715723,
+      "result_sha256": "02aebb5eb7b4eef3f45ed32ccd83381f81eb7049f7cbb3eb80f9d1e23c66920b"
+    },
+    {
+      "dataset": "household_power",
+      "method": "r_snow4",
+      "input_sha256": "111a42463fce39da43d1cb09023017a3e99f7e3679d0f9422112cd9586f96ce7",
+      "result": "household_power-r_snow4.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:01:03.330443+00:00",
+      "finished_utc": "2026-09-27T07:01:45.613142+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 5.54,
+      "iqr_seconds": [
+        5.37,
+        5.64
+      ],
+      "mean_normalized_heldout_rmse": 0.9998915047505244,
+      "result_sha256": "5473ca5250be0757cd93f4c8cf37a95c00c0e83b6063e9769ac8b2cd9e8fa686"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "r_serial",
+      "input_sha256": "d6f8ee936ababc790f186f1de1ed1dff65be24e0cbb750c45f7278743ccd9530",
+      "result": "year_prediction_msd-r_serial.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:01:58.112734+00:00",
+      "finished_utc": "2026-09-27T07:31:08.553885+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 230.56,
+      "iqr_seconds": [
+        229.27,
+        232.47
+      ],
+      "mean_normalized_heldout_rmse": 1.0848377377303624,
+      "result_sha256": "d23eb355b5bb4074a8b70fdc77e13bf193fe7cefae876044329be36a8165f736"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "r_snow4",
+      "input_sha256": "d6f8ee936ababc790f186f1de1ed1dff65be24e0cbb750c45f7278743ccd9530",
+      "result": "year_prediction_msd-r_snow4.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:31:08.562205+00:00",
+      "finished_utc": "2026-09-27T07:46:55.988735+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 121.73,
+      "iqr_seconds": [
+        120.64,
+        123.84
+      ],
+      "mean_normalized_heldout_rmse": 1.0853275272997929,
+      "result_sha256": "5ec5986ff07a108842e0a92943684baaa1bbba1ef29ac9af668fc03bc0abcf7e"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cuda64",
+      "input_sha256": "d6f8ee936ababc790f186f1de1ed1dff65be24e0cbb750c45f7278743ccd9530",
+      "result": "year_prediction_msd-cuda64.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:46:55.993595+00:00",
+      "finished_utc": "2026-09-27T07:49:46.611987+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 22.11528670000007,
+      "iqr_seconds": [
+        21.995354399999997,
+        22.17308849999972
+      ],
+      "mean_normalized_heldout_rmse": 1.085062440976827,
+      "result_sha256": "7724d26b796c6aa34bb3c45449d2eb987d6bf57b87e2ad4e985df25464bd2958"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu64",
+      "input_sha256": "d6f8ee936ababc790f186f1de1ed1dff65be24e0cbb750c45f7278743ccd9530",
+      "result": "year_prediction_msd-cpu64.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:49:46.611987+00:00",
+      "finished_utc": "2026-09-27T07:53:52.069792+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 32.97921089999909,
+      "iqr_seconds": [
+        32.75202730000092,
+        33.05511540000043
+      ],
+      "mean_normalized_heldout_rmse": 1.0850624409768264,
+      "result_sha256": "4baa17a7f2e1aa5cb9143f8a48ae9c916db7478ae102bdf128ee0e284f4b8eeb"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cpu32",
+      "input_sha256": "d6f8ee936ababc790f186f1de1ed1dff65be24e0cbb750c45f7278743ccd9530",
+      "result": "year_prediction_msd-cpu32.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:53:52.074995+00:00",
+      "finished_utc": "2026-09-27T07:57:13.060920+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 26.477898400000413,
+      "iqr_seconds": [
+        26.437621400000353,
+        26.639044400000785
+      ],
+      "mean_normalized_heldout_rmse": 1.0850624457454512,
+      "result_sha256": "21cb34a78bc8897268495d9d72b985ad6532617357dac5dd5b6e3409fa794551"
+    },
+    {
+      "dataset": "year_prediction_msd",
+      "method": "cuda32",
+      "input_sha256": "d6f8ee936ababc790f186f1de1ed1dff65be24e0cbb750c45f7278743ccd9530",
+      "result": "year_prediction_msd-cuda32.json",
+      "status": "completed",
+      "exit_status": 0,
+      "started_utc": "2026-09-27T07:57:13.071272+00:00",
+      "finished_utc": "2026-09-27T07:59:49.887710+00:00",
+      "independent_quality_audit_passed": true,
+      "audit_errors": [],
+      "m": 5,
+      "requested_warmups": 2,
+      "requested_measured_runs": 5,
+      "warmup_and_measured_runs_audited": 7,
+      "measured_runs": 5,
+      "median_seconds": 20.159910800000944,
+      "iqr_seconds": [
+        20.133949199998824,
+        20.25510469999972
+      ],
+      "mean_normalized_heldout_rmse": 1.0850624143132057,
+      "result_sha256": "bdaabae4042d0a75d214060270abdd952dbd3af9f5297911e0fdf39564720c1b"
+    }
+  ],
+  "source_sha256": {
+    "src\\amelia_torch\\__init__.py": "b268c56890218a31dca7f57894a852f51016b23d01ad2caca9755a78cf1a2734",
+    "src\\amelia_torch\\api.py": "29d5701a2ef107bba5dc14f1f836289e804f5fe19d1246e47c8b26973b3f0db2",
+    "src\\amelia_torch\\backends.py": "14ae3f26b081d26faa7e040a24910db1f3c310f85218202b3d4cc224bab52542",
+    "src\\amelia_torch\\diagnostics.py": "68f26f34edc6ecf1258518ea569248ef2ff9b2fb54bd82dc0fb1f8fb8aa90691",
+    "src\\amelia_torch\\em.py": "4ec84e8d7d57fa483fc7390fb7cc2bff42296934aea1ecf57f15dbc3c689443d",
+    "src\\amelia_torch\\imputation.py": "723ad352a769f1fc0f73818f2b629f0b78088a9168119f852575ff38d6fb5cd2",
+    "src\\amelia_torch\\reference.py": "c426b318e595795f69fda83fc44cc78c3c4ba88bbcad933d5efddd83685a91f5",
+    "scripts\\benchmark.py": "12a461e1e5b89148fe77efec67aec6be034224d0a16f00a486525453bfbac1bc",
+    "scripts\\benchmark_reference.R": "cb9c9b0d388ba202b702d592322ad05d07847d55815b91764bb3981308ca30b9"
+  },
+  "suite_sha256": "c1967a33938b8ac26c5495f488cc429a1fbe6175520a55cedc75bd114bf74fe3",
+  "auditor_sha256": "0b81e37558e7548d11c3cd385b043c2d938bd3519c89cd436d9a4f436a11701c",
+  "legacy_evidence_note": "Original measured reports are immutable. Where explicit quality_passed/unexpected_nonfinite fields were not recorded, the audit uses all-matrix nonfinite counts (R), or preserved observations + zero missing/heldout-unscored counts (native) under the complete-truth input contract.",
+  "limitations": [
+    "Legacy suite did not persist a planned grid or per-process source-unchanged flag; expected tasks are supplied explicitly and source fingerprints are retained without inventing missing telemetry.",
+    "R and NumPy use different RNGs; equal seeds do not pair their draws.",
+    "Native timings omit the R/Python bridge; hybrid timings need a separate audited suite.",
+    "Low-pattern block MCAR only; RAM/VRAM peaks and broader missingness scenarios remain separate."
+  ]
+}

@@ -1,0 +1,230 @@
+{
+  "archive": "benchmark-records.tar.gz",
+  "bytes": 3018276,
+  "sha256": "6e7c8c82c04315be26f175c95ec9dabcc872e78942bd4c4f38b1aec6855a798f",
+  "payload_count": 43,
+  "payload_bytes_unchanged": true,
+  "scope": "All 30 benchmark reports, both suite records, fixed validation JSONs and public input provenance. No environments, raw datasets, full completed matrices, parameter NPZs, or process logs.",
+  "files": [
+    {
+      "path": "data/manifest.json",
+      "bytes": 8456,
+      "sha256": "d3a7e29334e72d6ca1f847616f794d304408c0827be395aef697399d370a24c2"
+    },
+    {
+      "path": "data/prepared/covertype-n100000-block_mcar-rate30-seed20260923.json",
+      "bytes": 2995,
+      "sha256": "17e3fcffbe9827fb29486c35fbc88bdad85632aaa21d40c216772c69a06a4050"
+    },
+    {
+      "path": "data/prepared/household_power-n100000-block_mcar-rate30-seed20260923.json",
+      "bytes": 2717,
+      "sha256": "6eb87357b0211102dbb41c6138a018b405cb0324c9bfb4c28341152d6365039f"
+    },
+    {
+      "path": "data/prepared/year_prediction_msd-n100000-block_mcar-rate30-seed20260923.json",
+      "bytes": 13010,
+      "sha256": "f200db07e2610fa33d45c281a915071e8267d9d266f746133042f761bc28744a"
+    },
+    {
+      "path": "hybrid/covertype-cpu32.json",
+      "bytes": 54499,
+      "sha256": "74446673dd042f0b2cfbed0a2934aadfee3fcbb4183d1e0c119f6820852be88e"
+    },
+    {
+      "path": "hybrid/covertype-cpu64.json",
+      "bytes": 54526,
+      "sha256": "3311ee1b4ba8a0a7ea985c3f1a2957705ae4fb916ec568f413ebf5678e357ecd"
+    },
+    {
+      "path": "hybrid/covertype-cuda32.json",
+      "bytes": 54590,
+      "sha256": "98223825c1f33a941945f8480383e3f98f3ec0ed709faa0ea64b62f991e04bba"
+    },
+    {
+      "path": "hybrid/covertype-cuda64.json",
+      "bytes": 54641,
+      "sha256": "da8e99c1826aa4764abb64835551216f6440aede04f5c95e2b3671e9760f1d9e"
+    },
+    {
+      "path": "hybrid/household_power-cpu32.json",
+      "bytes": 46668,
+      "sha256": "db7655ada9e0358f8fb80587ae7291d52f35c933dcc097e279a01eb635fe8c1c"
+    },
+    {
+      "path": "hybrid/household_power-cpu64.json",
+      "bytes": 46661,
+      "sha256": "6ee20822327a7ae493a9c525f6ccb3474edca171da40abeae748ed1ff4cd9fe8"
+    },
+    {
+      "path": "hybrid/household_power-cuda32.json",
+      "bytes": 46746,
+      "sha256": "a807e4362fff8512c4da893e2323be884b84cd5a7c381ee487fa68befec65a27"
+    },
+    {
+      "path": "hybrid/household_power-cuda64.json",
+      "bytes": 46758,
+      "sha256": "69ce4c112e326e799bdfc88c191cf62ffc6b3ac94962b7627c9bacde7786a5e8"
+    },
+    {
+      "path": "hybrid/suite.json",
+      "bytes": 15244,
+      "sha256": "af7690f04b958f050b982fa1b52db68a1669f8c246eea03843866f7de53344ad"
+    },
+    {
+      "path": "hybrid/year_prediction_msd-cpu32.json",
+      "bytes": 1132442,
+      "sha256": "1706ceb47074e20b21b3a593c972dc1d6b2163ceb792f3a6b5a09fe9868270c7"
+    },
+    {
+      "path": "hybrid/year_prediction_msd-cpu64.json",
+      "bytes": 1132429,
+      "sha256": "5338bb62ad0167ff22e292f327b076cf90fc340db67e2fe9a4070ce90dd6f091"
+    },
+    {
+      "path": "hybrid/year_prediction_msd-cuda32.json",
+      "bytes": 1132426,
+      "sha256": "0e67bc4921fa1e6b63d4452dbd8b7aa71532eb2f0d4e66035a9781e25f0288c4"
+    },
+    {
+      "path": "hybrid/year_prediction_msd-cuda64.json",
+      "bytes": 1132601,
+      "sha256": "66d89ae8bc27b31a29cb66ddce670120a10feb78097fd296f7d41e93fdd316af"
+    },
+    {
+      "path": "native/covertype-cpu32.json",
+      "bytes": 39504,
+      "sha256": "032ae90e3c56cdef6af819d442a45b3f72dde4a73e098d0dc311f122e84384be"
+    },
+    {
+      "path": "native/covertype-cpu64.json",
+      "bytes": 39506,
+      "sha256": "aa6c0e9bace16951b334c44ce095c377ffb8a708564de9c0856f56fa1f23c96c"
+    },
+    {
+      "path": "native/covertype-cuda32.json",
+      "bytes": 39708,
+      "sha256": "d695bd07946f8ac6961ebed752150343cc371da060a43668140950b04e4b2f52"
+    },
+    {
+      "path": "native/covertype-cuda64.json",
+      "bytes": 39705,
+      "sha256": "8914d5074fc5183a6d87b3e70573b06e86c0144ac0a411872b6114b233d08df1"
+    },
+    {
+      "path": "native/covertype-r_serial.json",
+      "bytes": 29556,
+      "sha256": "e79558ee2ea3438ba3dfe364a025b2063cf077495e84d84bbbe6dd45e8fd314e"
+    },
+    {
+      "path": "native/covertype-r_snow4.json",
+      "bytes": 29553,
+      "sha256": "5e0fbeefff2ee7b463b1ac7bdcc385c473b9ce2b214d4ce7d03676917e37b702"
+    },
+    {
+      "path": "native/household_power-cpu32.json",
+      "bytes": 37314,
+      "sha256": "92140a6e4ee043ea0ff25f6a701413b5dc5d5eeb0e0990bf89aa50abc3e284f7"
+    },
+    {
+      "path": "native/household_power-cpu64.json",
+      "bytes": 37304,
+      "sha256": "2d25e157aab23a1646006eff4c0454e14f4e48d179bc4eee7c536e7cfed1a4eb"
+    },
+    {
+      "path": "native/household_power-cuda32.json",
+      "bytes": 37511,
+      "sha256": "5bc4f204190f23d189f7f24175045582de2ee9091205a40f5b115e8e557149a3"
+    },
+    {
+      "path": "native/household_power-cuda64.json",
+      "bytes": 37519,
+      "sha256": "02aebb5eb7b4eef3f45ed32ccd83381f81eb7049f7cbb3eb80f9d1e23c66920b"
+    },
+    {
+      "path": "native/household_power-r_serial.json",
+      "bytes": 21694,
+      "sha256": "606098fbb5675cf7f6604e31538c19ae8ed63f589318838f53c949f921985949"
+    },
+    {
+      "path": "native/household_power-r_snow4.json",
+      "bytes": 21685,
+      "sha256": "5473ca5250be0757cd93f4c8cf37a95c00c0e83b6063e9769ac8b2cd9e8fa686"
+    },
+    {
+      "path": "native/suite.json",
+      "bytes": 10013,
+      "sha256": "c1967a33938b8ac26c5495f488cc429a1fbe6175520a55cedc75bd114bf74fe3"
+    },
+    {
+      "path": "native/year_prediction_msd-cpu32.json",
+      "bytes": 99419,
+      "sha256": "21cb34a78bc8897268495d9d72b985ad6532617357dac5dd5b6e3409fa794551"
+    },
+    {
+      "path": "native/year_prediction_msd-cpu64.json",
+      "bytes": 99405,
+      "sha256": "4baa17a7f2e1aa5cb9143f8a48ae9c916db7478ae102bdf128ee0e284f4b8eeb"
+    },
+    {
+      "path": "native/year_prediction_msd-cuda32.json",
+      "bytes": 99634,
+      "sha256": "bdaabae4042d0a75d214060270abdd952dbd3af9f5297911e0fdf39564720c1b"
+    },
+    {
+      "path": "native/year_prediction_msd-cuda64.json",
+      "bytes": 99632,
+      "sha256": "7724d26b796c6aa34bb3c45449d2eb987d6bf57b87e2ad4e985df25464bd2958"
+    },
+    {
+      "path": "native/year_prediction_msd-r_serial.json",
+      "bytes": 1107493,
+      "sha256": "d23eb355b5bb4074a8b70fdc77e13bf193fe7cefae876044329be36a8165f736"
+    },
+    {
+      "path": "native/year_prediction_msd-r_snow4.json",
+      "bytes": 1107514,
+      "sha256": "5ec5986ff07a108842e0a92943684baaa1bbba1ef29ac9af668fc03bc0abcf7e"
+    },
+    {
+      "path": "validation/cuda32-validation.json",
+      "bytes": 17046,
+      "sha256": "99637a45d054c8c1a218acd5b3516682c27b77cd3596cc3825ffe25dac6f2f2c"
+    },
+    {
+      "path": "validation/cuda64-validation.json",
+      "bytes": 18614,
+      "sha256": "5a85852adc43cd3b71e60771782b3282db2a8227a4021aff4a521aef639cc431"
+    },
+    {
+      "path": "validation/r-cuda32-validation.json",
+      "bytes": 7698,
+      "sha256": "a69b226a7a11267fc9bf9382c854fdd181e019d8b92e2be4e2cdadc6449adfd9"
+    },
+    {
+      "path": "validation/r-cuda64-validation.json",
+      "bytes": 7698,
+      "sha256": "e39cb8d6ab51041942aaacacc500e64c2425de105945373d2ee36c1fc2fbe3a7"
+    },
+    {
+      "path": "validation/r_bridge.json",
+      "bytes": 4257,
+      "sha256": "01fc439944d4c09b94b38a2882dac55dab76885939917fc274851cef8891760d"
+    },
+    {
+      "path": "validation/r_reference.json",
+      "bytes": 196,
+      "sha256": "c9e78847949da71f189a14ca80004e950e1bdd4f093fa41b917b0453c7cdd4fd"
+    },
+    {
+      "path": "validation/windows_probe.json",
+      "bytes": 4420,
+      "sha256": "300dc397c2569dc7e6df15cef42e6d53f2ae81149f29dfde37bb1030709f0b95"
+    }
+  ],
+  "standalone_reports": {
+    "benchmark-summary.json": "b18e38e46a7283374cee88be793b614c848adc6422da50f469763dc59e23da1f",
+    "hybrid-summary.json": "8a5ce1ba0d049632faa11a8764a678d4c9714e3919232d79651b58ba0c1e5924",
+    "paired-reference.json": "48d7c2e91cabc697cc01cf5ad6674979f1c48be6b9e779f062bfbf54315b9583"
+  }
+}

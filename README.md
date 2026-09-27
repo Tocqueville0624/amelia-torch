@@ -1,5 +1,7 @@
 # amelia-torch
 
+On a tested **100,000 × 90** dataset, native PyTorch on an RTX 3080 took **22.115 s**, versus **230.560 s** for serial R: **10.43× faster**. The GPU gain over the same native CPU64 path was **1.49×**. The full R hybrid CUDA64 path took **101.640 s**; narrower inputs showed little GPU benefit or a slowdown. [Measurements and limits](docs/validation/2026-09-27-windows-rtx3080/README.md).
+
 An **unofficial, experimental** Python/PyTorch implementation of Amelia's bootstrap–EM multiple imputation, with Python and R interfaces and reproducible CPU/GPU experiments.
 
 **Development snapshot — not the first complete release.** The target is the full statistical workflow of **Amelia 1.8.3**. Advanced compatibility currently uses an explicitly labeled R dependency. CPU float64 is the default; GPU acceleration is a question tested by this project, not a promised result.
@@ -8,7 +10,7 @@ An **unofficial, experimental** Python/PyTorch implementation of Amelia's bootst
 
 [Initial results (Chinese)](docs/validation/2026-09-23-development/README.md) · [Project walkthrough (Chinese)](docs/project-walkthrough.zh-CN.md) · [Installation](docs/setup.zh-CN.md) · [Compatibility matrix](docs/amelia-compatibility.md) · [Algorithm contract](docs/algorithm-contract.md)
 
-**Current evidence summary:** [Evidence summary (Chinese)](docs/validation/2026-09-27-evidence-summary.zh-CN.md). Further testing is paused after Colab GPU quota exhaustion. Completed, partial and failed evidence remains available; no full-release claim is made.
+**Current evidence:** [Windows RTX 3080 report](docs/validation/2026-09-27-windows-rtx3080/README.md) · [Evidence summary (Chinese)](docs/validation/2026-09-27-evidence-summary.zh-CN.md). Local Windows testing resumed and completed all 30 benchmark configurations. Colab testing remains paused after quota exhaustion; full statistical acceptance is still pending.
 
 ## Why this project matters
 
@@ -18,9 +20,9 @@ For academic researchers, especially social scientists, the goal is to make exis
 
 For data practitioners in industry, the Python/R interfaces provide an experimental way to bring Amelia into analyses that span both languages. The public datasets, benchmark scripts and validation records also provide a starting point for evaluating whether a hardware change saves time in a team's own workflow. Small jobs may benefit little once setup and data transfers are included. [Amelia already supports CPU parallelism](https://search.r-project.org/CRAN/refmans/Amelia/html/amelia.html), so a useful accelerator needs to earn its place against that baseline.
 
-The native continuous-data path shows one measurable gain: CUDA64 was **1.21–1.91× faster than CPU64** on the same T4 host across three 100,000-row inputs. The complete R path still needs work: all five saved hybrid CUDA configurations were slower than original R with two parallel workers. MPS was slower than the corresponding CPU route at float32 on the tested Mac workloads. These findings identify where further optimization needs to prove its value; [full statistical acceptance is also still pending](docs/release-gates.md).
+The native continuous-data path was the fastest implementation family on the tested Windows inputs. On the 100,000 × 90 task, RTX 3080 CUDA64 took **22.115 seconds**, compared with **32.979 seconds** for native CPU64 and **230.560 seconds** for serial R. That is **1.49×** over the same native CPU path and **10.43×** over serial R; the latter also includes implementation and workflow differences. The complete R hybrid CUDA64 path took **101.640 seconds**, only **1.09×** faster than hybrid CPU64. Narrower Windows tasks showed little GPU benefit or a slowdown. The T4 and Mac results below retain their own host baselines; [full statistical acceptance remains pending](docs/release-gates.md).
 
-Future GPU work should start by profiling complete imputation calls, then investigating avoidable data transfers and opportunities to batch matrix operations while preserving Amelia's statistical and random-number semantics. The practical target is less time spent waiting for a usable set of imputations, including the Python/R interface costs. Any improvement will need comparison with parallel Amelia on the same machine, along with checks on inference quality. Broader missingness patterns and real social-science workflows remain important areas for future validation. This is a research direction, and additional experiments are currently paused.
+Future GPU work should start by profiling complete imputation calls, then investigating avoidable data transfers and opportunities to batch matrix operations while preserving Amelia's statistical and random-number semantics. The practical target is less time spent waiting for a usable set of imputations, including the Python/R interface costs. Any improvement will need comparison with parallel Amelia on the same machine, along with checks on inference quality. Broader missingness patterns and real social-science workflows remain important areas for future validation. The Windows measurements below add performance evidence; broader inference and missingness studies remain unfinished, and Colab experiments remain paused.
 
 ## Choose an execution path
 
@@ -85,11 +87,50 @@ summary(fit)
 Amelia::compare.density(fit, var = "b")
 ```
 
-Explicit accelerators use `device="cuda", dtype="float64"` or `device="mps", dtype="float32"` in either language. CUDA is being validated on a free Linux Colab T4; Windows CUDA remains separately untested. MPS eigenvalue checks run explicitly on CPU; original R workflow steps also remain on CPU in the hybrid path. There is no silent precision downgrade or automatic GPU-to-CPU fallback. [R interface guide](docs/r-interface.md).
+Explicit accelerators use `device="cuda", dtype="float64"` or `device="mps", dtype="float32"` in either language. Fixed CUDA cases have passed on Linux T4 and Windows RTX 3080; the Windows native/reference and hybrid benchmark suites are complete. These checks do not establish full statistical acceptance. MPS eigenvalue checks run explicitly on CPU; original R workflow steps also remain on CPU in the hybrid path. There is no silent precision downgrade or automatic GPU-to-CPU fallback. [R interface guide](docs/r-interface.md).
+
+## Copyable prompt for R users
+
+Copy this into your coding agent. It will ask for the data and analysis details before proceeding. Native Python currently supports a narrower workflow than original Amelia; using Python does not by itself guarantee a faster or equivalent analysis.
+
+```text
+I use R. Help me impute my data with https://github.com/Tocqueville0624/amelia-torch and return results I can use in R.
+
+Before installing software or processing data, ask me to confirm:
+- The dataset path, format and table/sheet; variables to impute, predictors, IDs/exclusions, variable types and missing-value codes.
+- My downstream analysis and any categorical, transformation, bound, prior or panel/time-series requirements; ask for existing Amelia code if available.
+- The number of imputations (m), seed, bootstrap method, convergence tolerance, iteration limits and regularization. Explain unfamiliar choices and suggest defaults for me to confirm.
+- My OS, R/Python setup, GPU, memory/time budget, and whether installation or data upload is allowed.
+- The output folder, R-readable formats and diagnostics I need.
+
+Wait until the required details are clear. Read the repository's compatibility matrix and algorithm contract, then agree on the execution plan with me. Use native Python only when it supports my requirements; otherwise explain the reference/hybrid option. Do not drop options or change statistical assumptions to obtain a faster result. Default to CPU float64; confirm any GPU, lower-precision or trial-benchmark choice.
+
+After agreement, create a reproducible script, run the imputations, and save every completed dataset with its row IDs and variable metadata. Preserve observed values and documented missing-row behavior; report convergence, warnings, failures and full-call elapsed time. Keep all imputations for downstream pooling. Provide R code to read and analyze them, and explain any remaining validation limits. Keep my data local unless I approve transfer.
+```
 
 ## Measured results
 
-On this M4/16 GB Mac, three public datasets were evaluated at **100,000 rows each**, with 5 imputations, 2 warmups and 5 measured repetitions. The R compatibility interface retains original R preprocessing, bootstrap, random draws and postprocessing; its measured calls include the R/Python bridge and device transfers. Median seconds:
+A **Windows 11 / RTX 3080 10 GiB / Ryzen 5 5600X** run at `810591e` completed all 18 native/reference and 12 R hybrid configurations. Each dataset had 100,000 rows; each call produced five imputations, with two warmups and five measured repetitions. CPU/Torch used four threads; original R used four single-threaded workers. Median seconds:
+
+| Dataset | R serial | R ×4 | Native CPU64 | Native CUDA64 | Native CPU32 | Native CUDA32 |
+|---|---:|---:|---:|---:|---:|---:|
+| Covertype, 10 variables | 15.280 | 8.340 | 5.484 | 4.955 | 4.715 | 4.900 |
+| Household Power, 7 variables | 10.200 | 5.540 | 3.452 | 3.592 | 3.340 | 3.871 |
+| Year Prediction MSD, 90 variables | 230.560 | 121.730 | 32.979 | 22.115 | 26.478 | 20.160 |
+
+| Dataset | Hybrid CPU64 | Hybrid CUDA64 | Hybrid CPU32 | Hybrid CUDA32 |
+|---|---:|---:|---:|---:|
+| Covertype, 10 variables | 16.670 | 17.790 | 17.170 | 17.860 |
+| Household Power, 7 variables | 11.680 | 12.420 | 11.390 | 11.950 |
+| Year Prediction MSD, 90 variables | 110.620 | 101.640 | 104.920 | 100.340 |
+
+On the 90-variable task, native CUDA64/CUDA32 were **10.43×/11.44× faster than serial R**, **5.50×/6.04× faster than R ×4**, and **1.49×/1.31× faster than same-precision native CPU**. Only the last comparison isolates the choice of CPU versus CUDA within the native implementation. Full R hybrid CUDA was **1.09×/1.05× faster than hybrid CPU** and **1.20×/1.21× faster than R ×4**. Native supports fewer Amelia features, so its time cannot stand in for a complete R workflow.
+
+The narrow inputs had little CUDA benefit or a slowdown. Transfer, synchronization and small-operation overhead are plausible contributors, but no stage-level profiling was performed. All three inputs have the same row count; differing columns, values and missingness patterns prevent a general claim that more data always means more GPU benefit. The 90-variable CUDA64 run was about **1.90× faster on this 3080 host than on the earlier T4 host** (22.115 versus 42.049 seconds). Different CPUs, thread budgets, operating systems, software and revisions make that a cross-host observation, not a GPU hardware speed ratio.
+
+All 210 calls / 1,050 imputations passed the recorded convergence, observed-value and complete-heldout checks. This does not establish elementwise equality or inference quality. [Full report, IQRs, paired discrepancies, source hashes and downloadable raw records](docs/validation/2026-09-27-windows-rtx3080/README.md).
+
+On an M4/16 GB Mac, three public datasets were evaluated at **100,000 rows each**, with 5 imputations, 2 warmups and 5 measured repetitions. The R compatibility interface retains original R preprocessing, bootstrap, random draws and postprocessing; its measured calls include the R/Python bridge and device transfers. Median seconds:
 
 | Dataset | R serial | R ×4 | R + Torch CPU64 | R + Torch CPU32 | R + Torch MPS32 |
 |---|---:|---:|---:|---:|---:|
@@ -143,7 +184,7 @@ Windows, macOS and Linux hosted CPU checks passed at `ef729c0`, each with 307 Py
 
 An installed-package workflow also passed in an actual Mac RStudio session: reference/hybrid CPU64 imputation, interpreter selection, RDS/CSV readback, Data Viewer and a visible diagnostic plot. [RStudio evidence](docs/validation/2026-09-26-g6-rstudio/README.md). The separate original AmeliaView GUI remains untested pending XQuartz installation. [Audited Mac performance figures](docs/validation/2026-09-26-performance-figures/README.md) compare both product routes without treating CPU implementation gains as GPU gains.
 
-The recorded Linux T4 session passed all 15 correctness-validation steps, including native and hybrid CUDA64/CUDA32 fixed cases; full structured reports are retained in the [CUDA record](docs/validation/2026-09-26-cuda/README.md). Its native/reference performance suite is complete and R hybrid evidence is partial as reported above. A replacement session stopped with 306 Python tests passing and one temporary-venv NumPy import failure, before the later R files, CUDA boundary cases or original seven-route inference study ran. Installation failures, repairs and the quota notice are retained in the [recovery record](docs/validation/2026-09-27-colab-recovery/README.md). Further tests are now paused. Fixed examples alone do not establish distributional quality or complete release acceptance.
+The recorded Linux T4 session passed all 15 correctness-validation steps, including native and hybrid CUDA64/CUDA32 fixed cases; full structured reports are retained in the [CUDA record](docs/validation/2026-09-26-cuda/README.md). Its native/reference performance suite is complete and R hybrid evidence is partial as reported above. A replacement session stopped with 306 Python tests passing and one temporary-venv NumPy import failure, before the later R files, CUDA boundary cases or original seven-route inference study ran. Installation failures, repairs and the quota notice are retained in the [recovery record](docs/validation/2026-09-27-colab-recovery/README.md). Colab tests remain paused; the later Windows tests are recorded separately above. Fixed examples alone do not establish distributional quality or complete release acceptance.
 
 The [Colab reproduction notebook](examples/colab_cuda_validation.ipynb) provides separate manual stages and recoverable reports. It has passed static and subprocess-interruption checks but has not itself completed an end-to-end Colab run. The attempted setup/validation stages exposed the environment issues recorded above; review them before reuse. Its pinned source is identified separately from historical measurements.
 
