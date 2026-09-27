@@ -88,7 +88,7 @@ cluster 已在 `e2ff892` 的三个系统执行；multicore 在 macOS/Linux 执�
 
 [正式 Mac 五路线统计验证](validation/2026-09-26-g5-mps/README.md)已完成 10,500 次拟合，全部收敛，MAR 和有界压力检查通过；MCAR 的绝对/配对覆盖率区间略超冻结界限，原版 R 与 GPU/CPU 均有未通过项。因此统计验收尚未整体完成，不能从数值兼容或拟合成功推断全部质量标准已通过。
 
-Linux/macOS/Windows hosted CPU CI 在 `8b5ede9` 已实际完成各 262 项 Python 与九个 R 测试文件，见 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-8b5ede9.md)；Intel no-Torch reference 的独立记录见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)。该版本包含 G3/G4/autopri/G7；原版病态 autopri 在 Linux/Windows 未触发，不能把绿色任务当成该分支已覆盖。CUDA 完整验收仍待完成；Mac RStudio 已安装包的真实会话已通过有限验收，见 [G6 证据](validation/2026-09-26-g6-rstudio/README.md)，原版独立 AmeliaView 未测。已确定分发名 `amelia-torch`、许可证 `GPL-3.0-only`、维护者 Sheng Wan（`swan0624@uw.edu`）、小样本加完整下载脚本的数据方案及明确标注的 R 过渡路径；公开仓库账号 `Tocqueville0624`，当前保持开发快照标记。
+Linux/macOS/Windows hosted CPU CI 在 `ef729c0` 已实际完成各 307 项 Python 与九个 R 测试文件，见 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-ef729c0.json)；Intel no-Torch reference 的独立记录见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)。该版本包含 G3/G4/autopri/G7；原版病态 autopri 在 Linux/Windows 未触发，不能把绿色任务当成该分支已覆盖。CUDA 完整验收仍待完成；Mac RStudio 已安装包的真实会话已通过有限验收，见 [G6 证据](validation/2026-09-26-g6-rstudio/README.md)，原版独立 AmeliaView 未测。已确定分发名 `amelia-torch`、许可证 `GPL-3.0-only`、维护者 Sheng Wan（`swan0624@uw.edu`）、小样本加完整下载脚本的数据方案及明确标注的 R 过渡路径；公开仓库账号 `Tocqueville0624`，当前保持开发快照标记。
 
 ## 验收与宣传规则
 

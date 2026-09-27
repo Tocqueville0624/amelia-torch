@@ -35,7 +35,7 @@
 - `e2ff892` 三平台各通过 235 项 Python 测试、九个 R 测试文件及下游示例，见该版本的 [CI 证据](validation/2026-09-26-ci/cross-platform-ci-e2ff892.md)。`ad9bed2` 的 Intel Mac x86_64 独立 wheel[reference] 安装及无 Torch 实际拟合、RDS 下游工作流通过，见 [Intel Mac 证据](validation/2026-09-26-ci/intel-mac-reference.md)；该 Intel 结果不覆盖 native Torch 或 GUI。
 - G5 [统计验证方案](validation/g5-prespecified/README.md) 已在正式扩展模拟前固定并提交：每路线 MCAR/MAR 各 200 份、压力 20 份，明确偏差、覆盖率、配对差与 Monte Carlo 区间门槛；CPU 小规模流程检查与 Mac 五路线正式执行均已完成，Mac MCAR 冻结统计界限未全部通过，CUDA 正式验证仍待完成。
 - Mac 五路线正式 G5 已完成 10,500 次拟合且独立审计通过，但 MCAR 的冻结统计界限未全部达到；MAR 与有界压力检查通过，详见 [MPS 统计报告](validation/2026-09-26-g5-mps/README.md)。保留原版 R 也未通过的绝对覆盖率界限，不改规则让结果变绿；新独立补充提案待用户选择，CUDA 原计划仍在排队。
-- 最新 `8b5ede9` 三平台各 262 项 Python、九个 R 文件和下游示例通过，见 [新增 CI 证据](validation/2026-09-26-ci/cross-platform-ci-8b5ede9.md)。中断记录保护未改拟合/随机种子/计时范围；已测版本与旧报告保持不变。
+- 最新 `ef729c0` 三平台各 307 项 Python、九个 R 文件和下游示例通过，见 [新增 CI 证据](validation/2026-09-26-ci/cross-platform-ci-ef729c0.json)。中断记录保护未改拟合/随机种子/计时范围；已测版本与旧报告保持不变。
 - 保存完整结果、配置与绘图脚本，做可重复的端到端演示；[两种调用流程的 Mac 性能图](validation/2026-09-26-performance-figures/README.md)直接使用既有审计摘要，没有重测。
 - 验收：明确是否加速、在哪些配置加速、超过哪个基线；负面结果也保留。
 

@@ -2,6 +2,8 @@
 
 这里提供云端执行步骤，不代表以下测试已经通过。报告必须使用实际 GPU 名称；Colab 的 Linux/T4 结果不能称作 Windows 或 RTX 3080 结果。Windows 安装和 RStudio 的验收仍分别保留。
 
+可使用[分阶段 Colab 笔记本](../examples/colab_cuda_validation.ipynb)与[模板说明](../examples/README.md#free-colab-cuda-validation-template)。该模板固定到 `ef729c0`，包含九个 R 测试、进程组中断清理、独立审计和备份；已做静态及轻量中断检查，尚未完整云端执行。已完成的 `905cc79` 三数据集 native/reference 实测见[独立报告](validation/2026-09-26-colab-native/README.md)，不能把历史结果当作新模板的执行结果。
+
 2026-09-26 已从旧保存 notebook [恢复历史输出](validation/2026-09-23-colab-recovered/README.md)：旧 Linux/T4 环境中的 149 项 Python 测试、5 个 R 测试文件及 CUDA float64/float32 小型 native/hybrid 对照记录为成功，Ruff 因可执行文件缺失失败，最终验证断言也失败。原 VM 的 JSON/完整日志已失，此记录不是新运行，不包含 CUDA 性能基准。下面的重跑清单已扩展到 7 个 R 测试文件和下游示例，旧记录不能替代这些新增检查。
 
 官方 Colab [过去运行时说明](https://research.google.com/colaboratory/runtime-version-faq.html)列有 Python 3.12 镜像，但默认镜像会改变。2026-09-23 实际首次分配的免费 T4 环境为 Python 3.13.15、Torch 2.11.0+cu128、R 4.6.1。该项目当前要求 Python 3.12，因此先在 Runtime → Change runtime type 选择可用的 Python 3.12 过去镜像，再实际检查。不能仅根据文档推断当前 VM 的版本。

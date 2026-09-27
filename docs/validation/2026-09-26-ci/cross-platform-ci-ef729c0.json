@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-26",
+  "repository": "Tocqueville0624/amelia-torch",
+  "commit": "ef729c093e162f4d6ebd797c95a9da8072ac968a",
+  "run_id": 36280202213,
+  "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36280202213",
+  "event": "push",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-09-26T23:40:59Z",
+  "evidence_method": "Read-only gh run list/view and all three complete job logs. Run/job API confirmed all test, lint and example steps succeeded; each log independently confirmed checkout SHA, exact pytest total, nine R script commands and downstream completion. No local tests were rerun for this record.",
+  "scope": "ef729c0 hosted CPU regression after adding the 45 offline native-parameter-comparison tests; 307 Python tests, nine R test files and the downstream example on each platform.",
+  "r_test_files": [
+    "r-package/tests/bridge.R",
+    "r-package/tests/compatibility.R",
+    "r-package/tests/torch-compat.R",
+    "r-package/tests/public-edge-cases.R",
+    "r-package/tests/autopri-boundary.R",
+    "r-package/tests/reference-parallel.R",
+    "r-package/tests/reference_metadata.R",
+    "r-package/tests/downstream.R",
+    "r-package/tests/downstream_extended.R"
+  ],
+  "jobs": [
+    {
+      "id": 108510455970,
+      "name": "CPU / ubuntu-latest / Python 3.12 / R 4.5.3",
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36280202213/job/108510455970",
+      "status": "completed",
+      "conclusion": "success",
+      "checkout_sha_verified_in_log": "ef729c093e162f4d6ebd797c95a9da8072ac968a",
+      "python_tests": {
+        "passed": 307,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 59.85
+      },
+      "r_test_files_passed": 9,
+      "lint_passed": true,
+      "example_passed": true,
+      "adaptive_prior_branch_records": [
+        {
+          "engine": "reference",
+          "code": 2,
+          "updates": 0,
+          "empri_final": 0,
+          "fixed_hold_checks": 0
+        },
+        {
+          "engine": "hybrid",
+          "code": 2,
+          "updates": 3,
+          "empri_final": 3,
+          "fixed_hold_checks": 3
+        }
+      ],
+      "both_reference_and_hybrid_hold_branch_observed": false,
+      "parallel": {
+        "python_snow2_tests_passed": true,
+        "r_supplied_snow_cluster_ownership_passed": true,
+        "unix_multicore_executed": true,
+        "windows_note": null
+      },
+      "job_log_sha256": "fb29d085cfa834c4c8e6101b2ba8a459e32fd34a1a111e848f8449055bf0bebc"
+    },
+    {
+      "id": 108510455937,
+      "name": "CPU / macos-latest / Python 3.12 / R 4.5.3",
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36280202213/job/108510455937",
+      "status": "completed",
+      "conclusion": "success",
+      "checkout_sha_verified_in_log": "ef729c093e162f4d6ebd797c95a9da8072ac968a",
+      "python_tests": {
+        "passed": 307,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 49.82
+      },
+      "r_test_files_passed": 9,
+      "lint_passed": true,
+      "example_passed": true,
+      "adaptive_prior_branch_records": [
+        {
+          "engine": "reference",
+          "code": 2,
+          "updates": 2,
+          "empri_final": 2,
+          "fixed_hold_checks": 2
+        },
+        {
+          "engine": "hybrid",
+          "code": 1,
+          "updates": 3,
+          "empri_final": 3,
+          "fixed_hold_checks": 3
+        }
+      ],
+      "both_reference_and_hybrid_hold_branch_observed": true,
+      "parallel": {
+        "python_snow2_tests_passed": true,
+        "r_supplied_snow_cluster_ownership_passed": true,
+        "unix_multicore_executed": true,
+        "windows_note": null
+      },
+      "job_log_sha256": "ccb59d9a9727d52b6bd33e590ae188b13324b90b6e4229cf58343c5ca2c1beaf"
+    },
+    {
+      "id": 108510455796,
+      "name": "CPU / windows-latest / Python 3.12 / R 4.5.3",
+      "url": "https://github.com/Tocqueville0624/amelia-torch/actions/runs/36280202213/job/108510455796",
+      "status": "completed",
+      "conclusion": "success",
+      "checkout_sha_verified_in_log": "ef729c093e162f4d6ebd797c95a9da8072ac968a",
+      "python_tests": {
+        "passed": 307,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 81.43
+      },
+      "r_test_files_passed": 9,
+      "lint_passed": true,
+      "example_passed": true,
+      "adaptive_prior_branch_records": [
+        {
+          "engine": "reference",
+          "code": 2,
+          "updates": 0,
+          "empri_final": 0,
+          "fixed_hold_checks": 0
+        },
+        {
+          "engine": "hybrid",
+          "code": 1,
+          "updates": 1,
+          "empri_final": 1,
+          "fixed_hold_checks": 1
+        }
+      ],
+      "both_reference_and_hybrid_hold_branch_observed": false,
+      "parallel": {
+        "python_snow2_tests_passed": true,
+        "r_supplied_snow_cluster_ownership_passed": true,
+        "unix_multicore_executed": false,
+        "windows_note": "Unix multicore not executed on Windows; snow route was tested."
+      },
+      "job_log_sha256": "df27e074b025212502a418611a4bb49f8956737122e49d4ee02440762d19e326"
+    }
+  ],
+  "limits": [
+    "CPU hosted regression only; not CUDA/MPS validation, RStudio verification, inference-quality acceptance or an imputation performance benchmark.",
+    "Pytest seconds are regression-suite durations on hosted runners and must not be used as platform speed comparisons.",
+    "Linux/Windows reference did not trigger pathological autopri updates; those original-R branches remain unobserved in these jobs.",
+    "Windows did not execute Unix fork. Snow and caller-owned-cluster tests ran; hybrid remains serial replica scheduling.",
+    "Mac skipped only the conditional Windows/Linux CPU-wheel installation step, not a test step.",
+    "This run is a source-install regression, not a wheel matrix or R CMD check. Earlier CI/Intel evidence belongs to its own commit and remains unchanged.",
+    "Log checkout SHA is verified; no claim is made that CI separately fingerprinted every installed file during execution."
+  ],
+  "privacy": "Only portable results and SHA-256 of the exact fetched gh job-log bytes are retained. Raw logs, local paths, runner/worker identifiers and full environment contents are not published.",
+  "last_job_completed_at": "2026-09-26T23:46:01Z"
+}
